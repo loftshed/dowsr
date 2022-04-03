@@ -7,11 +7,32 @@ const GlobalStyle = createGlobalStyle`
     --------------------------------------------*/
     :root {
       --header-height: 100px;
+      --content-inner-padding-h: 20px;
       --color-pink: #ef476f;
       --color-yellow: #ffd166;
       --color-green: #06d6a0;
       --color-med-blue: #118ab2;
       --color-dark-blue: #073b4c;
+
+    }
+
+    /*---------------------|
+    | Some CSS settings... |
+    ----------------------*/
+
+    * {
+      font-family: 'Karla', sans-serif;
+      font-weight: 500;
+      color: white;
+    }
+
+    h1, h2, h3 {
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: 40px;
+      text-shadow: 2px 1px 1px var(--color-pink);
     }
 
     /*--------------------------------------------------|

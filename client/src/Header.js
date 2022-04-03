@@ -9,7 +9,9 @@ import {
 const Header = () => {
   return (
     <HeaderWrapper>
-      <Content>test</Content>
+      <Content>
+        <h1>Final Project</h1>
+      </Content>
     </HeaderWrapper>
   );
 };
@@ -23,7 +25,7 @@ const Content = styled(FlexDiv)`
   align-items: flex-end;
   border-left: 2px solid var(--color-green);
   border-right: 2px solid var(--color-green);
-  padding: 5px 10px;
-  width: 100%;
+  padding: 0px var(--content-inner-padding-h);
   height: var(--header-height);
+  width: 100%;
 `;

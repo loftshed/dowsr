@@ -23,7 +23,7 @@ const BodyWrapper = styled(Wrapper)`
 const Content = styled(CenteredFlexRowDiv)`
   border-left: 2px solid var(--color-green);
   border-right: 2px solid var(--color-green);
-  padding: 5px 10px;
-  width: 100%;
+  padding: 5px var(--content-inner-padding-h);
   height: calc(100vh - var(--header-height));
+  width: 100%;
 `;
