@@ -1,13 +1,13 @@
 {
-  "name": "node-project-slignair",
+  "name": "final-project-backend",
   "version": "1.0.0",
-  "description": "This is the backend app for Slingair",
+  "description": "Backend app for Concordia Bootcamps final project.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev:backend": "nodemon server.js"
+    "dev:server": "nodemon server.js"
   },
-  "author": "Scott Morin <scott@journeyedu.co>",
+  "author": "Pete Lofstedt <pete.lofstedt@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.0.0",

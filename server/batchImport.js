@@ -1,6 +1,9 @@
+// batchImport function originally created for MongoDB exercises.
 const { get } = require("express/lib/response");
 const { MongoClient } = require("mongodb");
-const { flights, reservations } = require("./data");
+
+const { data } = require("./data"); // require data file
+
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 const client = new MongoClient(MONGO_URI, {
@@ -8,21 +11,12 @@ const client = new MongoClient(MONGO_URI, {
   useUnifiedTopology: true,
 });
 
-let data = [];
-const flightNums = Object.keys(flights);
-const seatData = Object.values(flights);
-
-flightNums.forEach((flightNum, index) => {
-  data.push({ _id: flightNum, seats: seatData[index] });
-});
-
-console.log(data);
-
 const batchImport = async () => {
   try {
     await client.connect();
-    const db = client.db("final-proj");
-    const result = await db.collection("flights2").insertMany(data);
+    // set db & collection name
+    const db = client.db("dbname");
+    const result = await db.collection("collectionname").insertMany(data);
     console.log("Batch import successful");
   } catch (err) {
     console.log(err.stack);
