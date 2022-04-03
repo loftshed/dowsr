@@ -5,7 +5,16 @@ import {
   CenteredFlexRowDiv,
   UnstyledButton,
 } from "./styles/StyledComponents";
-import { CircledArrowRight } from "./styles/Icons";
+import {
+  CircledArrowRight,
+  SearchIcon,
+  InboxIcon,
+  HeartIcon,
+  SavedHeartIcon,
+  NotificationIcon,
+  ChatIcon,
+  ProfileIcon,
+} from "./styles/Icons";
 import {
   rotate180,
   unrotate180,
@@ -18,7 +27,14 @@ const Sidebar = () => {
 
   return (
     <>
-      <Wrapper show={showSidebar}>
+      <Wrapper
+        onDoubleClick={() => {
+          showSidebar === "false" || showSidebar === null
+            ? setShowSidebar("true")
+            : setShowSidebar("false");
+        }}
+        show={showSidebar}
+      >
         <DrawerContents>
           <p>stuff</p>
           <p>stuff</p>
@@ -37,6 +53,14 @@ const Sidebar = () => {
               }}
             />
           </Button>
+          <IconRow brighten={showSidebar}>
+            <SearchIcon />
+            <ChatIcon />
+            <NotificationIcon />
+            <ProfileIcon />
+            <HeartIcon />
+            <SavedHeartIcon />
+          </IconRow>
         </DrawerEdge>
       </Wrapper>
     </>
@@ -53,6 +77,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   width: 200px;
   bottom: 0px;
   left: 0px;
+  z-index: 1;
   /* transition: all ease 0.2s; */
   ${(props) => {
     switch (props.show) {
@@ -71,12 +96,18 @@ const Wrapper = styled(CenteredFlexRowDiv)`
     }
   }}
   border-right: 2px solid var(--color-green);
+  box-shadow: 2.8px 1px 1.7px rgba(0, 0, 0, 0.022),
+    6.7px 2.3px 4.1px rgba(0, 0, 0, 0.032),
+    12.5px 4.4px 7.8px rgba(0, 0, 0, 0.04),
+    22.3px 7.8px 13.8px rgba(0, 0, 0, 0.048),
+    41.8px 14.6px 25.9px rgba(0, 0, 0, 0.058),
+    100px 35px 62px rgba(0, 0, 0, 0.08);
 `;
 
 const DrawerContents = styled(CenteredFlexColumnDiv)`
   flex-grow: 1;
   height: 100%;
-  background-color: var(--dark-blue);
+  background-color: #444948;
 `;
 
 const DrawerEdge = styled(CenteredFlexColumnDiv)`
@@ -90,7 +121,7 @@ const DrawerEdge = styled(CenteredFlexColumnDiv)`
     switch (props.show) {
       case "true":
         return css`
-          background-color: #4a4e69;
+          background-color: #353535;
         `;
       default:
         return css`
@@ -100,13 +131,46 @@ const DrawerEdge = styled(CenteredFlexColumnDiv)`
   }}
 `;
 
+const IconRow = styled(CenteredFlexColumnDiv)`
+  height: 100%;
+  margin-top: -30px;
+  row-gap: 50px;
+  & * {
+    fill: #05161c;
+    cursor: pointer;
+    &:hover {
+      fill: #fff;
+    }
+  }
+
+  ${(props) => {
+    switch (props.brighten) {
+      case "true":
+        return css`
+          & * {
+            fill: #fff;
+            &:hover {
+              fill: var(--color-yellow);
+            }
+          }
+        `;
+      default:
+        return css``;
+    }
+  }}
+`;
+
 const Button = styled(UnstyledButton)``;
 
 const ShowMenuIcon = styled(CircledArrowRight)`
+  display: fixed;
   cursor: pointer;
   fill: var(--color-pink);
   &:hover {
-    fill: var(--color-dark-blue);
+    fill: white;
+  }
+  &:hover {
+    fill: white;
   }
   ${(props) => {
     switch (props.anim) {

@@ -35,4 +35,28 @@ const SavedHeartIcon = styled(BsBookmarkHeartFill)`
   height: 30px;
 `;
 
-export { CircledArrowRight, SearchIcon, InboxIcon, HeartIcon, SavedHeartIcon };
+const NotificationIcon = styled(BsFillBellFill)`
+  width: 30px;
+  height: 30px;
+`;
+
+const ChatIcon = styled(BsFillChatDotsFill)`
+  width: 30px;
+  height: 30px;
+`;
+
+const ProfileIcon = styled(BsPersonCircle)`
+  width: 30px;
+  height: 30px;
+`;
+
+export {
+  CircledArrowRight,
+  SearchIcon,
+  InboxIcon,
+  HeartIcon,
+  SavedHeartIcon,
+  NotificationIcon,
+  ChatIcon,
+  ProfileIcon,
+};
