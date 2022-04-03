@@ -6,7 +6,7 @@ const morgan = require("morgan");
 
 const {
   // handlers here
-} = require("./handlers");
+} = require("./userHandlers");
 
 express()
   // Below are methods that are included in express(). We chain them for convenience.
@@ -22,16 +22,6 @@ express()
   /*-----------
   | endpoints |
   -----------*/
-
-  // ---------------------------------
-  // .get("/api/get-flights", getFlights)
-  // .get("/api/get-flight", getFlight)
-  // .patch("/api/update-availability", updateAvailability)
-  // .get("/api/get-reservations", getReservations)
-  // .get("/api/get-reservation", getSingleReservation)
-  // .post("/api/add-reservation", addReservation)
-  // .patch("/api/update-reservation", updateReservation)
-  // .delete("/api/delete-reservation", deleteReservation)
 
   /*------------------
   | end of endpoints |

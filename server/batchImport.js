@@ -2,7 +2,7 @@
 const { get } = require("express/lib/response");
 const { MongoClient } = require("mongodb");
 
-const { data } = require("./data"); // require data file
+const { users } = require("./data/userData"); // require data file
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -15,8 +15,8 @@ const batchImport = async () => {
   try {
     await client.connect();
     // set db & collection name
-    const db = client.db("dbname");
-    const result = await db.collection("collectionname").insertMany(data);
+    const db = client.db("final");
+    const result = await db.collection("users").insertMany(users);
     console.log("Batch import successful");
   } catch (err) {
     console.log(err.stack);

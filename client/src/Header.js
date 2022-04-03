@@ -19,6 +19,7 @@ const Header = () => {
 export default Header;
 const HeaderWrapper = styled(Wrapper)`
   background-color: var(--color-med-blue);
+  box-shadow: 2px 2px 2px 10px var(--color-green);
 `;
 
 const Content = styled(FlexDiv)`
