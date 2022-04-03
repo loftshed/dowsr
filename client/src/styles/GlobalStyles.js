@@ -16,9 +16,9 @@ const GlobalStyle = createGlobalStyle`
 
     }
 
-    /*---------------------|
-    | Some CSS settings... |
-    ----------------------*/
+    /*-----------------|
+    | Some defaults... |
+    ------------------*/
 
     * {
       font-family: 'Karla', sans-serif;
@@ -28,11 +28,19 @@ const GlobalStyle = createGlobalStyle`
 
     h1, h2, h3 {
       font-weight: 800;
-    }
-
-    h1 {
-      font-size: 40px;
       text-shadow: 2px 1px 1px var(--color-pink);
+    }
+    h1 {
+      font-size: 50px;
+      
+    }
+    h2 {
+      font-size: 30px;
+      
+    }
+    h3 {
+      font-size: 24px;
+      
     }
 
     /*--------------------------------------------------|

@@ -4,12 +4,12 @@ import {
   CenteredFlexRowDiv,
   CenteredFlexColumnDiv,
   ContentGrid,
-  Wrapper,
+  BodyPadding,
 } from "./styles/StyledComponents";
 
 const Home = () => {
   return (
-    <BodyWrapper>
+    <Wrapper>
       <Content>
         THIS IS THEE BODY
         <ContentGrid>
@@ -19,13 +19,13 @@ const Home = () => {
           <ContentBlock>test</ContentBlock>
         </ContentGrid>
       </Content>
-    </BodyWrapper>
+    </Wrapper>
   );
 };
 
 export default Home;
 
-const BodyWrapper = styled(Wrapper)`
+const Wrapper = styled(BodyPadding)`
   background-color: var(--color-dark-blue);
 `;
 

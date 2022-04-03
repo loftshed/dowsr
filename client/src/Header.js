@@ -3,7 +3,7 @@ import {
   FlexDiv,
   CenteredFlexRowDiv,
   CenteredFlexColumnDiv,
-  Wrapper,
+  BodyPadding,
 } from "./styles/StyledComponents";
 
 const Header = () => {
@@ -17,7 +17,7 @@ const Header = () => {
 };
 
 export default Header;
-const HeaderWrapper = styled(Wrapper)`
+const HeaderWrapper = styled(BodyPadding)`
   background-color: var(--color-med-blue);
   box-shadow: 2px 2px 2px 10px var(--color-green);
 `;

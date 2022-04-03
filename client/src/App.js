@@ -4,12 +4,14 @@ import GlobalStyle from "./styles/GlobalStyles";
 import styled from "styled-components";
 import Home from "./Home";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 const App = () => {
   return (
     <BrowserRouter id="root">
       <GlobalStyle />
       <Header />
+      <Sidebar />
       <Main>
         <Routes>
           <Route path="/" element={<Home />} />
