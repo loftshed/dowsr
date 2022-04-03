@@ -18,4 +18,17 @@ const Wrapper = styled(FlexDiv)`
   padding: 0px 50px;
 `;
 
-export { FlexDiv, CenteredFlexColumnDiv, CenteredFlexRowDiv, Wrapper };
+const ContentGrid = styled(FlexDiv)`
+  display: grid;
+  grid-template-rows: repeat(2, 100px);
+  grid-template-columns: repeat(2, 100px);
+  gap: 10px;
+`;
+
+export {
+  FlexDiv,
+  CenteredFlexColumnDiv,
+  CenteredFlexRowDiv,
+  ContentGrid,
+  Wrapper,
+};
