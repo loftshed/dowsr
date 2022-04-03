@@ -21,7 +21,6 @@ const HeaderWrapper = styled(Wrapper)`
 
 const Content = styled(FlexDiv)`
   align-items: flex-end;
-  background-color: orange;
   border-left: 2px solid var(--color-green);
   border-right: 2px solid var(--color-green);
   padding: 5px 10px;
