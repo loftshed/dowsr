@@ -16,4 +16,7 @@ const Header = () => {
 export default Header;
 
 const Wrapper = styled(CenteredFlexRowDiv)``;
-const Container = styled(FlexDiv)``;
+
+const Container = styled(FlexDiv)`
+  height: 100px;
+`;
