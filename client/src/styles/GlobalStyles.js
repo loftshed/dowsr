@@ -1,10 +1,23 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-    /*
-      based off of josh comeau's custom css reset
-      https://www.joshwcomeau.com/css/custom-css-reset/
-    */
+
+    /*-------------------------------------------|
+    | Some values to be made available globally. |
+    --------------------------------------------*/
+    :root {
+      --header-height: 100px;
+      --color-pink: #ef476f;
+      --color-yellow: #ffd166;
+      --color-green: #06d6a0;
+      --color-med-blue: #118ab2;
+      --color-dark-blue: #073b4c;
+    }
+
+    /*--------------------------------------------------|
+    | Stuff below from Josh W. Comeau CSS reset...      |
+    | https://www.joshwcomeau.com/css/custom-css-reset/ |
+    ---------------------------------------------------*/
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -31,6 +44,10 @@ const GlobalStyle = createGlobalStyle`
     #root, #__next {
       isolation: isolate;
     }
+    /*--------------------------------------------------|
+    | Stuff above from Josh W. Comeau CSS reset...      |
+    | https://www.joshwcomeau.com/css/custom-css-reset/ |
+    ---------------------------------------------------*/
 `;
 
 export default GlobalStyle;

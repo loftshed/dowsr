@@ -13,4 +13,9 @@ const CenteredFlexColumnDiv = styled(CenteredFlexRowDiv)`
   flex-direction: column;
 `;
 
-export { FlexDiv, CenteredFlexColumnDiv, CenteredFlexRowDiv };
+const Wrapper = styled(FlexDiv)`
+  width: 100%;
+  padding: 0px 50px;
+`;
+
+export { FlexDiv, CenteredFlexColumnDiv, CenteredFlexRowDiv, Wrapper };

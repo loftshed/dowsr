@@ -1,5 +1,6 @@
-import GlobalStyle from "./styles/GlobalStyles";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { CenteredFlexColumnDiv } from "./styles/StyledComponents";
+import GlobalStyle from "./styles/GlobalStyles";
 import styled from "styled-components";
 import Home from "./Home";
 import Header from "./Header";
@@ -20,10 +21,9 @@ const App = () => {
 
 export default App;
 
-const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+const Main = styled(CenteredFlexColumnDiv)`
+  height: 100%;
   width: 100%;
-  background-color: grey;
+  /* @media screen and (max-height: 1080px) {
+  } */
 `;
