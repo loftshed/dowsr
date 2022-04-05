@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import {
   CenteredFlexColumnDiv,
@@ -54,9 +55,13 @@ const Sidebar = () => {
             />
           </Button>
           <IconRow brighten={showSidebar}>
-            <MapIcon />
+            <NavLink to="/">
+              <MapIcon />
+            </NavLink>
             <SearchIcon />
-            <ProfileIcon />
+            <NavLink to="/profile">
+              <ProfileIcon />
+            </NavLink>
             <NotificationIcon />
             <ChatIcon />
             <HeartIcon />
