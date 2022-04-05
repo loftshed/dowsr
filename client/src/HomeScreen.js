@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import MapContainer from "./MapContainer";
 import {
   FlexDiv,
   CenteredFlexRowDiv,
@@ -11,13 +12,7 @@ const HomeScreen = () => {
   return (
     <Wrapper>
       <Content>
-        THIS IS THEE BODY
-        <ContentGrid>
-          <ContentBlock>test</ContentBlock>
-          <ContentBlock>test</ContentBlock>
-          <ContentBlock>test</ContentBlock>
-          <ContentBlock>test</ContentBlock>
-        </ContentGrid>
+        <MapContainer />
       </Content>
     </Wrapper>
   );
@@ -32,7 +27,7 @@ const Wrapper = styled(BodyPadding)`
 const Content = styled(CenteredFlexColumnDiv)`
   border-left: 2px solid var(--color-green);
   border-right: 2px solid var(--color-green);
-  padding: 5px var(--content-inner-padding-h);
+  /* padding: 5px var(--content-inner-padding-h); */
   width: 100%;
 `;
 

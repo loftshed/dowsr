@@ -2,10 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CenteredFlexColumnDiv } from "./styles/StyledComponents";
 import GlobalStyle from "./styles/GlobalStyles";
 import styled from "styled-components";
-// import HomeScreen from "./HomeScreen";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-// import MapsWrapper from "./MapsWrapper";
+import MapContainer from "./MapContainer";
 import HomeScreen from "./HomeScreen";
 import Profile from "./Profile/Profile";
 
