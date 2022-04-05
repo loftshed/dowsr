@@ -8,7 +8,7 @@ import {
 import {
   CircledArrowRight,
   SearchIcon,
-  InboxIcon,
+  MapIcon,
   HeartIcon,
   SavedHeartIcon,
   NotificationIcon,
@@ -54,12 +54,12 @@ const Sidebar = () => {
             />
           </Button>
           <IconRow brighten={showSidebar}>
+            <MapIcon />
             <SearchIcon />
-            <ChatIcon />
-            <NotificationIcon />
             <ProfileIcon />
+            <NotificationIcon />
+            <ChatIcon />
             <HeartIcon />
-            <SavedHeartIcon />
           </IconRow>
         </DrawerEdge>
       </Wrapper>

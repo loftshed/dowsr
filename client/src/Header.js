@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <Content>
-        <h1>Final Project</h1>
+        <h1>Dowser</h1>
       </Content>
     </HeaderWrapper>
   );

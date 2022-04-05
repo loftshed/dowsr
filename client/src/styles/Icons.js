@@ -8,6 +8,7 @@ import {
   BsHeartFill,
   BsFillChatDotsFill,
   BsSearch,
+  BsMapFill,
 } from "react-icons/bs";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)`
@@ -50,6 +51,11 @@ const ProfileIcon = styled(BsPersonCircle)`
   height: 30px;
 `;
 
+const MapIcon = styled(BsMapFill)`
+  width: 30px;
+  height: 30px;
+`;
+
 export {
   CircledArrowRight,
   SearchIcon,
@@ -59,4 +65,5 @@ export {
   NotificationIcon,
   ChatIcon,
   ProfileIcon,
+  MapIcon,
 };
