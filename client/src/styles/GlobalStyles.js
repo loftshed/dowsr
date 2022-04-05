@@ -14,6 +14,11 @@ const GlobalStyle = createGlobalStyle`
       --color-med-blue: #118ab2;
       --color-dark-blue: #073b4c;
 
+      --color-dark-grey: #393e41;
+      --color-medium-grey: #d3d0cb;
+      --color-light-grey: #e7e5df;
+      --color-teal: #44bba4;
+      --color-gold: #e7bb41;
     }
 
     /*-----------------|

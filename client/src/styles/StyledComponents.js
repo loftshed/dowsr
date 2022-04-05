@@ -15,6 +15,7 @@ const CenteredFlexColumnDiv = styled(CenteredFlexRowDiv)`
 
 const BodyPadding = styled(FlexDiv)`
   width: 100%;
+  height: 100%;
   padding: 0px 50px;
 `;
 

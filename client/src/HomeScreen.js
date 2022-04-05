@@ -33,7 +33,6 @@ const Content = styled(CenteredFlexColumnDiv)`
   border-left: 2px solid var(--color-green);
   border-right: 2px solid var(--color-green);
   padding: 5px var(--content-inner-padding-h);
-  height: calc(100vh - var(--header-height));
   width: 100%;
 `;
 

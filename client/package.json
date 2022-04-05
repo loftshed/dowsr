@@ -4,8 +4,7 @@
   "proxy": "http://localhost:9001",
   "private": true,
   "dependencies": {
-    "@googlemaps/js-api-loader": "^1.13.11",
-    "@googlemaps/react-wrapper": "^1.1.29",
+    "@react-google-maps/api": "^2.8.1",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",

@@ -5,7 +5,7 @@ import styled from "styled-components";
 // import HomeScreen from "./HomeScreen";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import MapsWrapper from "./MapsWrapper";
+// import MapsWrapper from "./MapsWrapper";
 import HomeScreen from "./HomeScreen";
 import Profile from "./Profile/Profile";
 
