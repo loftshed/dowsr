@@ -34,6 +34,9 @@ const Main = styled(CenteredFlexColumnDiv)`
 `;
 
 const Content = styled.div`
+  position: relative;
+  border-left: 2px solid var(--color-green);
+  border-right: 2px solid var(--color-green);
   height: 100%;
   width: 100%;
   @media (min-width: 1280px) {
