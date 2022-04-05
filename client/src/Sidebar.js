@@ -83,6 +83,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   bottom: 0px;
   left: 0px;
   z-index: 1;
+
   /* transition: all ease 0.2s; */
   ${(props) => {
     switch (props.show) {

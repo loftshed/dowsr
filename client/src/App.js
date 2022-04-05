@@ -4,7 +4,6 @@ import GlobalStyle from "./styles/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import MapContainer from "./MapContainer";
 import HomeScreen from "./HomeScreen";
 import Profile from "./Profile/Profile";
 
@@ -12,13 +11,15 @@ const App = () => {
   return (
     <BrowserRouter id="root">
       <GlobalStyle />
-      <Header />
       <Sidebar />
+      <Header />
       <Main>
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
+        <Content>
+          <Routes>
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </Content>
       </Main>
     </BrowserRouter>
   );
@@ -27,8 +28,15 @@ const App = () => {
 export default App;
 
 const Main = styled(CenteredFlexColumnDiv)`
+  background-color: var(--color-dark-blue);
   height: calc(100vh - var(--header-height));
   width: 100%;
-  /* @media screen and (max-height: 1080px) {
-  } */
+`;
+
+const Content = styled.div`
+  height: 100%;
+  width: 100%;
+  @media (min-width: 1280px) {
+    width: 1280px;
+  }
 `;

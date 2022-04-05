@@ -18,6 +18,7 @@ const Header = () => {
 
 export default Header;
 const HeaderWrapper = styled(BodyPadding)`
+  justify-content: center;
   background-color: var(--color-med-blue);
   box-shadow: 2px 2px 2px 10px var(--color-green);
   z-index: 5;
@@ -30,4 +31,7 @@ const Content = styled(FlexDiv)`
   padding: 0px var(--content-inner-padding-h);
   height: var(--header-height);
   width: 100%;
+  @media (min-width: 1280px) {
+    width: 1280px;
+  }
 `;
