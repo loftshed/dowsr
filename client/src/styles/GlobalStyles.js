@@ -8,7 +8,12 @@ const GlobalStyle = createGlobalStyle`
     :root {
       --header-height: 100px;
       --content-inner-padding-h: 20px;
-      --max-width: 1280px;
+      --sidebar-width: 500px;
+      --width-max: 1280px;
+      --width-med: 820px;
+      --width-sml: 450px;
+
+
       --color-pink: #ef476f;
       --color-yellow: #ffd166;
       --color-green: #06d6a0;
@@ -16,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
       --color-dark-blue: #073b4c;
 
       --color-dark-grey: #393e41;
+      --color-less-dark-grey: #444948;
       --color-medium-grey: #d3d0cb;
       --color-light-grey: #e7e5df;
       --color-teal: #44bba4;
@@ -37,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
       text-shadow: 2px 1px 1px var(--color-pink);
     }
     h1 {
-      font-size: 50px;
+      font-size: 60px;
       
     }
     h2 {

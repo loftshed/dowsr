@@ -6,15 +6,16 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import HomeScreen from "./HomeScreen";
 import Profile from "./Profile/Profile";
+import { SIZES } from "./styles/constants";
 
 const App = () => {
   return (
     <BrowserRouter id="root">
       <GlobalStyle />
-      <Sidebar />
       <Header />
       <Main>
         <Content>
+          <Sidebar />
           <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/profile" element={<Profile />} />
@@ -28,7 +29,7 @@ const App = () => {
 export default App;
 
 const Main = styled(CenteredFlexColumnDiv)`
-  background-color: var(--color-dark-blue);
+  background-color: var(--color-dark-grey);
   height: calc(100vh - var(--header-height));
   width: 100%;
 `;
@@ -39,7 +40,7 @@ const Content = styled.div`
   border-right: 2px solid var(--color-green);
   height: 100%;
   width: 100%;
-  @media (min-width: 1280px) {
-    width: 1280px;
+  @media (min-width: ${SIZES.widthMax}) {
+    width: ${SIZES.widthMax};
   }
 `;

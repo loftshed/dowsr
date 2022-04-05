@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { SIZES } from "./constants";
 
 const FlexDiv = styled.div`
   display: flex;
@@ -13,10 +14,12 @@ const CenteredFlexColumnDiv = styled(CenteredFlexRowDiv)`
   flex-direction: column;
 `;
 
-const BodyPadding = styled(FlexDiv)`
+const FillDiv = styled(FlexDiv)`
   width: 100%;
   height: 100%;
-  padding: 0px 50px;
+  @media (max-width: ${SIZES.widthMed}) {
+    padding: 0px 0px 0px 50px;
+  }
 `;
 
 const ContentGrid = styled(FlexDiv)`
@@ -41,6 +44,6 @@ export {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   ContentGrid,
-  BodyPadding,
+  FillDiv,
   UnstyledButton,
 };

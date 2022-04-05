@@ -4,7 +4,7 @@ import {
   CenteredFlexRowDiv,
   CenteredFlexColumnDiv,
   ContentGrid,
-  BodyPadding,
+  FillDiv,
 } from "./styles/StyledComponents";
 
 const Home = () => {
@@ -25,7 +25,7 @@ const Home = () => {
 
 export default Home;
 
-const Wrapper = styled(BodyPadding)`
+const Wrapper = styled(FillDiv)`
   background-color: var(--color-dark-blue);
 `;
 

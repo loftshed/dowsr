@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {
-  BodyPadding,
+  FillDiv,
   CenteredFlexColumnDiv,
   FlexDiv,
 } from "../styles/StyledComponents";
@@ -25,8 +25,8 @@ const Profile = () => {
 
 export default Profile;
 
-const Wrapper = styled(BodyPadding)`
-  background-color: var(--color-dark-blue);
+const Wrapper = styled(FillDiv)`
+  background-color: var(--color-dark-grey);
 `;
 
 const Content = styled(CenteredFlexColumnDiv)`
@@ -35,9 +35,10 @@ const Content = styled(CenteredFlexColumnDiv)`
 `;
 
 const ProfileContainer = styled(CenteredFlexColumnDiv)`
-  background-color: var(--color-dark-grey);
-  height: 300px;
-  width: 200px;
+  border-radius: 10px;
+  background-color: var(--color-less-dark-grey);
+  height: 90%;
+  width: 90%;
 `;
 
 const Avatar = styled.img`

@@ -22,6 +22,7 @@ import {
   drawerIn,
   drawerOut,
 } from "./styles/Animations";
+import { SIZES } from "./styles/constants";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
@@ -75,7 +76,7 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Wrapper = styled(CenteredFlexRowDiv)`
-  position: fixed;
+  position: absolute;
   justify-content: space-between;
   background-color: var(--color-dark-blue);
   height: calc(100vh - var(--header-height));
@@ -84,6 +85,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   left: 0px;
   z-index: 1;
 
+  /* calc(100vw - ${SIZES.widthMax} / 2) */
   /* transition: all ease 0.2s; */
   ${(props) => {
     switch (props.show) {
@@ -97,7 +99,11 @@ const Wrapper = styled(CenteredFlexRowDiv)`
         `;
       default:
         return css`
-          transform: translateX(-148px);
+          @media (min-width: ${SIZES.widthMax}) {
+            transform: translateX(calc(-1 * (100vw - var(--width-max)) / 2));
+            width: calc((100vw - var(--width-max)) / 2);
+          }
+          transform: translateX(-150px);
         `;
     }
   }}
@@ -113,7 +119,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
 const DrawerContents = styled(CenteredFlexColumnDiv)`
   flex-grow: 1;
   height: 100%;
-  background-color: #444948;
+  background-color: var(--color-less-dark-grey);
 `;
 
 const DrawerEdge = styled(CenteredFlexColumnDiv)`

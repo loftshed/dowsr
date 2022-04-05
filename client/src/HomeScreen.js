@@ -5,7 +5,7 @@ import {
   CenteredFlexRowDiv,
   CenteredFlexColumnDiv,
   ContentGrid,
-  BodyPadding,
+  FillDiv,
 } from "./styles/StyledComponents";
 
 const HomeScreen = () => {
@@ -20,7 +20,7 @@ const HomeScreen = () => {
 
 export default HomeScreen;
 
-const Wrapper = styled(BodyPadding)`
+const Wrapper = styled(FillDiv)`
   background-color: var(--color-dark-blue);
   width: 100%;
 `;
