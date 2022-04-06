@@ -8,14 +8,11 @@ import {
 import { SIZES } from "../styles/constants";
 
 const ResponsiveContainer = () => {
-  //TODO: button to edit profile!
-  //FIXME: icon colors, svg fill not highlighting entire icon
-
   return (
     <Wrapper>
       <Content>
         <OuterContainer>
-          <InnerContainer></InnerContainer>
+          <InnerContainer>hi</InnerContainer>
         </OuterContainer>
       </Content>
     </Wrapper>
@@ -61,28 +58,4 @@ const InnerContainer = styled(CenteredFlexColumnDiv)`
   justify-content: flex-end;
   width: 100%;
   height: 100%;
-`;
-
-const UserDetails = styled(CenteredFlexColumnDiv)`
-  flex-grow: 1;
-  width: 100%;
-  height: 50%;
-  background-color: var(--color-dark-grey);
-  border-radius: ${SIZES.borderRadius}px;
-`;
-
-const Avatar = styled.img`
-  border-top-left-radius: ${SIZES.borderRadius}px;
-  border-top-right-radius: ${SIZES.borderRadius}px;
-`;
-
-const DetailsHeading = styled(CenteredFlexRowDiv)`
-  background-color: var(--color-darkest-grey);
-  height: 50px;
-  width: 100%;
-`;
-
-const DetailList = styled(CenteredFlexColumnDiv)`
-  align-items: flex-start;
-  flex-grow: 1;
 `;

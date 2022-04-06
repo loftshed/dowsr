@@ -7,7 +7,7 @@ import {
   CenteredFlexColumnDiv,
   ContentGrid,
   FillDiv,
-} from "./styles/StyledComponents";
+} from "../styles/StyledComponents";
 
 const HomeScreen = () => {
   return (

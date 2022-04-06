@@ -7,7 +7,7 @@ import {
   CenteredFlexRowDiv,
   FillDiv,
   FlexDiv,
-} from "./styles/StyledComponents";
+} from "../styles/StyledComponents";
 
 import {
   CircledArrowRight,
@@ -18,9 +18,9 @@ import {
   NotificationIcon,
   ChatIcon,
   ProfileIcon,
-} from "./styles/Icons";
+} from "../styles/Icons";
 
-import { SIZES } from "./styles/constants";
+import { SIZES } from "../styles/constants";
 
 const Menu = () => {
   return (
@@ -34,7 +34,9 @@ const Menu = () => {
           <NavLink to="/profile">
             <ProfileIcon />
           </NavLink>
-          <NotificationIcon />
+          <NavLink to="/notifications">
+            <NotificationIcon />
+          </NavLink>
           <ChatIcon />
           <HeartIcon />
         </IconRow>

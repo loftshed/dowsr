@@ -3,11 +3,11 @@ import { CenteredFlexColumnDiv } from "./styles/StyledComponents";
 import { SIZES } from "./styles/constants";
 import GlobalStyle from "./styles/GlobalStyles";
 import styled from "styled-components";
-import Header from "./Header";
-import HomeScreen from "./HomeScreen";
-import Profile from "./Profile/Profile";
+import Header from "./Components/Header";
+import HomeScreen from "./Components/HomeScreen";
+import Profile from "./Components/Profile";
 import ResponsiveContainer from "./Components/ResponsiveContainer";
-import Menu from "./Menu";
+import Menu from "./Components/Menu";
 
 const App = () => {
   return (
@@ -18,8 +18,14 @@ const App = () => {
         <Content>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/notifications" element={<ResponsiveContainer />} />
+            <Route
+              path="/profile"
+              element={<ResponsiveContainer type={"profile"} />}
+            />
+            <Route
+              path="/notifications"
+              element={<ResponsiveContainer type={"notification"} />}
+            />
           </Routes>
         </Content>
         <Menu />

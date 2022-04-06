@@ -4,8 +4,8 @@ import {
   CenteredFlexRowDiv,
   CenteredFlexColumnDiv,
   FillDiv,
-} from "./styles/StyledComponents";
-import { SIZES } from "./styles/constants";
+} from "../styles/StyledComponents";
+import { SIZES } from "../styles/constants";
 
 const Header = () => {
   return (
