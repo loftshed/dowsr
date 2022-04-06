@@ -9,6 +9,7 @@ import {
   BsFillChatDotsFill,
   BsSearch,
   BsMapFill,
+  BsFillSaveFill,
 } from "react-icons/bs";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)`
@@ -31,7 +32,7 @@ const HeartIcon = styled(BsHeartFill)`
   height: 30px;
 `;
 
-const SavedHeartIcon = styled(BsBookmarkHeartFill)`
+const SavedIcon = styled(BsFillSaveFill)`
   width: 30px;
   height: 30px;
 `;
@@ -61,7 +62,7 @@ export {
   SearchIcon,
   InboxIcon,
   HeartIcon,
-  SavedHeartIcon,
+  SavedIcon,
   NotificationIcon,
   ChatIcon,
   ProfileIcon,

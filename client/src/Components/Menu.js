@@ -30,15 +30,21 @@ const Menu = () => {
           <NavLink to="/">
             <MapIcon />
           </NavLink>
-          <SearchIcon />
+          <NavLink to="/search">
+            <SearchIcon />
+          </NavLink>
           <NavLink to="/profile">
             <ProfileIcon />
           </NavLink>
           <NavLink to="/notifications">
             <NotificationIcon />
           </NavLink>
-          <ChatIcon />
-          <HeartIcon />
+          <NavLink to="/messages">
+            <ChatIcon />
+          </NavLink>
+          <NavLink to="/saved">
+            <HeartIcon />
+          </NavLink>
         </IconRow>
       </Content>
     </Wrapper>

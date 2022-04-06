@@ -5,9 +5,11 @@ import GlobalStyle from "./styles/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Components/Header";
 import HomeScreen from "./Components/HomeScreen";
-import Profile from "./Components/Profile";
-import ResponsiveContainer from "./Components/ResponsiveContainer";
 import Menu from "./Components/Menu";
+import Profile from "./Components/Profile";
+import Notifications from "./Components/Notifications";
+import Messages from "./Components/Messages";
+import Saved from "./Components/Saved";
 
 const App = () => {
   return (
@@ -18,14 +20,11 @@ const App = () => {
         <Content>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
-            <Route
-              path="/profile"
-              element={<ResponsiveContainer type={"profile"} />}
-            />
-            <Route
-              path="/notifications"
-              element={<ResponsiveContainer type={"notification"} />}
-            />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/saved" element={<Saved />} />
+            <Route path="/search" element={<HomeScreen search={true} />} />
           </Routes>
         </Content>
         <Menu />

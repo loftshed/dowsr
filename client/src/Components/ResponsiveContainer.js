@@ -6,13 +6,19 @@ import {
   FlexDiv,
 } from "../styles/StyledComponents";
 import { SIZES } from "../styles/constants";
+import Profile from "./Profile";
+import Notifications from "./Notifications";
 
-const ResponsiveContainer = () => {
+const ResponsiveContainer = ({ children }) => {
   return (
     <Wrapper>
       <Content>
         <OuterContainer>
-          <InnerContainer>hi</InnerContainer>
+          <InnerContainer>
+            {children}
+            {/* {type === "notification" && <Notifications />}
+            {type === "profile" && <Profile />} */}
+          </InnerContainer>
         </OuterContainer>
       </Content>
     </Wrapper>
@@ -55,7 +61,7 @@ const OuterContainer = styled(CenteredFlexColumnDiv)`
 `;
 
 const InnerContainer = styled(CenteredFlexColumnDiv)`
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
   width: 100%;
   height: 100%;
 `;
