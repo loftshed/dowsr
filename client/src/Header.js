@@ -32,16 +32,16 @@ const Content = styled(FlexDiv)`
   padding: 0px var(--content-inner-padding-h);
   height: var(--header-height);
   width: 100%;
-  @media (min-width: ${SIZES.widthMax}) {
-    width: ${SIZES.widthMax};
+  @media (min-width: ${SIZES.widthMax}px) {
+    width: ${SIZES.widthMax}px;
   }
-  @media (max-width: ${SIZES.widthMin}) {
+  @media (max-width: ${SIZES.widthMin}px) {
     height: 50px;
   }
 `;
 
 const Logo = styled.h1`
-  @media (max-width: ${SIZES.widthMin}) {
+  @media (max-width: ${SIZES.widthMin}px) {
     font-size: 35px;
   }
 `;

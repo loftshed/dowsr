@@ -28,7 +28,7 @@ import { SIZES } from "./styles/constants";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
-  const enableSidebarToggle = useWindowWidth({ wait: 5 }) <= SIZES.widthMedPx;
+  const enableSidebarToggle = useWindowWidth({ wait: 5 }) <= SIZES.widthMed;
   // if (!enableSidebarToggle) setShowSidebar("false");
 
   return (
@@ -93,7 +93,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   z-index: 1;
   /* transition: all ease 0.2s; */
 
-  @media (max-width: ${SIZES.widthMin}) {
+  @media (max-width: ${SIZES.widthMin}px) {
     height: calc(100vh - var(--sml-header-height));
   }
 
@@ -109,7 +109,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
         `;
       default:
         return css`
-          @media (min-width: ${SIZES.widthMax}) {
+          @media (min-width: ${SIZES.widthMax}px) {
             transform: translateX(calc(-1 * (100vw - var(--width-max)) / 2));
             width: calc((100vw - var(--width-max)) / 2);
           }
@@ -153,7 +153,7 @@ const DrawerEdge = styled(CenteredFlexColumnDiv)`
 
 const IconRow = styled(CenteredFlexColumnDiv)`
   height: 100%;
-  @media (max-width: ${SIZES.widthMed}) {
+  @media (max-width: ${SIZES.widthMed}px) {
     margin-top: -30px;
   }
 

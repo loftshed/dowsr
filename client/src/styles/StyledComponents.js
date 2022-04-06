@@ -17,9 +17,9 @@ const CenteredFlexColumnDiv = styled(CenteredFlexRowDiv)`
 const FillDiv = styled(FlexDiv)`
   width: 100%;
   height: 100%;
-  @media (max-width: ${SIZES.widthMed}) {
+  /* @media (max-width: ${SIZES.widthMed}px) {
     padding: 0px 0px 0px 50px;
-  }
+  } */
 `;
 
 const ContentGrid = styled(FlexDiv)`
