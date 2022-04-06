@@ -31,6 +31,9 @@ export default App;
 const Main = styled(CenteredFlexColumnDiv)`
   background-color: var(--color-dark-grey);
   height: calc(100vh - var(--header-height));
+  @media (max-width: ${SIZES.widthMin}) {
+    height: calc(100vh - var(--sml-header-height));
+  }
   width: 100%;
 `;
 

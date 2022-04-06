@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     | Some values to be made available globally. |
     --------------------------------------------*/
     :root {
+      --sml-header-height: 50px;
       --header-height: 100px;
       --content-inner-padding-h: 20px;
       --sidebar-width: 500px;
@@ -33,13 +34,18 @@ const GlobalStyle = createGlobalStyle`
     ------------------*/
 
     * {
-      font-family: 'Karla', sans-serif;
       font-weight: 500;
-      color: white;
-    }t
+      color: var(--color-light-grey);
+      font-family: 'Lato', sans-serif;
+    }
+    
+    p {
+      font-size: 20px;
+    }
 
     h1, h2, h3 {
       font-weight: 800;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
       text-shadow: 2px 1px 1px var(--color-pink);
     }
     h1 {
@@ -71,6 +77,7 @@ const GlobalStyle = createGlobalStyle`
     body {
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      font-family: 'Lato', sans-serif;
     }
     img, picture, video, canvas, svg {
       display: block;

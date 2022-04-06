@@ -3,7 +3,7 @@ export const SIZES = {
   widthMaxPx: 1280,
   widthMed: "820px",
   widthMedPx: 820,
-  widthSml: "450px",
-  widthSmlPx: 450,
+  widthMin: "450px",
+  widthMinPx: 450,
   drawer: "200px",
 };

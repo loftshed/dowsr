@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <Content>
-        <h1>dowser</h1>
+        <Logo>dowsr</Logo>
       </Content>
     </HeaderWrapper>
   );
@@ -27,12 +27,21 @@ const HeaderWrapper = styled(FillDiv)`
 
 const Content = styled(FlexDiv)`
   align-items: flex-end;
-  border-left: 2px solid var(--color-green);
-  border-right: 2px solid var(--color-green);
+  /* border-left: 2px solid var(--color-green);
+  border-right: 2px solid var(--color-green); */
   padding: 0px var(--content-inner-padding-h);
   height: var(--header-height);
   width: 100%;
   @media (min-width: ${SIZES.widthMax}) {
     width: ${SIZES.widthMax};
+  }
+  @media (max-width: ${SIZES.widthMin}) {
+    height: 50px;
+  }
+`;
+
+const Logo = styled.h1`
+  @media (max-width: ${SIZES.widthMin}) {
+    font-size: 35px;
   }
 `;

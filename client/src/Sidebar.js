@@ -29,15 +29,16 @@ import { SIZES } from "./styles/constants";
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
   const enableSidebarToggle = useWindowWidth({ wait: 5 }) <= SIZES.widthMedPx;
-  console.log(enableSidebarToggle);
+  // if (!enableSidebarToggle) setShowSidebar("false");
 
   return (
     <>
       <Wrapper
         onDoubleClick={() => {
-          showSidebar === "false" || showSidebar === null
-            ? setShowSidebar("true")
-            : setShowSidebar("false");
+          if (enableSidebarToggle)
+            showSidebar === "false" || showSidebar === null
+              ? setShowSidebar("true")
+              : setShowSidebar("false");
         }}
         show={showSidebar}
       >
@@ -91,6 +92,11 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   left: 0px;
   z-index: 1;
   /* transition: all ease 0.2s; */
+
+  @media (max-width: ${SIZES.widthMin}) {
+    height: calc(100vh - var(--sml-header-height));
+  }
+
   ${(props) => {
     switch (props.show) {
       case "true":
