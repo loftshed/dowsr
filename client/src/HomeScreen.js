@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MapContainer from "./MapContainer";
+import MapContainer from "./Map/MapContainer";
 import {
   FlexDiv,
   CenteredFlexRowDiv,
@@ -11,9 +11,7 @@ import {
 const HomeScreen = () => {
   return (
     <Wrapper>
-      <Content>
-        <MapContainer />
-      </Content>
+      <Content>{/* <MapContainer /> */}</Content>
     </Wrapper>
   );
 };

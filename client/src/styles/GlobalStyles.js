@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
       font-family: 'Karla', sans-serif;
       font-weight: 500;
       color: white;
-    }
+    }t
 
     h1, h2, h3 {
       font-weight: 800;

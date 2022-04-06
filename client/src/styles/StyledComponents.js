@@ -39,6 +39,8 @@ const UnstyledButton = styled.button`
   padding: 0;
 `;
 
+const pageWidth = document.documentElement.clientWidth;
+
 export {
   FlexDiv,
   CenteredFlexColumnDiv,
@@ -46,4 +48,5 @@ export {
   ContentGrid,
   FillDiv,
   UnstyledButton,
+  pageWidth,
 };

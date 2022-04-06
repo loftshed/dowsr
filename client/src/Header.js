@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <Content>
-        <h1>Dowser</h1>
+        <h1>dowser</h1>
       </Content>
     </HeaderWrapper>
   );

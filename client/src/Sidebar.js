@@ -1,10 +1,12 @@
 import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useWindowWidth } from "@react-hook/window-size";
 import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   UnstyledButton,
+  pageWidth,
 } from "./styles/StyledComponents";
 import {
   CircledArrowRight,
@@ -26,6 +28,8 @@ import { SIZES } from "./styles/constants";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
+  const enableSidebarToggle = useWindowWidth({ wait: 5 }) <= SIZES.widthMedPx;
+  console.log(enableSidebarToggle);
 
   return (
     <>
@@ -45,16 +49,18 @@ const Sidebar = () => {
           <p>stuff</p>
         </DrawerContents>
         <DrawerEdge show={showSidebar}>
-          <Button>
-            <ShowMenuIcon
-              anim={showSidebar}
-              onClick={() => {
-                showSidebar === "false" || showSidebar === null
-                  ? setShowSidebar("true")
-                  : setShowSidebar("false");
-              }}
-            />
-          </Button>
+          {enableSidebarToggle && (
+            <Button>
+              <ShowMenuIcon
+                anim={showSidebar}
+                onClick={() => {
+                  showSidebar === "false" || showSidebar === null
+                    ? setShowSidebar("true")
+                    : setShowSidebar("false");
+                }}
+              />
+            </Button>
+          )}
           <IconRow brighten={showSidebar}>
             <NavLink to="/">
               <MapIcon />
@@ -84,8 +90,6 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   bottom: 0px;
   left: 0px;
   z-index: 1;
-
-  /* calc(100vw - ${SIZES.widthMax} / 2) */
   /* transition: all ease 0.2s; */
   ${(props) => {
     switch (props.show) {
@@ -108,12 +112,10 @@ const Wrapper = styled(CenteredFlexRowDiv)`
     }
   }}
   border-right: 2px solid var(--color-green);
-  box-shadow: 2.8px 1px 1.7px rgba(0, 0, 0, 0.022),
-    6.7px 2.3px 4.1px rgba(0, 0, 0, 0.032),
-    12.5px 4.4px 7.8px rgba(0, 0, 0, 0.04),
-    22.3px 7.8px 13.8px rgba(0, 0, 0, 0.048),
-    41.8px 14.6px 25.9px rgba(0, 0, 0, 0.058),
-    100px 35px 62px rgba(0, 0, 0, 0.08);
+  box-shadow: 0.3px 0.9px 5px rgba(0, 0, 0, 0.05),
+    0.9px 2.2px 12.6px rgba(0, 0, 0, 0.071),
+    1.8px 4.4px 25.7px rgba(0, 0, 0, 0.089),
+    3.7px 9.1px 52.9px rgba(0, 0, 0, 0.11), 10px 25px 145px rgba(0, 0, 0, 0.16);
 `;
 
 const DrawerContents = styled(CenteredFlexColumnDiv)`
@@ -145,7 +147,10 @@ const DrawerEdge = styled(CenteredFlexColumnDiv)`
 
 const IconRow = styled(CenteredFlexColumnDiv)`
   height: 100%;
-  margin-top: -30px;
+  @media (max-width: ${SIZES.widthMed}) {
+    margin-top: -30px;
+  }
+
   row-gap: 50px;
   & * {
     fill: #05161c;
