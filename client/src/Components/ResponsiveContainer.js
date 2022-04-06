@@ -42,8 +42,9 @@ const Content = styled(CenteredFlexColumnDiv)`
 const OuterContainer = styled(CenteredFlexColumnDiv)`
   border-radius: ${SIZES.borderRadius}px;
   background-color: var(--color-less-dark-grey);
-  height: 90%;
-  width: 85%;
+  width: 90%;
+  height: 95%;
+  max-height: 750px;
   @media (min-width: ${SIZES.widthMin}px) {
     width: 80%;
   }

@@ -60,8 +60,10 @@ const GlobalStyle = createGlobalStyle`
       
     }
     h3 {
-      font-size: 24px;
-      
+      font-size: 20px;
+      @media (min-width: 450px) {
+        font-size: 22px;
+      }
     }
 
     /*--------------------------------------------------|

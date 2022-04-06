@@ -66,7 +66,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
 const Content = styled(FillDiv)`
   width: 600px;
   padding: 0px 10px;
-  background-color: #353535;
+  background-color: var(--color-darkest-grey);
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
     6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
@@ -86,7 +86,7 @@ const IconRow = styled(CenteredFlexRowDiv)`
     gap: 6vw;
   }
   & * {
-    fill: var(--color-darkest-blue);
+    fill: var(--color-medium-grey);
     cursor: pointer;
     &:hover {
       fill: #fff;

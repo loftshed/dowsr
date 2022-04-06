@@ -9,7 +9,7 @@ import {
   FillDiv,
 } from "../styles/StyledComponents";
 
-const HomeScreen = () => {
+const Home = () => {
   return (
     <Wrapper>
       <Content>{/* <MapContainer /> */}</Content>
@@ -17,7 +17,7 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default Home;
 
 const Wrapper = styled(FillDiv)`
   background-color: var(--color-dark-blue);

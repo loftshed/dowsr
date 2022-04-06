@@ -39,6 +39,10 @@ const UnstyledButton = styled.button`
   padding: 0;
 `;
 
+const AbsoluteDiv = styled(FlexDiv)`
+  position: absolute;
+`;
+
 const pageWidth = document.documentElement.clientWidth;
 
 export {
@@ -47,6 +51,7 @@ export {
   CenteredFlexRowDiv,
   ContentGrid,
   FillDiv,
+  AbsoluteDiv,
   UnstyledButton,
   pageWidth,
 };
