@@ -6,14 +6,30 @@ const GlobalStyle = createGlobalStyle`
     | Some values to be made available globally. |
     --------------------------------------------*/
     :root {
+      --sml-header-height: 50px;
       --header-height: 100px;
       --content-inner-padding-h: 20px;
+      --sidebar-width: 500px;
+      --width-max: 1280px;
+      --width-med: 820px;
+      --width-sml: 450px;
+
+
       --color-pink: #ef476f;
       --color-yellow: #ffd166;
       --color-green: #06d6a0;
       --color-med-blue: #118ab2;
       --color-dark-blue: #073b4c;
+      --color-darkest-blue: #05161c;
 
+      --color-dark-grey: #393e41;
+      --color-less-dark-grey: #444948;
+      --color-darkest-grey: #353535;
+      --color-extra-medium-grey: #8d8d92;
+      --color-medium-grey: #d3d0cb;
+      --color-light-grey: #e7e5df;
+      --color-teal: #44bba4;
+      --color-gold: #e7bb41;
     }
 
     /*-----------------|
@@ -21,17 +37,22 @@ const GlobalStyle = createGlobalStyle`
     ------------------*/
 
     * {
-      font-family: 'Karla', sans-serif;
       font-weight: 500;
-      color: white;
+      color: var(--color-light-grey);
+      font-family: 'Lato', sans-serif;
+    }
+    
+    p {
+      font-size: 20px;
     }
 
     h1, h2, h3 {
       font-weight: 800;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
       text-shadow: 2px 1px 1px var(--color-pink);
     }
     h1 {
-      font-size: 50px;
+      font-size: 60px;
       
     }
     h2 {
@@ -59,6 +80,7 @@ const GlobalStyle = createGlobalStyle`
     body {
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      font-family: 'Lato', sans-serif;
     }
     img, picture, video, canvas, svg {
       display: block;

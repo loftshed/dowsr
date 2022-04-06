@@ -1,14 +1,17 @@
 import styled, { css } from "styled-components";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
+import { useWindowWidth } from "@react-hook/window-size";
 import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   UnstyledButton,
+  pageWidth,
 } from "./styles/StyledComponents";
 import {
   CircledArrowRight,
   SearchIcon,
-  InboxIcon,
+  MapIcon,
   HeartIcon,
   SavedHeartIcon,
   NotificationIcon,
@@ -21,17 +24,21 @@ import {
   drawerIn,
   drawerOut,
 } from "./styles/Animations";
+import { SIZES } from "./styles/constants";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
+  const enableSidebarToggle = useWindowWidth({ wait: 5 }) <= SIZES.widthMed;
+  // if (!enableSidebarToggle) setShowSidebar("false");
 
   return (
     <>
       <Wrapper
         onDoubleClick={() => {
-          showSidebar === "false" || showSidebar === null
-            ? setShowSidebar("true")
-            : setShowSidebar("false");
+          if (enableSidebarToggle)
+            showSidebar === "false" || showSidebar === null
+              ? setShowSidebar("true")
+              : setShowSidebar("false");
         }}
         show={showSidebar}
       >
@@ -43,23 +50,29 @@ const Sidebar = () => {
           <p>stuff</p>
         </DrawerContents>
         <DrawerEdge show={showSidebar}>
-          <Button>
-            <ShowMenuIcon
-              anim={showSidebar}
-              onClick={() => {
-                showSidebar === "false" || showSidebar === null
-                  ? setShowSidebar("true")
-                  : setShowSidebar("false");
-              }}
-            />
-          </Button>
+          {enableSidebarToggle && (
+            <Button>
+              <ShowMenuIcon
+                anim={showSidebar}
+                onClick={() => {
+                  showSidebar === "false" || showSidebar === null
+                    ? setShowSidebar("true")
+                    : setShowSidebar("false");
+                }}
+              />
+            </Button>
+          )}
           <IconRow brighten={showSidebar}>
+            <NavLink to="/">
+              <MapIcon />
+            </NavLink>
             <SearchIcon />
-            <ChatIcon />
+            <NavLink to="/profile">
+              <ProfileIcon />
+            </NavLink>
             <NotificationIcon />
-            <ProfileIcon />
+            <ChatIcon />
             <HeartIcon />
-            <SavedHeartIcon />
           </IconRow>
         </DrawerEdge>
       </Wrapper>
@@ -70,7 +83,7 @@ const Sidebar = () => {
 export default Sidebar;
 
 const Wrapper = styled(CenteredFlexRowDiv)`
-  position: fixed;
+  position: absolute;
   justify-content: space-between;
   background-color: var(--color-dark-blue);
   height: calc(100vh - var(--header-height));
@@ -79,6 +92,11 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   left: 0px;
   z-index: 1;
   /* transition: all ease 0.2s; */
+
+  @media (max-width: ${SIZES.widthMin}px) {
+    height: calc(100vh - var(--sml-header-height));
+  }
+
   ${(props) => {
     switch (props.show) {
       case "true":
@@ -91,23 +109,25 @@ const Wrapper = styled(CenteredFlexRowDiv)`
         `;
       default:
         return css`
-          transform: translateX(-148px);
+          @media (min-width: ${SIZES.widthMax}px) {
+            transform: translateX(calc(-1 * (100vw - var(--width-max)) / 2));
+            width: calc((100vw - var(--width-max)) / 2);
+          }
+          transform: translateX(-150px);
         `;
     }
   }}
   border-right: 2px solid var(--color-green);
-  box-shadow: 2.8px 1px 1.7px rgba(0, 0, 0, 0.022),
-    6.7px 2.3px 4.1px rgba(0, 0, 0, 0.032),
-    12.5px 4.4px 7.8px rgba(0, 0, 0, 0.04),
-    22.3px 7.8px 13.8px rgba(0, 0, 0, 0.048),
-    41.8px 14.6px 25.9px rgba(0, 0, 0, 0.058),
-    100px 35px 62px rgba(0, 0, 0, 0.08);
+  box-shadow: 0.3px 0.9px 5px rgba(0, 0, 0, 0.05),
+    0.9px 2.2px 12.6px rgba(0, 0, 0, 0.071),
+    1.8px 4.4px 25.7px rgba(0, 0, 0, 0.089),
+    3.7px 9.1px 52.9px rgba(0, 0, 0, 0.11), 10px 25px 145px rgba(0, 0, 0, 0.16);
 `;
 
 const DrawerContents = styled(CenteredFlexColumnDiv)`
   flex-grow: 1;
   height: 100%;
-  background-color: #444948;
+  background-color: var(--color-less-dark-grey);
 `;
 
 const DrawerEdge = styled(CenteredFlexColumnDiv)`
@@ -133,7 +153,10 @@ const DrawerEdge = styled(CenteredFlexColumnDiv)`
 
 const IconRow = styled(CenteredFlexColumnDiv)`
   height: 100%;
-  margin-top: -30px;
+  @media (max-width: ${SIZES.widthMed}px) {
+    margin-top: -30px;
+  }
+
   row-gap: 50px;
   & * {
     fill: #05161c;
