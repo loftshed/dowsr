@@ -45,15 +45,20 @@ const Menu = () => {
 
 export default Menu;
 
-const Wrapper = styled(FlexDiv)`
+const Wrapper = styled(CenteredFlexRowDiv)`
   position: absolute;
   height: ${SIZES.menuHeightCompact}px;
-  width: calc(100vw - 40px);
+  width: calc(100vw);
   bottom: 20px;
   z-index: 1;
+  @media (max-width: ${SIZES.widthMin}px) {
+    width: 90%;
+  }
 `;
 const Content = styled(FillDiv)`
-  background-color: var(--color-medium-grey);
+  width: 600px;
+  padding: 0px 10px;
+  background-color: #353535;
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
     6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
@@ -61,32 +66,22 @@ const Content = styled(FillDiv)`
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
     100px 100px 80px rgba(0, 0, 0, 0.07);
+  @media (max-width: ${SIZES.widthMed}px) {
+    width: 475px;
+  }
 `;
 
 const IconRow = styled(CenteredFlexRowDiv)`
   width: 100%;
-  row-gap: 50px;
+  gap: 50px;
+  @media (max-width: ${SIZES.widthMin}px) {
+    gap: 6vw;
+  }
   & * {
-    fill: #05161c;
+    fill: var(--color-darkest-blue);
     cursor: pointer;
     &:hover {
       fill: #fff;
     }
   }
-
-  ${(props) => {
-    switch (props.brighten) {
-      case "true":
-        return css`
-          & * {
-            fill: #fff;
-            &:hover {
-              fill: var(--color-yellow);
-            }
-          }
-        `;
-      default:
-        return css``;
-    }
-  }}
 `;

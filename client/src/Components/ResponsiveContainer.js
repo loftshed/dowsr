@@ -6,49 +6,23 @@ import {
   FlexDiv,
 } from "../styles/StyledComponents";
 import { SIZES } from "../styles/constants";
-import data from "../dummydata/data";
 
-const Profile = () => {
-  const {
-    _id,
-    givenName,
-    surname,
-    gender,
-    username,
-    city,
-    region,
-    country,
-    joinDate,
-    contributions,
-  } = data;
-
+const ResponsiveContainer = () => {
   //TODO: button to edit profile!
   //FIXME: icon colors, svg fill not highlighting entire icon
 
   return (
     <Wrapper>
       <Content>
-        <ProfileContainer>
-          <InnerContainer>
-            <Avatar src="/avatar.jpg" />
-            <UserDetails>
-              <DetailsHeading>
-                <h3>@{username}</h3>
-              </DetailsHeading>
-              <DetailList>
-                <p>{city + ", " + region}</p>
-                <p>{contributions} contributions</p>
-                <p>Member since {joinDate}</p>
-              </DetailList>
-            </UserDetails>
-          </InnerContainer>
-        </ProfileContainer>
+        <OuterContainer>
+          <InnerContainer></InnerContainer>
+        </OuterContainer>
       </Content>
     </Wrapper>
   );
 };
 
-export default Profile;
+export default ResponsiveContainer;
 
 const Wrapper = styled(FillDiv)`
   background-color: var(--color-dark-grey);
@@ -62,7 +36,7 @@ const Content = styled(CenteredFlexColumnDiv)`
   padding: ${SIZES.universalPadding}px;
 `;
 
-const ProfileContainer = styled(CenteredFlexColumnDiv)`
+const OuterContainer = styled(CenteredFlexColumnDiv)`
   border-radius: ${SIZES.borderRadius}px;
   background-color: var(--color-less-dark-grey);
   height: 90%;

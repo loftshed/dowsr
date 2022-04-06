@@ -3,6 +3,10 @@ export const SIZES = {
   widthMed: 820,
   widthMin: 450,
   drawer: 200,
-  menuHeightCompact: 75,
+  smlHeader: 50,
+  lrgHeader: 100,
+  menuHeightCompact: 55,
   menuHeightExpanded: 50,
+  universalPadding: 20,
+  borderRadius: 10,
 };

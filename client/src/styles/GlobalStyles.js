@@ -20,9 +20,12 @@ const GlobalStyle = createGlobalStyle`
       --color-green: #06d6a0;
       --color-med-blue: #118ab2;
       --color-dark-blue: #073b4c;
+      --color-darkest-blue: #05161c;
 
       --color-dark-grey: #393e41;
       --color-less-dark-grey: #444948;
+      --color-darkest-grey: #353535;
+      --color-extra-medium-grey: #8d8d92;
       --color-medium-grey: #d3d0cb;
       --color-light-grey: #e7e5df;
       --color-teal: #44bba4;

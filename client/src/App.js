@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CenteredFlexColumnDiv } from "./styles/StyledComponents";
+import { SIZES } from "./styles/constants";
 import GlobalStyle from "./styles/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Header";
-import Sidebar from "./Sidebar";
-
 import HomeScreen from "./HomeScreen";
 import Profile from "./Profile/Profile";
-import { SIZES } from "./styles/constants";
+import ResponsiveContainer from "./Components/ResponsiveContainer";
 import Menu from "./Menu";
+
 const App = () => {
   return (
     <BrowserRouter id="root">
@@ -19,6 +19,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/notifications" element={<ResponsiveContainer />} />
           </Routes>
         </Content>
         <Menu />
@@ -31,9 +32,9 @@ export default App;
 
 const Main = styled(CenteredFlexColumnDiv)`
   background-color: var(--color-dark-grey);
-  height: calc(100vh - var(--header-height));
+  height: calc(100vh - ${SIZES.lrgHeader}px);
   @media (max-width: ${SIZES.widthMin}px) {
-    height: calc(100vh - var(--sml-header-height));
+    height: calc(100vh - ${SIZES.smlHeader}px);
   }
   width: 100%;
 `;
