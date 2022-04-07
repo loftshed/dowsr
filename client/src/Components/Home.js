@@ -12,7 +12,9 @@ import {
 const Home = () => {
   return (
     <Wrapper>
-      <Content>{/* <MapContainer /> */}</Content>
+      <Content>
+        <MapContainer />
+      </Content>
     </Wrapper>
   );
 };

@@ -39,9 +39,10 @@ const Menu = () => {
           <NavLink to="/notifications">
             <NotificationIcon />
           </NavLink>
-          <NavLink to="/messages">
+          {/* <NavLink to="/messages">
             <ChatIcon />
-          </NavLink>
+          </NavLink> */
+          /*MESSAGES FEATURE..TBD?*/}
           <NavLink to="/saved">
             <HeartIcon />
           </NavLink>
@@ -83,7 +84,7 @@ const IconRow = styled(CenteredFlexRowDiv)`
   width: 100%;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
-    gap: 6vw;
+    gap: 8vw;
   }
   & * {
     fill: var(--color-medium-grey);

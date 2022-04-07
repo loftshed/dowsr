@@ -10,6 +10,7 @@ import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
 import Messages from "./Components/Messages";
 import Saved from "./Components/Saved";
+import AlertModal from "./Components/AlertModal";
 
 const App = () => {
   return (
