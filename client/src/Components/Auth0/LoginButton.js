@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import { UnstyledButton } from "../../styles/StyledComponents";
+import { TextButton } from "../../styles/StyledComponents";
 import { SIZES } from "../../styles/constants";
 
 const LoginButton = () => {
@@ -14,9 +14,7 @@ const LoginButton = () => {
 
 export default LoginButton;
 
-const Button = styled(UnstyledButton)`
-  border-radius: ${SIZES.borderRadius}px;
-  background-color: var(--color-dark-grey);
+const Button = styled(TextButton)`
   padding: 15px 20px;
   height: 100%;
   width: 100%;

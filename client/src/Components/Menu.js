@@ -31,7 +31,6 @@ const Menu = () => {
   console.log(user);
   console.log(isAuthenticated);
   console.log(isLoading);
-  const { loggedIn } = useContext(AppContext);
   return (
     <Wrapper>
       <Content>

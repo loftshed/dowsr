@@ -30,7 +30,8 @@ const ContentGrid = styled(FlexDiv)`
   gap: 10px;
 `;
 
-const UnstyledButton = styled.button`
+const TextButton = styled.button`
+  border-radius: ${SIZES.borderRadius}px;
   background-color: transparent;
   height: fit-content;
   width: fit-content;
@@ -39,6 +40,8 @@ const UnstyledButton = styled.button`
   margin: 0;
   padding: 0;
   transition: all ease 0.1s;
+  background-color: var(--color-darkest-grey);
+  outline: 1px var(--color-less-dark-grey) solid;
   cursor: pointer;
   &:hover {
     background-color: var(--color-teal);
@@ -59,6 +62,6 @@ export {
   ContentGrid,
   FillDiv,
   AbsoluteDiv,
-  UnstyledButton,
+  TextButton,
   pageWidth,
 };

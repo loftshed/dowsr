@@ -5,7 +5,7 @@ import { useWindowWidth } from "@react-hook/window-size";
 import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
-  UnstyledButton,
+  TextButton,
   pageWidth,
 } from "../../styles/StyledComponents";
 import {
@@ -183,7 +183,7 @@ const IconRow = styled(CenteredFlexColumnDiv)`
   }}
 `;
 
-const Button = styled(UnstyledButton)``;
+const Button = styled(TextButton)``;
 
 const ShowMenuIcon = styled(CircledArrowRight)`
   display: fixed;

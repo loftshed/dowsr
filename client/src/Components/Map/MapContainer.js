@@ -13,24 +13,10 @@ const MapContainer = () => {
   const { userLocation, setUserLocation } = useContext(AppContext);
 
   useEffect(() => {
-    // is this the best way to do this?
     (async () => {
       setUserLocation(await getUserLocation());
-      console.log(userLocation);
+      // console.log(userLocation);
     })();
-
-    // caveman way of doing it
-    // but effective...
-    // ------------------------
-    // (async () => {
-    //   try {
-    //     const response = await fetch("http://ip-api.com/json/24.48.0.1");
-    //     setUserLocation(await response.json());
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // })();
-    // console.log(userLocation);
   }, []);
 
   return (
