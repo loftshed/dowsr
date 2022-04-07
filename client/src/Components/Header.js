@@ -1,10 +1,5 @@
 import styled from "styled-components";
-import {
-  FlexDiv,
-  CenteredFlexRowDiv,
-  CenteredFlexColumnDiv,
-  FillDiv,
-} from "../styles/StyledComponents";
+import { FlexDiv, FillDiv } from "../styles/StyledComponents";
 import { SIZES } from "../styles/constants";
 
 const Header = () => {
@@ -33,7 +28,7 @@ const Content = styled(FlexDiv)`
   align-items: flex-end;
   /* border-left: 2px solid var(--color-green);
   border-right: 2px solid var(--color-green); */
-  padding: 0px var(--content-inner-padding-h);
+  padding: 0px ${SIZES.universalPadding}px;
   /* height: var(--header-height); */
   width: 100%;
   @media (min-width: ${SIZES.widthMax}px) {
@@ -42,6 +37,7 @@ const Content = styled(FlexDiv)`
 `;
 
 const Logo = styled.h1`
+  letter-spacing: 2px;
   @media (max-width: ${SIZES.widthMin}px) {
     font-size: 35px;
   }

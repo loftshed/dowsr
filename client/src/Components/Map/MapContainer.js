@@ -5,9 +5,7 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../../AppContext";
 import { getUserLocation } from "./mapHelpers";
 
-const MAPBOX_TOKEN =
-  "pk.eyJ1IjoibG9mdHNoZWQiLCJhIjoiY2wxbWg1bzg1MGUzYjNkdGN2cWlyejZyeSJ9.Us_qA6Np0kJaHwLEkRpDlQ";
-// don't forget this token is now published to github... looool 🤦‍♂️
+const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
 
 const MapContainer = () => {
   const { userLocation, setUserLocation } = useContext(AppContext);
@@ -25,7 +23,7 @@ const MapContainer = () => {
         <>
           {/* <p>no map rn to save on api calls :(</p> */}
           {/* <Map
-            mapboxAccessToken={MAPBOX_TOKEN}
+            mapboxAccessToken={MAPBOX_API_KEY}
             initialViewState={{
               longitude: userLocation.lon,
               latitude: userLocation.lat,

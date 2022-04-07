@@ -6,12 +6,13 @@ import App from "./App";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
+const CLIENT_ID = process.env.REACT_APP_AUTH0_CLIENT_ID;
 
 root.render(
   <React.StrictMode>
     <Auth0Provider
       domain="dev-mfsyb-f3.us.auth0.com"
-      clientId="IB8R5KnskquOm0hCcLvuerCEBI47xtAr"
+      clientId={CLIENT_ID}
       redirectUri={window.location.origin}
     >
       <AppProvider>

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import {
   BsArrowRightCircleFill,
   BsPersonCircle,
@@ -10,7 +10,6 @@ import {
   BsMapFill,
   BsFillSaveFill,
 } from "react-icons/bs";
-import { SIZES } from "./constants";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)``;
 const SearchIcon = styled(BsSearch)``;
