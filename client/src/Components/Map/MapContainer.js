@@ -7,8 +7,7 @@ import { getUserLocation } from "./mapHelpers";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibG9mdHNoZWQiLCJhIjoiY2wxbWg1bzg1MGUzYjNkdGN2cWlyejZyeSJ9.Us_qA6Np0kJaHwLEkRpDlQ";
-
-// TODO get user location, initialize map from there
+// don't forget this token is now published to github... looool 🤦‍♂️
 
 const MapContainer = () => {
   const { userLocation, setUserLocation } = useContext(AppContext);
@@ -17,8 +16,8 @@ const MapContainer = () => {
     // is this the best way to do this?
     (async () => {
       setUserLocation(await getUserLocation());
+      console.log(userLocation);
     })();
-    console.log(userLocation);
 
     // caveman way of doing it
     // but effective...
@@ -39,7 +38,7 @@ const MapContainer = () => {
       {userLocation && (
         <>
           {/* <p>no map rn to save on api calls :(</p> */}
-          <Map
+          {/* <Map
             mapboxAccessToken={MAPBOX_TOKEN}
             initialViewState={{
               longitude: userLocation.lon,
@@ -50,7 +49,7 @@ const MapContainer = () => {
             mapStyle="mapbox://styles/mapbox/streets-v9"
           >
             <Marker longitude={-122.4} latitude={37.8} color="red" />
-          </Map>
+          </Map> */}
         </>
       )}
     </>

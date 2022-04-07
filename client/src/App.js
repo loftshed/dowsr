@@ -36,6 +36,7 @@ const App = () => {
 
 export default App;
 
+// TODO: fix this shit (mobile browsers don't work well with viewport height)
 const Main = styled(CenteredFlexColumnDiv)`
   background-color: var(--color-dark-grey);
   height: calc(100vh - ${SIZES.lrgHeader}px);
