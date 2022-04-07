@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import {
   FillDiv,
@@ -9,10 +10,13 @@ import {
 import ResponsiveContainer from "./ResponsiveContainer";
 import { SIZES } from "../styles/constants";
 import data from "../dummydata/data";
+import LogoutButton from "./Auth0/LogoutButton";
 
 const Profile = () => {
   const { username, city, region, joinDate, contributions } = data;
-
+  // const {
+  //   user: { given_name, family_name, nickname, name, picture },
+  // } = useAuth0();
   //TODO: button to edit profile!
   //+ click profile image to magnify?
   //FIXME: icon colors, svg fill not highlighting entire icon
@@ -24,12 +28,15 @@ const Profile = () => {
       </ProfileSplash>
       <UserDetails>
         <DetailsHeading>
-          <h3>@{username}</h3>
+          <h3>{username}</h3>
         </DetailsHeading>
         <DetailList>
           <p>{city + ", " + region}</p>
           <p>{contributions} contributions</p>
           <p>Member since {joinDate}</p>
+          <CenteredFlexRowDiv style={{ width: "100%", paddingTop: "10px" }}>
+            <LogoutButton />
+          </CenteredFlexRowDiv>
         </DetailList>
       </UserDetails>
     </ResponsiveContainer>

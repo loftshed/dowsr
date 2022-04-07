@@ -15,9 +15,11 @@ const ResponsiveContainer = ({ children, heading }) => {
       <Content>
         <OuterContainer>
           <InnerContainer>
-            <Heading>
-              <h3>{heading}</h3>
-            </Heading>
+            {heading && (
+              <Heading>
+                <h3>{heading}</h3>
+              </Heading>
+            )}
             {children}
           </InnerContainer>
         </OuterContainer>
@@ -30,7 +32,7 @@ export default ResponsiveContainer;
 
 const Wrapper = styled(FillDiv)`
   background-color: var(--color-dark-grey);
-  justify-content: flex-start; /// testing
+  /* justify-content: flex-start; /// testing */
 `;
 
 const Content = styled(CenteredFlexColumnDiv)`
@@ -64,7 +66,7 @@ const OuterContainer = styled(CenteredFlexColumnDiv)`
 `;
 
 const InnerContainer = styled(CenteredFlexColumnDiv)`
-  /* justify-content: flex-end; */
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
 `;

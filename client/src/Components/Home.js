@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import MapContainer from "./Map/MapContainer";
+import LoginButton from "./Auth0/LoginButton";
 
 import {
   FlexDiv,

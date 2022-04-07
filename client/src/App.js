@@ -11,6 +11,7 @@ import Notifications from "./Components/Notifications";
 import Messages from "./Components/Messages";
 import Saved from "./Components/Saved";
 import AlertModal from "./Components/AlertModal";
+import LoginButton from "./Components/Auth0/LoginButton";
 
 const App = () => {
   return (

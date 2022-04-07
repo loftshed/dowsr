@@ -1,14 +1,9 @@
-import styled, { css } from "styled-components";
-
-import { NavLink } from "react-router-dom";
-
 import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   FillDiv,
   FlexDiv,
 } from "../styles/StyledComponents";
-
 import {
   CircledArrowRight,
   SearchIcon,
@@ -20,33 +15,53 @@ import {
   ProfileIcon,
 } from "../styles/Icons";
 
+import { useAuth0 } from "@auth0/auth0-react";
+import styled, { css } from "styled-components";
+import { NavLink } from "react-router-dom";
+import { AppContext } from "../AppContext";
+import { useContext } from "react";
 import { SIZES } from "../styles/constants";
+import LoginButton from "./Auth0/LoginButton";
+
+//TODO: make menu collapse with click of a button.
+//STRETCH: make button appear on left/right side of screen according to user settings.
 
 const Menu = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log(user);
+  console.log(isAuthenticated);
+  console.log(isLoading);
+  const { loggedIn } = useContext(AppContext);
   return (
     <Wrapper>
       <Content>
-        <IconRow>
-          <NavLink to="/">
-            <MapIcon />
-          </NavLink>
-          <NavLink to="/search">
-            <SearchIcon />
-          </NavLink>
-          <NavLink to="/profile">
-            <ProfileIcon />
-          </NavLink>
-          <NavLink to="/notifications">
-            <NotificationIcon />
-          </NavLink>
-          {/* <NavLink to="/messages">
+        {isAuthenticated ? (
+          <IconRow>
+            <NavLink to="/">
+              <MapIcon />
+            </NavLink>
+            <NavLink to="/search">
+              <SearchIcon />
+            </NavLink>
+            <NavLink to="/profile">
+              <ProfileIcon />
+            </NavLink>
+            <NavLink to="/notifications">
+              <NotificationIcon />
+            </NavLink>
+            {/* <NavLink to="/messages">
             <ChatIcon />
           </NavLink> */
-          /*MESSAGES FEATURE..TBD?*/}
-          <NavLink to="/saved">
-            <HeartIcon />
-          </NavLink>
-        </IconRow>
+            /*MESSAGES FEATURE..TBD?*/}
+            <NavLink to="/saved">
+              <HeartIcon />
+            </NavLink>
+          </IconRow>
+        ) : (
+          <LoginContainer>
+            <LoginButton />
+          </LoginContainer>
+        )}
       </Content>
     </Wrapper>
   );
@@ -66,7 +81,6 @@ const Wrapper = styled(CenteredFlexRowDiv)`
 `;
 const Content = styled(FillDiv)`
   width: 600px;
-  padding: 0px 10px;
   background-color: var(--color-darkest-grey);
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
@@ -93,4 +107,8 @@ const IconRow = styled(CenteredFlexRowDiv)`
       fill: #fff;
     }
   }
+`;
+
+const LoginContainer = styled(CenteredFlexRowDiv)`
+  width: 100%;
 `;

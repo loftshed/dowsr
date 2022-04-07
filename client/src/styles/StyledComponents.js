@@ -38,6 +38,8 @@ const UnstyledButton = styled.button`
   border: none;
   margin: 0;
   padding: 0;
+  transition: all ease 0.1s;
+  cursor: pointer;
 `;
 
 const pageWidth = document.documentElement.clientWidth;
