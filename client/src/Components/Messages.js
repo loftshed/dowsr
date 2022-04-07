@@ -12,7 +12,7 @@ import {
 
 const Messages = () => {
   return (
-    <ResponsiveContainer>
+    <ResponsiveContainer heading={"Messages"}>
       <MessagesContainer>
         <AlertModal>@coolguy69 says: "ride later?"</AlertModal>
         <AlertModal>@bikeman420 says: "so friggin nice out today!"</AlertModal>

@@ -9,7 +9,7 @@ import {
 
 const Notifications = () => {
   return (
-    <ResponsiveContainer>
+    <ResponsiveContainer heading={"Notifications"}>
       <NotificationContainer>
         <AlertModal>@coolguy69 added you as a friend!</AlertModal>
         <AlertModal>2 people liked your contribution 😎</AlertModal>
