@@ -11,7 +11,7 @@ const client = new MongoClient(MONGO_URI, {
   useUnifiedTopology: true,
 });
 
-const db = client.db("databaseName");
+const db = client.db("final");
 
 /*----------------------------------------
 | Endpoints for accessing Users Database |

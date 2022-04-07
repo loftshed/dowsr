@@ -12,26 +12,47 @@ const MAPBOX_TOKEN =
 
 const MapContainer = () => {
   const { userLocation, setUserLocation } = useContext(AppContext);
+
   useEffect(() => {
-    console.log("MapContainer useEffect ran");
-    getUserLocation();
+    // is this the best way to do this?
+    (async () => {
+      setUserLocation(await getUserLocation());
+    })();
+    console.log(userLocation);
+
+    // caveman way of doing it
+    // but effective...
+    // ------------------------
+    // (async () => {
+    //   try {
+    //     const response = await fetch("http://ip-api.com/json/24.48.0.1");
+    //     setUserLocation(await response.json());
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // })();
+    // console.log(userLocation);
   }, []);
 
   return (
     <>
-      <p>no map rn to save on api calls :(</p>
-      {/* <Map
-        mapboxAccessToken={MAPBOX_TOKEN}
-        initialViewState={{
-          longitude: -73.61,
-          latitude: 45.52,
-          zoom: 12,
-        }}
-        style={{ width: "100%", height: "100%" }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-      >
-        <Marker longitude={-122.4} latitude={37.8} color="red" />
-      </Map> */}
+      {userLocation && (
+        <>
+          {/* <p>no map rn to save on api calls :(</p> */}
+          <Map
+            mapboxAccessToken={MAPBOX_TOKEN}
+            initialViewState={{
+              longitude: userLocation.lon,
+              latitude: userLocation.lat,
+              zoom: 12,
+            }}
+            style={{ width: "100%", height: "100%" }}
+            mapStyle="mapbox://styles/mapbox/streets-v9"
+          >
+            <Marker longitude={-122.4} latitude={37.8} color="red" />
+          </Map>
+        </>
+      )}
     </>
   );
 };
