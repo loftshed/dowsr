@@ -4,12 +4,13 @@ import { SIZES } from "./styles/constants";
 import GlobalStyle from "./styles/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Components/Header";
-import HomeScreen from "./Components/HomeScreen";
+import Home from "./Components/Home";
 import Menu from "./Components/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
 import Messages from "./Components/Messages";
 import Saved from "./Components/Saved";
+import AlertModal from "./Components/AlertModal";
 
 const App = () => {
   return (
@@ -19,12 +20,12 @@ const App = () => {
       <Main>
         <Content>
           <Routes>
-            <Route path="/" element={<HomeScreen />} />
+            <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/messages" element={<Messages />} />
-            <Route path="/saved" element={<Saved />} />
-            <Route path="/search" element={<HomeScreen search={true} />} />
+            <Route path="/saved" element={<Home saved={true} />} />
+            <Route path="/search" element={<Home search={true} />} />
           </Routes>
         </Content>
         <Menu />

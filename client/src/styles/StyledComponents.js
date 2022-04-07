@@ -17,9 +17,10 @@ const CenteredFlexColumnDiv = styled(CenteredFlexRowDiv)`
 const FillDiv = styled(FlexDiv)`
   width: 100%;
   height: 100%;
-  /* @media (max-width: ${SIZES.widthMed}px) {
-    padding: 0px 0px 0px 50px;
-  } */
+`;
+
+const AbsoluteDiv = styled(FlexDiv)`
+  position: absolute;
 `;
 
 const ContentGrid = styled(FlexDiv)`
@@ -47,6 +48,7 @@ export {
   CenteredFlexRowDiv,
   ContentGrid,
   FillDiv,
+  AbsoluteDiv,
   UnstyledButton,
   pageWidth,
 };

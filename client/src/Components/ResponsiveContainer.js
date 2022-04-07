@@ -9,15 +9,16 @@ import { SIZES } from "../styles/constants";
 import Profile from "./Profile";
 import Notifications from "./Notifications";
 
-const ResponsiveContainer = ({ children }) => {
+const ResponsiveContainer = ({ children, heading }) => {
   return (
     <Wrapper>
       <Content>
         <OuterContainer>
           <InnerContainer>
+            <Heading>
+              <h3>{heading}</h3>
+            </Heading>
             {children}
-            {/* {type === "notification" && <Notifications />}
-            {type === "profile" && <Profile />} */}
           </InnerContainer>
         </OuterContainer>
       </Content>
@@ -42,8 +43,9 @@ const Content = styled(CenteredFlexColumnDiv)`
 const OuterContainer = styled(CenteredFlexColumnDiv)`
   border-radius: ${SIZES.borderRadius}px;
   background-color: var(--color-less-dark-grey);
-  height: 90%;
-  width: 85%;
+  width: 90%;
+  height: 95%;
+  max-height: 750px;
   @media (min-width: ${SIZES.widthMin}px) {
     width: 80%;
   }
@@ -64,4 +66,12 @@ const InnerContainer = styled(CenteredFlexColumnDiv)`
   /* justify-content: flex-end; */
   width: 100%;
   height: 100%;
+`;
+
+const Heading = styled(CenteredFlexRowDiv)`
+  width: 100%;
+  height: 40px;
+  background-color: var(--color-darkest-grey);
+  border-top-left-radius: ${SIZES.borderRadius}px;
+  border-top-right-radius: ${SIZES.borderRadius}px;
 `;

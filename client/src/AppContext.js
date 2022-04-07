@@ -3,9 +3,11 @@ import { useState, createContext } from "react";
 export const AppContext = createContext(null);
 
 export const AppProvider = ({ children }) => {
-  const [state, setState] = useState("");
+  const [userLocation, setUserLocation] = useState(null);
 
   return (
-    <AppContext.Provider value={{ state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ userLocation, setUserLocation }}>
+      {children}
+    </AppContext.Provider>
   );
 };
