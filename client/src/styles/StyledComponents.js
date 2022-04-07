@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 import { SIZES } from "./constants";
 
 const FlexDiv = styled.div`
@@ -53,6 +54,22 @@ const TextButton = styled.button`
   }
 `;
 
+const IconNavLink = styled(NavLink)`
+  padding: 8px;
+  background-color: #1e2021;
+  border-radius: 50%;
+  transition: all ease 0.1s;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-pink);
+    transform: scale(1.05);
+  }
+  &:active {
+    background-color: var(--color-pink);
+    transform: scale(0.95);
+  }
+`;
+
 const pageWidth = document.documentElement.clientWidth;
 
 export {
@@ -64,4 +81,5 @@ export {
   AbsoluteDiv,
   TextButton,
   pageWidth,
+  IconNavLink,
 };

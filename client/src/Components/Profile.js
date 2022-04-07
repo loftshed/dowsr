@@ -14,6 +14,8 @@ import LogoutButton from "./Auth0/LogoutButton";
 
 const Profile = () => {
   const { username, city, region, joinDate, contributions } = data;
+  // add userdata to mongo...
+
   const {
     user: { given_name, family_name, nickname, name, picture },
     isLoading,

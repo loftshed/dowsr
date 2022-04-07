@@ -1,25 +1,18 @@
 import {
-  CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   FillDiv,
-  FlexDiv,
+  IconNavLink,
 } from "../styles/StyledComponents";
 import {
-  CircledArrowRight,
   SearchIcon,
   MapIcon,
   HeartIcon,
-  SavedHeartIcon,
   NotificationIcon,
-  ChatIcon,
   ProfileIcon,
 } from "../styles/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import styled, { css } from "styled-components";
-import { NavLink } from "react-router-dom";
-import { AppContext } from "../AppContext";
-import { useContext } from "react";
+import styled /*, { css }*/ from "styled-components";
 import { SIZES } from "../styles/constants";
 import LoginButton from "./Auth0/LoginButton";
 
@@ -36,25 +29,21 @@ const Menu = () => {
       <Content>
         {isAuthenticated ? (
           <IconRow>
-            <NavLink to="/">
+            <IconNavLink to="/">
               <MapIcon />
-            </NavLink>
-            <NavLink to="/search">
+            </IconNavLink>
+            <IconNavLink to="/search">
               <SearchIcon />
-            </NavLink>
-            <NavLink to="/profile">
+            </IconNavLink>
+            <IconNavLink to="/profile">
               <ProfileIcon />
-            </NavLink>
-            <NavLink to="/notifications">
+            </IconNavLink>
+            <IconNavLink to="/notifications">
               <NotificationIcon />
-            </NavLink>
-            {/* <NavLink to="/messages">
-            <ChatIcon />
-          </NavLink> */
-            /*MESSAGES FEATURE..TBD?*/}
-            <NavLink to="/saved">
+            </IconNavLink>
+            <IconNavLink to="/saved">
               <HeartIcon />
-            </NavLink>
+            </IconNavLink>
           </IconRow>
         ) : (
           <LoginContainer>
@@ -97,14 +86,10 @@ const IconRow = styled(CenteredFlexRowDiv)`
   width: 100%;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
-    gap: 8vw;
+    gap: 5vw;
   }
   & * {
     fill: var(--color-medium-grey);
-    cursor: pointer;
-    &:hover {
-      fill: var(--color-teal);
-    }
   }
 `;
 
