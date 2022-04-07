@@ -24,7 +24,6 @@ const Profile = () => {
 
   //TODO: button to edit profile!
   //+ click profile image to magnify?
-  //FIXME: icon colors, svg fill not highlighting entire icon
 
   return (
     <ResponsiveContainer>

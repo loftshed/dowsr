@@ -23,6 +23,10 @@ const HeaderWrapper = styled(FillDiv)`
   background-color: var(--color-med-blue);
   box-shadow: 2px 2px 2px 10px var(--color-green);
   z-index: 5;
+  height: ${SIZES.lrgHeader}px;
+  @media (max-width: ${SIZES.widthMin}px) {
+    height: 50px;
+  }
 `;
 
 const Content = styled(FlexDiv)`
@@ -30,13 +34,10 @@ const Content = styled(FlexDiv)`
   /* border-left: 2px solid var(--color-green);
   border-right: 2px solid var(--color-green); */
   padding: 0px var(--content-inner-padding-h);
-  height: var(--header-height);
+  /* height: var(--header-height); */
   width: 100%;
   @media (min-width: ${SIZES.widthMax}px) {
     width: ${SIZES.widthMax}px;
-  }
-  @media (max-width: ${SIZES.widthMin}px) {
-    height: 50px;
   }
 `;
 

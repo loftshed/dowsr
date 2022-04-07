@@ -40,9 +40,9 @@ export default App;
 // TODO: fix this shit (mobile browsers don't work well with viewport height)
 const Main = styled(CenteredFlexColumnDiv)`
   background-color: var(--color-dark-grey);
-  height: calc(100vh - ${SIZES.lrgHeader}px);
+  height: calc(100% - ${SIZES.lrgHeader}px);
   @media (max-width: ${SIZES.widthMin}px) {
-    height: calc(100vh - ${SIZES.smlHeader}px);
+    height: calc(100% - ${SIZES.smlHeader}px);
   }
   width: 100%;
 `;

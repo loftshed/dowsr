@@ -97,6 +97,9 @@ const GlobalStyle = createGlobalStyle`
     #root, #__next {
       isolation: isolate;
     }
+    #root {
+      height: 100%;
+    }
     /*--------------------------------------------------|
     | Stuff above from Josh W. Comeau CSS reset...      |
     | https://www.joshwcomeau.com/css/custom-css-reset/ |

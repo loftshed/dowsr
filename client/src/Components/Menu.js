@@ -18,6 +18,7 @@ import LoginButton from "./Auth0/LoginButton";
 
 //TODO: make menu collapse with click of a button.
 //STRETCH: make button appear on left/right side of screen according to user settings.
+//FIXME: icon positioning within circles..
 
 const Menu = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -86,10 +87,14 @@ const IconRow = styled(CenteredFlexRowDiv)`
   width: 100%;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
-    gap: 5vw;
+    gap: 4vw;
   }
   & * {
     fill: var(--color-medium-grey);
+  }
+  svg {
+    width: ${SIZES.iconSize}px;
+    height: ${SIZES.iconSize}px;
   }
 `;
 
