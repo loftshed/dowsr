@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import MapContainer from "./Map/MapContainer";
-import LoginButton from "./Auth0/LoginButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import {
   FlexDiv,
@@ -11,11 +11,15 @@ import {
 } from "../styles/StyledComponents";
 
 const Home = () => {
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   return (
     <Wrapper>
-      <Content>
-        <MapContainer />
-      </Content>
+      {isAuthenticated && (
+        <Content>
+          <MapContainer />
+        </Content>
+      )}
     </Wrapper>
   );
 };

@@ -40,6 +40,14 @@ const UnstyledButton = styled.button`
   padding: 0;
   transition: all ease 0.1s;
   cursor: pointer;
+  &:hover {
+    background-color: var(--color-teal);
+    transform: scale(1.05);
+  }
+  &:active {
+    background-color: var(--color-teal);
+    transform: scale(0.95);
+  }
 `;
 
 const pageWidth = document.documentElement.clientWidth;

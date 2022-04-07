@@ -104,7 +104,7 @@ const IconRow = styled(CenteredFlexRowDiv)`
     fill: var(--color-medium-grey);
     cursor: pointer;
     &:hover {
-      fill: #fff;
+      fill: var(--color-teal);
     }
   }
 `;
