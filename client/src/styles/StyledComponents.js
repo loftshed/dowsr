@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 import { SIZES } from "./constants";
 
 const FlexDiv = styled.div`
@@ -30,7 +31,8 @@ const ContentGrid = styled(FlexDiv)`
   gap: 10px;
 `;
 
-const UnstyledButton = styled.button`
+const TextButton = styled.button`
+  border-radius: ${SIZES.borderRadius}px;
   background-color: transparent;
   height: fit-content;
   width: fit-content;
@@ -38,6 +40,34 @@ const UnstyledButton = styled.button`
   border: none;
   margin: 0;
   padding: 0;
+  transition: all ease 0.1s;
+  background-color: var(--color-darkest-grey);
+  outline: 1px var(--color-less-dark-grey) solid;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-teal);
+    transform: scale(1.05);
+  }
+  &:active {
+    background-color: var(--color-teal);
+    transform: scale(0.95);
+  }
+`;
+
+const IconNavLink = styled(NavLink)`
+  padding: 8px;
+  background-color: #1e2021;
+  border-radius: 50%;
+  transition: all ease 0.1s;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-pink);
+    transform: scale(1.05);
+  }
+  &:active {
+    background-color: var(--color-pink);
+    transform: scale(0.95);
+  }
 `;
 
 const pageWidth = document.documentElement.clientWidth;
@@ -49,6 +79,7 @@ export {
   ContentGrid,
   FillDiv,
   AbsoluteDiv,
-  UnstyledButton,
+  TextButton,
   pageWidth,
+  IconNavLink,
 };

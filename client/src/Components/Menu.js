@@ -1,52 +1,69 @@
-import styled, { css } from "styled-components";
-
-import { NavLink } from "react-router-dom";
-
 import {
-  CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   FillDiv,
-  FlexDiv,
-} from "../styles/StyledComponents";
-
+  IconNavLink,
+} from "../Styles/StyledComponents";
 import {
-  CircledArrowRight,
   SearchIcon,
   MapIcon,
   HeartIcon,
-  SavedHeartIcon,
   NotificationIcon,
-  ChatIcon,
   ProfileIcon,
-} from "../styles/Icons";
+} from "../Styles/Icons";
 
-import { SIZES } from "../styles/constants";
+import { useAuth0 } from "@auth0/auth0-react";
+import styled /*, { css }*/ from "styled-components";
+import { SIZES } from "../Styles/constants";
+import LoginButton from "./Auth/LoginButton";
+import { useContext } from "react";
+import { AppContext } from "../AppContext";
+
+//TODO: make menu collapse with click of a button.
+//TODO: make profile icon change to user avatar when logged in!
+//STRETCH: make button appear on left/right side of screen according to user settings.
+//FIXME: icon positioning within circles..
 
 const Menu = () => {
+  const { firstLogin, signupCompleted } = useContext(AppContext);
+  const { user, isAuthenticated } = useAuth0();
+
+  if (firstLogin || !signupCompleted)
+    return (
+      <Wrapper>
+        <Content>
+          <CenteredFlexRowDiv style={{ width: "100%" }}>
+            <h3>We just need a lil more info...</h3>
+          </CenteredFlexRowDiv>
+        </Content>
+      </Wrapper>
+    );
+
   return (
     <Wrapper>
       <Content>
-        <IconRow>
-          <NavLink to="/">
-            <MapIcon />
-          </NavLink>
-          <NavLink to="/search">
-            <SearchIcon />
-          </NavLink>
-          <NavLink to="/profile">
-            <ProfileIcon />
-          </NavLink>
-          <NavLink to="/notifications">
-            <NotificationIcon />
-          </NavLink>
-          {/* <NavLink to="/messages">
-            <ChatIcon />
-          </NavLink> */
-          /*MESSAGES FEATURE..TBD?*/}
-          <NavLink to="/saved">
-            <HeartIcon />
-          </NavLink>
-        </IconRow>
+        {isAuthenticated ? (
+          <IconRow>
+            <IconNavLink to="/">
+              <MapIcon />
+            </IconNavLink>
+            <IconNavLink to="/search">
+              <SearchIcon />
+            </IconNavLink>
+            <IconNavLink to="/profile">
+              <ProfileIcon />
+            </IconNavLink>
+            <IconNavLink to="/notifications">
+              <NotificationIcon />
+            </IconNavLink>
+            <IconNavLink to="/saved">
+              <HeartIcon />
+            </IconNavLink>
+          </IconRow>
+        ) : (
+          <LoginContainer>
+            <LoginButton />
+          </LoginContainer>
+        )}
       </Content>
     </Wrapper>
   );
@@ -66,7 +83,6 @@ const Wrapper = styled(CenteredFlexRowDiv)`
 `;
 const Content = styled(FillDiv)`
   width: 600px;
-  padding: 0px 10px;
   background-color: var(--color-darkest-grey);
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
@@ -84,13 +100,17 @@ const IconRow = styled(CenteredFlexRowDiv)`
   width: 100%;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
-    gap: 8vw;
+    gap: 4vw;
   }
   & * {
     fill: var(--color-medium-grey);
-    cursor: pointer;
-    &:hover {
-      fill: #fff;
-    }
   }
+  svg {
+    width: ${SIZES.iconSize}px;
+    height: ${SIZES.iconSize}px;
+  }
+`;
+
+const LoginContainer = styled(CenteredFlexRowDiv)`
+  width: 100%;
 `;

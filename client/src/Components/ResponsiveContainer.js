@@ -4,8 +4,8 @@ import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   FlexDiv,
-} from "../styles/StyledComponents";
-import { SIZES } from "../styles/constants";
+} from "../Styles/StyledComponents";
+import { SIZES } from "../Styles/constants";
 import Profile from "./Profile";
 import Notifications from "./Notifications";
 
@@ -15,9 +15,11 @@ const ResponsiveContainer = ({ children, heading }) => {
       <Content>
         <OuterContainer>
           <InnerContainer>
-            <Heading>
-              <h3>{heading}</h3>
-            </Heading>
+            {heading && (
+              <Heading>
+                <h2>{heading}</h2>
+              </Heading>
+            )}
             {children}
           </InnerContainer>
         </OuterContainer>
@@ -30,6 +32,7 @@ export default ResponsiveContainer;
 
 const Wrapper = styled(FillDiv)`
   background-color: var(--color-dark-grey);
+  /* justify-content: flex-start; /// testing */
 `;
 
 const Content = styled(CenteredFlexColumnDiv)`
@@ -43,8 +46,8 @@ const Content = styled(CenteredFlexColumnDiv)`
 const OuterContainer = styled(CenteredFlexColumnDiv)`
   border-radius: ${SIZES.borderRadius}px;
   background-color: var(--color-less-dark-grey);
-  width: 90%;
-  height: 95%;
+  width: 100%;
+  height: 100%;
   max-height: 750px;
   @media (min-width: ${SIZES.widthMin}px) {
     width: 80%;
@@ -63,15 +66,16 @@ const OuterContainer = styled(CenteredFlexColumnDiv)`
 `;
 
 const InnerContainer = styled(CenteredFlexColumnDiv)`
-  /* justify-content: flex-end; */
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
 `;
 
 const Heading = styled(CenteredFlexRowDiv)`
   width: 100%;
-  height: 40px;
+  height: 65px;
   background-color: var(--color-darkest-grey);
   border-top-left-radius: ${SIZES.borderRadius}px;
   border-top-right-radius: ${SIZES.borderRadius}px;
+  border-bottom: 1.5px solid var(--color-medium-grey);
 `;

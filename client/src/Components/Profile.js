@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import {
   FillDiv,
@@ -5,33 +6,49 @@ import {
   CenteredFlexRowDiv,
   FlexDiv,
   AbsoluteDiv,
-} from "../styles/StyledComponents";
+} from "../Styles/StyledComponents";
 import ResponsiveContainer from "./ResponsiveContainer";
-import { SIZES } from "../styles/constants";
+import { SIZES } from "../Styles/constants";
 import data from "../dummydata/data";
+import LogoutButton from "./Auth/LogoutButton";
 
 const Profile = () => {
   const { username, city, region, joinDate, contributions } = data;
+  // add userdata to mongo...
+
+  const {
+    user: { given_name, family_name, nickname, name, picture },
+    isLoading,
+  } = useAuth0();
+  console.log(useAuth0());
 
   //TODO: button to edit profile!
   //+ click profile image to magnify?
-  //FIXME: icon colors, svg fill not highlighting entire icon
 
   return (
     <ResponsiveContainer>
-      <ProfileSplash>
-        <Avatar src="/avatar.jpg" />
-      </ProfileSplash>
-      <UserDetails>
-        <DetailsHeading>
-          <h3>@{username}</h3>
-        </DetailsHeading>
-        <DetailList>
-          <p>{city + ", " + region}</p>
-          <p>{contributions} contributions</p>
-          <p>Member since {joinDate}</p>
-        </DetailList>
-      </UserDetails>
+      {isLoading ? (
+        <>Loading...</>
+      ) : (
+        <>
+          <ProfileSplash>
+            <Avatar src={picture} />
+          </ProfileSplash>
+          <UserDetails>
+            <DetailsHeading>
+              <h3>{nickname}</h3>
+            </DetailsHeading>
+            <DetailList>
+              <p>{city + ", " + region}</p>
+              <p>{contributions} contributions</p>
+              <p>Member since {joinDate}</p>
+              <CenteredFlexRowDiv style={{ width: "100%", paddingTop: "10px" }}>
+                <LogoutButton />
+              </CenteredFlexRowDiv>
+            </DetailList>
+          </UserDetails>
+        </>
+      )}
     </ResponsiveContainer>
   );
 };

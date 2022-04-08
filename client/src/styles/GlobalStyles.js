@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
       --color-med-blue: #118ab2;
       --color-dark-blue: #073b4c;
       --color-darkest-blue: #05161c;
+      --color-almost-darkest-blue: #05181e;
 
       --color-dark-grey: #393e41;
       --color-less-dark-grey: #444948;
@@ -96,6 +97,9 @@ const GlobalStyle = createGlobalStyle`
     }
     #root, #__next {
       isolation: isolate;
+    }
+    #root {
+      height: 100%;
     }
     /*--------------------------------------------------|
     | Stuff above from Josh W. Comeau CSS reset...      |

@@ -9,4 +9,5 @@ export const SIZES = {
   menuHeightExpanded: 50,
   universalPadding: 20,
   borderRadius: 10,
+  iconSize: 25,
 };

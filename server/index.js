@@ -10,9 +10,7 @@ const app = express();
 /*-----------
 | handlers |
 -----------*/
-const {
-  // handlers here
-} = require("../server/userHandlers");
+const { addUser, getUser, modifyUser, removeUser } = require("./userHandlers");
 
 app.use(morgan("tiny"));
 app.use(express.json()); // this was used in slingair server..  do i need?
@@ -23,6 +21,11 @@ app.use(cors());
 /*-----------
 | endpoints |
 -----------*/
+
+app.post("/api/add-user", addUser);
+app.get("/api/get-user", getUser);
+app.patch("/api/modify-user", modifyUser);
+app.delete("/api/remove-user", removeUser);
 
 /*------------------
 | end of endpoints |

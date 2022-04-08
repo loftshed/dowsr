@@ -5,13 +5,14 @@ require("dotenv").config();
 const { v4: uuidv4 } = require("uuid");
 const { MongoClient } = require("mongodb");
 const { MONGO_URI } = process.env;
+const dayjs = require("dayjs");
 
 const client = new MongoClient(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const db = client.db("databaseName");
+const db = client.db("final");
 
 /*----------------------------------------
 | Endpoints for accessing Users Database |
@@ -19,68 +20,24 @@ const db = client.db("databaseName");
 const userDb = db.collection("users");
 /*--------------------------------------*/
 
-//
-// Get all users from DB ------>
-//
-
-const getUsers = async (req, res) => {
-  try {
-    await client.connect();
-    const allUsers = await userDb.find().toArray();
-    allUsers
-      ? res.status(200).json({ status: 200, data: allUsers })
-      : res.status(500).json({ status: 500, message: "Something went wrong." });
-  } catch (err) {
-    err ? console.log(err) : client.close();
-  }
-};
-
-//
-// Get a single user from the database - expects ------>
-//
-// In req.query : 'userId'.
-//
-
-const getUser = async ({ query: { userId } }, res) => {
-  try {
-    await client.connect();
-    const returnedUser = await userDb.findOne({ _id: userId });
-    returnedUser
-      ? res.status(200).json({ status: 200, data: returnedUser })
-      : res.status(500).json({ status: 500, message: "Something went wrong." });
-  } catch (err) {
-    err ? console.log(err) : client.close();
-  }
-};
-
-//
-// Adds a new user to DB - expects user object in req.body------>
-//  format:
-//  {
-//    givenName: "Firstname",
-//    surname: "Lastname",
-//    street: "123 User St.",
-//    city: "Montreal",
-//    region: "QC",
-//    country: "Canada",
-//    email: "email@address.com",
-//    phone: "555-555-5555"
-//  }
-//
+// Adds a new user to MongoDB.
+// In the body, expects a user object to be sent in JSON format.
+// An ID and a registration date will be inserted into the object by the backend upon new user creation.
 
 const addUser = async ({ body }, res) => {
   try {
     const newId = uuidv4();
+    const regDate = dayjs().format();
     await client.connect();
     const newUser = await userDb.insertOne({
       _id: newId,
-      info: body,
-      cart: [],
+      regDate: regDate,
+      ...body,
     });
     res.status(201).json({
       status: 201,
-      message: "User creation successful.",
-      data: { _id: newId, info: body, cart: [] },
+      message: `New user with email '${body.email}' successfully added to the database.`,
+      data: { _id: newId, regDate, ...body },
     });
   } catch (err) {
     err ? console.log(err) : client.close();
@@ -88,44 +45,77 @@ const addUser = async ({ body }, res) => {
   }
 };
 
-/*
-Maybe also check if user exists before adding? 
-TBD. First explore use of Google Auth or 0Auth
-*/
+// Returns users stored in MongoDB.
+// Takes one of two parameters in query, depending on your request.
+// If you wish to return a single user, query key should be "email", and the value should be the user's email address.
+// If you wish to return all users, query key should be "all," with bool value "true".
 
-//
-// Modify a user object in the database - options ------>
-//
-// In req.query : 'userId'.
-// In req.body  : One or more properties to be changed in the user info object.
-//  example:
-//  {
-//    givenName: "Newname"
-//  }
-//
-
-const modifyUser = async ({ query: { userId }, body }, res) => {
+const getUser = async ({ query: { email, all } }, res) => {
   try {
     await client.connect();
-    const updateResult = await userDb.updateOne(
-      { _id: userId },
-      { $set: { info: body } }
-    );
-    updateResult.acknowledged
-      ? res.status(200).json({ status: 200, data: updateResult })
-      : res.status(500).json({ status: 500, message: "Something went wrong." });
+    let returnedUsers;
+    all
+      ? (returnedUsers = await userDb.find().toArray())
+      : (returnedUsers = await userDb.findOne({ email: email }));
+    returnedUsers
+      ? res
+          .status(200)
+          .json({ status: 200, userFound: true, data: returnedUsers })
+      : res.status(500).json({
+          status: 500,
+          userFound: false,
+          message:
+            "Your query did not return any users. For more info, refer to documentation.",
+        });
   } catch (err) {
     err ? console.log(err) : client.close();
   }
 };
 
-/*-----------------------------------------------
-| End of endpoints for accessing Users Database |
------------------------------------------------*/
+const modifyUser = async ({ query: { email }, body }, res) => {
+  try {
+    await client.connect();
+    const modifiedUser = await userDb.updateOne(
+      { email: email },
+      { $set: body }
+    );
+    modifiedUser
+      ? res
+          .status(200)
+          .json({ status: 200, userFound: true, data: modifiedUser })
+      : res.status(500).json({
+          status: 500,
+          userFound: false,
+          message:
+            "Your query did not return any users. For more info, refer to documentation.",
+        });
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
+const removeUser = async ({ query: { email } }, res) => {
+  try {
+    await client.connect();
+    const { acknowledged, deletedCount } = await userDb.deleteOne({
+      email: email,
+    });
+    if (deletedCount) {
+      console.log({
+        message: `${deletedCount} user account deleted successfully.`,
+      });
+      res.status(204).json({ status: 204 });
+    } else {
+      res.status(500).json({ status: 500, message: "ID not found." });
+    }
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
 
 module.exports = {
   addUser,
-  getUsers,
   getUser,
   modifyUser,
+  removeUser,
 };

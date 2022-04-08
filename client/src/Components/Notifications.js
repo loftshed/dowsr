@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import ResponsiveContainer from "./ResponsiveContainer";
 import AlertModal from "./AlertModal";
-import { SIZES } from "../styles/constants";
+import { SIZES } from "../Styles/constants";
 import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
-} from "../styles/StyledComponents";
+} from "../Styles/StyledComponents";
 
 const Notifications = () => {
   return (

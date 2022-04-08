@@ -4,12 +4,12 @@
   "proxy": "http://localhost:9001",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.9.0",
     "@react-hook/window-size": "^3.0.7",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "dayjs": "^1.11.0",
-    "dotenv": "^16.0.0",
     "mapbox-gl": "^2.7.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -22,7 +22,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev:client": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
