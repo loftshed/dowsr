@@ -23,8 +23,8 @@ const addUserToDB = async ({
       },
       body: JSON.stringify({
         email: email,
-        family_name: family_name,
-        given_name: given_name,
+        familyName: family_name,
+        givenName: given_name,
         username: nickname,
         avatarUrl: picture,
       }),

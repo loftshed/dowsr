@@ -17,7 +17,7 @@ const ResponsiveContainer = ({ children, heading }) => {
           <InnerContainer>
             {heading && (
               <Heading>
-                <h3>{heading}</h3>
+                <h2>{heading}</h2>
               </Heading>
             )}
             {children}
@@ -73,7 +73,7 @@ const InnerContainer = styled(CenteredFlexColumnDiv)`
 
 const Heading = styled(CenteredFlexRowDiv)`
   width: 100%;
-  height: 40px;
+  height: 60px;
   background-color: var(--color-darkest-grey);
   border-top-left-radius: ${SIZES.borderRadius}px;
   border-top-right-radius: ${SIZES.borderRadius}px;

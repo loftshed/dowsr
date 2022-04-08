@@ -14,7 +14,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import styled /*, { css }*/ from "styled-components";
 import { SIZES } from "../Styles/constants";
-import LoginButton from "./Auth0/LoginButton";
+import LoginButton from "./Auth/LoginButton";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!

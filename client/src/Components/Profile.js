@@ -10,7 +10,7 @@ import {
 import ResponsiveContainer from "./ResponsiveContainer";
 import { SIZES } from "../Styles/constants";
 import data from "../dummydata/data";
-import LogoutButton from "./Auth0/LogoutButton";
+import LogoutButton from "./Auth/LogoutButton";
 
 const Profile = () => {
   const { username, city, region, joinDate, contributions } = data;

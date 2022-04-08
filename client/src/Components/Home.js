@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import MapContainer from "./Map/MapContainer";
 import ResponsiveContainer from "./ResponsiveContainer";
+import FirstLogin from "./Auth/FirstLogin";
 import { useAuth0 } from "@auth0/auth0-react";
 import { SIZES } from "../Styles/constants";
-import { addUserToDB, checkUserEmail } from "./Auth0/userHelpers";
+import { addUserToDB, checkUserEmail } from "./Auth/userHelpers";
 import {
   FlexDiv,
   CenteredFlexRowDiv,
@@ -12,32 +13,36 @@ import {
   ContentGrid,
   FillDiv,
 } from "../Styles/StyledComponents";
+import { AppContext } from "../AppContext";
 
 const Home = () => {
+  const { setUserAddedToDb, userAddedToDb, firstLogin, setFirstLogin } =
+    useContext(AppContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
-
   // TODO: maybe move this action to login button? as something other than a useEffect..?
   // TODO: maybe if user has been found to exist in db, keep in local storage and don't query again
+
   useEffect(() => {
     (async () => {
       try {
         if (user) {
           const { userFound } = await checkUserEmail(user.email);
-          if (!userFound) {
-            console.log("no user found, adding new user");
+          if (!userFound && !userAddedToDb) {
             addUserToDB(user);
+            setUserAddedToDb(true);
+            setFirstLogin(true);
+            return;
           } else {
-            console.log("user already exists");
+            setFirstLogin(false);
           }
         }
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [user]);
 
-  // first check database to see if user email already exists.
-  // if not, add user to database
+  if (firstLogin) return <FirstLogin />;
 
   return (
     <Wrapper>
