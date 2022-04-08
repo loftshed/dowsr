@@ -24,14 +24,17 @@ const addUser = async ({ body }, res) => {
   try {
     console.log(body);
     const newId = uuidv4();
+    const regDate = dayjs().format();
     await client.connect();
     const newUser = await userDb.insertOne({
       _id: newId,
+      regDate: regDate,
       ...body,
     });
     res.status(201).json({
       status: 201,
-      data: { _id: newId },
+      message: "New user added to database.",
+      data: { _id: newId, regDate, ...body },
     });
   } catch (err) {
     err ? console.log(err) : client.close();
