@@ -48,7 +48,7 @@ const Home = () => {
     })();
   }, [user]);
 
-  if (firstLogin || !signupCompleted) return <FirstLogin />;
+  // if (firstLogin || !signupCompleted) return <FirstLogin />;
 
   return (
     <Wrapper>

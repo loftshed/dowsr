@@ -37,6 +37,9 @@ const Menu = () => {
   //     </Wrapper>
   //   );
 
+  // this doesn't work becuase user can tab to access disabled buttons
+  // {firstLogin || (!signupCompleted && <ButtonsDisabled />)}
+
   //TODO: prevent user from accessing any of main page
   // before first login completed?
   //FIXME: not ideal way of doing this below..?
@@ -44,7 +47,6 @@ const Menu = () => {
   return (
     <Wrapper>
       <Content>
-        {firstLogin || (!signupCompleted && <ButtonsDisabled />)}
         {isAuthenticated ? (
           <IconRow>
             <IconNavLink to="/">
