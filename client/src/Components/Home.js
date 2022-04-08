@@ -5,7 +5,7 @@ import ResponsiveContainer from "./ResponsiveContainer";
 import FirstLogin from "./Auth/FirstLogin";
 import { useAuth0 } from "@auth0/auth0-react";
 import { SIZES } from "../Styles/constants";
-import { addUserToDB, checkUserEmail } from "./Auth/userHelpers";
+import { addUserToDB, getUser } from "./Auth/userHelpers";
 import {
   FlexDiv,
   CenteredFlexRowDiv,
@@ -32,7 +32,7 @@ const Home = () => {
     (async () => {
       try {
         if (user) {
-          const { userFound } = await checkUserEmail(user.email);
+          const { userFound } = await getUser(user.email);
           if (!userFound && !userAddedToDb) {
             addUserToDB(user);
             setUserAddedToDb(true);

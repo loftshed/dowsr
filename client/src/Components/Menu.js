@@ -1,4 +1,5 @@
 import {
+  CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   FillDiv,
   IconNavLink,
@@ -31,19 +32,19 @@ const Menu = () => {
   //   return (
   //     <Wrapper>
   //       <Content>
-  //         <CenteredFlexRowDiv style={{ width: "100%" }}>
-  //           <h3>We just need a lil more info...</h3>
-  //         </CenteredFlexRowDiv>
+  //         <CenteredFlexRowDiv style={{ width: "100%" }}></CenteredFlexRowDiv>
   //       </Content>
   //     </Wrapper>
   //   );
 
   //TODO: prevent user from accessing any of main page
   // before first login completed?
+  //FIXME: not ideal way of doing this below..?
 
   return (
     <Wrapper>
       <Content>
+        {firstLogin || (!signupCompleted && <ButtonsDisabled />)}
         {isAuthenticated ? (
           <IconRow>
             <IconNavLink to="/">
@@ -85,6 +86,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   }
 `;
 const Content = styled(FillDiv)`
+  position: relative;
   width: 600px;
   background-color: var(--color-darkest-grey);
   border-radius: 10px;
@@ -116,4 +118,15 @@ const IconRow = styled(CenteredFlexRowDiv)`
 
 const LoginContainer = styled(CenteredFlexRowDiv)`
   width: 100%;
+`;
+
+const ButtonsDisabled = styled(CenteredFlexColumnDiv)`
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: ${SIZES.borderRadius}px;
+  backdrop-filter: blur(2px);
+  padding: 5px 10px;
 `;
