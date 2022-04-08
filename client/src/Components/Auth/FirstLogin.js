@@ -8,10 +8,12 @@ const FirstLogin = () => {
     <Wrapper>
       <ResponsiveContainer heading={"Welcome!"}>
         <Content>
-          <Heading>
-            <h3>Thanks for signing up! We just need a few more details...</h3>
-          </Heading>
-          <Signup></Signup>
+          <Heading></Heading>
+          <Signup>
+            <input></input>
+            <input></input>
+            <input></input>
+          </Signup>
         </Content>
       </ResponsiveContainer>
     </Wrapper>
@@ -29,8 +31,18 @@ const Content = styled(CenteredFlexColumnDiv)`
   width: 100%;
   height: 100%;
   padding: ${SIZES.universalPadding}px;
+  justify-content: flex-start;
 `;
 
-const Heading = styled(CenteredFlexColumnDiv)``;
+const Heading = styled(CenteredFlexColumnDiv)`
+  text-align: center;
+  width: 60%;
+`;
 
-const Signup = styled.form``;
+const Signup = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  border-radius: ${SIZES.borderRadius}px;
+`;

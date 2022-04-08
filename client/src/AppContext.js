@@ -6,6 +6,7 @@ export const AppProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [userAddedToDb, setUserAddedToDb] = useState(null);
   const [firstLogin, setFirstLogin] = useState(null);
+  const [signupCompleted, setSignupCompleted] = useState(null);
 
   return (
     <AppContext.Provider
@@ -16,6 +17,8 @@ export const AppProvider = ({ children }) => {
         setUserAddedToDb,
         firstLogin,
         setFirstLogin,
+        signupCompleted,
+        setSignupCompleted,
       }}
     >
       {children}

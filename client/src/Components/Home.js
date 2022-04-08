@@ -16,8 +16,14 @@ import {
 import { AppContext } from "../AppContext";
 
 const Home = () => {
-  const { setUserAddedToDb, userAddedToDb, firstLogin, setFirstLogin } =
-    useContext(AppContext);
+  const {
+    setUserAddedToDb,
+    userAddedToDb,
+    firstLogin,
+    setFirstLogin,
+    signupCompleted,
+    setSignupCompleted,
+  } = useContext(AppContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
   // TODO: maybe move this action to login button? as something other than a useEffect..?
   // TODO: maybe if user has been found to exist in db, keep in local storage and don't query again
@@ -42,7 +48,7 @@ const Home = () => {
     })();
   }, [user]);
 
-  if (firstLogin) return <FirstLogin />;
+  if (firstLogin || !signupCompleted) return <FirstLogin />;
 
   return (
     <Wrapper>
@@ -69,7 +75,7 @@ const Home = () => {
 export default Home;
 
 const Wrapper = styled(FillDiv)`
-  background-color: var(--color-dark-blue);
+  background-color: var(--color-dark-grey);
   width: 100%;
 `;
 

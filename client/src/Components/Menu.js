@@ -15,6 +15,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled /*, { css }*/ from "styled-components";
 import { SIZES } from "../Styles/constants";
 import LoginButton from "./Auth/LoginButton";
+import { useContext } from "react";
+import { AppContext } from "../AppContext";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
@@ -22,7 +24,20 @@ import LoginButton from "./Auth/LoginButton";
 //FIXME: icon positioning within circles..
 
 const Menu = () => {
+  const { firstLogin, signupCompleted } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth0();
+
+  if (firstLogin || !signupCompleted)
+    return (
+      <Wrapper>
+        <Content>
+          <CenteredFlexRowDiv style={{ width: "100%" }}>
+            <h3>We just need a lil more info...</h3>
+          </CenteredFlexRowDiv>
+        </Content>
+      </Wrapper>
+    );
+
   return (
     <Wrapper>
       <Content>

@@ -73,8 +73,9 @@ const InnerContainer = styled(CenteredFlexColumnDiv)`
 
 const Heading = styled(CenteredFlexRowDiv)`
   width: 100%;
-  height: 60px;
+  height: 65px;
   background-color: var(--color-darkest-grey);
   border-top-left-radius: ${SIZES.borderRadius}px;
   border-top-right-radius: ${SIZES.borderRadius}px;
+  border-bottom: 1.5px solid var(--color-medium-grey);
 `;

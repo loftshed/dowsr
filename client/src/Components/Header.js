@@ -15,7 +15,7 @@ const Header = () => {
 export default Header;
 const HeaderWrapper = styled(FillDiv)`
   justify-content: center;
-  background-color: var(--color-med-blue);
+  background-color: #05181e;
   box-shadow: 2px 2px 2px 10px var(--color-green);
   z-index: 5;
   height: ${SIZES.lrgHeader}px;
