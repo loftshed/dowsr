@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import ResponsiveContainer from "../ResponsiveContainer";
-import { FillDiv, CenteredFlexColumnDiv } from "../../Styles/StyledComponents";
+import {
+  FillDiv,
+  CenteredFlexColumnDiv,
+  Input,
+  CenteredFlexRowDiv,
+} from "../../Styles/StyledComponents";
+import { completeSignup } from "./userHelpers";
 import { SIZES } from "../../Styles/constants";
 
 const FirstLogin = () => {
@@ -10,9 +16,12 @@ const FirstLogin = () => {
         <Content>
           <Heading></Heading>
           <Signup>
-            <input></input>
-            <input></input>
-            <input></input>
+            <CenteredFlexRowDiv>
+              <Input />
+              <Input />
+              <Input />
+            </CenteredFlexRowDiv>
+            <Input />
           </Signup>
         </Content>
       </ResponsiveContainer>
@@ -42,6 +51,7 @@ const Heading = styled(CenteredFlexColumnDiv)`
 const Signup = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
   gap: 10px;
   border-radius: ${SIZES.borderRadius}px;

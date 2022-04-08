@@ -35,4 +35,19 @@ const addUserToDB = async ({
   }
 };
 
-export { checkUserEmail, addUserToDB };
+const completeSignup = async () => {
+  const response = await fetch("/api/modify-user", {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  });
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { checkUserEmail, addUserToDB, completeSignup };

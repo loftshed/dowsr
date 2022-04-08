@@ -70,6 +70,15 @@ const IconNavLink = styled(NavLink)`
   }
 `;
 
+const Input = styled.input`
+  border-radius: ${SIZES.borderRadius}px;
+  background-color: var(--color-dark-grey);
+  font-weight: 600;
+  line-height: 25px;
+  padding: 5px 10px;
+  border: 1px solid var(--color-extra-medium-grey);
+`;
+
 const pageWidth = document.documentElement.clientWidth;
 
 export {
@@ -82,4 +91,5 @@ export {
   TextButton,
   pageWidth,
   IconNavLink,
+  Input,
 };

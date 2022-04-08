@@ -27,16 +27,19 @@ const Menu = () => {
   const { firstLogin, signupCompleted } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth0();
 
-  if (firstLogin || !signupCompleted)
-    return (
-      <Wrapper>
-        <Content>
-          <CenteredFlexRowDiv style={{ width: "100%" }}>
-            <h3>We just need a lil more info...</h3>
-          </CenteredFlexRowDiv>
-        </Content>
-      </Wrapper>
-    );
+  // if (firstLogin || !signupCompleted)
+  //   return (
+  //     <Wrapper>
+  //       <Content>
+  //         <CenteredFlexRowDiv style={{ width: "100%" }}>
+  //           <h3>We just need a lil more info...</h3>
+  //         </CenteredFlexRowDiv>
+  //       </Content>
+  //     </Wrapper>
+  //   );
+
+  //TODO: prevent user from accessing any of main page
+  // before first login completed?
 
   return (
     <Wrapper>
