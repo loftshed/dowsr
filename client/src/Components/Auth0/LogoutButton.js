@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import { TextButton } from "../../styles/StyledComponents";
-import { SIZES } from "../../styles/constants";
+import { TextButton } from "../../Styles/StyledComponents";
+import { SIZES } from "../../Styles/constants";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();

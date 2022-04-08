@@ -2,29 +2,27 @@ import {
   CenteredFlexRowDiv,
   FillDiv,
   IconNavLink,
-} from "../styles/StyledComponents";
+} from "../Styles/StyledComponents";
 import {
   SearchIcon,
   MapIcon,
   HeartIcon,
   NotificationIcon,
   ProfileIcon,
-} from "../styles/Icons";
+} from "../Styles/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import styled /*, { css }*/ from "styled-components";
-import { SIZES } from "../styles/constants";
+import { SIZES } from "../Styles/constants";
 import LoginButton from "./Auth0/LoginButton";
 
 //TODO: make menu collapse with click of a button.
+//TODO: make profile icon change to user avatar when logged in!
 //STRETCH: make button appear on left/right side of screen according to user settings.
 //FIXME: icon positioning within circles..
 
 const Menu = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user);
-  console.log(isAuthenticated);
-  console.log(isLoading);
+  const { user, isAuthenticated } = useAuth0();
   return (
     <Wrapper>
       <Content>

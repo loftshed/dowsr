@@ -4,8 +4,8 @@ import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   FlexDiv,
-} from "../styles/StyledComponents";
-import { SIZES } from "../styles/constants";
+} from "../Styles/StyledComponents";
+import { SIZES } from "../Styles/constants";
 import Profile from "./Profile";
 import Notifications from "./Notifications";
 

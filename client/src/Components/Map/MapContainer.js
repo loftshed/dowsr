@@ -21,7 +21,7 @@ const MapContainer = () => {
     <>
       {userLocation && (
         <>
-          {/* <p>no map rn to save on api calls :(</p> */}
+          <p>no map rn to save on api calls :(</p>
           {/* <Map
             mapboxAccessToken={MAPBOX_API_KEY}
             initialViewState={{

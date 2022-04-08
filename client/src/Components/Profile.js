@@ -6,9 +6,9 @@ import {
   CenteredFlexRowDiv,
   FlexDiv,
   AbsoluteDiv,
-} from "../styles/StyledComponents";
+} from "../Styles/StyledComponents";
 import ResponsiveContainer from "./ResponsiveContainer";
-import { SIZES } from "../styles/constants";
+import { SIZES } from "../Styles/constants";
 import data from "../dummydata/data";
 import LogoutButton from "./Auth0/LogoutButton";
 

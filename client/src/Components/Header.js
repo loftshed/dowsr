@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { FlexDiv, FillDiv } from "../styles/StyledComponents";
-import { SIZES } from "../styles/constants";
+import { FlexDiv, FillDiv } from "../Styles/StyledComponents";
+import { SIZES } from "../Styles/constants";
 
 const Header = () => {
   return (

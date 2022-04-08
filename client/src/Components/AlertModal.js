@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { CenteredFlexColumnDiv, FlexDiv } from "../styles/StyledComponents";
-import { SIZES } from "../styles/constants";
+import { CenteredFlexColumnDiv, FlexDiv } from "../Styles/StyledComponents";
+import { SIZES } from "../Styles/constants";
 
 const AlertModal = ({ children }) => {
   return <ModalWrapper>{children}</ModalWrapper>;

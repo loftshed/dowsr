@@ -7,7 +7,7 @@ import {
   CenteredFlexRowDiv,
   TextButton,
   pageWidth,
-} from "../../styles/StyledComponents";
+} from "../src/styles/StyledComponents";
 import {
   CircledArrowRight,
   SearchIcon,
@@ -17,14 +17,14 @@ import {
   NotificationIcon,
   ChatIcon,
   ProfileIcon,
-} from "../../styles/Icons";
+} from "../src/styles/Icons";
 import {
   rotate180,
   unrotate180,
   drawerIn,
   drawerOut,
-} from "../../styles/Animations";
-import { SIZES } from "../../styles/constants";
+} from "../src/styles/Animations";
+import { SIZES } from "../src/styles/constants";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
