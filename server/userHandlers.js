@@ -20,9 +20,12 @@ const db = client.db("final");
 const userDb = db.collection("users");
 /*--------------------------------------*/
 
+// Adds a new user to MongoDB.
+// In the body, expects a user object to be sent in JSON format.
+// An ID and a registration date will be inserted into the object by the backend upon new user creation.
+
 const addUser = async ({ body }, res) => {
   try {
-    console.log(body);
     const newId = uuidv4();
     const regDate = dayjs().format();
     await client.connect();
@@ -33,7 +36,7 @@ const addUser = async ({ body }, res) => {
     });
     res.status(201).json({
       status: 201,
-      message: "New user added to database.",
+      message: `New user with email '${body.email}' successfully added to the database.`,
       data: { _id: newId, regDate, ...body },
     });
   } catch (err) {
@@ -42,37 +45,69 @@ const addUser = async ({ body }, res) => {
   }
 };
 
-const getUsers = async (req, res) => {
+// Returns users stored in MongoDB.
+// Takes one of two parameters in query, depending on your request.
+// If you wish to return a single user, query key should be "email", and the value should be the user's email address.
+// If you wish to return all users, query key should be "all," with bool value "true".
+
+const getUser = async ({ query: { email, all } }, res) => {
   try {
     await client.connect();
-    const allUsers = await userDb.find().toArray();
-    allUsers
-      ? res.status(200).json({ status: 200, data: allUsers })
-      : res.status(500).json({ status: 500, message: "Something went wrong." });
+    let returnedUsers;
+    all
+      ? (returnedUsers = await userDb.find().toArray())
+      : (returnedUsers = await userDb.findOne({ email: email }));
+    returnedUsers
+      ? res
+          .status(200)
+          .json({ status: 200, userFound: true, data: returnedUsers })
+      : res.status(500).json({
+          status: 500,
+          userFound: false,
+          message:
+            "Your query did not return any users. For more info, refer to documentation.",
+        });
   } catch (err) {
     err ? console.log(err) : client.close();
   }
 };
 
-//
-// Get a single user from the database - expects ------>
-//
-// In req.query : 'userId'.
-//
-
-const getUser = async ({ query: { email } }, res) => {
+const modifyUser = async ({ query: { email }, body }, res) => {
   try {
     await client.connect();
-    const returnedUser = await userDb.findOne({ email: email });
-    returnedUser
+    const modifiedUser = await userDb.updateOne(
+      { email: email },
+      { $set: body }
+    );
+    modifiedUser
       ? res
           .status(200)
-          .json({ status: 200, userFound: true, data: returnedUser })
+          .json({ status: 200, userFound: true, data: modifiedUser })
       : res.status(500).json({
           status: 500,
           userFound: false,
-          message: "Something went wrong.",
+          message:
+            "Your query did not return any users. For more info, refer to documentation.",
         });
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
+const removeUser = async ({ query: { email } }, res) => {
+  try {
+    await client.connect();
+    const { acknowledged, deletedCount } = await userDb.deleteOne({
+      email: email,
+    });
+    if (deletedCount) {
+      console.log({
+        message: `${deletedCount} user account deleted successfully.`,
+      });
+      res.status(204).json({ status: 204 });
+    } else {
+      res.status(500).json({ status: 500, message: "ID not found." });
+    }
   } catch (err) {
     err ? console.log(err) : client.close();
   }
@@ -80,6 +115,7 @@ const getUser = async ({ query: { email } }, res) => {
 
 module.exports = {
   addUser,
-  getUsers,
   getUser,
+  modifyUser,
+  removeUser,
 };
