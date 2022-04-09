@@ -36,12 +36,15 @@ const addUser = async ({ body }, res) => {
     });
     res.status(201).json({
       status: 201,
+      success: true,
       message: `New user with email '${body.email}' successfully added to the database.`,
       data: { _id: newId, regDate, ...body },
     });
   } catch (err) {
     err ? console.log(err) : client.close();
-    res.status(500).json({ status: 500, data: body, error: err });
+    res
+      .status(500)
+      .json({ status: 500, success: false, data: body, error: err });
   }
 };
 

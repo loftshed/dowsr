@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import ResponsiveContainer from "./ResponsiveContainer";
 import AlertModal from "./AlertModal";
-import { SIZES } from "../Styles/constants";
+import { SIZES } from "../Styling/constants";
 import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
-} from "../Styles/StyledComponents";
+} from "../Styling/StyledComponents";
 
 // messaging capabilities
 // get individual message?? or just a thread..

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CenteredFlexColumnDiv } from "./Styles/StyledComponents";
-import { SIZES } from "./Styles/constants";
+import { CenteredFlexColumnDiv } from "./Styling/StyledComponents";
+import { SIZES } from "./Styling/constants";
 import GlobalStyle from "./Styling/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Components/Header";
