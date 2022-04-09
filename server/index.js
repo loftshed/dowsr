@@ -4,8 +4,19 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-
 const app = express();
+
+/*-----------------
+| socket.io stuff |
+-----------------*/
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+});
 
 /*-----------
 | handlers |
