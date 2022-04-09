@@ -27,10 +27,10 @@ export default Chat;
 
 const ChatWrapper = styled(FillDiv)`
   flex-direction: column;
-  background-color: var(--color-medium-grey);
+  background-color: var(--color-super-dark-grey);
   border-radius: 5px;
-  padding: 1px;
-  gap: 1px;
+  padding: 3px;
+  gap: 4px;
   width: 100%;
   height: 100%;
 `;
@@ -42,7 +42,7 @@ const ChatBody = styled(FillDiv)`
   padding: 5px;
   width: 100%;
   height: 100%;
-  background-color: var(--color-less-dark-grey);
+  background-color: var(--color-darkest-grey);
 `;
 
 const InputArea = styled(FillDiv)`
@@ -55,8 +55,8 @@ const InputArea = styled(FillDiv)`
 const ChatInput = styled.input`
   width: 100%;
   padding: 5px;
-  background-color: var(--color-darkest-grey);
-  border: 1px solid var(--color-darkest-grey);
+  background-color: var(--color-less-dark-grey);
+  border: px solid var(--color-darkest-grey);
   line-height: 30px;
   border-radius: 5px;
 `;
@@ -65,6 +65,5 @@ const SendButton = styled(TextButton)`
   border-radius: 3px;
   border: none;
   height: 95%;
-  width: 80px;
-  padding: 2px;
+  padding: 2px 10px;
 `;

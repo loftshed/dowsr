@@ -28,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
       --color-less-dark-grey: #444948;
       --color-darkest-grey: #353535;
       --color-extra-medium-grey: #8d8d92;
+      --color-super-dark-grey: #1e1e1e;
       --color-medium-grey: #d3d0cb;
       --color-light-grey: #e7e5df;
       --color-teal: #44bba4;
@@ -60,7 +61,9 @@ const GlobalStyle = createGlobalStyle`
     }
     h2 {
       font-size: 30px;
-      
+      @media (max-width: 450px) {
+        font-size: 22px;
+      }
     }
     h3 {
       font-size: 20px;

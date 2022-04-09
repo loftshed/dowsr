@@ -25,6 +25,7 @@ import { AppContext } from "../AppContext";
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
 //STRETCH: make button appear on left/right side of screen according to user settings.
+//TODO: GET NAVLINK HIGHLIGHT WORKING~!!
 //FIXME: icon positioning within circles..
 
 const Menu = () => {
