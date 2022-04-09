@@ -41,7 +41,8 @@ const GlobalStyle = createGlobalStyle`
     * {
       font-weight: 500;
       color: var(--color-light-grey);
-      font-family: 'Lato', sans-serif;
+      /* font-family: 'Lato', sans-serif; */
+      font-family: "Karla";
     }
     
     p {

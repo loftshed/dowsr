@@ -64,7 +64,7 @@ const ChatInput = styled.input`
 const SendButton = styled(TextButton)`
   border-radius: 3px;
   border: none;
-  height: 100%;
+  height: 95%;
   width: 80px;
   padding: 2px;
 `;

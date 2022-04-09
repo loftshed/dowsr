@@ -23,6 +23,8 @@ const TileWrapper = styled(CenteredFlexColumnDiv)`
 `;
 
 const Heading = styled(FlexDiv)`
+  font-family: Karla;
+  font-size: 14px;
   width: 100%;
   padding: 0px 5px;
   background-color: var(--color-almost-darkest-blue);
