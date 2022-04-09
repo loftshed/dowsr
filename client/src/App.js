@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CenteredFlexColumnDiv } from "./Styles/StyledComponents";
 import { SIZES } from "./Styles/constants";
-import GlobalStyle from "./Styles/GlobalStyles";
+import GlobalStyle from "./Styling/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
@@ -9,6 +9,7 @@ import Menu from "./Components/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
 import Messages from "./Components/Messages";
+import Error from "./Components/Error";
 import Saved from "./Components/Saved";
 import AlertModal from "./Components/AlertModal";
 import LoginButton from "./Components/Auth/LoginButton";
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/messages" element={<Messages />} />
             <Route path="/saved" element={<Home saved={true} />} />
             <Route path="/search" element={<Home search={true} />} />
+            <Route path="/error" element={<Error />} />
           </Routes>
         </Content>
         <Menu />

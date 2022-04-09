@@ -7,13 +7,8 @@ const getUser = async (email) => {
   }
 };
 
-const addUserToDB = async ({
-  email,
-  family_name,
-  given_name,
-  nickname,
-  picture,
-}) => {
+//TODO: turn add/modify user into a single function that switches purpose with an argument..
+const addNewUser = async ({ target }, user) => {
   try {
     const response = await fetch("/api/add-user", {
       method: "POST",
@@ -22,20 +17,28 @@ const addUserToDB = async ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email,
-        familyName: family_name,
-        givenName: given_name,
-        username: nickname,
-        avatarUrl: picture,
+        email: user.email,
+        givenName: target.firstName.value,
+        middleInitial: target.middleName.value,
+        familyName: target.lastName.value,
+        username: target.username.value,
+        birthdate: target.birthdate.value,
+        gender: target.gender.value,
+        city: target.city.value,
+        country: target.country.value,
+        region: target.region.value,
+        avatarUrl: user.picture,
+        contributions: 0,
       }),
     });
-    console.log(await response.json());
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.log(error);
   }
 };
 
-const completeSignup = async ({ target }) => {
+const modifyUser = async ({ target }) => {
   console.log(target.firstName.value);
   try {
     const response = await fetch(
@@ -62,4 +65,4 @@ const completeSignup = async ({ target }) => {
   }
 };
 
-export { getUser, addUserToDB, completeSignup };
+export { getUser, addNewUser, modifyUser };

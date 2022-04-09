@@ -8,33 +8,46 @@ import {
   Select,
   Option,
   buttonAnim,
-} from "../../Styles/StyledComponents";
-import { useState } from "react";
+} from "../../Styling/StyledComponents";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { countryData } from "./data/states-provinces";
-import { SIZES } from "../../Styles/constants";
-import { completeSignup } from "./userHelpers";
+import { SIZES } from "../../Styling/constants";
+import { addNewUser } from "./userHelpers";
+import { AppContext } from "../../AppContext";
 
 const FirstLogin = () => {
   //TODO: make this responsive
-  //TODO: onsubmit redirect. maybe change signup flow so form is requested before values first submitted to db..?
+  //TODO: highlight missing required fields on submit
+  const { setFirstLogin } = useContext(AppContext);
   const [regions, setRegions] = useState([]);
+  const navigate = useNavigate();
   const { user } = useAuth0();
 
   return (
     <Wrapper>
       <ResponsiveContainer heading={"Welcome!"}>
         <Content>
+          <p style={{ fontSize: "12px" }}>Please complete your registration.</p>
           <Signup
-            onSubmit={(ev) => {
+            onSubmit={async (ev) => {
               ev.preventDefault();
-              completeSignup(ev);
+              const { success } = await addNewUser(ev, user);
+              if (success) {
+                //TODO: LOADING SPINNER... success!
+                setFirstLogin(false);
+                navigate("/profile");
+              } else {
+                //TODO: LOADING SPINNER... failure :(
+                navigate("/error");
+              }
             }}
           >
-            <InputColumn style={{ gap: "10px" }}>
+            <InputColumn style={{ gap: "5px" }}>
               <InputRow>
                 <InputColumn style={{ width: "70%" }}>
-                  <Label htmlFor="firstName">First name</Label>
+                  <Label htmlFor="firstName">First name*</Label>
                   <Input
                     id="firstName"
                     name="firstName"
@@ -54,7 +67,7 @@ const FirstLogin = () => {
               </InputRow>
               <InputRow>
                 <InputColumn>
-                  <Label htmlFor="lastName">Last name</Label>
+                  <Label htmlFor="lastName">Last name*</Label>
                   <Input
                     id="lastName"
                     name="lastName"
@@ -83,12 +96,12 @@ const FirstLogin = () => {
               </InputRow>
               <InputRow>
                 <InputColumn>
-                  <Label htmlFor="email">E-mail address</Label>
+                  <Label htmlFor="username">Username</Label>
                   <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={user?.email}
+                    id="username"
+                    name="username"
+                    type="username"
+                    defaultValue={user?.nickname}
                   />
                 </InputColumn>
               </InputRow>
