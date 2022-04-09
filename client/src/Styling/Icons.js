@@ -26,6 +26,7 @@ const BurgerMenuIcon = styled(TiThMenu)`
   width: 30px;
   height: 30px;
 `;
+
 export {
   CircledArrowRight,
   SearchIcon,

@@ -31,6 +31,7 @@ const Profile = () => {
   }, [isLoading]);
 
   if (isLoading) return <>Loading...</>;
+
   if (!loggedInUser) return null;
   const {
     email,

@@ -12,6 +12,7 @@ import {
   NotificationIcon,
   ProfileIcon,
   BurgerMenuIcon,
+  ChatIcon,
 } from "../Styling/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -57,12 +58,11 @@ const Menu = () => {
             <IconNavLink to="/search">
               <SearchIcon />
             </IconNavLink>
-
             <IconNavLink to="/notifications">
               <NotificationIcon />
             </IconNavLink>
-            <IconNavLink to="/saved">
-              <HeartIcon />
+            <IconNavLink to="/messages">
+              <ChatIcon />
             </IconNavLink>
             <IconNavLink to="/profile">
               <ProfileIcon />

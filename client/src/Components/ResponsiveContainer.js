@@ -52,7 +52,8 @@ const OuterContainer = styled(CenteredFlexColumnDiv)`
     width: 80%;
   }
   @media (min-width: 525px) {
-    width: 525px;
+    width: 100%;
+    max-width: 725px;
   }
 
   box-shadow: 1.8px 1.6px 4px rgba(0, 0, 0, 0.02),

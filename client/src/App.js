@@ -8,7 +8,7 @@ import Home from "./Components/Home";
 import Menu from "./Components/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
-import Messages from "./Components/Messages";
+import Messages from "./Components/Messages/Messages";
 import Error from "./Components/Error";
 import Saved from "./Components/Saved";
 import AlertModal from "./Components/AlertModal";
