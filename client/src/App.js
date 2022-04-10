@@ -13,8 +13,33 @@ import Error from "./Components/Error";
 import Saved from "./Components/Saved";
 import AlertModal from "./Components/AlertModal";
 import LoginButton from "./Components/Auth/LoginButton";
+import { useContext, useEffect } from "react";
+import { AppContext } from "./Context/AppContext";
+import { useAuth0 } from "@auth0/auth0-react";
+import { getUser } from "./Components/Auth/userHelpers";
+import { getThreads } from "./Components/Messages/chatHelpers";
 
 const App = () => {
+  const {
+    firstLogin,
+    setFirstLogin,
+    loggedInUser,
+    setLoggedInUser,
+    setThreads,
+  } = useContext(AppContext);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  useEffect(() => {
+    (async () => {
+      if (!isLoading) {
+        const { data } = await getUser(user.email);
+        setLoggedInUser(data);
+        const { threads } = await getThreads(data._id);
+        setThreads(threads);
+      }
+    })();
+  }, [isLoading, user]);
+
   return (
     <BrowserRouter id="root">
       <GlobalStyle />

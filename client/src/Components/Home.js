@@ -16,7 +16,8 @@ import {
 import { AppContext } from "../Context/AppContext";
 
 const Home = () => {
-  const { firstLogin, setFirstLogin } = useContext(AppContext);
+  const { firstLogin, setFirstLogin, loggedInUser, setLoggedInUser } =
+    useContext(AppContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
   // TODO: maybe move this action to login button? as something other than a useEffect..?
   // TODO: maybe if user has been found to exist in db, keep in local storage and don't query again

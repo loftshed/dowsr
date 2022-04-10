@@ -10,43 +10,24 @@ import ResponsiveContainer from "./ResponsiveContainer";
 import { SIZES } from "../Styling/constants";
 import LogoutButton from "./Auth/LogoutButton";
 import { getUser } from "./Auth/userHelpers";
-import { useEffect, useState } from "react";
+import { useEffect, useContext } from "react";
 import dayjs from "dayjs";
 import Flag from "react-world-flags";
 import { BurgerMenuIcon } from "../Styling/Icons";
+import { AppContext } from "../Context/AppContext";
 
 const Profile = () => {
-  const [loggedInUser, setLoggedInUser] = useState({});
-  const { user, isLoading } = useAuth0();
+  const { loggedInUser } = useContext(AppContext);
+  const { isLoading } = useAuth0();
 
   //TODO: button to edit profile!
   //+ click profile image to magnify?
-  useEffect(() => {
-    (async () => {
-      if (!isLoading) {
-        const { data } = await getUser(user.email);
-        setLoggedInUser(data);
-      }
-    })();
-  }, [isLoading]);
 
   if (isLoading) return <>Loading...</>;
 
   if (!loggedInUser) return null;
-  const {
-    email,
-    givenName,
-    middleInitial,
-    familyName,
-    birthday,
-    username,
-    city,
-    country,
-    region,
-    avatarUrl,
-    contributions,
-    regDate,
-  } = loggedInUser;
+  const { username, city, country, region, avatarUrl, contributions, regDate } =
+    loggedInUser;
 
   return (
     <ResponsiveContainer>
@@ -61,16 +42,12 @@ const Profile = () => {
 
         <Location>{`${city}, ${region}`}</Location>
 
-        {/* <Details> */}
         <Details>
           <ul>
             <li>{contributions} followers</li>
             <li>{contributions} contributions</li>
             <li>Member since {dayjs(regDate).format("MMMM YYYY")}</li>
           </ul>
-          {/* <p>{contributions} contributions</p> */}
-          {/* <p>Member since {dayjs(regDate).format("MMMM YYYY")}</p> */}
-          {/* </Details> */}
         </Details>
 
         <ProfileChin>

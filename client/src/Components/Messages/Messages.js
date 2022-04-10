@@ -9,21 +9,49 @@ import {
 } from "../../Styling/StyledComponents";
 import Chat from "./Chat";
 import ThreadTile from "./ThreadTile";
+import { useContext, useEffect, useState } from "react";
+import { getThreads } from "./chatHelpers";
+import { AppContext } from "../../Context/AppContext";
 
 //TODO: by default, the most recent thread should be displayed.
 //TODO: should be some type of indicator for threads with new messages.
 //TODO: implement react-spring for scrolling through messages/threads
 
 const Messages = () => {
+  const {
+    loggedInUser: { _id },
+    threads,
+    viewedThread,
+  } = useContext(AppContext);
+
+  const handleTileClick = (id) => {
+    console.log(id);
+  };
+
+  if (threads.length < 1) return <div>loading</div>;
+
   return (
     <ResponsiveContainer heading={"Messages"}>
       <LayoutContainer>
         <Sidebar>
-          <ThreadTile user={"@jimjam"} children={"Hezzagoin???"} />
-          <ThreadTile user={"@flimflam"} children={"oi m8 👋"} />
+          <>
+            {threads.map((el) => {
+              const { _id, messages } = el;
+              const { sent, handle, message } = messages[messages.length - 1];
+              return (
+                <ThreadTile
+                  key={_id}
+                  id={_id}
+                  user={`@${handle}`}
+                  message={`${message}`}
+                  time={sent}
+                />
+              );
+            })}
+          </>
         </Sidebar>
         <MessagesContainer>
-          <Chat />
+          <Chat thread={viewedThread} />
         </MessagesContainer>
       </LayoutContainer>
     </ResponsiveContainer>
@@ -63,4 +91,5 @@ const Sidebar = styled(FlexDiv)`
     width: fit-content;
   }
   overflow: hidden;
+  /* overflow-y: scroll; */
 `;
