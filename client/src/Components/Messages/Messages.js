@@ -14,6 +14,8 @@ import { getThreads } from "./chatHelpers";
 import { AppContext } from "../../Context/AppContext";
 
 //TODO: by default, the most recent thread should be displayed.
+//TODO: use userefs for that?
+
 //TODO: should be some type of indicator for threads with new messages.
 //TODO: implement react-spring for scrolling through messages/threads
 
@@ -37,14 +39,16 @@ const Messages = () => {
           <>
             {threads.map((el) => {
               const { _id, messages } = el;
-              const { sent, handle, message } = messages[messages.length - 1];
+              const { sent, handle, message, userId } =
+                messages[messages.length - 1];
               return (
                 <ThreadTile
                   key={_id}
-                  id={_id}
+                  threadId={_id}
                   user={`@${handle}`}
                   message={`${message}`}
                   time={sent}
+                  userId={userId}
                 />
               );
             })}

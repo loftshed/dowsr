@@ -5,14 +5,8 @@ import ResponsiveContainer from "./ResponsiveContainer";
 import FirstLogin from "./Auth/FirstLogin";
 import { useAuth0 } from "@auth0/auth0-react";
 import { SIZES } from "../Styling/constants";
-import { addUserToDB, getUser } from "./Auth/userHelpers";
-import {
-  FlexDiv,
-  CenteredFlexRowDiv,
-  CenteredFlexColumnDiv,
-  ContentGrid,
-  FillDiv,
-} from "../Styling/StyledComponents";
+import { getUser } from "./Auth/userHelpers";
+import { CenteredFlexColumnDiv, FillDiv } from "../Styling/StyledComponents";
 import { AppContext } from "../Context/AppContext";
 
 const Home = () => {
@@ -27,7 +21,7 @@ const Home = () => {
     (async () => {
       try {
         if (user) {
-          const { userFound } = await getUser(user.email);
+          const { userFound } = await getUser("email", user.email);
           if (!userFound) setFirstLogin(true);
         }
       } catch (error) {

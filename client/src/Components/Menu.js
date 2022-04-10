@@ -26,23 +26,10 @@ import { AppContext } from "../Context/AppContext";
 //TODO: make profile icon change to user avatar when logged in!
 //STRETCH: make button appear on left/right side of screen according to user settings.
 //TODO: GET NAVLINK HIGHLIGHT WORKING~!!
-//FIXME: icon positioning within circles..
 
 const Menu = () => {
   const { firstLogin, signupCompleted } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth0();
-
-  // if (firstLogin || !signupCompleted)
-  //   return (
-  //     <Wrapper>
-  //       <Content>
-  //         <CenteredFlexRowDiv style={{ width: "100%" }}></CenteredFlexRowDiv>
-  //       </Content>
-  //     </Wrapper>
-  //   );
-
-  // this doesn't work becuase user can tab to access disabled buttons
-  // {firstLogin || (!signupCompleted && <ButtonsDisabled />)}
 
   //TODO: prevent user from accessing any of main page
   // before first login completed?
@@ -94,10 +81,10 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   position: absolute;
   height: ${SIZES.menuHeightCompact}px;
   width: calc(100vw);
-  bottom: 20px;
+  bottom: ${SIZES.topBottomPadding}px;
   z-index: 1;
   @media (max-width: ${SIZES.widthMin}px) {
-    width: 90%;
+    width: calc(100% - ${SIZES.smallPadding}px*2);
   }
 `;
 const Content = styled(FillDiv)`

@@ -3,25 +3,36 @@ import { CenteredFlexColumnDiv, FlexDiv } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 import { useWindowWidth } from "@react-hook/window-size";
 import dayjs, { relativeTime } from "dayjs";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
+import { getUser } from "../Auth/userHelpers";
 
-const ThreadTile = ({ id, user, time, message }) => {
-  const { setViewedThread } = useContext(AppContext);
+const ThreadTile = ({ threadId, userId, user, time, message }) => {
+  const { setViewedThread, viewedThread } = useContext(AppContext);
+  const [avatarUrl, setAvatarUrl] = useState("");
   const collapseToAvatar = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
+
+  useEffect(() => {
+    (async () => {
+      const {
+        data: { avatarUrl },
+      } = await getUser("id", userId);
+      setAvatarUrl(avatarUrl);
+    })();
+  }, []);
 
   return (
     <TileWrapper
       small={collapseToAvatar}
       onClick={(ev) => {
-        setViewedThread(id);
+        setViewedThread(threadId);
       }}
     >
       {collapseToAvatar ? (
         <>
-          <Avatar src="/avatar.jpg" />
+          <Avatar src={avatarUrl} />
         </>
       ) : (
         <>

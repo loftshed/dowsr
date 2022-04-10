@@ -32,9 +32,9 @@ const App = () => {
   useEffect(() => {
     (async () => {
       if (!isLoading) {
-        const { data } = await getUser(user.email);
+        const { data } = await getUser("email", user?.email);
         setLoggedInUser(data);
-        const { threads } = await getThreads(data._id);
+        const { threads } = await getThreads(data?._id);
         setThreads(threads);
       }
     })();

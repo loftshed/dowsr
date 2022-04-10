@@ -32,16 +32,15 @@ export default ResponsiveContainer;
 
 const Wrapper = styled(FillDiv)`
   background-color: var(--color-dark-grey);
-
-  /* justify-content: flex-start; /// testing */
 `;
 
 const Content = styled(CenteredFlexColumnDiv)`
   width: 100%;
   height: calc(
-    100% - ${SIZES.menuHeightCompact}px - ${SIZES.universalPadding}px
+    100% - ${SIZES.menuHeightCompact}px - ${SIZES.topBottomPadding}px
   );
-  padding: ${SIZES.universalPadding}px;
+  padding: ${SIZES.topBottomPadding}px ${SIZES.smallPadding}px; // MIN AMOUNT OF SPACE BETWEEN OUTER CONTAINER AND RESPONSIVECONTAINER
+  /* padding: ${SIZES.universalPadding}px; */
 `;
 
 const OuterContainer = styled(CenteredFlexColumnDiv)`
@@ -64,6 +63,7 @@ const OuterContainer = styled(CenteredFlexColumnDiv)`
     27.2px 23.8px 60.6px rgba(0, 0, 0, 0.05),
     65px 57px 145px rgba(0, 0, 0, 0.07);
   outline: 1px solid var(--color-super-dark-grey);
+  overflow: hidden;
 `;
 
 const InnerContainer = styled(CenteredFlexColumnDiv)`

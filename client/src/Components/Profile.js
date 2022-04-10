@@ -21,6 +21,8 @@ const Profile = () => {
   const { isLoading } = useAuth0();
 
   //TODO: button to edit profile!
+  //TODO: embed ig feed in profile
+  //TODO: add bio to profile
   //+ click profile image to magnify?
 
   if (isLoading) return <>Loading...</>;
