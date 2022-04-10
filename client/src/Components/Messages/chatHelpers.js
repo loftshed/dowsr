@@ -1,4 +1,4 @@
-const getThreads = async (userId) => {
+const getUserThreads = async (userId) => {
   try {
     const response = await fetch(`/api/get-user-threads?userId=${userId}`);
     return await response.json();
@@ -7,7 +7,7 @@ const getThreads = async (userId) => {
   }
 };
 
-const getThread = async (threadId) => {
+const getOneThread = async (threadId) => {
   try {
     const response = await fetch(`/api/get-thread?threadId=${threadId}`);
     return await response.json();
@@ -43,4 +43,4 @@ const replyThread = async (threadId, message, userId, handle) => {
   }
 };
 
-export { getThreads, getThread, newThread, replyThread };
+export { getUserThreads, getOneThread, newThread, replyThread };

@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import Bubble from "./Bubble";
 import { AppContext } from "../../Context/AppContext";
 import { SIZES } from "../../Styling/constants";
-import { replyThread, getThread } from "./chatHelpers";
+import { replyThread, getOneThread } from "./chatHelpers";
 import { v4 as uuidv4 } from "uuid";
 
 const Chat = () => {
@@ -15,26 +15,26 @@ const Chat = () => {
     loggedInUser: { _id, username },
   } = useContext(AppContext);
 
+  // useEffect(() => {}, [third]);
+
+  console.log(threads);
+
+  const handleUpdateThread = () => {
+    getOneThread("id", _id);
+  };
+
+  // const thread = threads.find((el) => {
+  //   return el._id === viewedThread;
+  // });
+  // if (!thread) return null;
+
+  //TODO: change this so that even if thread is null,
+  // chat window displays the same way.
   //FIXME: something up with timestamps
   //FIXME: correct noob styling mistake... use shared styles, don't extend one component for eternity
   //TODO: get page to re-render properly when messages sent..
 
-  // let thread;
-
-  // useEffect(() => {
-  //   setCurrentThread(getThread(viewedThread));
-  //   console.log("hi");
-  // }, [viewedThread]);
-
-  const thread = threads.find((el) => {
-    return el._id === viewedThread;
-  });
-
-  if (!thread) return null;
-  //TODO: change this so that even if thread is null,
-  // chat window displays the same way.
-
-  const { messages } = thread;
+  // const { messages } = thread;
 
   const handleSendMessage = (message) => {
     replyThread(viewedThread, message, _id, username);
@@ -44,7 +44,7 @@ const Chat = () => {
     <ChatWrapper>
       <ChatBody>
         <>
-          {messages.map((el) => {
+          {/* {messages.map((el) => {
             return (
               <Bubble
                 key={uuidv4()}
@@ -54,7 +54,7 @@ const Chat = () => {
                 timestamp={el.sent}
               />
             );
-          })}
+          })} */}
         </>
       </ChatBody>
       <InputArea
@@ -63,7 +63,7 @@ const Chat = () => {
           handleSendMessage(ev.target.message.value);
         }}
       >
-        <ChatInput id="message" type="text"></ChatInput>
+        <ChatInput id="message" type="text" autoComplete="off"></ChatInput>
         <SendButton id="send" type="submit" value="Send" />
       </InputArea>
     </ChatWrapper>
@@ -121,6 +121,11 @@ const ChatInput = styled.input`
   border: 1px solid var(--color-darkest-grey);
   line-height: 30px;
   border-radius: 5px;
+  &:focus {
+    outline: none;
+    //TODO: change transparency on this
+    box-shadow: inset 0px 0px 50px var(--color-teal);
+  }
 `;
 
 const SendButton = styled.input`

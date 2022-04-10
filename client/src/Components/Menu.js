@@ -30,6 +30,7 @@ import { AppContext } from "../Context/AppContext";
 const Menu = () => {
   const { firstLogin, signupCompleted } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth0();
+  const handleSetThreads = () => {};
 
   //TODO: prevent user from accessing any of main page
   // before first login completed?

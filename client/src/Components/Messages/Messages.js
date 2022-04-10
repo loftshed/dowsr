@@ -10,7 +10,7 @@ import {
 import Chat from "./Chat";
 import ThreadTile from "./ThreadTile";
 import { useContext, useEffect, useState } from "react";
-import { getThreads } from "./chatHelpers";
+import { getUserThreads } from "./chatHelpers";
 import { AppContext } from "../../Context/AppContext";
 
 //TODO: by default, the most recent thread should be displayed.
@@ -30,7 +30,8 @@ const Messages = () => {
     console.log(id);
   };
 
-  if (threads.length < 1) return <div>loading</div>;
+  //TODO: uncomment this
+  // if (threads.length < 1) return <div>loading</div>;
 
   return (
     <ResponsiveContainer heading={"Messages"}>

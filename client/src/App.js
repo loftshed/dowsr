@@ -17,7 +17,7 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "./Context/AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./Components/Auth/userHelpers";
-import { getThreads } from "./Components/Messages/chatHelpers";
+import { getUserThreads } from "./Components/Messages/chatHelpers";
 
 const App = () => {
   const {
@@ -34,8 +34,8 @@ const App = () => {
       if (!isLoading) {
         const { data } = await getUser("email", user?.email);
         setLoggedInUser(data);
-        const { threads } = await getThreads(data?._id);
-        setThreads(threads);
+        // const { threads } = await getUserThreads(data?._id);
+        // setThreads(threads);
       }
     })();
   }, [isLoading, user]);

@@ -42,7 +42,7 @@ const newThread = async ({ query: { idA, idB }, body }, res) => {
   }
 };
 
-const getThread = async ({ query: { threadId } }, res) => {
+const getOneThread = async ({ query: { threadId } }, res) => {
   try {
     await client.connect();
     const returnedThread = await msgDb.findOne({ _id: threadId });
@@ -95,7 +95,7 @@ const getAllThreads = async (req, res) => {
 
 module.exports = {
   newThread,
-  getThread,
+  getOneThread,
   getAllThreads,
   getUserThreads,
   modifyThread,

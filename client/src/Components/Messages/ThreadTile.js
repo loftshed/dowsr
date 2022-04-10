@@ -37,7 +37,7 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
       ) : (
         <>
           <Heading>
-            <Avatar src={avatarUrl} style={{ width: "25px" }} />
+            <Avatar src={avatarUrl} style={{ width: "20px", height: "20px" }} />
             {user}
           </Heading>
           <Body>
@@ -82,6 +82,7 @@ const TileWrapper = styled(CenteredFlexColumnDiv)`
 `;
 
 const Heading = styled(FlexDiv)`
+  align-items: center;
   font-family: Karla;
   font-size: 16px;
   gap: 4px;
