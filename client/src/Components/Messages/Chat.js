@@ -31,6 +31,8 @@ const Chat = () => {
   });
 
   if (!thread) return null;
+  //TODO: change this so that even if thread is null,
+  // chat window displays the same way.
 
   const { messages } = thread;
 

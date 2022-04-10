@@ -80,8 +80,8 @@ const BurgerButton = styled(TextButton)`
 const Wrapper = styled(CenteredFlexRowDiv)`
   position: absolute;
   height: ${SIZES.menuHeightCompact}px;
-  width: calc(100vw);
   bottom: ${SIZES.topBottomPadding}px;
+  width: calc(100vw);
   z-index: 1;
   @media (max-width: ${SIZES.widthMin}px) {
     width: calc(100% - ${SIZES.smallPadding}px*2);
@@ -96,7 +96,9 @@ const Content = styled(FillDiv)`
     12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-    100px 100px 80px rgba(0, 0, 0, 0.07);
+    100px 100px 80px rgba(0, 0, 0, 0.07),
+    inset 0px 0px 2px var(--color-super-dark-grey);
+  outline: 1px solid var(--color-super-dark-grey);
 `;
 
 const IconRow = styled(CenteredFlexRowDiv)`

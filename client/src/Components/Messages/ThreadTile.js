@@ -36,7 +36,10 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
         </>
       ) : (
         <>
-          <Heading>{user}</Heading>
+          <Heading>
+            <Avatar src={avatarUrl} style={{ width: "25px" }} />
+            {user}
+          </Heading>
           <Body>
             {message}
             <Timestamp>{dayjs(time).fromNow()}</Timestamp>
@@ -80,9 +83,10 @@ const TileWrapper = styled(CenteredFlexColumnDiv)`
 
 const Heading = styled(FlexDiv)`
   font-family: Karla;
-  font-size: 14px;
+  font-size: 16px;
+  gap: 4px;
   width: 100%;
-  padding: 0px 5px;
+  padding: 3px 5px;
   background-color: var(--color-almost-darkest-blue);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
