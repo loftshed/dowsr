@@ -68,6 +68,7 @@ const LayoutContainer = styled(FlexDiv)`
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
   background-color: var(--color-darkest-grey);
+  overflow: hidden;
 `;
 
 const MessagesContainer = styled(CenteredFlexColumnDiv)`
