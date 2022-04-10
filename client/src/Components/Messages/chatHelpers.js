@@ -37,7 +37,8 @@ const replyThread = async (threadId, message, userId, handle) => {
       },
       body: JSON.stringify(messageObject),
     });
-    console.log(response);
+    const { sentMessage } = await response.json();
+    return sentMessage;
   } catch (error) {
     console.log(error);
   }

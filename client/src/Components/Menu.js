@@ -29,14 +29,8 @@ import { getUserThreads } from "./Messages/chatHelpers";
 //TODO: GET NAVLINK HIGHLIGHT WORKING~!!
 
 const Menu = () => {
-  const { setThreads, loggedInUser } = useContext(AppContext);
+  const { loggedInUser } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth0();
-  console.log(user);
-
-  const handleSetThreads = async () => {
-    const { threads } = await getUserThreads(loggedInUser?._id);
-    setThreads(threads);
-  };
 
   //TODO: prevent user from accessing any of main page
   // before first login completed?
@@ -56,12 +50,7 @@ const Menu = () => {
             <IconNavLink to="/notifications">
               <NotificationIcon />
             </IconNavLink>
-            <IconNavLink
-              to="/messages"
-              onClick={() => {
-                handleSetThreads();
-              }}
-            >
+            <IconNavLink to="/messages">
               <ChatIcon />
             </IconNavLink>
             <IconNavLink to="/profile">

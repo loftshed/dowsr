@@ -8,7 +8,7 @@ import { AppContext } from "../../Context/AppContext";
 import { getUser } from "../Auth/userHelpers";
 
 const ThreadTile = ({ threadId, userId, user, time, message }) => {
-  const { setViewedThread, viewedThread } = useContext(AppContext);
+  const { setDisplayedThreadId, displayedThreadId } = useContext(AppContext);
   const [avatarUrl, setAvatarUrl] = useState("");
   const collapseToAvatar = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
   const relativeTime = require("dayjs/plugin/relativeTime");
@@ -27,7 +27,7 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
     <TileWrapper
       small={collapseToAvatar}
       onClick={(ev) => {
-        setViewedThread(threadId);
+        setDisplayedThreadId(threadId);
       }}
     >
       {collapseToAvatar ? (

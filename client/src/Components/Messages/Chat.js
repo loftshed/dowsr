@@ -4,25 +4,44 @@ import { useState, useEffect, useContext } from "react";
 import Bubble from "./Bubble";
 import { AppContext } from "../../Context/AppContext";
 import { SIZES } from "../../Styling/constants";
-import { replyThread, getOneThread } from "./chatHelpers";
+import { replyThread, getOneThread, getUserThreads } from "./chatHelpers";
 import { v4 as uuidv4 } from "uuid";
 
 const Chat = () => {
-  const [currentThread, setCurrentThread] = useState(null);
+  const [currentMessages, setCurrentMessages] = useState([]);
+
   const {
-    viewedThread,
+    setThreads,
+    setDisplayedThreadId,
+    displayedThreadId,
     threads,
-    loggedInUser: { _id, username },
+    loggedInUser,
   } = useContext(AppContext);
 
-  // useEffect(() => {}, [third]);
+  useEffect(() => {
+    // console.log("useeffect");
+    // console.log(threads);
+    if (threads.length === 0) {
+      (async () => {
+        const { threads } = await getUserThreads(loggedInUser?._id);
+        setThreads(threads);
+      })();
+    } else {
+      //TODO: find a way of making this work
+      // will need to determine latest thread by message timestamps instead
+      // 💩
+      const latestThread = threads[threads.length - 1];
+      // console.log(latestThread);
+      if (!displayedThreadId) setDisplayedThreadId(latestThread?._id);
+      const thread = threads.find((el) => {
+        return el._id === displayedThreadId;
+      });
+      if (thread) setCurrentMessages(thread.messages);
+      console.log(currentMessages);
+    }
+  }, [displayedThreadId, threads]);
 
-  console.log(threads);
-
-  const thread = threads.find((el) => {
-    return el._id === viewedThread;
-  });
-  if (!thread) return null;
+  if (!loggedInUser) return null;
 
   //TODO: change this so that even if thread is null,
   // chat window displays the same way.
@@ -30,21 +49,39 @@ const Chat = () => {
   //FIXME: correct noob styling mistake... use shared styles, don't extend one component for eternity
   //TODO: get page to re-render properly when messages sent..
 
-  const { messages } = thread;
+  // const { messages } = currentThread;
 
-  const handleSendMessage = (message) => {
-    replyThread(viewedThread, message, _id, username);
+  // const scrollToBottom = () => {
+  //   messagesEnd.scrollIntoView({ behavior: "smooth" });
+  // }
+
+  const handleSendMessage = async (message) => {
+    try {
+      if (message !== "") {
+        const returnMessage = await replyThread(
+          displayedThreadId,
+          message,
+          loggedInUser._id,
+          loggedInUser.username
+        );
+        setCurrentMessages([...currentMessages, returnMessage]);
+      }
+    } catch (error) {
+      if (error) console.log(error);
+    }
   };
+
+  if (!currentMessages) return null;
 
   return (
     <ChatWrapper>
       <ChatBody>
         <>
-          {messages.map((el) => {
+          {currentMessages.map((el) => {
             return (
               <Bubble
                 key={uuidv4()}
-                recd={el.userId !== _id}
+                recd={el.userId !== loggedInUser._id}
                 author={`@${el.handle}`}
                 content={el.message}
                 timestamp={el.sent}

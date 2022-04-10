@@ -78,6 +78,7 @@ const modifyThread = async ({ query: { threadId }, body }, res) => {
     res.status(200).json({
       status: 200,
       data: modResult,
+      sentMessage: { sent: currentTime, ...body },
     });
   } catch (err) {
     err ? console.log(err) : client.close();

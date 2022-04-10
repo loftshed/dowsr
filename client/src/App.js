@@ -20,22 +20,15 @@ import { getUser } from "./Components/Auth/userHelpers";
 import { getUserThreads } from "./Components/Messages/chatHelpers";
 
 const App = () => {
-  const {
-    firstLogin,
-    setFirstLogin,
-    loggedInUser,
-    setLoggedInUser,
-    setThreads,
-  } = useContext(AppContext);
+  const { firstLogin, setFirstLogin, loggedInUser, setLoggedInUser } =
+    useContext(AppContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
     (async () => {
-      if (!isLoading) {
-        const { data } = await getUser("email", user?.email);
+      if (!isLoading && user) {
+        const { data } = await getUser("email", user.email);
         setLoggedInUser(data);
-        // const { threads } = await getUserThreads(data?._id);
-        // setThreads(threads);
       }
     })();
   }, [isLoading, user]);

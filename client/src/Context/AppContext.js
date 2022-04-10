@@ -9,7 +9,7 @@ export const AppProvider = ({ children }) => {
   const [firstLogin, setFirstLogin] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState("");
   const [threads, setThreads] = useState([]);
-  const [viewedThread, setViewedThread] = useState("");
+  const [displayedThreadId, setDisplayedThreadId] = useState("");
 
   // const socket = socketio.connect("http://localhost:8080");
 
@@ -26,8 +26,9 @@ export const AppProvider = ({ children }) => {
         setLoggedInUser,
         threads,
         setThreads,
-        viewedThread,
-        setViewedThread,
+
+        displayedThreadId,
+        setDisplayedThreadId,
         //socket
       }}
     >

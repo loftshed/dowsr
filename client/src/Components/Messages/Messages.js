@@ -23,7 +23,7 @@ const Messages = () => {
   const {
     loggedInUser: { _id },
     threads,
-    viewedThread,
+    displayedThreadId,
   } = useContext(AppContext);
 
   const handleTileClick = (id) => {
@@ -56,7 +56,7 @@ const Messages = () => {
           </>
         </Sidebar>
         <MessagesContainer>
-          <Chat thread={viewedThread} />
+          <Chat thread={displayedThreadId} />
         </MessagesContainer>
       </LayoutContainer>
     </ResponsiveContainer>
