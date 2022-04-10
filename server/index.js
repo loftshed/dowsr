@@ -9,19 +9,33 @@ const app = express();
 /*-----------------
 | socket.io stuff |
 -----------------*/
-const http = require("http");
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
+  console.log(`a user connected ${socket.id}`);
+  socket.emit("connection", "null");
 });
+
+http.listen(8080, () => console.log("listening on http://localhost:8080"));
 
 /*-----------
 | handlers |
 -----------*/
-const { addUser, getUser, modifyUser, removeUser } = require("./userHandlers");
+const {
+  addUser,
+  getUser,
+  modifyUser,
+  removeUser,
+} = require("./handlers/userHandlers");
+
+const {
+  getThread,
+  newThread,
+  modifyThread,
+  getUserThreads,
+  getAllThreads,
+} = require("./handlers/messageHandlers");
 
 app.use(morgan("tiny"));
 app.use(express.json()); // this was used in slingair server..  do i need?
@@ -32,11 +46,18 @@ app.use(cors());
 /*-----------
 | endpoints |
 -----------*/
-
+// user endpoints
 app.post("/api/add-user", addUser);
 app.get("/api/get-user", getUser);
 app.patch("/api/modify-user", modifyUser);
 app.delete("/api/remove-user", removeUser);
+
+// messaging endpoints
+app.post("/api/new-thread", newThread);
+app.patch("/api/modify-thread", modifyThread);
+app.get("/api/get-thread", getThread);
+app.get("/api/get-user-threads", getUserThreads);
+app.get("/api/get-all-threads", getAllThreads);
 
 /*------------------
 | end of endpoints |

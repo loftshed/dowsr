@@ -37,11 +37,12 @@ const TileWrapper = styled(CenteredFlexColumnDiv)`
   border: ${(props) =>
     props.small
       ? "1.5px solid var(--color-less-dark-grey)"
-      : "1px solid var(--color-extra-medium-grey)"};
+      : "1px solid var(--color-super-dark-grey)"};
   /* margin: ${(props) => (props.small ? "2px" : "0px")}; */
   /* @media (max-width: 425px) {
     width: 30px;
   } */
+  box-shadow: inset 0px 0px 2px var(--color-super-dark-grey);
   &:hover {
     outline: solid 1px var(--color-teal);
   }

@@ -13,7 +13,7 @@ import {
   ContentGrid,
   FillDiv,
 } from "../Styling/StyledComponents";
-import { AppContext } from "../AppContext";
+import { AppContext } from "../Context/AppContext";
 
 const Home = () => {
   const { firstLogin, setFirstLogin } = useContext(AppContext);

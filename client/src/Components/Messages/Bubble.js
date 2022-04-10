@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FlexDiv } from "../../Styling/StyledComponents";
 
 //TODO: pick better colors for bubbles
+//TODO: add tips to bubbles!
 
 const Bubble = ({ recd, author, content }) => {
   return (
