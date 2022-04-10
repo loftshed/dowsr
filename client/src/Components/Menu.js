@@ -21,6 +21,7 @@ import { SIZES } from "../Styling/constants";
 import LoginButton from "./Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
+import { getUserThreads } from "./Messages/chatHelpers";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
@@ -28,9 +29,14 @@ import { AppContext } from "../Context/AppContext";
 //TODO: GET NAVLINK HIGHLIGHT WORKING~!!
 
 const Menu = () => {
-  const { firstLogin, signupCompleted } = useContext(AppContext);
+  const { setThreads, loggedInUser } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth0();
-  const handleSetThreads = () => {};
+  console.log(user);
+
+  const handleSetThreads = async () => {
+    const { threads } = await getUserThreads(loggedInUser?._id);
+    setThreads(threads);
+  };
 
   //TODO: prevent user from accessing any of main page
   // before first login completed?
@@ -50,7 +56,12 @@ const Menu = () => {
             <IconNavLink to="/notifications">
               <NotificationIcon />
             </IconNavLink>
-            <IconNavLink to="/messages">
+            <IconNavLink
+              to="/messages"
+              onClick={() => {
+                handleSetThreads();
+              }}
+            >
               <ChatIcon />
             </IconNavLink>
             <IconNavLink to="/profile">

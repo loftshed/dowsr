@@ -19,14 +19,10 @@ const Chat = () => {
 
   console.log(threads);
 
-  const handleUpdateThread = () => {
-    getOneThread("id", _id);
-  };
-
-  // const thread = threads.find((el) => {
-  //   return el._id === viewedThread;
-  // });
-  // if (!thread) return null;
+  const thread = threads.find((el) => {
+    return el._id === viewedThread;
+  });
+  if (!thread) return null;
 
   //TODO: change this so that even if thread is null,
   // chat window displays the same way.
@@ -34,7 +30,7 @@ const Chat = () => {
   //FIXME: correct noob styling mistake... use shared styles, don't extend one component for eternity
   //TODO: get page to re-render properly when messages sent..
 
-  // const { messages } = thread;
+  const { messages } = thread;
 
   const handleSendMessage = (message) => {
     replyThread(viewedThread, message, _id, username);
@@ -44,7 +40,7 @@ const Chat = () => {
     <ChatWrapper>
       <ChatBody>
         <>
-          {/* {messages.map((el) => {
+          {messages.map((el) => {
             return (
               <Bubble
                 key={uuidv4()}
@@ -54,7 +50,7 @@ const Chat = () => {
                 timestamp={el.sent}
               />
             );
-          })} */}
+          })}
         </>
       </ChatBody>
       <InputArea
