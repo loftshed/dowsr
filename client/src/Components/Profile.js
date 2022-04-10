@@ -1,65 +1,89 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import {
-  FillDiv,
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   FlexDiv,
-  AbsoluteDiv,
-} from "../Styles/StyledComponents";
+  TextButton,
+} from "../Styling/StyledComponents";
 import ResponsiveContainer from "./ResponsiveContainer";
-import { SIZES } from "../Styles/constants";
-import data from "../dummydata/data";
+import { SIZES } from "../Styling/constants";
 import LogoutButton from "./Auth/LogoutButton";
+import { getUser } from "./Auth/userHelpers";
+import { useEffect, useContext } from "react";
+import dayjs from "dayjs";
+import Flag from "react-world-flags";
+import { BurgerMenuIcon } from "../Styling/Icons";
+import { AppContext } from "../Context/AppContext";
 
 const Profile = () => {
-  const { username, city, region, joinDate, contributions } = data;
-  // add userdata to mongo...
-
-  const {
-    user: { given_name, family_name, nickname, name, picture },
-    isLoading,
-  } = useAuth0();
-  console.log(useAuth0());
+  const { loggedInUser } = useContext(AppContext);
+  const { isLoading } = useAuth0();
 
   //TODO: button to edit profile!
   //+ click profile image to magnify?
 
+  if (isLoading) return <>Loading...</>;
+
+  if (!loggedInUser) return null;
+  const { username, city, country, region, avatarUrl, contributions, regDate } =
+    loggedInUser;
+
   return (
     <ResponsiveContainer>
-      {isLoading ? (
-        <>Loading...</>
-      ) : (
-        <>
-          <ProfileSplash>
-            <Avatar src={picture} />
-          </ProfileSplash>
-          <UserDetails>
-            <DetailsHeading>
-              <h3>{nickname}</h3>
-            </DetailsHeading>
-            <DetailList>
-              <p>{city + ", " + region}</p>
-              <p>{contributions} contributions</p>
-              <p>Member since {joinDate}</p>
-              <CenteredFlexRowDiv style={{ width: "100%", paddingTop: "10px" }}>
-                <LogoutButton />
-              </CenteredFlexRowDiv>
-            </DetailList>
-          </UserDetails>
-        </>
-      )}
+      <ProfileSplash>
+        <Avatar src={avatarUrl} />
+      </ProfileSplash>
+      <UserDetails>
+        <DetailsHeading style={{ gap: "10px" }}>
+          <h3>{username}</h3>
+          <Flag code={country} height={16} />
+        </DetailsHeading>
+
+        <Location>{`${city}, ${region}`}</Location>
+
+        <Details>
+          <ul>
+            <li>{contributions} followers</li>
+            <li>{contributions} contributions</li>
+            <li>Member since {dayjs(regDate).format("MMMM YYYY")}</li>
+          </ul>
+        </Details>
+
+        <ProfileChin>
+          <LogoutButton />
+        </ProfileChin>
+      </UserDetails>
     </ResponsiveContainer>
   );
 };
 
 export default Profile;
 
+const ProfileChin = styled.div`
+  background-color: var(--color-less-dark-grey);
+  border-bottom-left-radius: ${SIZES.borderRadius}px;
+  border-bottom-right-radius: ${SIZES.borderRadius}px;
+  padding: 5px ${SIZES.universalPadding}px;
+  width: 100%;
+`;
+
+const Location = styled.div`
+  background-color: var(--color-less-dark-grey);
+  padding-left: ${SIZES.universalPadding}px;
+  width: 100%;
+  @media (min-width: 450px) {
+    padding: 2.5px ${SIZES.leftPaddingLrg}px;
+    font-size: 20px;
+  }
+`;
+
 const UserDetails = styled(CenteredFlexColumnDiv)`
   flex-grow: 1;
   width: 100%;
   /* min-height: 50%; */
-  background-color: var(--color-dark-grey);
+  /* background-color: var(--color-dark-grey); */
+
   border-radius: ${SIZES.borderRadius}px;
 `;
 
@@ -82,9 +106,8 @@ const Avatar = styled.img`
 const ProfileSplash = styled(FlexDiv)`
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 150px;
   background-image: url("/bg.jpg");
-  background-position: contain;
   border-top-left-radius: ${SIZES.borderRadius}px;
   border-top-right-radius: ${SIZES.borderRadius}px;
 `;
@@ -93,16 +116,32 @@ const DetailsHeading = styled(CenteredFlexRowDiv)`
   justify-content: flex-start;
   background-color: var(--color-darkest-grey);
   padding-left: ${SIZES.universalPadding}px;
+  gap: 10px;
   height: 50px;
   width: 100%;
   @media (min-width: 450px) {
-    padding-left: 50px;
+    padding: ${SIZES.leftPaddingLrg}px;
     font-size: 22px;
+    h3 {
+      font-size: 28px;
+    }
   }
 `;
 
-const DetailList = styled(CenteredFlexColumnDiv)`
-  align-items: flex-start;
-  gap: 10px;
+// const Details = styled(CenteredFlexColumnDiv)`
+const Details = styled.ul`
+  padding: ${SIZES.universalPadding}px 10px;
   flex-grow: 1;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 10px;
+  @media (min-width: 450px) {
+    padding: ${SIZES.leftPaddingLrg}px;
+    font-size: 28px;
+  }
+`;
+
+const BurgerButton = styled(TextButton)`
+  padding: 5px;
 `;

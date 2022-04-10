@@ -8,6 +8,7 @@ export const SIZES = {
   menuHeightCompact: 55,
   menuHeightExpanded: 50,
   universalPadding: 20,
+  leftPaddingLrg: 30,
   borderRadius: 10,
   iconSize: 25,
 };

@@ -1,6 +1,19 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { SIZES } from "./constants";
+
+const buttonAnim = css`
+  transition: all ease 0.1s;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-teal);
+    transform: scale(1.05);
+  }
+  &:active {
+    background-color: var(--color-teal);
+    transform: scale(0.95);
+  }
+`;
 
 const FlexDiv = styled.div`
   display: flex;
@@ -43,15 +56,7 @@ const TextButton = styled.button`
   transition: all ease 0.1s;
   background-color: var(--color-darkest-grey);
   outline: 1px var(--color-less-dark-grey) solid;
-  cursor: pointer;
-  &:hover {
-    background-color: var(--color-teal);
-    transform: scale(1.05);
-  }
-  &:active {
-    background-color: var(--color-teal);
-    transform: scale(0.95);
-  }
+  ${buttonAnim}
 `;
 
 const IconNavLink = styled(NavLink)`
@@ -70,6 +75,30 @@ const IconNavLink = styled(NavLink)`
   }
 `;
 
+const Input = styled.input`
+  border-radius: 4px;
+  background-color: var(--color-dark-grey);
+  box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 5px 6px;
+  border: 1px solid var(--color-extra-medium-grey);
+`;
+
+const Select = styled.select`
+  border-radius: 4px;
+  background-color: var(--color-dark-grey);
+  box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
+  padding: 5px 6px;
+  width: 100%;
+`;
+
+const Option = styled.option`
+  width: 100%;
+`;
+
 const pageWidth = document.documentElement.clientWidth;
 
 export {
@@ -82,4 +111,8 @@ export {
   TextButton,
   pageWidth,
   IconNavLink,
+  Input,
+  Select,
+  Option,
+  buttonAnim,
 };

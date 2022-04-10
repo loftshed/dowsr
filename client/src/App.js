@@ -1,19 +1,45 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CenteredFlexColumnDiv } from "./Styles/StyledComponents";
-import { SIZES } from "./Styles/constants";
-import GlobalStyle from "./Styles/GlobalStyles";
+import { CenteredFlexColumnDiv } from "./Styling/StyledComponents";
+import { SIZES } from "./Styling/constants";
+import GlobalStyle from "./Styling/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
 import Menu from "./Components/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
-import Messages from "./Components/Messages";
+import Messages from "./Components/Messages/Messages";
+import Error from "./Components/Error";
 import Saved from "./Components/Saved";
 import AlertModal from "./Components/AlertModal";
 import LoginButton from "./Components/Auth/LoginButton";
+import { useContext, useEffect } from "react";
+import { AppContext } from "./Context/AppContext";
+import { useAuth0 } from "@auth0/auth0-react";
+import { getUser } from "./Components/Auth/userHelpers";
+import { getThreads } from "./Components/Messages/chatHelpers";
 
 const App = () => {
+  const {
+    firstLogin,
+    setFirstLogin,
+    loggedInUser,
+    setLoggedInUser,
+    setThreads,
+  } = useContext(AppContext);
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  useEffect(() => {
+    (async () => {
+      if (!isLoading) {
+        const { data } = await getUser(user.email);
+        setLoggedInUser(data);
+        const { threads } = await getThreads(data._id);
+        setThreads(threads);
+      }
+    })();
+  }, [isLoading, user]);
+
   return (
     <BrowserRouter id="root">
       <GlobalStyle />
@@ -27,6 +53,7 @@ const App = () => {
             <Route path="/messages" element={<Messages />} />
             <Route path="/saved" element={<Home saved={true} />} />
             <Route path="/search" element={<Home search={true} />} />
+            <Route path="/error" element={<Error />} />
           </Routes>
         </Content>
         <Menu />

@@ -1,42 +1,52 @@
 import {
+  CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
   FillDiv,
   IconNavLink,
-} from "../Styles/StyledComponents";
+  TextButton,
+} from "../Styling/StyledComponents";
 import {
   SearchIcon,
   MapIcon,
   HeartIcon,
   NotificationIcon,
   ProfileIcon,
-} from "../Styles/Icons";
+  BurgerMenuIcon,
+  ChatIcon,
+} from "../Styling/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import styled /*, { css }*/ from "styled-components";
-import { SIZES } from "../Styles/constants";
+import { SIZES } from "../Styling/constants";
 import LoginButton from "./Auth/LoginButton";
 import { useContext } from "react";
-import { AppContext } from "../AppContext";
+import { AppContext } from "../Context/AppContext";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
 //STRETCH: make button appear on left/right side of screen according to user settings.
+//TODO: GET NAVLINK HIGHLIGHT WORKING~!!
 //FIXME: icon positioning within circles..
 
 const Menu = () => {
   const { firstLogin, signupCompleted } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth0();
 
-  if (firstLogin || !signupCompleted)
-    return (
-      <Wrapper>
-        <Content>
-          <CenteredFlexRowDiv style={{ width: "100%" }}>
-            <h3>We just need a lil more info...</h3>
-          </CenteredFlexRowDiv>
-        </Content>
-      </Wrapper>
-    );
+  // if (firstLogin || !signupCompleted)
+  //   return (
+  //     <Wrapper>
+  //       <Content>
+  //         <CenteredFlexRowDiv style={{ width: "100%" }}></CenteredFlexRowDiv>
+  //       </Content>
+  //     </Wrapper>
+  //   );
+
+  // this doesn't work becuase user can tab to access disabled buttons
+  // {firstLogin || (!signupCompleted && <ButtonsDisabled />)}
+
+  //TODO: prevent user from accessing any of main page
+  // before first login completed?
+  //FIXME: not ideal way of doing this below..?
 
   return (
     <Wrapper>
@@ -49,15 +59,18 @@ const Menu = () => {
             <IconNavLink to="/search">
               <SearchIcon />
             </IconNavLink>
-            <IconNavLink to="/profile">
-              <ProfileIcon />
-            </IconNavLink>
             <IconNavLink to="/notifications">
               <NotificationIcon />
             </IconNavLink>
-            <IconNavLink to="/saved">
-              <HeartIcon />
+            <IconNavLink to="/messages">
+              <ChatIcon />
             </IconNavLink>
+            <IconNavLink to="/profile">
+              <ProfileIcon />
+            </IconNavLink>
+            <BurgerButton>
+              <BurgerMenuIcon />
+            </BurgerButton>
           </IconRow>
         ) : (
           <LoginContainer>
@@ -71,6 +84,12 @@ const Menu = () => {
 
 export default Menu;
 
+const BurgerButton = styled(TextButton)`
+  box-sizing: border-box;
+  background-color: var(--color-button-bg);
+  padding: 7.5px;
+`;
+
 const Wrapper = styled(CenteredFlexRowDiv)`
   position: absolute;
   height: ${SIZES.menuHeightCompact}px;
@@ -82,7 +101,7 @@ const Wrapper = styled(CenteredFlexRowDiv)`
   }
 `;
 const Content = styled(FillDiv)`
-  width: 600px;
+  width: 525px;
   background-color: var(--color-darkest-grey);
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
@@ -91,16 +110,13 @@ const Content = styled(FillDiv)`
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
     100px 100px 80px rgba(0, 0, 0, 0.07);
-  @media (max-width: ${SIZES.widthMed}px) {
-    width: 475px;
-  }
 `;
 
 const IconRow = styled(CenteredFlexRowDiv)`
   width: 100%;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
-    gap: 4vw;
+    gap: 3.5vw;
   }
   & * {
     fill: var(--color-medium-grey);
@@ -113,4 +129,15 @@ const IconRow = styled(CenteredFlexRowDiv)`
 
 const LoginContainer = styled(CenteredFlexRowDiv)`
   width: 100%;
+`;
+
+const ButtonsDisabled = styled(CenteredFlexColumnDiv)`
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: ${SIZES.borderRadius}px;
+  backdrop-filter: blur(2px);
+  padding: 5px 10px;
 `;

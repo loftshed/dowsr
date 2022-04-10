@@ -2,7 +2,7 @@
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useContext, useEffect } from "react";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../../Context/AppContext";
 import { getUserLocation } from "./mapHelpers";
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;

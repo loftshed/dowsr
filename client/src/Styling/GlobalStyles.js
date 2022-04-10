@@ -22,11 +22,13 @@ const GlobalStyle = createGlobalStyle`
       --color-dark-blue: #073b4c;
       --color-darkest-blue: #05161c;
       --color-almost-darkest-blue: #05181e;
+      --color-button-bg: #1e2021;
 
       --color-dark-grey: #393e41;
       --color-less-dark-grey: #444948;
       --color-darkest-grey: #353535;
       --color-extra-medium-grey: #8d8d92;
+      --color-super-dark-grey: #1e1e1e;
       --color-medium-grey: #d3d0cb;
       --color-light-grey: #e7e5df;
       --color-teal: #44bba4;
@@ -40,7 +42,8 @@ const GlobalStyle = createGlobalStyle`
     * {
       font-weight: 500;
       color: var(--color-light-grey);
-      font-family: 'Lato', sans-serif;
+      /* font-family: 'Lato', sans-serif; */
+      font-family: "Karla";
     }
     
     p {
@@ -58,7 +61,9 @@ const GlobalStyle = createGlobalStyle`
     }
     h2 {
       font-size: 30px;
-      
+      @media (max-width: 450px) {
+        font-size: 22px;
+      }
     }
     h3 {
       font-size: 20px;

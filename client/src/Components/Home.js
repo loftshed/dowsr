@@ -4,43 +4,31 @@ import MapContainer from "./Map/MapContainer";
 import ResponsiveContainer from "./ResponsiveContainer";
 import FirstLogin from "./Auth/FirstLogin";
 import { useAuth0 } from "@auth0/auth0-react";
-import { SIZES } from "../Styles/constants";
-import { addUserToDB, checkUserEmail } from "./Auth/userHelpers";
+import { SIZES } from "../Styling/constants";
+import { addUserToDB, getUser } from "./Auth/userHelpers";
 import {
   FlexDiv,
   CenteredFlexRowDiv,
   CenteredFlexColumnDiv,
   ContentGrid,
   FillDiv,
-} from "../Styles/StyledComponents";
-import { AppContext } from "../AppContext";
+} from "../Styling/StyledComponents";
+import { AppContext } from "../Context/AppContext";
 
 const Home = () => {
-  const {
-    setUserAddedToDb,
-    userAddedToDb,
-    firstLogin,
-    setFirstLogin,
-    signupCompleted,
-    setSignupCompleted,
-  } = useContext(AppContext);
+  const { firstLogin, setFirstLogin, loggedInUser, setLoggedInUser } =
+    useContext(AppContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
   // TODO: maybe move this action to login button? as something other than a useEffect..?
   // TODO: maybe if user has been found to exist in db, keep in local storage and don't query again
+  // TODO: make it so you don't have to log in to use the app..
 
   useEffect(() => {
     (async () => {
       try {
         if (user) {
-          const { userFound } = await checkUserEmail(user.email);
-          if (!userFound && !userAddedToDb) {
-            addUserToDB(user);
-            setUserAddedToDb(true);
-            setFirstLogin(true);
-            return;
-          } else {
-            setFirstLogin(false);
-          }
+          const { userFound } = await getUser(user.email);
+          if (!userFound) setFirstLogin(true);
         }
       } catch (error) {
         console.log(error);
@@ -48,7 +36,7 @@ const Home = () => {
     })();
   }, [user]);
 
-  if (firstLogin || !signupCompleted) return <FirstLogin />;
+  if (firstLogin) return <FirstLogin />;
 
   return (
     <Wrapper>
