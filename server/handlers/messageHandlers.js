@@ -46,7 +46,6 @@ const getThread = async ({ query: { threadId } }, res) => {
   try {
     await client.connect();
     const returnedThread = await msgDb.findOne({ _id: threadId });
-    console.log(returnedThread);
     res.status(200).json({
       status: 200,
       threads: returnedThread,
@@ -64,7 +63,6 @@ const getUserThreads = async ({ query: { userId } }, res) => {
       status: 200,
       threads: returnedThreads,
     });
-    console.log(returnedThreads);
   } catch (err) {
     err ? console.log(err) : client.close();
   }
