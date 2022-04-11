@@ -94,7 +94,7 @@ const ThreadRefreshAnim = styled.div`
 
 const Avatar = styled.img`
   width: 50px;
-  border-radius: 50%;
+  border-radius: 300px;
 `;
 
 const TileWrapper = styled(CenteredFlexColumnDiv)`
@@ -109,7 +109,7 @@ const TileWrapper = styled(CenteredFlexColumnDiv)`
       : "1px solid var(--color-super-dark-grey)"};
   box-shadow: inset 0px 0px 2px var(--color-super-dark-grey);
   &:hover {
-    outline: solid 1px var(--color-teal);
+    outline: solid 2px var(--color-teal);
   }
   &:active {
     outline: solid 2px var(--color-teal);

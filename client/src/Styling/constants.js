@@ -4,7 +4,7 @@ export const SIZES = {
   widthMin: 450,
   drawer: 200,
   smlHeader: 50,
-  lrgHeader: 100,
+  lrgHeader: 85,
   menuHeightCompact: 55,
   menuHeightExpanded: 50,
   universalPadding: 20,

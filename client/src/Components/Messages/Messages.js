@@ -17,6 +17,7 @@ import Chat from "./Chat";
 //TODO: use userefs for that?
 //TODO: should be some type of indicator for threads with new messages.
 //TODO: implement react-spring for scrolling through messages/threads
+//TODO: (STRETCH) make a way for a user to delete their copy of a thread by deleting their user ID from the thread's users array. If the users array ends up empty, the thread is "deleted".
 
 const Messages = () => {
   const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);
@@ -84,7 +85,8 @@ const Sidebar = styled(FlexDiv)`
   border-top-left-radius: 3px;
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   @media (max-width: 425px) {
-    width: fit-content;
+    width: 70px;
+    row-gap: 10px;
   }
   overflow-y: auto;
   ::-webkit-scrollbar {

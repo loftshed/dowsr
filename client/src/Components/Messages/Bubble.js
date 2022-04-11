@@ -13,10 +13,16 @@ const Bubble = ({ recd, author, content, timestamp }) => {
     <BubbleWrapper>
       <MessageContainer recd={recd}>
         <Heading recd={recd}>{recd && <>{author}</>}</Heading>
-        <Body recd={recd}>
-          {content}
-          <Timestamp>{dayjs(timestamp).format("MMM D, hh:mma")}</Timestamp>
-        </Body>
+        <FlexDiv style={{ justifyContent: "space-between" }}>
+          {recd && <Tip src="/tip-received.svg" recd={recd} />}
+          <Body recd={recd}>
+            {content}
+            <></>
+
+            <Timestamp>{dayjs(timestamp).format("MMM D, hh:mma")}</Timestamp>
+          </Body>
+          {!recd && <Tip src="/tip-sent.svg" />}
+        </FlexDiv>
       </MessageContainer>
     </BubbleWrapper>
   );
@@ -24,17 +30,25 @@ const Bubble = ({ recd, author, content, timestamp }) => {
 
 export default Bubble;
 
+const Tip = styled.img`
+  align-self: flex-end;
+  width: 10px;
+  margin: ${(props) =>
+    props.recd ? "0px 0px -2px -9px" : "0px -9px -2px 0px"};
+`;
+
 const BubbleWrapper = styled.li`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 1px 7.5px;
 `;
 
 const Heading = styled(FlexDiv)`
   align-items: center;
   font-family: Karla;
   font-weight: 800;
-  color: #1d1e2c;
+  color: #0c211d;
   text-transform: lowercase;
   font-size: 14px;
   border-top-left-radius: 3px;
@@ -46,15 +60,16 @@ const Heading = styled(FlexDiv)`
 /* background-color: ${(props) =>
     props.recd ? "var(--color-dark-blue)" : "var(--color-med-blue)"}; */
 const Body = styled(FlexDiv)`
+  word-wrap: break-word;
   font-family: Karla;
   font-weight: 400;
   flex-direction: column;
   height: 100%;
+  width: 100%;
   font-size: 16px;
-  padding: 5px 7px 0px 7px;
+  padding: 3px 7px;
   border-radius: 3px;
   background-color: ${(props) => (props.recd ? "#46494c" : "#343a40")};
-
   outline: 1px solid var(--color-dark-grey);
 `;
 
@@ -62,10 +77,11 @@ const Body = styled(FlexDiv)`
 //  /* background-color: ${(props) =>
 //  props.recd ? "var(--color-med-blue)" : "var(--color-dark-grey)"};
 const MessageContainer = styled(FlexDiv)`
+  position: relative;
   flex-direction: column;
-  height: 100%;
-  width: 80%;
-  padding: 2px;
+  height: fit-content;
+  width: fit-content;
+  padding: 3px;
 
   background-color: ${(props) =>
     props.recd ? "var(--color-teal)" : "#cfdbd5"};
@@ -77,10 +93,11 @@ const MessageContainer = styled(FlexDiv)`
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
     100px 100px 80px rgba(0, 0, 0, 0.07);
-  outline: 1px solid var(--color-super-dark-grey);
+  /* outline: 1px solid var(--color-super-dark-grey); */
 `;
 
 const Timestamp = styled(FlexDiv)`
   font-size: 10px;
   align-self: flex-end;
+  color: var(--color-extra-medium-grey);
 `;

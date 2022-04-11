@@ -14,10 +14,13 @@ const Header = () => {
 
 export default Header;
 const HeaderWrapper = styled(FillDiv)`
+  user-select: none;
   justify-content: center;
+  align-items: center;
   background-color: #05181e;
   box-shadow: 2px 2px 2px 10px var(--color-green);
   z-index: 5;
+  height: fit-content;
   height: ${SIZES.lrgHeader}px;
   @media (max-width: ${SIZES.widthMin}px) {
     height: 50px;
@@ -41,4 +44,6 @@ const Logo = styled.h1`
   @media (max-width: ${SIZES.widthMin}px) {
     font-size: 35px;
   }
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 `;
