@@ -15,7 +15,7 @@ import Flag from "react-world-flags";
 import dayjs from "dayjs";
 
 import { AppContext } from "../Context/AppContext";
-import { getUser } from "./helpers/userHelpers";
+import { getUser, handleGetProfile } from "./helpers/userHelpers";
 import LogoutButton from "./Auth/LogoutButton";
 import LoadingSpinner from "./Etc/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
@@ -27,19 +27,31 @@ const Profile = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  if (params) {
-    console.log(params);
-    // getUser();
-  }
-
   //TODO: button to edit profile!
   //TODO: embed ig feed in profile
   //TODO: add bio to profile
 
-  //STRETCH: - nothing in backend for this yet.
-  //const handleFollowUser = (userId) => {};
+  //STRETCH: // const handleFollowUser = (userId) => {}; (nothing in backend for this yet)
 
-  // dummy data for now //TODO: set it up so profile can be used to retrieve different user profiles as well ..! no way to start convo yet
+  const handleGetProfile = async (userId) => {
+    if (!userId) {
+      setViewedProfile(loggedInUser);
+      return;
+    }
+    const { data } = await getUser("", userId);
+    setViewedProfile(data);
+  };
+
+  // TODO: fix this shit, currently won't grab logged in user profile on page reload.
+  useEffect(() => {
+    if (!params.id) {
+      handleGetProfile(null, loggedInUser);
+      return;
+    } else {
+      handleGetProfile(params.id);
+      return;
+    }
+  }, []);
 
   const handleMsgUser = (idA, idB, message) => {
     console.log(idA);
@@ -55,9 +67,9 @@ const Profile = () => {
       </ResponsiveContainer>
     );
 
-  if (!loggedInUser) return null;
+  if (!viewedProfile) return null;
   const { username, city, country, region, avatarUrl, contributions, regDate } =
-    loggedInUser;
+    viewedProfile;
 
   return (
     <ResponsiveContainer>
@@ -85,7 +97,7 @@ const Profile = () => {
           <Actions>
             <TextButton
               onClick={() => {
-                handleMsgUser(loggedInUser._id, "viewedProfile", "👋");
+                handleMsgUser(loggedInUser._id, viewedProfile.id, "👋");
               }}
             >
               Send Message

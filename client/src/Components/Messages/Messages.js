@@ -9,6 +9,7 @@ import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import ThreadTile from "./ThreadTile";
 import Chat from "./Chat";
 
+//TODO: BIG TODO: allow users to navigate to  profile of someone they are chatting with by clicking  their profile pic or some other thing
 //TODO: by default, the most recent thread should be displayed.
 //TODO: use userefs for that?
 //TODO: should be some type of indicator for threads with new messages.
