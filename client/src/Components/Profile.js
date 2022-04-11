@@ -27,6 +27,11 @@ const Profile = () => {
   const navigate = useNavigate();
   const params = useParams();
 
+  // if (params) {
+  //   console.log(params);
+  //   // getUser();
+  // }
+
   //TODO: button to edit profile!
   //TODO: embed ig feed in profile
   //TODO: add bio to profile
