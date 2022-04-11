@@ -25,20 +25,26 @@ const Messages = () => {
         <Sidebar>
           <>
             {threads.map((el) => {
-              const { _id, messages } = el;
+              const { _id, messages, users } = el;
+              const partnerId = users.find((el) => {
+                return el !== loggedInUser._id;
+              });
+              console.log(partnerId);
               const partnerMsg = messages.find((el) => {
                 return el.handle !== loggedInUser.username;
               });
+              console.log(loggedInUser);
+              console.log(messages);
+              console.log(partnerMsg);
               const mostRecentMessage = messages[messages.length - 1];
               const { sent, message } = mostRecentMessage;
               return (
                 <ThreadTile
                   key={_id}
                   threadId={_id}
-                  user={`@${partnerMsg.handle}`}
                   message={`${message}`}
                   time={sent}
-                  userId={partnerMsg.userId}
+                  userId={partnerId}
                 />
               );
             })}
