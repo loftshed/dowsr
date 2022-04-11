@@ -5,7 +5,7 @@ import ResponsiveContainer from "../Styling/ResponsiveContainer";
 import FirstLogin from "./Auth/FirstLogin";
 import { useAuth0 } from "@auth0/auth0-react";
 import { SIZES } from "../Styling/constants";
-import { getUser } from "./Auth/userHelpers";
+import { getUser } from "./helpers/userHelpers";
 import { centeredFlexColumn, fillSpace } from "../Styling/StyledComponents";
 import { AppContext } from "../Context/AppContext";
 

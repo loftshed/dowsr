@@ -9,19 +9,28 @@ import { BurgerMenuIcon } from "../Styling/Icons";
 import { SIZES } from "../Styling/constants";
 import ResponsiveContainer from "../Styling/ResponsiveContainer";
 
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Flag from "react-world-flags";
 import dayjs from "dayjs";
 
 import { AppContext } from "../Context/AppContext";
-import { getUser } from "./Auth/userHelpers";
+import { getUser } from "./helpers/userHelpers";
 import LogoutButton from "./Auth/LogoutButton";
 import LoadingSpinner from "./Etc/LoadingSpinner";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Profile = () => {
+  const [viewedProfile, setViewedProfile] = useState({});
   const { loggedInUser } = useContext(AppContext);
   const { isLoading } = useAuth0();
+  const navigate = useNavigate();
+  const params = useParams();
+
+  if (params) {
+    console.log(params);
+    // getUser();
+  }
 
   //TODO: button to edit profile!
   //TODO: embed ig feed in profile
@@ -31,9 +40,13 @@ const Profile = () => {
   //const handleFollowUser = (userId) => {};
 
   // dummy data for now //TODO: set it up so profile can be used to retrieve different user profiles as well ..! no way to start convo yet
-  const viewedProfile = 123;
 
-  const handleMsgUser = (idA, idB, message) => {};
+  const handleMsgUser = (idA, idB, message) => {
+    console.log(idA);
+    console.log(idB);
+    console.log(message);
+    navigate("/messages", { replace: true });
+  };
 
   if (isLoading)
     return (
@@ -71,7 +84,9 @@ const Profile = () => {
           </UserDetails>
           <Actions>
             <TextButton
-              onClick={handleMsgUser(loggedInUser._id, viewedProfile, "👋")}
+              onClick={() => {
+                handleMsgUser(loggedInUser._id, "viewedProfile", "👋");
+              }}
             >
               Send Message
             </TextButton>

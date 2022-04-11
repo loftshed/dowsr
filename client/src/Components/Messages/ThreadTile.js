@@ -7,7 +7,7 @@ import { useWindowWidth } from "@react-hook/window-size";
 import dayjs from "dayjs";
 
 import { AppContext } from "../../Context/AppContext";
-import { getUser } from "../Auth/userHelpers";
+import { getUser } from "../helpers/userHelpers";
 import LoadingSpinner from "../Etc/LoadingSpinner";
 import { gradientScroll } from "../../Styling/Animations";
 

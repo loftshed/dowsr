@@ -14,7 +14,7 @@ import LoginButton from "./Components/Auth/LoginButton";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./Context/AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getUser } from "./Components/Auth/userHelpers";
+import { getUser } from "./Components/helpers/userHelpers";
 
 const App = () => {
   const { setLoggedInUser } = useContext(AppContext);
@@ -38,6 +38,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/messages" element={<Messages />} />
             <Route path="/saved" element={<Home saved={true} />} />

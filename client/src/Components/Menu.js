@@ -21,7 +21,7 @@ import { SIZES } from "../Styling/constants";
 import LoginButton from "./Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
-import { getUserThreads } from "./Messages/chatHelpers";
+import { getUserThreads } from "./helpers/chatHelpers";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!

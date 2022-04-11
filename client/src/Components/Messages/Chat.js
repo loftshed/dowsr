@@ -4,7 +4,11 @@ import { useState, useEffect, useContext } from "react";
 import Bubble from "./Bubble";
 import { AppContext } from "../../Context/AppContext";
 import { SIZES } from "../../Styling/constants";
-import { replyThread, getOneThread, getUserThreads } from "./chatHelpers";
+import {
+  replyThread,
+  getOneThread,
+  getUserThreads,
+} from "../helpers/chatHelpers";
 import { v4 as uuidv4 } from "uuid";
 import ScrollToNewest from "./ScrollToNewest";
 import LoadingSpinner from "../Etc/LoadingSpinner";
