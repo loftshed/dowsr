@@ -21,10 +21,6 @@ import { getUser } from "../Auth/userHelpers";
 
 const Messages = () => {
   const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);
-
-  // TODO: uncomment this
-  // if (threads.length < 1) return <div>loading</div>;
-
   return (
     <ResponsiveContainer heading={"Messages"}>
       <LayoutContainer>

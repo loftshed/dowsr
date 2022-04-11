@@ -14,16 +14,14 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
   const collapseToAvatar = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
-  console.log(userId);
 
   useEffect(() => {
     (async () => {
-      const {
-        data: { avatarUrl },
-      } = await getUser("id", userId);
+      const { data } = await getUser("id", userId);
+      const { avatarUrl } = data;
       setAvatarUrl(avatarUrl);
     })();
-  }, [threads]);
+  }, []);
 
   return (
     <TileWrapper

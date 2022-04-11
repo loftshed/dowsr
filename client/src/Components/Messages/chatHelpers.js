@@ -8,7 +8,6 @@ const getUserThreads = async (userId) => {
 };
 
 const getOneThread = async (threadId) => {
-  console.log(threadId);
   try {
     const response = await fetch(`/api/get-thread?threadId=${threadId}`);
     const {

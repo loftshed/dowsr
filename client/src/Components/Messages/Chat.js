@@ -9,8 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import ScrollToNewest from "./ScrollToNewest";
 
 //TODO: Make threads sort properly by latest. Will need to determine latest thread by message timestamps instead 💩
-//TODO: change this so that even if thread is null,
-// chat window displays the same way.
+//TODO: change this so that even if thread is null, chat window displays the same way.
 
 const Chat = () => {
   const [currentMessages, setCurrentMessages] = useState([]);
@@ -45,26 +44,6 @@ const Chat = () => {
     }
   }, [displayedThreadId, threads]);
 
-  // useEffect(() => {
-  //   if (threads.length === 0) {
-  //     (async () => {
-  //       const { threads } = await getUserThreads(loggedInUser?._id);
-  //       setThreads(threads);
-  //     })();
-  //   } else {
-  //     const latestThread = threads[threads.length - 1];
-
-  //     if (!displayedThreadId) setDisplayedThreadId(latestThread?._id);
-
-  //     const thread = threads.find((el) => {
-  //       return el._id === displayedThreadId;
-  //     });
-
-  //     if (thread) setCurrentMessages(thread.messages);
-  //     console.log(currentMessages);
-  //   }
-  // }, [displayedThreadId, threads]);
-
   if (!loggedInUser) return null;
 
   const handleSendMessage = async (message) => {
@@ -77,6 +56,8 @@ const Chat = () => {
           loggedInUser.username
         );
         setCurrentMessages([...currentMessages, returnMessage]);
+        const { threads } = await getUserThreads(loggedInUser?._id);
+        setThreads(threads);
       }
     } catch (error) {
       if (error) console.log(error);
