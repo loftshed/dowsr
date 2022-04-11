@@ -11,6 +11,7 @@ import {
   BsFillSaveFill,
 } from "react-icons/bs";
 import { TiThMenu } from "react-icons/ti";
+import { IoLogOut } from "react-icons/io5";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)``;
 const SearchIcon = styled(BsSearch)``;
@@ -26,6 +27,7 @@ const BurgerMenuIcon = styled(TiThMenu)`
   width: 30px;
   height: 30px;
 `;
+const LogoutIcon = styled(IoLogOut)``;
 
 export {
   CircledArrowRight,
@@ -38,4 +40,5 @@ export {
   ProfileIcon,
   MapIcon,
   BurgerMenuIcon,
+  LogoutIcon,
 };

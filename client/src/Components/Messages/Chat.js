@@ -19,6 +19,7 @@ import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 
 const Chat = () => {
   const [currentMessages, setCurrentMessages] = useState([]);
+  const [threadsChecked, setThreadsChecked] = useState([]);
 
   const {
     setThreads,

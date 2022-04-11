@@ -263,6 +263,6 @@ const DetailList = styled.div`
   padding: 25px;
 `;
 
-const BurgerButton = styled(TextButton)`
-  padding: 5px;
+const SendMessage = styled(TextButton)`
+  cursor: pointer;
 `;

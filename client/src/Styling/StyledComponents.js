@@ -34,6 +34,23 @@ const centeredFlexColumn = css`
   align-items: center;
 `;
 
+const iconStyling = css`
+  padding: 8px;
+  background-color: #1e2021;
+  border: 1px solid var(--color-super-dark-grey);
+  border-radius: 50%;
+  transition: all ease 0.1s;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-pink);
+    transform: scale(1.05);
+  }
+  &:active {
+    background-color: var(--color-pink);
+    transform: scale(0.95);
+  }
+`;
+
 const ContentGrid = styled.div`
   display: grid;
   grid-template-rows: repeat(2, 100px);
@@ -57,20 +74,7 @@ const TextButton = styled.button`
 `;
 
 const IconNavLink = styled(NavLink)`
-  padding: 8px;
-  background-color: #1e2021;
-  border: 1px solid var(--color-super-dark-grey);
-  border-radius: 50%;
-  transition: all ease 0.1s;
-  cursor: pointer;
-  &:hover {
-    background-color: var(--color-pink);
-    transform: scale(1.05);
-  }
-  &:active {
-    background-color: var(--color-pink);
-    transform: scale(0.95);
-  }
+  ${iconStyling}
 `;
 
 const Input = styled.input`
@@ -111,4 +115,5 @@ export {
   fillSpace,
   centeredFlexColumn,
   centeredFlexRow,
+  iconStyling,
 };
