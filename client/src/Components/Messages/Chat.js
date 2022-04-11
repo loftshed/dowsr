@@ -22,8 +22,8 @@ const Chat = () => {
     displayedThreadId,
     threads,
     loggedInUser,
-    setShowLoadingSpinner,
-    showLoadingSpinner,
+    setShowLoadingAnim,
+    showLoadingAnim,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -59,11 +59,11 @@ const Chat = () => {
           loggedInUser._id,
           loggedInUser.username
         );
-        setShowLoadingSpinner(true);
+        setShowLoadingAnim(true);
         setCurrentMessages([...currentMessages, returnMessage]);
         const { threads } = await getUserThreads(loggedInUser?._id);
         setThreads(threads);
-        setShowLoadingSpinner(false);
+        setShowLoadingAnim(false);
       }
     } catch (error) {
       if (error) console.log(error);
@@ -131,7 +131,7 @@ const ChatBody = styled.ul`
   flex-direction: column;
   gap: 5px;
   border-radius: 5px;
-  padding: 5px;
+  padding: 6px 2px;
   width: 100%;
   height: 100%;
   background-color: var(--color-darkest-grey);

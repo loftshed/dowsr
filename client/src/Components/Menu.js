@@ -26,7 +26,9 @@ import { getUserThreads } from "./Messages/chatHelpers";
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
 //STRETCH: make button appear on left/right side of screen according to user settings.
+//STRETCH: make numbers appear over icons for unread notifications..
 //TODO: GET NAVLINK HIGHLIGHT WORKING~!!
+// or just do something in state...
 
 const Menu = () => {
   const { loggedInUser } = useContext(AppContext);

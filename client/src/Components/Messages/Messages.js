@@ -80,7 +80,7 @@ const Sidebar = styled(FlexDiv)`
   width: 45%;
   height: 100%;
   padding: 5px 2px 5px 5px;
-  row-gap: 3px;
+  row-gap: 6px;
   background-color: var(--color-super-dark-grey);
   border-top-left-radius: 3px;
   border-bottom-left-radius: ${SIZES.borderRadius}px;

@@ -16,7 +16,8 @@ import LoadingSpinner from "../Etc/LoadingSpinner";
 import { gradientScroll } from "../../Styling/Animations";
 
 const ThreadTile = ({ threadId, userId, user, time, message }) => {
-  const { setDisplayedThreadId, showLoadingSpinner } = useContext(AppContext);
+  const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =
+    useContext(AppContext);
   const [avatarUrl, setAvatarUrl] = useState("");
   const collapseToAvatar = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
   const relativeTime = require("dayjs/plugin/relativeTime");
@@ -34,6 +35,7 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
 
   return (
     <TileWrapper
+      showOutline={displayedThreadId === threadId}
       small={collapseToAvatar}
       onClick={(ev) => {
         setDisplayedThreadId(threadId);
@@ -49,8 +51,8 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
             <Avatar src={avatarUrl} style={{ width: "20px", height: "20px" }} />
             {user}
           </Heading>
-          <Body overflow={showLoadingSpinner}>
-            {showLoadingSpinner ? (
+          <Body overflow={showLoadingAnim}>
+            {showLoadingAnim ? (
               <ThreadRefreshBoundary>
                 <ThreadRefreshAnim />
               </ThreadRefreshBoundary>
@@ -98,23 +100,29 @@ const Avatar = styled.img`
 `;
 
 const TileWrapper = styled(CenteredFlexColumnDiv)`
+  transition: 0.08s all linear;
   width: 100%;
-  height: ${(props) => (props.small ? "fit-content" : "80px")};
-  /* min-height: 80px; */
+  height: fit-content;
   background-color: var(--color-darkest-grey);
   border-radius: ${(props) => (props.small ? "50px" : "5px")};
   border: ${(props) =>
     props.small
       ? "1.5px solid var(--color-less-dark-grey)"
       : "1px solid var(--color-super-dark-grey)"};
-  box-shadow: inset 0px 0px 2px var(--color-super-dark-grey);
+  box-shadow: ${(props) =>
+    props.showOutline
+      ? "inset 0px 0px 2px var(--color-super-dark-grey), 0px 2px 1px var(--color-pink)"
+      : "inset 0px 0px 2px var(--color-super-dark-grey)"};
   &:hover {
     outline: solid 2px var(--color-teal);
   }
   &:active {
-    outline: solid 2px var(--color-teal);
+    outline: solid 2px var(--color-pink);
   }
+
   cursor: pointer;
+  outline: ${(props) =>
+    props.showOutline ? "2px solid var(--color-teal)" : ""};
 `;
 /* margin: ${(props) => (props.small ? "2px" : "0px")}; */
 /* @media (max-width: 425px) {

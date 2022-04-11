@@ -73,6 +73,7 @@ const InnerContainer = styled(CenteredFlexColumnDiv)`
 `;
 
 const Heading = styled(CenteredFlexRowDiv)`
+  user-select: none;
   width: 100%;
   height: fit-content;
   padding: 3px 0px;
