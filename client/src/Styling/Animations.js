@@ -50,7 +50,7 @@ const gradientScroll = keyframes`
     transform: translateX(0px)
   }
   to {  
-    transform: translateX(-1000px)
+    transform: translateX(-300px)
   }
 `;
 

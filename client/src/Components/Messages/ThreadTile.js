@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { centeredFlexColumn } from "../../Styling/StyledComponents";
+import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 
 import { useContext, useEffect, useState } from "react";
@@ -50,17 +50,16 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
             <Avatar src={avatarUrl} style={{ width: "20px", height: "20px" }} />
             {partnerHandle}
           </Heading>
-          <Body hideOverflow={showLoadingAnim}>
-            {showLoadingAnim ? (
+          <Body>
+            <Text isLoading={showLoadingAnim}>
+              {message}
+              <Timestamp>{dayjs(time).fromNow()}</Timestamp>
+            </Text>
+
+            {showLoadingAnim && (
               <ThreadRefreshBoundary>
                 <ThreadRefreshAnim />
               </ThreadRefreshBoundary>
-            ) : (
-              // <LoadingSpinner color="#353535" />
-              <>
-                {message}
-                <Timestamp>{dayjs(time).fromNow()}</Timestamp>
-              </>
             )}
           </Body>
         </>
@@ -71,15 +70,25 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
 
 export default ThreadTile;
 
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 3px 5px;
+  transition: all 0.2s ease;
+  opacity: ${(props) => (props.isLoading ? "0%" : "100%")};
+`;
+
 const ThreadRefreshBoundary = styled.div`
-  width: 100%;
+  position: absolute;
   height: 100%;
+  width: 100%;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   overflow: hidden;
 `;
 
 const ThreadRefreshAnim = styled.div`
+  position: absolute;
   background: rgb(0, 0, 0);
   background: linear-gradient(
     90deg,
@@ -87,7 +96,6 @@ const ThreadRefreshAnim = styled.div`
     rgba(231, 67, 106, 1) 0%,
     rgba(109, 31, 50, 0.4947092563291139) 100%
   );
-
   height: 200%;
   width: 500px;
   animation: ${gradientScroll} 0.5s linear infinite;
@@ -143,14 +151,13 @@ const Heading = styled.div`
 `;
 
 const Body = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  padding: ${(props) => (props.hideOverflow ? "none" : "3px 5px")};
   width: 100%;
   height: 100%;
   font-size: 14px;
-  overflow: ${(props) => (props.hideOverflow ? "hidden" : "")};
 `;
 
 const Timestamp = styled.div`
