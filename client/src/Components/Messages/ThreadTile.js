@@ -15,15 +15,18 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
   const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =
     useContext(AppContext);
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [partnerHandle, setPartnerHandle] = useState("");
   const collapseToAvatar = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
 
   useEffect(() => {
+    console.log(userId);
     (async () => {
       const { data } = await getUser("id", userId);
-      const { avatarUrl } = data;
+      const { avatarUrl, username } = data;
       setAvatarUrl(avatarUrl);
+      setPartnerHandle(username);
     })();
   }, []);
 
@@ -45,7 +48,7 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
         <>
           <Heading>
             <Avatar src={avatarUrl} style={{ width: "20px", height: "20px" }} />
-            {user}
+            {partnerHandle}
           </Heading>
           <Body hideOverflow={showLoadingAnim}>
             {showLoadingAnim ? (
