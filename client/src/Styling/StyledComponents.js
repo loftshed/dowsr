@@ -62,6 +62,7 @@ const TextButton = styled.button`
 const IconNavLink = styled(NavLink)`
   padding: 8px;
   background-color: #1e2021;
+  border: 1px solid var(--color-super-dark-grey);
   border-radius: 50%;
   transition: all ease 0.1s;
   cursor: pointer;

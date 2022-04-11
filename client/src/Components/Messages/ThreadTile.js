@@ -2,17 +2,19 @@ import styled from "styled-components";
 import { CenteredFlexColumnDiv, FlexDiv } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 import { useWindowWidth } from "@react-hook/window-size";
-import dayjs, { relativeTime } from "dayjs";
+import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { getUser } from "../Auth/userHelpers";
 
 const ThreadTile = ({ threadId, userId, user, time, message }) => {
-  const { setDisplayedThreadId, displayedThreadId } = useContext(AppContext);
+  const { setDisplayedThreadId, displayedThreadId, threads } =
+    useContext(AppContext);
   const [avatarUrl, setAvatarUrl] = useState("");
   const collapseToAvatar = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
+  console.log(userId);
 
   useEffect(() => {
     (async () => {
@@ -21,7 +23,7 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
       } = await getUser("id", userId);
       setAvatarUrl(avatarUrl);
     })();
-  }, []);
+  }, [threads]);
 
   return (
     <TileWrapper
@@ -67,10 +69,6 @@ const TileWrapper = styled(CenteredFlexColumnDiv)`
     props.small
       ? "1.5px solid var(--color-less-dark-grey)"
       : "1px solid var(--color-super-dark-grey)"};
-  /* margin: ${(props) => (props.small ? "2px" : "0px")}; */
-  /* @media (max-width: 425px) {
-    width: 30px;
-  } */
   box-shadow: inset 0px 0px 2px var(--color-super-dark-grey);
   &:hover {
     outline: solid 1px var(--color-teal);
@@ -80,6 +78,10 @@ const TileWrapper = styled(CenteredFlexColumnDiv)`
   }
   cursor: pointer;
 `;
+/* margin: ${(props) => (props.small ? "2px" : "0px")}; */
+/* @media (max-width: 425px) {
+    width: 30px;
+  } */
 
 const Heading = styled(FlexDiv)`
   align-items: center;
@@ -95,7 +97,7 @@ const Heading = styled(FlexDiv)`
 
 const Body = styled(FlexDiv)`
   flex-direction: column;
-  padding: 0px 5px;
+  padding: 3px 5px;
   width: 100%;
   height: 100%;
   font-size: 14px;

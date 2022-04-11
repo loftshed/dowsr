@@ -6,7 +6,6 @@ const { v4: uuidv4 } = require("uuid");
 const { MongoClient } = require("mongodb");
 const { MONGO_URI } = process.env;
 const dayjs = require("dayjs");
-const currentTime = dayjs().format();
 
 const client = new MongoClient(MONGO_URI, {
   useNewUrlParser: true,
@@ -23,6 +22,7 @@ const msgDb = db.collection("messages");
 
 const newThread = async ({ query: { idA, idB }, body }, res) => {
   try {
+    const currentTime = dayjs().format();
     const threadId = uuidv4();
     await client.connect();
     const newThread = {
@@ -71,6 +71,7 @@ const getUserThreads = async ({ query: { userId } }, res) => {
 const modifyThread = async ({ query: { threadId }, body }, res) => {
   try {
     await client.connect();
+    const currentTime = dayjs().format();
     const modResult = await msgDb.updateOne(
       { _id: threadId },
       { $push: { messages: { sent: currentTime, ...body } } }

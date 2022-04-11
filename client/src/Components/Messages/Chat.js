@@ -6,6 +6,11 @@ import { AppContext } from "../../Context/AppContext";
 import { SIZES } from "../../Styling/constants";
 import { replyThread, getOneThread, getUserThreads } from "./chatHelpers";
 import { v4 as uuidv4 } from "uuid";
+import ScrollToNewest from "./ScrollToNewest";
+
+//TODO: Make threads sort properly by latest. Will need to determine latest thread by message timestamps instead 💩
+//TODO: change this so that even if thread is null,
+// chat window displays the same way.
 
 const Chat = () => {
   const [currentMessages, setCurrentMessages] = useState([]);
@@ -19,41 +24,48 @@ const Chat = () => {
   } = useContext(AppContext);
 
   useEffect(() => {
-    // console.log("useeffect");
-    // console.log(threads);
-    if (threads.length === 0) {
+    if (!loggedInUser) return;
+    if (threads.length === 0)
       (async () => {
         const { threads } = await getUserThreads(loggedInUser?._id);
         setThreads(threads);
       })();
-    } else {
-      //TODO: find a way of making this work
-      // will need to determine latest thread by message timestamps instead
-      // 💩
-      const latestThread = threads[threads.length - 1];
-      // console.log(latestThread);
-      if (!displayedThreadId) setDisplayedThreadId(latestThread?._id);
-      const thread = threads.find((el) => {
-        return el._id === displayedThreadId;
-      });
-      if (thread) setCurrentMessages(thread.messages);
-      console.log(currentMessages);
+  }, [threads, loggedInUser]);
+
+  useEffect(() => {
+    if (threads.length > 0) {
+      (async () => {
+        const latestThread = await threads[threads.length - 1];
+        if (!displayedThreadId) setDisplayedThreadId(latestThread?._id);
+        const retrievedMessages = await getOneThread(
+          displayedThreadId || latestThread?._id
+        );
+        setCurrentMessages(retrievedMessages);
+      })();
     }
   }, [displayedThreadId, threads]);
 
+  // useEffect(() => {
+  //   if (threads.length === 0) {
+  //     (async () => {
+  //       const { threads } = await getUserThreads(loggedInUser?._id);
+  //       setThreads(threads);
+  //     })();
+  //   } else {
+  //     const latestThread = threads[threads.length - 1];
+
+  //     if (!displayedThreadId) setDisplayedThreadId(latestThread?._id);
+
+  //     const thread = threads.find((el) => {
+  //       return el._id === displayedThreadId;
+  //     });
+
+  //     if (thread) setCurrentMessages(thread.messages);
+  //     console.log(currentMessages);
+  //   }
+  // }, [displayedThreadId, threads]);
+
   if (!loggedInUser) return null;
-
-  //TODO: change this so that even if thread is null,
-  // chat window displays the same way.
-  //FIXME: something up with timestamps
-  //FIXME: correct noob styling mistake... use shared styles, don't extend one component for eternity
-  //TODO: get page to re-render properly when messages sent..
-
-  // const { messages } = currentThread;
-
-  // const scrollToBottom = () => {
-  //   messagesEnd.scrollIntoView({ behavior: "smooth" });
-  // }
 
   const handleSendMessage = async (message) => {
     try {
@@ -71,7 +83,14 @@ const Chat = () => {
     }
   };
 
-  if (!currentMessages) return null;
+  if (!currentMessages) return;
+  <ChatWrapper>
+    <ChatBody>Nothing to display</ChatBody>
+    <InputArea>
+      <ChatInput disabled={true}></ChatInput>
+      <SendButton disabled={true} />
+    </InputArea>
+  </ChatWrapper>;
 
   return (
     <ChatWrapper>
@@ -89,11 +108,13 @@ const Chat = () => {
             );
           })}
         </>
+        <ScrollToNewest />
       </ChatBody>
       <InputArea
         onSubmit={(ev) => {
-          ev.preventDefault();
+          ev.preventDefault(); //TODO: CLEAR INPUT ON SUBMIT
           handleSendMessage(ev.target.message.value);
+          ev.target.message.value = "";
         }}
       >
         <ChatInput id="message" type="text" autoComplete="off"></ChatInput>
@@ -116,13 +137,14 @@ const ChatWrapper = styled(FillDiv)`
   height: 100%;
 `;
 
-const ChatBody = styled(FillDiv)`
+const ChatBody = styled.ul`
+  display: flex;
   flex-direction: column;
   gap: 5px;
   border-radius: 5px;
   padding: 5px;
   width: 100%;
-  /* height: 600%; */
+  height: 100%;
   background-color: var(--color-darkest-grey);
   overflow-y: scroll;
   ::-webkit-scrollbar {
@@ -155,9 +177,9 @@ const ChatInput = styled.input`
   line-height: 30px;
   border-radius: 5px;
   &:focus {
-    outline: none;
+    outline: 1px solid var(--color-teal);
     //TODO: change transparency on this
-    box-shadow: inset 0px 0px 50px var(--color-teal);
+    box-shadow: inset 0px 0px 50px rgba(68, 187, 164, 0.2);
   }
 `;
 

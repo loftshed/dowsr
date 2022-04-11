@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import ResponsiveContainer from "../ResponsiveContainer";
-import AlertModal from "../AlertModal";
 import { SIZES } from "../../Styling/constants";
 import {
   CenteredFlexColumnDiv,
@@ -9,9 +8,10 @@ import {
 } from "../../Styling/StyledComponents";
 import Chat from "./Chat";
 import ThreadTile from "./ThreadTile";
-import { useContext, useEffect, useState } from "react";
-import { getUserThreads } from "./chatHelpers";
+import { useContext } from "react";
 import { AppContext } from "../../Context/AppContext";
+
+import { getUser } from "../Auth/userHelpers";
 
 //TODO: by default, the most recent thread should be displayed.
 //TODO: use userefs for that?
@@ -20,17 +20,9 @@ import { AppContext } from "../../Context/AppContext";
 //TODO: implement react-spring for scrolling through messages/threads
 
 const Messages = () => {
-  const {
-    loggedInUser: { _id },
-    threads,
-    displayedThreadId,
-  } = useContext(AppContext);
+  const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);
 
-  const handleTileClick = (id) => {
-    console.log(id);
-  };
-
-  //TODO: uncomment this
+  // TODO: uncomment this
   // if (threads.length < 1) return <div>loading</div>;
 
   return (
@@ -40,16 +32,19 @@ const Messages = () => {
           <>
             {threads.map((el) => {
               const { _id, messages } = el;
-              const { sent, handle, message, userId } =
-                messages[messages.length - 1];
+              const partnerMsg = messages.find((el) => {
+                return el.handle !== loggedInUser.username;
+              });
+              const mostRecentMessage = messages[messages.length - 1];
+              const { sent, message } = mostRecentMessage;
               return (
                 <ThreadTile
                   key={_id}
                   threadId={_id}
-                  user={`@${handle}`}
+                  user={`@${partnerMsg.handle}`}
                   message={`${message}`}
                   time={sent}
-                  userId={userId}
+                  userId={partnerMsg.userId}
                 />
               );
             })}
