@@ -3,11 +3,8 @@ import {
   FillDiv,
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
-  FlexDiv,
-} from "../Styling/StyledComponents";
-import { SIZES } from "../Styling/constants";
-import Profile from "./Profile";
-import Notifications from "./Notifications";
+} from "./StyledComponents";
+import { SIZES } from "./constants";
 
 const ResponsiveContainer = ({ children, heading }) => {
   return (
@@ -39,9 +36,11 @@ const Content = styled(CenteredFlexColumnDiv)`
   height: calc(
     100% - ${SIZES.menuHeightCompact}px - ${SIZES.topBottomPadding}px
   );
-  padding: ${SIZES.topBottomPadding}px ${SIZES.smallPadding}px; // MIN AMOUNT OF SPACE BETWEEN OUTER CONTAINER AND RESPONSIVECONTAINER
-  /* padding: ${SIZES.universalPadding}px; */
+  padding: ${SIZES.topBottomPadding}px ${SIZES.smallPadding}px;
 `;
+
+// MIN AMOUNT OF SPACE BETWEEN OUTER CONTAINER AND RESPONSIVECONTAINER
+/* padding: ${SIZES.universalPadding}px; */
 
 const OuterContainer = styled(CenteredFlexColumnDiv)`
   border-radius: ${SIZES.borderRadius}px;
@@ -71,7 +70,6 @@ const InnerContainer = styled(CenteredFlexColumnDiv)`
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  box-shadow: inset 0px 0px 2px var(--color-super-dark-grey);
 `;
 
 const Heading = styled(CenteredFlexRowDiv)`

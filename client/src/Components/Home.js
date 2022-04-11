@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import MapContainer from "./Map/MapContainer";
-import ResponsiveContainer from "./ResponsiveContainer";
+import ResponsiveContainer from "../Styling/ResponsiveContainer";
 import FirstLogin from "./Auth/FirstLogin";
 import { useAuth0 } from "@auth0/auth0-react";
 import { SIZES } from "../Styling/constants";

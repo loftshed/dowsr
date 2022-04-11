@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import ResponsiveContainer from "./ResponsiveContainer";
-import AlertModal from "./AlertModal";
-import { SIZES } from "../Styling/constants";
+import ResponsiveContainer from "../../Styling/ResponsiveContainer";
+import { SIZES } from "../../Styling/constants";
 import {
   CenteredFlexColumnDiv,
   CenteredFlexRowDiv,
-} from "../Styling/StyledComponents";
+} from "../../Styling/StyledComponents";
 
 const Error = () => {
   return (

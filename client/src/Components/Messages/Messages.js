@@ -6,10 +6,10 @@ import {
 } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 
-import ResponsiveContainer from "../ResponsiveContainer";
+import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import ThreadTile from "./ThreadTile";
 import Chat from "./Chat";
 
@@ -20,6 +20,7 @@ import Chat from "./Chat";
 
 const Messages = () => {
   const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);
+
   return (
     <ResponsiveContainer heading={"Messages"}>
       <LayoutContainer>

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import ResponsiveContainer from "./ResponsiveContainer";
-import AlertModal from "./AlertModal";
+import ResponsiveContainer from "../Styling/ResponsiveContainer";
 import { SIZES } from "../Styling/constants";
 import {
   CenteredFlexColumnDiv,
@@ -11,9 +10,7 @@ const Notifications = () => {
   return (
     <ResponsiveContainer heading={"Notifications"}>
       <NotificationContainer>
-        <AlertModal>@coolguy69 added you as a friend!</AlertModal>
-        <AlertModal>2 people liked your contribution 😎</AlertModal>
-        <AlertModal>rain coming soon in your area!</AlertModal>
+        notifications go here, in theory!
       </NotificationContainer>
     </ResponsiveContainer>
   );

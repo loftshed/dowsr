@@ -18,6 +18,15 @@ const unrotate180 = keyframes`
   }
 `;
 
+const rotate360 = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 const drawerOut = keyframes`
   from {
     transform: translateX(-148px);
@@ -36,4 +45,20 @@ const drawerIn = keyframes`
   }
 `;
 
-export { rotate180, unrotate180, drawerOut, drawerIn };
+const gradientScroll = keyframes`
+  from {
+    transform: translateX(0px)
+  }
+  to {  
+    transform: translateX(-1000px)
+  }
+`;
+
+export {
+  rotate180,
+  unrotate180,
+  rotate360,
+  drawerOut,
+  drawerIn,
+  gradientScroll,
+};

@@ -7,6 +7,8 @@ import { SIZES } from "../../Styling/constants";
 import { replyThread, getOneThread, getUserThreads } from "./chatHelpers";
 import { v4 as uuidv4 } from "uuid";
 import ScrollToNewest from "./ScrollToNewest";
+import LoadingSpinner from "../Etc/LoadingSpinner";
+import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 
 //TODO: Make threads sort properly by latest. Will need to determine latest thread by message timestamps instead 💩
 //TODO: change this so that even if thread is null, chat window displays the same way.
@@ -20,6 +22,8 @@ const Chat = () => {
     displayedThreadId,
     threads,
     loggedInUser,
+    setShowLoadingSpinner,
+    showLoadingSpinner,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -44,7 +48,7 @@ const Chat = () => {
     }
   }, [displayedThreadId, threads]);
 
-  if (!loggedInUser) return null;
+  if (!loggedInUser) return <LoadingSpinner size={60} />;
 
   const handleSendMessage = async (message) => {
     try {
@@ -55,9 +59,11 @@ const Chat = () => {
           loggedInUser._id,
           loggedInUser.username
         );
+        setShowLoadingSpinner(true);
         setCurrentMessages([...currentMessages, returnMessage]);
         const { threads } = await getUserThreads(loggedInUser?._id);
         setThreads(threads);
+        setShowLoadingSpinner(false);
       }
     } catch (error) {
       if (error) console.log(error);
@@ -66,7 +72,9 @@ const Chat = () => {
 
   if (!currentMessages) return;
   <ChatWrapper>
-    <ChatBody>Nothing to display</ChatBody>
+    <ChatBody>
+      <LoadingSpinner size={60} />
+    </ChatBody>
     <InputArea>
       <ChatInput disabled={true}></ChatInput>
       <SendButton disabled={true} />

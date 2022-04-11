@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState("");
   const [threads, setThreads] = useState([]);
   const [displayedThreadId, setDisplayedThreadId] = useState("");
+  const [showLoadingSpinner, setShowLoadingSpinner] = useState(false);
 
   // const socket = socketio.connect("http://localhost:8080");
 
@@ -26,7 +27,8 @@ export const AppProvider = ({ children }) => {
         setLoggedInUser,
         threads,
         setThreads,
-
+        showLoadingSpinner,
+        setShowLoadingSpinner,
         displayedThreadId,
         setDisplayedThreadId,
         //socket

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ResponsiveContainer from "../ResponsiveContainer";
+import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import {
   FillDiv,
   CenteredFlexColumnDiv,

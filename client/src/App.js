@@ -9,19 +9,15 @@ import Menu from "./Components/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
 import Messages from "./Components/Messages/Messages";
-import Error from "./Components/Error";
-import Saved from "./Components/Saved";
-import AlertModal from "./Components/AlertModal";
+import Error from "./Components/Etc/Error";
 import LoginButton from "./Components/Auth/LoginButton";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./Context/AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./Components/Auth/userHelpers";
-import { getUserThreads } from "./Components/Messages/chatHelpers";
 
 const App = () => {
-  const { firstLogin, setFirstLogin, loggedInUser, setLoggedInUser } =
-    useContext(AppContext);
+  const { setLoggedInUser } = useContext(AppContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {

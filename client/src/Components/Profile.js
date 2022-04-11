@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import {
   CenteredFlexColumnDiv,
@@ -6,15 +5,19 @@ import {
   FlexDiv,
   TextButton,
 } from "../Styling/StyledComponents";
-import ResponsiveContainer from "./ResponsiveContainer";
-import { SIZES } from "../Styling/constants";
-import LogoutButton from "./Auth/LogoutButton";
-import { getUser } from "./Auth/userHelpers";
-import { useEffect, useContext } from "react";
-import dayjs from "dayjs";
-import Flag from "react-world-flags";
 import { BurgerMenuIcon } from "../Styling/Icons";
+import { SIZES } from "../Styling/constants";
+import ResponsiveContainer from "../Styling/ResponsiveContainer";
+
+import { useEffect, useContext } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import Flag from "react-world-flags";
+import dayjs from "dayjs";
+
 import { AppContext } from "../Context/AppContext";
+import { getUser } from "./Auth/userHelpers";
+import LogoutButton from "./Auth/LogoutButton";
+import LoadingSpinner from "./Etc/LoadingSpinner";
 
 const Profile = () => {
   const { loggedInUser } = useContext(AppContext);
@@ -23,9 +26,13 @@ const Profile = () => {
   //TODO: button to edit profile!
   //TODO: embed ig feed in profile
   //TODO: add bio to profile
-  //+ click profile image to magnify?
 
-  if (isLoading) return <>Loading...</>;
+  if (isLoading)
+    return (
+      <ResponsiveContainer>
+        <LoadingSpinner size={60} />
+      </ResponsiveContainer>
+    );
 
   if (!loggedInUser) return null;
   const { username, city, country, region, avatarUrl, contributions, regDate } =
