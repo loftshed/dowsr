@@ -132,15 +132,13 @@ const ChatBody = styled.ul`
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-teal);
+    background: #282828;
     box-shadow: 0px 0px 1px inset var(--color-super-dark-grey);
   }
   ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
     background: var(--color-pink);
   }
-  /* ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-pink);
-  } */
 `;
 
 const InputArea = styled.form`
