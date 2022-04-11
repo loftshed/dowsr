@@ -2,15 +2,9 @@ import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { useWindowWidth } from "@react-hook/window-size";
-import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-  TextButton,
-  pageWidth,
-} from "../src/styles/StyledComponents";
+import { TextButton, pageWidth } from "../src/styles/StyledComponents";
 import {
   CircledArrowRight,
-  SearchIcon,
   MapIcon,
   HeartIcon,
   SavedHeartIcon,
@@ -25,6 +19,7 @@ import {
   drawerOut,
 } from "../src/styles/Animations";
 import { SIZES } from "../src/styles/constants";
+import { centeredFlexColumn } from "../src/Styling/StyledComponents";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
@@ -82,7 +77,8 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const Wrapper = styled(CenteredFlexRowDiv)`
+const Wrapper = styled.div`
+  ${centeredFlexRow}
   position: absolute;
   justify-content: space-between;
   background-color: var(--color-dark-blue);
@@ -124,13 +120,15 @@ const Wrapper = styled(CenteredFlexRowDiv)`
     3.7px 9.1px 52.9px rgba(0, 0, 0, 0.11), 10px 25px 145px rgba(0, 0, 0, 0.16);
 `;
 
-const DrawerContents = styled(CenteredFlexColumnDiv)`
+const DrawerContents = styled.div`
+  ${centeredFlexColumn}
   flex-grow: 1;
   height: 100%;
   background-color: var(--color-less-dark-grey);
 `;
 
-const DrawerEdge = styled(CenteredFlexColumnDiv)`
+const DrawerEdge = styled.div`
+  ${centeredFlexColumn}
   height: 100%;
   padding: 20px 0px;
   justify-content: flex-start;
@@ -151,7 +149,8 @@ const DrawerEdge = styled(CenteredFlexColumnDiv)`
   }}
 `;
 
-const IconRow = styled(CenteredFlexColumnDiv)`
+const IconRow = styled.div`
+  ${centeredFlexColumn}
   height: 100%;
   @media (max-width: ${SIZES.widthMed}px) {
     margin-top: -30px;

@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import ResponsiveContainer from "../Styling/ResponsiveContainer";
 import { SIZES } from "../Styling/constants";
-import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-} from "../Styling/StyledComponents";
+import { centeredFlexColumn } from "../Styling/StyledComponents";
 
 const Notifications = () => {
   return (
@@ -18,7 +15,8 @@ const Notifications = () => {
 
 export default Notifications;
 
-const NotificationContainer = styled(CenteredFlexColumnDiv)`
+const NotificationContainer = styled.div`
+  ${centeredFlexColumn}
   padding: ${SIZES.universalPadding}px;
   border-radius: ${SIZES.borderRadius}px;
   width: 100%;

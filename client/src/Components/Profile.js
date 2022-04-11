@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-  FillDiv,
-  FlexDiv,
+  centeredFlexColumn,
+  centeredFlexRow,
+  fillSpace,
   TextButton,
 } from "../Styling/StyledComponents";
 import { BurgerMenuIcon } from "../Styling/Icons";
@@ -62,13 +61,7 @@ const Profile = () => {
 
             <Details>
               <Location>{`${city}, ${region}`}</Location>
-              <Actions>
-                <TextButton
-                  onClick={handleMsgUser(loggedInUser._id, viewedProfile, "👋")}
-                >
-                  Send Message
-                </TextButton>
-              </Actions>
+
               <DetailList>
                 <li>{contributions} followers</li>
                 <li>{contributions} contributions</li>
@@ -76,6 +69,13 @@ const Profile = () => {
               </DetailList>
             </Details>
           </UserDetails>
+          <Actions>
+            <TextButton
+              onClick={handleMsgUser(loggedInUser._id, viewedProfile, "👋")}
+            >
+              Send Message
+            </TextButton>
+          </Actions>
         </InnerContainerLiner>
         {/* <ProfileChin>
           <LogoutButton />
@@ -102,13 +102,15 @@ const Actions = styled.div`
   }
 `;
 
-const InnerContainer = styled(FillDiv)`
+const InnerContainer = styled.div`
+  ${fillSpace}
   user-select: none;
   padding: 5px;
   flex-direction: column;
 `;
 
-const InnerContainerLiner = styled(FillDiv)`
+const InnerContainerLiner = styled.div`
+  ${fillSpace}
   flex-direction: column;
   outline: 1px solid var(--color-super-dark-grey);
   border-radius: ${SIZES.borderRadius}px;
@@ -135,7 +137,8 @@ const Location = styled.div`
   border-bottom: 1px solid var(--color-super-dark-grey);
 `;
 
-const UserDetails = styled(CenteredFlexColumnDiv)`
+const UserDetails = styled.div`
+  ${centeredFlexColumn}
   flex-grow: 1;
   width: 100%;
   border-radius: ${SIZES.borderRadius}px;
@@ -165,7 +168,8 @@ const Avatar = styled.img`
   outline: 1px solid var(--color-super-dark-grey);
 `;
 
-const ProfileSplash = styled(FlexDiv)`
+const ProfileSplash = styled.div`
+  display: flex;
   position: relative;
   width: 100%;
   height: 150px;
@@ -174,7 +178,8 @@ const ProfileSplash = styled(FlexDiv)`
   border-top-right-radius: ${SIZES.borderRadius}px;
 `;
 
-const DetailsHeading = styled(CenteredFlexRowDiv)`
+const DetailsHeading = styled.div`
+  ${centeredFlexRow}
   justify-content: flex-start;
   background-color: var(--color-darkest-grey);
   padding-left: ${SIZES.universalPadding}px;

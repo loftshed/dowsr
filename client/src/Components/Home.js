@@ -6,7 +6,7 @@ import FirstLogin from "./Auth/FirstLogin";
 import { useAuth0 } from "@auth0/auth0-react";
 import { SIZES } from "../Styling/constants";
 import { getUser } from "./Auth/userHelpers";
-import { CenteredFlexColumnDiv, FillDiv } from "../Styling/StyledComponents";
+import { centeredFlexColumn, fillSpace } from "../Styling/StyledComponents";
 import { AppContext } from "../Context/AppContext";
 
 const Home = () => {
@@ -56,17 +56,20 @@ const Home = () => {
 
 export default Home;
 
-const Wrapper = styled(FillDiv)`
+const Wrapper = styled.div`
+  ${fillSpace}
   background-color: var(--color-dark-grey);
   width: 100%;
 `;
 
-const Content = styled(CenteredFlexColumnDiv)`
+const Content = styled.div`
+  ${centeredFlexColumn}
   width: 100%;
   height: 100%;
 `;
 
-const Welcome = styled(CenteredFlexColumnDiv)`
+const Welcome = styled.div`
+  ${centeredFlexColumn}
   line-height: 1;
   text-align: center;
   padding: ${SIZES.universalPadding}px;

@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-  FlexDiv,
-} from "../../Styling/StyledComponents";
+import { centeredFlexColumn } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 
 import { useContext, useState } from "react";
@@ -57,7 +53,8 @@ const Messages = () => {
 
 export default Messages;
 
-const LayoutContainer = styled(FlexDiv)`
+const LayoutContainer = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
   padding: 3px;
@@ -67,14 +64,16 @@ const LayoutContainer = styled(FlexDiv)`
   overflow: hidden;
 `;
 
-const MessagesContainer = styled(CenteredFlexColumnDiv)`
+const MessagesContainer = styled.div`
+  ${centeredFlexColumn}
   border-bottom-right-radius: ${SIZES.borderRadius}px;
   width: 100%;
   height: 100%;
   gap: 15px;
 `;
 
-const Sidebar = styled(FlexDiv)`
+const Sidebar = styled.div`
+  display: flex;
   align-self: flex-start;
   flex-direction: column;
   width: 45%;

@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import {
-  FillDiv,
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-} from "./StyledComponents";
+import { centeredFlexColumn, centeredFlexRow } from "./StyledComponents";
 import { SIZES } from "./constants";
 
 const ResponsiveContainer = ({ children, heading }) => {
@@ -27,11 +23,15 @@ const ResponsiveContainer = ({ children, heading }) => {
 
 export default ResponsiveContainer;
 
-const Wrapper = styled(FillDiv)`
+const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
   background-color: var(--color-dark-grey);
 `;
 
-const Content = styled(CenteredFlexColumnDiv)`
+const Content = styled.div`
+  ${centeredFlexColumn}
   width: 100%;
   height: calc(
     100% - ${SIZES.menuHeightCompact}px - ${SIZES.topBottomPadding}px
@@ -42,7 +42,8 @@ const Content = styled(CenteredFlexColumnDiv)`
 // MIN AMOUNT OF SPACE BETWEEN OUTER CONTAINER AND RESPONSIVECONTAINER
 /* padding: ${SIZES.universalPadding}px; */
 
-const OuterContainer = styled(CenteredFlexColumnDiv)`
+const OuterContainer = styled.div`
+  ${centeredFlexColumn}
   border-radius: ${SIZES.borderRadius}px;
   background-color: var(--color-less-dark-grey);
   width: 100%;
@@ -65,14 +66,16 @@ const OuterContainer = styled(CenteredFlexColumnDiv)`
   overflow: hidden;
 `;
 
-const InnerContainer = styled(CenteredFlexColumnDiv)`
+const InnerContainer = styled.div`
+  ${centeredFlexColumn}
   border-radius: ${SIZES.borderRadius}px;
   justify-content: flex-start;
   width: 100%;
   height: 100%;
 `;
 
-const Heading = styled(CenteredFlexRowDiv)`
+const Heading = styled.div`
+  ${centeredFlexRow}
   user-select: none;
   width: 100%;
   height: fit-content;
@@ -80,6 +83,6 @@ const Heading = styled(CenteredFlexRowDiv)`
   background-color: var(--color-darkest-grey);
   border-top-left-radius: ${SIZES.borderRadius}px;
   border-top-right-radius: ${SIZES.borderRadius}px;
-  border-bottom: 1.5px solid var(--color-super-dark-grey);
+  border-bottom: 1.5px solid var (--color-super-dark-grey);
   box-shadow: inset 0px 0px 3px var(--color-super-dark-grey);
 `;

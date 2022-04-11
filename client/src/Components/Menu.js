@@ -1,7 +1,7 @@
 import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-  FillDiv,
+  centeredFlexColumn,
+  centeredFlexRow,
+  fillSpace,
   IconNavLink,
   TextButton,
 } from "../Styling/StyledComponents";
@@ -80,7 +80,8 @@ const BurgerButton = styled(TextButton)`
   padding: 7.5px;
 `;
 
-const Wrapper = styled(CenteredFlexRowDiv)`
+const Wrapper = styled.div`
+  ${centeredFlexRow}
   position: absolute;
   height: ${SIZES.menuHeightCompact}px;
   bottom: ${SIZES.topBottomPadding}px;
@@ -90,7 +91,8 @@ const Wrapper = styled(CenteredFlexRowDiv)`
     width: calc(100% - ${SIZES.smallPadding}px*2);
   }
 `;
-const Content = styled(FillDiv)`
+const Content = styled.div`
+  ${fillSpace}
   width: 525px;
   background-color: var(--color-darkest-grey);
   border-radius: 10px;
@@ -104,7 +106,8 @@ const Content = styled(FillDiv)`
   outline: 1px solid var(--color-super-dark-grey);
 `;
 
-const IconRow = styled(CenteredFlexRowDiv)`
+const IconRow = styled.div`
+  ${centeredFlexRow}
   width: 100%;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
@@ -119,11 +122,13 @@ const IconRow = styled(CenteredFlexRowDiv)`
   }
 `;
 
-const LoginContainer = styled(CenteredFlexRowDiv)`
+const LoginContainer = styled.div`
+  ${centeredFlexRow}
   width: 100%;
 `;
 
-const ButtonsDisabled = styled(CenteredFlexColumnDiv)`
+const ButtonsDisabled = styled.div`
+  ${centeredFlexColumn}
   width: 100%;
   height: 100%;
   justify-content: center;

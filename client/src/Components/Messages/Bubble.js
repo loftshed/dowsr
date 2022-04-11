@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import { FlexDiv } from "../../Styling/StyledComponents";
-import dayjs, { relativeTime } from "dayjs";
-
-//TODO: pick better colors for bubbles
-//TODO: add tips to bubbles!
+import dayjs from "dayjs";
 
 const Bubble = ({ recd, author, content, timestamp }) => {
   const relativeTime = require("dayjs/plugin/relativeTime");
@@ -13,7 +9,7 @@ const Bubble = ({ recd, author, content, timestamp }) => {
     <BubbleWrapper>
       <MessageContainer recd={recd}>
         <Heading recd={recd}>{recd && <>{author}</>}</Heading>
-        <FlexDiv style={{ justifyContent: "space-between" }}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           {recd && <Tip src="/tip-received.svg" recd={recd} />}
           <Body recd={recd}>
             {content}
@@ -22,7 +18,7 @@ const Bubble = ({ recd, author, content, timestamp }) => {
             <Timestamp>{dayjs(timestamp).format("MMM D, hh:mma")}</Timestamp>
           </Body>
           {!recd && <Tip src="/tip-sent.svg" />}
-        </FlexDiv>
+        </div>
       </MessageContainer>
     </BubbleWrapper>
   );
@@ -44,7 +40,8 @@ const BubbleWrapper = styled.li`
   padding: 1px 7.5px;
 `;
 
-const Heading = styled(FlexDiv)`
+const Heading = styled.div`
+  display: flex;
   align-items: center;
   font-family: Karla;
   font-weight: 800;
@@ -59,7 +56,8 @@ const Heading = styled(FlexDiv)`
 ///
 /* background-color: ${(props) =>
     props.recd ? "var(--color-dark-blue)" : "var(--color-med-blue)"}; */
-const Body = styled(FlexDiv)`
+const Body = styled.div`
+  display: flex;
   word-wrap: break-word;
   font-family: Karla;
   font-weight: 400;
@@ -76,7 +74,8 @@ const Body = styled(FlexDiv)`
 ////
 //  /* background-color: ${(props) =>
 //  props.recd ? "var(--color-med-blue)" : "var(--color-dark-grey)"};
-const MessageContainer = styled(FlexDiv)`
+const MessageContainer = styled.div`
+  display: flex;
   position: relative;
   flex-direction: column;
   height: fit-content;
@@ -96,7 +95,8 @@ const MessageContainer = styled(FlexDiv)`
   /* outline: 1px solid var(--color-super-dark-grey); */
 `;
 
-const Timestamp = styled(FlexDiv)`
+const Timestamp = styled.div`
+  display: flex;
   font-size: 10px;
   align-self: flex-end;
   color: var(--color-extra-medium-grey);

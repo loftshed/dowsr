@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FaSpinner } from "react-icons/fa";
-import { CenteredFlexColumnDiv } from "../../Styling/StyledComponents";
+import { centeredFlexColumn } from "../../Styling/StyledComponents";
 import { rotate360 } from "../../Styling/Animations";
 
 const LoadingSpinner = ({ size, color }) => {
@@ -19,7 +19,8 @@ const LoadingSpinner = ({ size, color }) => {
 
 export default LoadingSpinner;
 
-const SpinnerContainer = styled(CenteredFlexColumnDiv)`
+const SpinnerContainer = styled.div`
+  ${centeredFlexColumn}
   width: 100%;
   height: 100%;
 `;

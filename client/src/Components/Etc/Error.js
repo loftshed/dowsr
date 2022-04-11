@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import { SIZES } from "../../Styling/constants";
-import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-} from "../../Styling/StyledComponents";
+import { centeredFlexColumn } from "../../Styling/StyledComponents";
 
 const Error = () => {
   return (
@@ -20,7 +17,8 @@ const Error = () => {
 
 export default Error;
 
-const ErrorContainer = styled(CenteredFlexColumnDiv)`
+const ErrorContainer = styled.div`
+  ${centeredFlexColumn}
   padding: ${SIZES.universalPadding}px;
   border-radius: ${SIZES.borderRadius}px;
   width: 100%;

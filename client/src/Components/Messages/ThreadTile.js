@@ -1,9 +1,5 @@
 import styled from "styled-components";
-import {
-  CenteredFlexColumnDiv,
-  FillDiv,
-  FlexDiv,
-} from "../../Styling/StyledComponents";
+import { centeredFlexColumn } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 
 import { useContext, useEffect, useState } from "react";
@@ -99,7 +95,8 @@ const Avatar = styled.img`
   border-radius: 300px;
 `;
 
-const TileWrapper = styled(CenteredFlexColumnDiv)`
+const TileWrapper = styled.div`
+  ${centeredFlexColumn}
   transition: 0.08s all linear;
   width: 100%;
   height: fit-content;
@@ -129,7 +126,8 @@ const TileWrapper = styled(CenteredFlexColumnDiv)`
     width: 30px;
   } */
 
-const Heading = styled(FlexDiv)`
+const Heading = styled.div`
+  display: flex;
   align-items: center;
   font-family: Karla;
   font-size: 16px;
@@ -141,7 +139,8 @@ const Heading = styled(FlexDiv)`
   border-top-right-radius: 5px;
 `;
 
-const Body = styled(FlexDiv)`
+const Body = styled.div`
+  display: flex;
   justify-content: space-between;
   flex-direction: column;
   padding: ${(props) => (props.overflow ? "none" : "3px 5px")};

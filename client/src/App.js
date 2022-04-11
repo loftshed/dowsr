@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CenteredFlexColumnDiv } from "./Styling/StyledComponents";
+import { centeredFlexColumn } from "./Styling/StyledComponents";
 import { SIZES } from "./Styling/constants";
 import GlobalStyle from "./Styling/GlobalStyles";
 import styled from "styled-components";
@@ -54,7 +54,8 @@ const App = () => {
 export default App;
 
 // TODO: fix this shit (mobile browsers don't work well with viewport height)
-const Main = styled(CenteredFlexColumnDiv)`
+const Main = styled.div`
+  ${centeredFlexColumn}
   background-color: var(--color-dark-grey);
   height: calc(100% - ${SIZES.lrgHeader}px);
   @media (max-width: ${SIZES.widthMin}px) {

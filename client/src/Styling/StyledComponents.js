@@ -15,29 +15,26 @@ const buttonAnim = css`
   }
 `;
 
-const FlexDiv = styled.div`
+const fillSpace = css`
   display: flex;
-`;
-
-const CenteredFlexRowDiv = styled(FlexDiv)`
-  justify-content: center;
-  align-items: center;
-`;
-
-const CenteredFlexColumnDiv = styled(CenteredFlexRowDiv)`
-  flex-direction: column;
-`;
-
-const FillDiv = styled(FlexDiv)`
   width: 100%;
   height: 100%;
 `;
 
-const AbsoluteDiv = styled(FlexDiv)`
-  position: absolute;
+const centeredFlexRow = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const ContentGrid = styled(FlexDiv)`
+const centeredFlexColumn = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ContentGrid = styled.div`
   display: grid;
   grid-template-rows: repeat(2, 100px);
   grid-template-columns: repeat(2, 100px);
@@ -103,12 +100,7 @@ const Option = styled.option`
 const pageWidth = document.documentElement.clientWidth;
 
 export {
-  FlexDiv,
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
   ContentGrid,
-  FillDiv,
-  AbsoluteDiv,
   TextButton,
   pageWidth,
   IconNavLink,
@@ -116,4 +108,7 @@ export {
   Select,
   Option,
   buttonAnim,
+  fillSpace,
+  centeredFlexColumn,
+  centeredFlexRow,
 };

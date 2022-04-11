@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FillDiv } from "../../Styling/StyledComponents";
+import { fillSpace } from "../../Styling/StyledComponents";
 import { useState, useEffect, useContext } from "react";
 import Bubble from "./Bubble";
 import { AppContext } from "../../Context/AppContext";
@@ -115,7 +115,8 @@ const Chat = () => {
 
 export default Chat;
 
-const ChatWrapper = styled(FillDiv)`
+const ChatWrapper = styled.div`
+  ${fillSpace}
   flex-direction: column;
   background-color: var(--color-super-dark-grey);
   border-top-right-radius: 5px;
