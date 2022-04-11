@@ -1,4 +1,4 @@
-const getThreads = async (userId) => {
+const getUserThreads = async (userId) => {
   try {
     const response = await fetch(`/api/get-user-threads?userId=${userId}`);
     return await response.json();
@@ -7,10 +7,13 @@ const getThreads = async (userId) => {
   }
 };
 
-const getThread = async (threadId) => {
+const getOneThread = async (threadId) => {
   try {
     const response = await fetch(`/api/get-thread?threadId=${threadId}`);
-    return await response.json();
+    const {
+      threads: { messages },
+    } = await response.json();
+    return messages;
   } catch (error) {
     console.log(error);
   }
@@ -37,10 +40,11 @@ const replyThread = async (threadId, message, userId, handle) => {
       },
       body: JSON.stringify(messageObject),
     });
-    console.log(response);
+    const { sentMessage } = await response.json();
+    return sentMessage;
   } catch (error) {
     console.log(error);
   }
 };
 
-export { getThreads, getThread, newThread, replyThread };
+export { getUserThreads, getOneThread, newThread, replyThread };

@@ -1,6 +1,9 @@
-const getUser = async (email) => {
+const getUser = async (by, value) => {
   try {
-    const response = await fetch(`/api/get-user?email=${email}`);
+    let response;
+    by === "email"
+      ? (response = await fetch(`/api/get-user?email=${value}`))
+      : (response = await fetch(`/api/get-user?id=${value}`));
     return await response.json();
   } catch (error) {
     console.log(error);

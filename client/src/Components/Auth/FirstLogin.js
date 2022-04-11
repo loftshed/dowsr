@@ -1,13 +1,12 @@
 import styled from "styled-components";
-import ResponsiveContainer from "../ResponsiveContainer";
+import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import {
-  FillDiv,
-  CenteredFlexColumnDiv,
   Input,
-  FlexDiv,
   Select,
   Option,
   buttonAnim,
+  fillSpace,
+  centeredFlexColumn,
 } from "../../Styling/StyledComponents";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -171,12 +170,14 @@ const FirstLogin = () => {
 
 export default FirstLogin;
 
-const Wrapper = styled(FillDiv)`
+const Wrapper = styled.div`
+  ${fillSpace}
   background-color: var(--color-dark-blue);
   width: 100%;
 `;
 
-const Content = styled(CenteredFlexColumnDiv)`
+const Content = styled.div`
+  ${centeredFlexColumn}
   width: 100%;
   height: 100%;
   padding: ${SIZES.universalPadding}px;
@@ -199,12 +200,14 @@ const Label = styled.label`
   text-transform: uppercase;
 `;
 
-const InputColumn = styled(CenteredFlexColumnDiv)`
+const InputColumn = styled.div`
+  ${centeredFlexColumn}
   width: 100%;
   align-items: flex-start;
 `;
 
-const InputRow = styled(FlexDiv)`
+const InputRow = styled.div`
+  display: flex;
   width: 100%;
   justify-content: space-between;
   gap: 7.5px;

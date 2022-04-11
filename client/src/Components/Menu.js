@@ -1,7 +1,7 @@
 import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-  FillDiv,
+  centeredFlexColumn,
+  centeredFlexRow,
+  fillSpace,
   IconNavLink,
   TextButton,
 } from "../Styling/StyledComponents";
@@ -21,28 +21,18 @@ import { SIZES } from "../Styling/constants";
 import LoginButton from "./Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
+import { getUserThreads } from "./Messages/chatHelpers";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
 //STRETCH: make button appear on left/right side of screen according to user settings.
+//STRETCH: make numbers appear over icons for unread notifications..
 //TODO: GET NAVLINK HIGHLIGHT WORKING~!!
-//FIXME: icon positioning within circles..
+// or just do something in state...
 
 const Menu = () => {
-  const { firstLogin, signupCompleted } = useContext(AppContext);
+  const { loggedInUser } = useContext(AppContext);
   const { user, isAuthenticated } = useAuth0();
-
-  // if (firstLogin || !signupCompleted)
-  //   return (
-  //     <Wrapper>
-  //       <Content>
-  //         <CenteredFlexRowDiv style={{ width: "100%" }}></CenteredFlexRowDiv>
-  //       </Content>
-  //     </Wrapper>
-  //   );
-
-  // this doesn't work becuase user can tab to access disabled buttons
-  // {firstLogin || (!signupCompleted && <ButtonsDisabled />)}
 
   //TODO: prevent user from accessing any of main page
   // before first login completed?
@@ -90,17 +80,19 @@ const BurgerButton = styled(TextButton)`
   padding: 7.5px;
 `;
 
-const Wrapper = styled(CenteredFlexRowDiv)`
+const Wrapper = styled.div`
+  ${centeredFlexRow}
   position: absolute;
   height: ${SIZES.menuHeightCompact}px;
+  bottom: ${SIZES.topBottomPadding}px;
   width: calc(100vw);
-  bottom: 20px;
   z-index: 1;
   @media (max-width: ${SIZES.widthMin}px) {
-    width: 90%;
+    width: calc(100% - ${SIZES.smallPadding}px*2);
   }
 `;
-const Content = styled(FillDiv)`
+const Content = styled.div`
+  ${fillSpace}
   width: 525px;
   background-color: var(--color-darkest-grey);
   border-radius: 10px;
@@ -109,10 +101,13 @@ const Content = styled(FillDiv)`
     12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-    100px 100px 80px rgba(0, 0, 0, 0.07);
+    100px 100px 80px rgba(0, 0, 0, 0.07),
+    inset 0px 0px 2px var(--color-super-dark-grey);
+  outline: 1px solid var(--color-super-dark-grey);
 `;
 
-const IconRow = styled(CenteredFlexRowDiv)`
+const IconRow = styled.div`
+  ${centeredFlexRow}
   width: 100%;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
@@ -127,11 +122,13 @@ const IconRow = styled(CenteredFlexRowDiv)`
   }
 `;
 
-const LoginContainer = styled(CenteredFlexRowDiv)`
+const LoginContainer = styled.div`
+  ${centeredFlexRow}
   width: 100%;
 `;
 
-const ButtonsDisabled = styled(CenteredFlexColumnDiv)`
+const ButtonsDisabled = styled.div`
+  ${centeredFlexColumn}
   width: 100%;
   height: 100%;
   justify-content: center;

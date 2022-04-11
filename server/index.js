@@ -30,7 +30,7 @@ const {
 } = require("./handlers/userHandlers");
 
 const {
-  getThread,
+  getOneThread,
   newThread,
   modifyThread,
   getUserThreads,
@@ -55,7 +55,7 @@ app.delete("/api/remove-user", removeUser);
 // messaging endpoints
 app.post("/api/new-thread", newThread);
 app.patch("/api/modify-thread", modifyThread);
-app.get("/api/get-thread", getThread);
+app.get("/api/get-thread", getOneThread);
 app.get("/api/get-user-threads", getUserThreads);
 app.get("/api/get-all-threads", getAllThreads);
 

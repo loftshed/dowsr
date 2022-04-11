@@ -53,13 +53,14 @@ const addUser = async ({ body }, res) => {
 // If you wish to return a single user, query key should be "email", and the value should be the user's email address.
 // If you wish to return all users, query key should be "all," with bool value "true".
 
-const getUser = async ({ query: { email, all } }, res) => {
+const getUser = async ({ query: { id, email, all } }, res) => {
   try {
     await client.connect();
     let returnedUsers;
+    const searchBy = email ? { email: email } : { _id: id };
     all
       ? (returnedUsers = await userDb.find().toArray())
-      : (returnedUsers = await userDb.findOne({ email: email }));
+      : (returnedUsers = await userDb.findOne(searchBy));
     returnedUsers
       ? res
           .status(200)

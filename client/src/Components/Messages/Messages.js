@@ -1,34 +1,22 @@
 import styled from "styled-components";
-import ResponsiveContainer from "../ResponsiveContainer";
-import AlertModal from "../AlertModal";
+import { centeredFlexColumn } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
-import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-  FlexDiv,
-} from "../../Styling/StyledComponents";
-import Chat from "./Chat";
-import ThreadTile from "./ThreadTile";
-import { useContext, useEffect, useState } from "react";
-import { getThreads } from "./chatHelpers";
+
+import { useContext, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 
+import ResponsiveContainer from "../../Styling/ResponsiveContainer";
+import ThreadTile from "./ThreadTile";
+import Chat from "./Chat";
+
 //TODO: by default, the most recent thread should be displayed.
+//TODO: use userefs for that?
 //TODO: should be some type of indicator for threads with new messages.
 //TODO: implement react-spring for scrolling through messages/threads
+//TODO: (STRETCH) make a way for a user to delete their copy of a thread by deleting their user ID from the thread's users array. If the users array ends up empty, the thread is "deleted".
 
 const Messages = () => {
-  const {
-    loggedInUser: { _id },
-    threads,
-    viewedThread,
-  } = useContext(AppContext);
-
-  const handleTileClick = (id) => {
-    console.log(id);
-  };
-
-  if (threads.length < 1) return <div>loading</div>;
+  const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);
 
   return (
     <ResponsiveContainer heading={"Messages"}>
@@ -37,21 +25,26 @@ const Messages = () => {
           <>
             {threads.map((el) => {
               const { _id, messages } = el;
-              const { sent, handle, message } = messages[messages.length - 1];
+              const partnerMsg = messages.find((el) => {
+                return el.handle !== loggedInUser.username;
+              });
+              const mostRecentMessage = messages[messages.length - 1];
+              const { sent, message } = mostRecentMessage;
               return (
                 <ThreadTile
                   key={_id}
-                  id={_id}
-                  user={`@${handle}`}
+                  threadId={_id}
+                  user={`@${partnerMsg.handle}`}
                   message={`${message}`}
                   time={sent}
+                  userId={partnerMsg.userId}
                 />
               );
             })}
           </>
         </Sidebar>
         <MessagesContainer>
-          <Chat thread={viewedThread} />
+          <Chat thread={displayedThreadId} />
         </MessagesContainer>
       </LayoutContainer>
     </ResponsiveContainer>
@@ -60,36 +53,48 @@ const Messages = () => {
 
 export default Messages;
 
-const LayoutContainer = styled(FlexDiv)`
+const LayoutContainer = styled.div`
+  display: flex;
   width: 100%;
   height: 100%;
   padding: 3px;
-  /* column-gap: 2px; */
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
   background-color: var(--color-darkest-grey);
+  overflow: hidden;
 `;
 
-const MessagesContainer = styled(CenteredFlexColumnDiv)`
+const MessagesContainer = styled.div`
+  ${centeredFlexColumn}
   border-bottom-right-radius: ${SIZES.borderRadius}px;
   width: 100%;
   height: 100%;
   gap: 15px;
 `;
 
-const Sidebar = styled(FlexDiv)`
+const Sidebar = styled.div`
+  display: flex;
   align-self: flex-start;
   flex-direction: column;
   width: 45%;
   height: 100%;
   padding: 5px 2px 5px 5px;
-  row-gap: 3px;
+  row-gap: 6px;
   background-color: var(--color-super-dark-grey);
   border-top-left-radius: 3px;
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   @media (max-width: 425px) {
-    width: fit-content;
+    width: 70px;
+    row-gap: 10px;
   }
-  overflow: hidden;
-  /* overflow-y: scroll; */
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #282828;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-pink);
+  }
 `;

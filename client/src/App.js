@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { CenteredFlexColumnDiv } from "./Styling/StyledComponents";
+import { centeredFlexColumn } from "./Styling/StyledComponents";
 import { SIZES } from "./Styling/constants";
 import GlobalStyle from "./Styling/GlobalStyles";
 import styled from "styled-components";
@@ -9,33 +9,22 @@ import Menu from "./Components/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
 import Messages from "./Components/Messages/Messages";
-import Error from "./Components/Error";
-import Saved from "./Components/Saved";
-import AlertModal from "./Components/AlertModal";
+import Error from "./Components/Etc/Error";
 import LoginButton from "./Components/Auth/LoginButton";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./Context/AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./Components/Auth/userHelpers";
-import { getThreads } from "./Components/Messages/chatHelpers";
 
 const App = () => {
-  const {
-    firstLogin,
-    setFirstLogin,
-    loggedInUser,
-    setLoggedInUser,
-    setThreads,
-  } = useContext(AppContext);
+  const { setLoggedInUser } = useContext(AppContext);
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
     (async () => {
-      if (!isLoading) {
-        const { data } = await getUser(user.email);
+      if (!isLoading && user) {
+        const { data } = await getUser("email", user.email);
         setLoggedInUser(data);
-        const { threads } = await getThreads(data._id);
-        setThreads(threads);
       }
     })();
   }, [isLoading, user]);
@@ -65,7 +54,8 @@ const App = () => {
 export default App;
 
 // TODO: fix this shit (mobile browsers don't work well with viewport height)
-const Main = styled(CenteredFlexColumnDiv)`
+const Main = styled.div`
+  ${centeredFlexColumn}
   background-color: var(--color-dark-grey);
   height: calc(100% - ${SIZES.lrgHeader}px);
   @media (max-width: ${SIZES.widthMin}px) {

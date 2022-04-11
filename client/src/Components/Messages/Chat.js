@@ -1,52 +1,95 @@
 import styled from "styled-components";
-import { FillDiv } from "../../Styling/StyledComponents";
+import { fillSpace } from "../../Styling/StyledComponents";
 import { useState, useEffect, useContext } from "react";
 import Bubble from "./Bubble";
 import { AppContext } from "../../Context/AppContext";
 import { SIZES } from "../../Styling/constants";
-import { replyThread, getThread } from "./chatHelpers";
+import { replyThread, getOneThread, getUserThreads } from "./chatHelpers";
 import { v4 as uuidv4 } from "uuid";
+import ScrollToNewest from "./ScrollToNewest";
+import LoadingSpinner from "../Etc/LoadingSpinner";
+import ResponsiveContainer from "../../Styling/ResponsiveContainer";
+
+//TODO: Make threads sort properly by latest. Will need to determine latest thread by message timestamps instead 💩
+//TODO: change this so that even if thread is null, chat window displays the same way.
 
 const Chat = () => {
-  const [currentThread, setCurrentThread] = useState(null);
+  const [currentMessages, setCurrentMessages] = useState([]);
+
   const {
-    viewedThread,
+    setThreads,
+    setDisplayedThreadId,
+    displayedThreadId,
     threads,
-    loggedInUser: { _id, username },
+    loggedInUser,
+    setShowLoadingAnim,
+    showLoadingAnim,
   } = useContext(AppContext);
 
-  //FIXME: something up with timestamps
-  //FIXME: correct noob styling mistake... use shared styles, don't extend one component for eternity
-  //TODO: get page to re-render properly when messages sent..
+  useEffect(() => {
+    if (!loggedInUser) return;
+    if (threads.length === 0)
+      (async () => {
+        const { threads } = await getUserThreads(loggedInUser?._id);
+        setThreads(threads);
+      })();
+  }, [threads, loggedInUser]);
 
-  // let thread;
+  useEffect(() => {
+    if (threads.length > 0) {
+      (async () => {
+        const latestThread = await threads[threads.length - 1];
+        if (!displayedThreadId) setDisplayedThreadId(latestThread?._id);
+        const retrievedMessages = await getOneThread(
+          displayedThreadId || latestThread?._id
+        );
+        setCurrentMessages(retrievedMessages);
+      })();
+    }
+  }, [displayedThreadId, threads]);
 
-  // useEffect(() => {
-  //   setCurrentThread(getThread(viewedThread));
-  //   console.log("hi");
-  // }, [viewedThread]);
+  if (!loggedInUser) return <LoadingSpinner size={60} />;
 
-  const thread = threads.find((el) => {
-    return el._id === viewedThread;
-  });
-
-  if (!thread) return null;
-
-  const { messages } = thread;
-
-  const handleSendMessage = (message) => {
-    replyThread(viewedThread, message, _id, username);
+  const handleSendMessage = async (message) => {
+    try {
+      if (message !== "") {
+        const returnMessage = await replyThread(
+          displayedThreadId,
+          message,
+          loggedInUser._id,
+          loggedInUser.username
+        );
+        setShowLoadingAnim(true);
+        setCurrentMessages([...currentMessages, returnMessage]);
+        const { threads } = await getUserThreads(loggedInUser?._id);
+        setThreads(threads);
+        setShowLoadingAnim(false);
+      }
+    } catch (error) {
+      if (error) console.log(error);
+    }
   };
+
+  if (!currentMessages) return;
+  <ChatWrapper>
+    <ChatBody>
+      <LoadingSpinner size={60} />
+    </ChatBody>
+    <InputArea>
+      <ChatInput disabled={true}></ChatInput>
+      <SendButton disabled={true} />
+    </InputArea>
+  </ChatWrapper>;
 
   return (
     <ChatWrapper>
       <ChatBody>
         <>
-          {messages.map((el) => {
+          {currentMessages.map((el) => {
             return (
               <Bubble
                 key={uuidv4()}
-                recd={el.userId !== _id}
+                recd={el.userId !== loggedInUser._id}
                 author={`@${el.handle}`}
                 content={el.message}
                 timestamp={el.sent}
@@ -54,14 +97,16 @@ const Chat = () => {
             );
           })}
         </>
+        <ScrollToNewest />
       </ChatBody>
       <InputArea
         onSubmit={(ev) => {
-          ev.preventDefault();
+          ev.preventDefault(); //TODO: CLEAR INPUT ON SUBMIT
           handleSendMessage(ev.target.message.value);
+          ev.target.message.value = "";
         }}
       >
-        <ChatInput id="message" type="text"></ChatInput>
+        <ChatInput id="message" type="text" autoComplete="off"></ChatInput>
         <SendButton id="send" type="submit" value="Send" />
       </InputArea>
     </ChatWrapper>
@@ -70,7 +115,8 @@ const Chat = () => {
 
 export default Chat;
 
-const ChatWrapper = styled(FillDiv)`
+const ChatWrapper = styled.div`
+  ${fillSpace}
   flex-direction: column;
   background-color: var(--color-super-dark-grey);
   border-top-right-radius: 5px;
@@ -81,28 +127,27 @@ const ChatWrapper = styled(FillDiv)`
   height: 100%;
 `;
 
-const ChatBody = styled(FillDiv)`
+const ChatBody = styled.ul`
+  display: flex;
   flex-direction: column;
   gap: 5px;
   border-radius: 5px;
-  padding: 5px;
+  padding: 6px 2px;
   width: 100%;
-  /* height: 600%; */
+  height: 100%;
   background-color: var(--color-darkest-grey);
   overflow-y: scroll;
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--color-teal);
+    background: #282828;
     box-shadow: 0px 0px 1px inset var(--color-super-dark-grey);
   }
   ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
     background: var(--color-pink);
   }
-  /* ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-pink);
-  } */
 `;
 
 const InputArea = styled.form`
@@ -119,6 +164,11 @@ const ChatInput = styled.input`
   border: 1px solid var(--color-darkest-grey);
   line-height: 30px;
   border-radius: 5px;
+  &:focus {
+    outline: 1px solid var(--color-teal);
+    //TODO: change transparency on this
+    box-shadow: inset 0px 0px 50px rgba(68, 187, 164, 0.2);
+  }
 `;
 
 const SendButton = styled.input`

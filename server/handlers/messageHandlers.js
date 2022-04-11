@@ -6,7 +6,6 @@ const { v4: uuidv4 } = require("uuid");
 const { MongoClient } = require("mongodb");
 const { MONGO_URI } = process.env;
 const dayjs = require("dayjs");
-const currentTime = dayjs().format();
 
 const client = new MongoClient(MONGO_URI, {
   useNewUrlParser: true,
@@ -23,6 +22,7 @@ const msgDb = db.collection("messages");
 
 const newThread = async ({ query: { idA, idB }, body }, res) => {
   try {
+    const currentTime = dayjs().format();
     const threadId = uuidv4();
     await client.connect();
     const newThread = {
@@ -42,7 +42,7 @@ const newThread = async ({ query: { idA, idB }, body }, res) => {
   }
 };
 
-const getThread = async ({ query: { threadId } }, res) => {
+const getOneThread = async ({ query: { threadId } }, res) => {
   try {
     await client.connect();
     const returnedThread = await msgDb.findOne({ _id: threadId });
@@ -71,6 +71,7 @@ const getUserThreads = async ({ query: { userId } }, res) => {
 const modifyThread = async ({ query: { threadId }, body }, res) => {
   try {
     await client.connect();
+    const currentTime = dayjs().format();
     const modResult = await msgDb.updateOne(
       { _id: threadId },
       { $push: { messages: { sent: currentTime, ...body } } }
@@ -78,6 +79,7 @@ const modifyThread = async ({ query: { threadId }, body }, res) => {
     res.status(200).json({
       status: 200,
       data: modResult,
+      sentMessage: { sent: currentTime, ...body },
     });
   } catch (err) {
     err ? console.log(err) : client.close();
@@ -95,7 +97,7 @@ const getAllThreads = async (req, res) => {
 
 module.exports = {
   newThread,
-  getThread,
+  getOneThread,
   getAllThreads,
   getUserThreads,
   modifyThread,

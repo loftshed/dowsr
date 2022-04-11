@@ -1,29 +1,46 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import {
-  CenteredFlexColumnDiv,
-  CenteredFlexRowDiv,
-  FlexDiv,
+  centeredFlexColumn,
+  centeredFlexRow,
+  fillSpace,
   TextButton,
 } from "../Styling/StyledComponents";
-import ResponsiveContainer from "./ResponsiveContainer";
-import { SIZES } from "../Styling/constants";
-import LogoutButton from "./Auth/LogoutButton";
-import { getUser } from "./Auth/userHelpers";
-import { useEffect, useContext } from "react";
-import dayjs from "dayjs";
-import Flag from "react-world-flags";
 import { BurgerMenuIcon } from "../Styling/Icons";
+import { SIZES } from "../Styling/constants";
+import ResponsiveContainer from "../Styling/ResponsiveContainer";
+
+import { useEffect, useContext } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import Flag from "react-world-flags";
+import dayjs from "dayjs";
+
 import { AppContext } from "../Context/AppContext";
+import { getUser } from "./Auth/userHelpers";
+import LogoutButton from "./Auth/LogoutButton";
+import LoadingSpinner from "./Etc/LoadingSpinner";
 
 const Profile = () => {
   const { loggedInUser } = useContext(AppContext);
   const { isLoading } = useAuth0();
 
   //TODO: button to edit profile!
-  //+ click profile image to magnify?
+  //TODO: embed ig feed in profile
+  //TODO: add bio to profile
 
-  if (isLoading) return <>Loading...</>;
+  //STRETCH: - nothing in backend for this yet.
+  //const handleFollowUser = (userId) => {};
+
+  // dummy data for now //TODO: set it up so profile can be used to retrieve different user profiles as well ..! no way to start convo yet
+  const viewedProfile = 123;
+
+  const handleMsgUser = (idA, idB, message) => {};
+
+  if (isLoading)
+    return (
+      <ResponsiveContainer>
+        <LoadingSpinner size={60} />
+      </ResponsiveContainer>
+    );
 
   if (!loggedInUser) return null;
   const { username, city, country, region, avatarUrl, contributions, regDate } =
@@ -31,40 +48,79 @@ const Profile = () => {
 
   return (
     <ResponsiveContainer>
-      <ProfileSplash>
-        <Avatar src={avatarUrl} />
-      </ProfileSplash>
-      <UserDetails>
-        <DetailsHeading style={{ gap: "10px" }}>
-          <h3>{username}</h3>
-          <Flag code={country} height={16} />
-        </DetailsHeading>
+      <InnerContainer>
+        <InnerContainerLiner>
+          <ProfileSplash>
+            <Avatar src={avatarUrl} />
+          </ProfileSplash>
+          <UserDetails>
+            <DetailsHeading style={{ gap: "10px" }}>
+              <h3>{username}</h3>
+              <Flag code={country} height={16} />
+            </DetailsHeading>
 
-        <Location>{`${city}, ${region}`}</Location>
+            <Details>
+              <Location>{`${city}, ${region}`}</Location>
 
-        <Details>
-          <ul>
-            <li>{contributions} followers</li>
-            <li>{contributions} contributions</li>
-            <li>Member since {dayjs(regDate).format("MMMM YYYY")}</li>
-          </ul>
-        </Details>
-
-        <ProfileChin>
+              <DetailList>
+                <li>{contributions} followers</li>
+                <li>{contributions} contributions</li>
+                <li>Member since {dayjs(regDate).format("MMMM YYYY")}</li>
+              </DetailList>
+            </Details>
+          </UserDetails>
+          <Actions>
+            <TextButton
+              onClick={handleMsgUser(loggedInUser._id, viewedProfile, "👋")}
+            >
+              Send Message
+            </TextButton>
+          </Actions>
+        </InnerContainerLiner>
+        {/* <ProfileChin>
           <LogoutButton />
-        </ProfileChin>
-      </UserDetails>
+        </ProfileChin> */}
+      </InnerContainer>
     </ResponsiveContainer>
   );
 };
 
 export default Profile;
 
+const Actions = styled.div`
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  padding: 3px 20px;
+  justify-content: flex-end;
+  background-color: var(--color-less-dark-grey);
+
+  button {
+    border-radius: unset;
+    padding: 2px 5px;
+    background-color: var(--color-darkest-grey);
+  }
+`;
+
+const InnerContainer = styled.div`
+  ${fillSpace}
+  user-select: none;
+  padding: 5px;
+  flex-direction: column;
+`;
+
+const InnerContainerLiner = styled.div`
+  ${fillSpace}
+  flex-direction: column;
+  outline: 1px solid var(--color-super-dark-grey);
+  border-radius: ${SIZES.borderRadius}px;
+`;
+
 const ProfileChin = styled.div`
   background-color: var(--color-less-dark-grey);
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
-  padding: 5px ${SIZES.universalPadding}px;
+  /* padding: 5px ${SIZES.universalPadding}px; */
   width: 100%;
 `;
 
@@ -72,19 +128,21 @@ const Location = styled.div`
   background-color: var(--color-less-dark-grey);
   padding-left: ${SIZES.universalPadding}px;
   width: 100%;
+  font-size: 14px;
   @media (min-width: 450px) {
     padding: 2.5px ${SIZES.leftPaddingLrg}px;
     font-size: 20px;
   }
+  border-top: 1px solid var(--color-super-dark-grey);
+  border-bottom: 1px solid var(--color-super-dark-grey);
 `;
 
-const UserDetails = styled(CenteredFlexColumnDiv)`
+const UserDetails = styled.div`
+  ${centeredFlexColumn}
   flex-grow: 1;
   width: 100%;
-  /* min-height: 50%; */
-  /* background-color: var(--color-dark-grey); */
-
   border-radius: ${SIZES.borderRadius}px;
+  border-top: 1px solid var(--color-super-dark-grey);
 `;
 
 const Avatar = styled.img`
@@ -101,9 +159,17 @@ const Avatar = styled.img`
     bottom: -100px;
     right: 50px;
   }
+  box-shadow: 1.8px 1.6px 4px rgba(0, 0, 0, 0.02),
+    4.3px 3.8px 9.6px rgba(0, 0, 0, 0.028),
+    8.1px 7.1px 18.2px rgba(0, 0, 0, 0.035),
+    14.5px 12.7px 32.4px rgba(0, 0, 0, 0.042),
+    27.2px 23.8px 60.6px rgba(0, 0, 0, 0.05),
+    65px 57px 145px rgba(0, 0, 0, 0.07);
+  outline: 1px solid var(--color-super-dark-grey);
 `;
 
-const ProfileSplash = styled(FlexDiv)`
+const ProfileSplash = styled.div`
+  display: flex;
   position: relative;
   width: 100%;
   height: 150px;
@@ -112,7 +178,8 @@ const ProfileSplash = styled(FlexDiv)`
   border-top-right-radius: ${SIZES.borderRadius}px;
 `;
 
-const DetailsHeading = styled(CenteredFlexRowDiv)`
+const DetailsHeading = styled.div`
+  ${centeredFlexRow}
   justify-content: flex-start;
   background-color: var(--color-darkest-grey);
   padding-left: ${SIZES.universalPadding}px;
@@ -120,7 +187,6 @@ const DetailsHeading = styled(CenteredFlexRowDiv)`
   height: 50px;
   width: 100%;
   @media (min-width: 450px) {
-    padding: ${SIZES.leftPaddingLrg}px;
     font-size: 22px;
     h3 {
       font-size: 28px;
@@ -128,18 +194,23 @@ const DetailsHeading = styled(CenteredFlexRowDiv)`
   }
 `;
 
-// const Details = styled(CenteredFlexColumnDiv)`
-const Details = styled.ul`
-  padding: ${SIZES.universalPadding}px 10px;
+const Details = styled.div`
+  background-color: var(--color-super-dark-grey);
+  border-bottom-left-radius: ${SIZES.borderRadius}px;
+  border-bottom-right-radius: ${SIZES.borderRadius}px;
   flex-grow: 1;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
   gap: 10px;
   @media (min-width: 450px) {
-    padding: ${SIZES.leftPaddingLrg}px;
     font-size: 28px;
   }
+`;
+
+const DetailList = styled.div`
+  padding: unset;
+  padding: 25px;
 `;
 
 const BurgerButton = styled(TextButton)`
