@@ -40,47 +40,64 @@ const Menu = () => {
   //FIXME: not ideal way of doing this below..?
 
   return (
-    <Wrapper>
-      <Content>
-        {isAuthenticated ? (
-          <IconRow>
-            <IconNavLink to="/">
-              <MapIcon />
-            </IconNavLink>
-            <IconNavLink to="/search">
-              <SearchIcon />
-            </IconNavLink>
-            <IconNavLink to="/notifications">
-              <NotificationIcon />
-            </IconNavLink>
-            <IconNavLink to="/messages">
-              <ChatIcon />
-            </IconNavLink>
-            <IconNavLink to="/profile">
-              <ProfileIcon />
-            </IconNavLink>
+    <Boundary>
+      <Wrapper>
+        <Content>
+          {isAuthenticated ? (
+            <IconRow>
+              <IconNavLink to="/">
+                <MapIcon />
+              </IconNavLink>
+              <IconNavLink to="/search">
+                <SearchIcon />
+              </IconNavLink>
+              <IconNavLink to="/notifications">
+                <NotificationIcon />
+              </IconNavLink>
+              <IconNavLink to="/messages">
+                <ChatIcon />
+              </IconNavLink>
+              <IconNavLink to="/profile">
+                <ProfileIcon />
+              </IconNavLink>
 
-            <BurgerButton
-              onClick={() => {
-                setShowBurgerMenu(!showBurgerMenu);
-                console.log(showBurgerMenu);
-              }}
-            >
-              <BurgerMenuIcon />
-            </BurgerButton>
-          </IconRow>
-        ) : (
-          <LoginContainer>
-            <LoginButton />
-          </LoginContainer>
-        )}
-        <BurgerMenu show={showBurgerMenu} />
-      </Content>
-    </Wrapper>
+              <BurgerButton
+                onClick={() => {
+                  setShowBurgerMenu(!showBurgerMenu);
+                  console.log(showBurgerMenu);
+                }}
+              >
+                <BurgerMenuIcon />
+              </BurgerButton>
+            </IconRow>
+          ) : (
+            <LoginContainer>
+              <LoginButton />
+            </LoginContainer>
+          )}
+          <BurgerMenu show={showBurgerMenu} />
+        </Content>
+      </Wrapper>
+    </Boundary>
   );
 };
 
 export default Menu;
+
+const Boundary = styled.div`
+  ${centeredFlexRow}
+  position: absolute;
+  align-items: flex-end;
+  height: 100%;
+  bottom: ${SIZES.topBottomPadding}px;
+  @media (max-width: ${SIZES.widthMin}px) {
+    width: calc(100% - ${SIZES.smallPadding}px*2);
+  }
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow: hidden;
+  padding: 1px;
+`;
 
 const BurgerButton = styled(TextButton)`
   box-sizing: border-box;
@@ -90,20 +107,16 @@ const BurgerButton = styled(TextButton)`
 
 const Wrapper = styled.div`
   ${centeredFlexRow}
-  position: absolute;
-  height: ${SIZES.menuHeightCompact}px;
-  bottom: ${SIZES.topBottomPadding}px;
-  width: calc(100vw);
-  z-index: 1;
-  @media (max-width: ${SIZES.widthMin}px) {
-    width: calc(100% - ${SIZES.smallPadding}px*2);
-  }
+  width: 100%;
+  z-index: 100;
 `;
+
 const Content = styled.div`
-  position: relative;
   ${fillSpace}
   width: 525px;
-  background-color: var(--color-darkest-grey);
+  height: ${SIZES.menuHeightCompact}px;
+  background-color: yellow;
+  /* background-color: var(--color-darkest-grey); */
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
     6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
@@ -113,7 +126,6 @@ const Content = styled.div`
     100px 100px 80px rgba(0, 0, 0, 0.07),
     inset 0px 0px 2px var(--color-super-dark-grey);
   outline: 1px solid var(--color-super-dark-grey);
-  /* overflow: hidden; */
 `;
 
 const IconRow = styled.div`
