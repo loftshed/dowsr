@@ -15,7 +15,9 @@ import Chat from "./Chat";
 //TODO: (STRETCH) implement react-spring for scrolling through messages/threads
 //TODO: (STRETCH) make a way for a user to delete their copy of a thread by deleting their user ID from the thread's users array. If the users array ends up empty, the thread is "deleted".
 //TODO: add some kind of text for empty inbox, "no messages yet. get out there and make some friends!"
+//TODO: add new message box to messages which allows you to search for a friend by name.
 // maybe with a link to the map. idk
+//FIXME: tons of api calls if messages is accessed when user has no messages
 
 const Messages = () => {
   const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);

@@ -19,6 +19,7 @@ import { getUser, handleGetProfile } from "./helpers/userHelpers";
 import LogoutButton from "./Auth/LogoutButton";
 import LoadingSpinner from "./Etc/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
+import { newThread } from "./helpers/chatHelpers";
 
 const Profile = () => {
   const [viewedProfile, setViewedProfile] = useState({});
@@ -27,16 +28,16 @@ const Profile = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  // if (params) {
-  //   console.log(params);
-  //   // getUser();
-  // }
+  if (params) {
+    console.log(params);
+  }
 
   //TODO: button to edit profile!
   //TODO: embed ig feed in profile
   //TODO: add bio to profile
 
   //STRETCH: // const handleFollowUser = (userId) => {}; (nothing in backend for this yet)
+  //TODO: change this so you can also get profile by username..
 
   const handleGetProfile = async (userId) => {
     if (!userId) {
@@ -58,10 +59,19 @@ const Profile = () => {
     }
   }, []);
 
-  const handleMsgUser = (idA, idB, message) => {
-    console.log(idA);
-    console.log(idB);
-    console.log(message);
+  const handleMsgUser = async (idA, idB, message) => {
+    // TODO: first get user messages.. if profile ID is not found in any of those messages, then create a new thread, otherwise just navigate to messages and open that user's thread.
+    try {
+      const messageBody = {
+        userId: idA,
+        handle: loggedInUser.username,
+        message: message,
+      };
+      const response = await newThread(idA, idB, messageBody);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
     navigate("/messages", { replace: true });
   };
 
@@ -73,8 +83,16 @@ const Profile = () => {
     );
 
   if (!viewedProfile) return null;
-  const { username, city, country, region, avatarUrl, contributions, regDate } =
-    viewedProfile;
+  const {
+    username,
+    city,
+    country,
+    region,
+    avatarUrl,
+    contributions,
+    regDate,
+    _id,
+  } = viewedProfile;
 
   return (
     <ResponsiveContainer>
@@ -102,7 +120,7 @@ const Profile = () => {
           <Actions>
             <TextButton
               onClick={() => {
-                handleMsgUser(loggedInUser._id, viewedProfile.id, "👋");
+                handleMsgUser(loggedInUser._id, _id, "👋");
               }}
             >
               Send Message

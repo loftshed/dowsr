@@ -21,7 +21,6 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
   dayjs.extend(relativeTime);
 
   useEffect(() => {
-    console.log(userId);
     (async () => {
       const { data } = await getUser("id", userId);
       const { avatarUrl, username } = data;
@@ -127,15 +126,10 @@ const TileWrapper = styled.div`
   &:active {
     outline: solid 2px var(--color-pink);
   }
-
   cursor: pointer;
   outline: ${(props) =>
     props.showOutline ? "2px solid var(--color-teal)" : ""};
 `;
-/* margin: ${(props) => (props.small ? "2px" : "0px")}; */
-/* @media (max-width: 425px) {
-    width: 30px;
-  } */
 
 const Heading = styled.div`
   display: flex;

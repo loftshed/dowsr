@@ -19,9 +19,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled /*, { css }*/ from "styled-components";
 import { SIZES } from "../Styling/constants";
 import LoginButton from "./Auth/LoginButton";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
-import { getUserThreads } from "./helpers/chatHelpers";
+import BurgerMenu from "./BurgerMenu";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
@@ -32,6 +32,7 @@ import { getUserThreads } from "./helpers/chatHelpers";
 
 const Menu = () => {
   const { loggedInUser } = useContext(AppContext);
+  const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const { user, isAuthenticated } = useAuth0();
 
   //TODO: prevent user from accessing any of main page
@@ -58,7 +59,13 @@ const Menu = () => {
             <IconNavLink to="/profile">
               <ProfileIcon />
             </IconNavLink>
-            <BurgerButton>
+
+            <BurgerButton
+              onClick={() => {
+                setShowBurgerMenu(!showBurgerMenu);
+                console.log(showBurgerMenu);
+              }}
+            >
               <BurgerMenuIcon />
             </BurgerButton>
           </IconRow>
@@ -67,6 +74,7 @@ const Menu = () => {
             <LoginButton />
           </LoginContainer>
         )}
+        <BurgerMenu show={showBurgerMenu} />
       </Content>
     </Wrapper>
   );
@@ -92,6 +100,7 @@ const Wrapper = styled.div`
   }
 `;
 const Content = styled.div`
+  position: relative;
   ${fillSpace}
   width: 525px;
   background-color: var(--color-darkest-grey);
@@ -104,6 +113,7 @@ const Content = styled.div`
     100px 100px 80px rgba(0, 0, 0, 0.07),
     inset 0px 0px 2px var(--color-super-dark-grey);
   outline: 1px solid var(--color-super-dark-grey);
+  /* overflow: hidden; */
 `;
 
 const IconRow = styled.div`
