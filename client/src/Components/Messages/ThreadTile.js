@@ -47,7 +47,7 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
             <Avatar src={avatarUrl} style={{ width: "20px", height: "20px" }} />
             {user}
           </Heading>
-          <Body overflow={showLoadingAnim}>
+          <Body hideOverflow={showLoadingAnim}>
             {showLoadingAnim ? (
               <ThreadRefreshBoundary>
                 <ThreadRefreshAnim />
@@ -143,12 +143,11 @@ const Body = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  padding: ${(props) => (props.overflow ? "none" : "3px 5px")};
+  padding: ${(props) => (props.hideOverflow ? "none" : "3px 5px")};
   width: 100%;
   height: 100%;
   font-size: 14px;
-
-  overflow: ${(props) => (props.overflow ? "hidden" : "auto")};
+  overflow: ${(props) => (props.hideOverflow ? "hidden" : "")};
 `;
 
 const Timestamp = styled.div`
