@@ -17,6 +17,8 @@ const BurgerMenu = ({ show }) => {
 
 export default BurgerMenu;
 
+const Boundary = styled.div``;
+
 const BurgerWrapper = styled.div`
   position: absolute;
   display: flex;

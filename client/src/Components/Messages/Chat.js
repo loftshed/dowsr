@@ -19,7 +19,7 @@ import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 
 const Chat = () => {
   const [currentMessages, setCurrentMessages] = useState([]);
-  const [threadsChecked, setThreadsChecked] = useState([]);
+  const [userHasNoThreads, setUserHasNoThreads] = useState(false);
 
   const {
     setThreads,
@@ -33,10 +33,15 @@ const Chat = () => {
 
   useEffect(() => {
     if (!loggedInUser) return;
-    if (threads.length === 0)
+    if (threads.length === 0 && !userHasNoThreads)
       (async () => {
         const { threads } = await getUserThreads(loggedInUser?._id);
-        setThreads(threads);
+        if (!threads) {
+          setUserHasNoThreads(true);
+          return;
+        } else {
+          setThreads(threads);
+        }
       })();
   }, [threads, loggedInUser]);
 

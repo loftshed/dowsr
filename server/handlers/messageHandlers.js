@@ -61,7 +61,7 @@ const getUserThreads = async ({ query: { userId } }, res) => {
     const returnedThreads = await msgDb.find({ users: `${userId}` }).toArray();
     res.status(200).json({
       status: 200,
-      threads: returnedThreads,
+      threads: returnedThreads.length > 0 ? returnedThreads : null,
     });
   } catch (err) {
     err ? console.log(err) : client.close();

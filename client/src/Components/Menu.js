@@ -75,7 +75,7 @@ const Menu = () => {
           </LoginContainer>
         )}
         <BurgerMenu show={showBurgerMenu} />
-        {/* <Boundary show={showBurgerMenu}></Boundary> */}
+        <Boundary show={showBurgerMenu}></Boundary>
       </Content>
     </Wrapper>
   );
@@ -83,14 +83,7 @@ const Menu = () => {
 
 export default Menu;
 
-const Boundary = styled.div`
-  background-color: yellow;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  height: 500px;
-  width: 100px;
-`;
+const Boundary = styled.div``;
 
 const BurgerButton = styled(TextButton)`
   box-sizing: border-box;
@@ -108,6 +101,7 @@ const Wrapper = styled.div`
   @media (max-width: ${SIZES.widthMin}px) {
     width: calc(100% - ${SIZES.smallPadding}px*2);
   }
+  padding: 1px;
 `;
 const Content = styled.div`
   position: relative;
