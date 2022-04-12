@@ -17,7 +17,7 @@ const db = client.db("final");
 /*-------------------------------------------
 | Endpoints for accessing Messages Database |
 -------------------------------------------*/
-const msgDb = db.collection("messages");
+const thisCollection = db.collection("messages");
 /*--------------------------------------*/
 
 const newThread = async ({ query: { idA, idB }, body }, res) => {
@@ -30,7 +30,7 @@ const newThread = async ({ query: { idA, idB }, body }, res) => {
       users: [idA, idB],
       messages: [{ sent: currentTime, ...body }],
     };
-    await msgDb.insertOne(newThread);
+    await thisCollection.insertOne(newThread);
     res.status(201).json({
       status: 201,
       message: "New thread created.",
@@ -45,7 +45,7 @@ const newThread = async ({ query: { idA, idB }, body }, res) => {
 const getOneThread = async ({ query: { threadId } }, res) => {
   try {
     await client.connect();
-    const returnedThread = await msgDb.findOne({ _id: threadId });
+    const returnedThread = await thisCollection.findOne({ _id: threadId });
     res.status(200).json({
       status: 200,
       threads: returnedThread,
@@ -58,7 +58,9 @@ const getOneThread = async ({ query: { threadId } }, res) => {
 const getUserThreads = async ({ query: { userId } }, res) => {
   try {
     await client.connect();
-    const returnedThreads = await msgDb.find({ users: `${userId}` }).toArray();
+    const returnedThreads = await thisCollection
+      .find({ users: `${userId}` })
+      .toArray();
     res.status(200).json({
       status: 200,
       threads: returnedThreads.length > 0 ? returnedThreads : null,
@@ -72,7 +74,7 @@ const modifyThread = async ({ query: { threadId }, body }, res) => {
   try {
     await client.connect();
     const currentTime = dayjs().format();
-    const modResult = await msgDb.updateOne(
+    const modResult = await thisCollection.updateOne(
       { _id: threadId },
       { $push: { messages: { sent: currentTime, ...body } } }
     );

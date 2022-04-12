@@ -37,6 +37,10 @@ const {
   getAllThreads,
 } = require("./handlers/messageHandlers");
 
+const { getPinsOfType } = require("./handlers/mappingHandlers");
+
+const { modifyPinWithId } = require("./handlers/adminHandlers");
+
 app.use(morgan("tiny"));
 app.use(express.json()); // this was used in slingair server..  do i need?
 app.use(express.static("public")); // requests for static files go to public folder
@@ -58,6 +62,12 @@ app.patch("/api/modify-thread", modifyThread);
 app.get("/api/get-thread", getOneThread);
 app.get("/api/get-user-threads", getUserThreads);
 app.get("/api/get-all-threads", getAllThreads);
+
+// mapping endpoints
+app.get("/api/map-pins", getPinsOfType);
+
+// admin endpoints
+app.patch("/api/modify-pin", modifyPinWithId);
 
 /*------------------
 | end of endpoints |
