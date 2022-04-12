@@ -64,7 +64,6 @@ const Menu = () => {
               <BurgerButton
                 onClick={() => {
                   setShowBurgerMenu(!showBurgerMenu);
-                  console.log(showBurgerMenu);
                 }}
               >
                 <BurgerMenuIcon />

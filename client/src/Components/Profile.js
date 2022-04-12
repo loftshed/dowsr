@@ -28,10 +28,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-  if (params) {
-    console.log(params);
-  }
-
   //TODO: button to edit profile!
   //TODO: embed ig feed in profile
   //TODO: add bio to profile
@@ -48,16 +44,14 @@ const Profile = () => {
     setViewedProfile(data);
   };
 
-  // TODO: fix this shit, currently won't grab logged in user profile on page reload.
   useEffect(() => {
     if (!params.id) {
       handleGetProfile(null, loggedInUser);
       return;
     } else {
       handleGetProfile(params.id);
-      return;
     }
-  }, []);
+  }, [params]);
 
   const handleMsgUser = async (idA, idB, message) => {
     // TODO: first get user messages.. if profile ID is not found in any of those messages, then create a new thread, otherwise just navigate to messages and open that user's thread.
