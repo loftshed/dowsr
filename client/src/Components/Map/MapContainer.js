@@ -1,4 +1,3 @@
-// const { react_app_google_api_key } = process.env;
 import Map, { Marker, Popup, GeolocateControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useContext, useEffect, useState } from "react";
@@ -6,10 +5,10 @@ import { AppContext } from "../../Context/AppContext";
 import { getUserLocation, handleGetPinsOfType } from "../helpers/mapHelpers";
 import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
 import styled, { css } from "styled-components";
-import Pin from "./Pin";
 import MapFilters from "./MapFilters";
 import InfoModal from "./InfoModal";
 import InfoPopup from "./InfoPopup";
+import DisplayedPins from "./DisplayedPins";
 import { MappingContext } from "../../Context/MapContext";
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
@@ -67,27 +66,6 @@ const MapContainer = () => {
   if (!filteredPins) return null;
   const { pins } = filteredPins;
 
-  const displayedPins = pins.map((pin) => {
-    return (
-      <Marker
-        key={`marker-${pin._id}`}
-        longitude={pin.longitude}
-        latitude={pin.latitude}
-        color={"var(--color-pink)"}
-        style={{ cursor: "pointer" }}
-        onClick={(ev) => {
-          console.log(ev);
-        }}
-      >
-        <Pin
-          onClick={() => {
-            setPopupInfo(pin);
-          }}
-        />
-      </Marker>
-    );
-  });
-
   return (
     <MapWrapper>
       {userLocation && (
@@ -109,7 +87,7 @@ const MapContainer = () => {
               if (creatingNewPin) handleCreateNewPin(ev);
             }}
           >
-            {!creatingNewPin && <>{displayedPins}</>}
+            {!creatingNewPin && <DisplayedPins pins={pins} />}
 
             {popupInfo && <InfoPopup popupInfo={popupInfo} />}
 
