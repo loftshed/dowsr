@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import { AppContext } from "../../Context/AppContext";
 import { getUser } from "../helpers/userHelpers";
 import LoadingSpinner from "../Etc/LoadingSpinner";
-import { gradientScroll } from "../../Styling/Animations";
+import { gradientScroll, fadeIn } from "../../Styling/Animations";
 
 const ThreadTile = ({ threadId, userId, user, time, message }) => {
   const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =
@@ -129,6 +129,7 @@ const TileWrapper = styled.div`
   cursor: pointer;
   outline: ${(props) =>
     props.showOutline ? "2px solid var(--color-teal)" : ""};
+  animation: ${fadeIn} 0.3s forwards ease;
 `;
 
 const Heading = styled.div`

@@ -47,12 +47,28 @@ const drawerIn = keyframes`
 
 const gradientScroll = keyframes`
   from {
-    transform: translateX(0px)
+    transform: translateX(0px);
   }
   to {  
-    transform: translateX(-300px)
+    transform: translateX(-300px);
   }
 `;
+
+const fadeIn = keyframes`
+from {
+    opacity: 0%
+  }
+  to {  
+    opacity: 100%
+  }
+`;
+const fadeOut = keyframes`
+from {
+    opacity: 100%
+  }
+  to {  
+    opacity: 0%
+  }`;
 
 export {
   rotate180,
@@ -61,4 +77,6 @@ export {
   drawerOut,
   drawerIn,
   gradientScroll,
+  fadeIn,
+  fadeOut,
 };

@@ -8,11 +8,6 @@ const BurgerMenu = ({ show }) => {
     <BurgerWrapper show={show}>
       <Content>
         <InnerContainer>
-          <div>filter by:</div>
-          <div>bike shops</div>
-          <div>coffee</div>
-          <div>submissions</div>
-
           <LogoutButton />
         </InnerContainer>
       </Content>

@@ -1,14 +1,5 @@
 // const { react_app_google_api_key } = process.env;
-import Map, {
-  Marker,
-  Popup,
-  Source,
-  Layer,
-  NavigationControl,
-  FullscreenControl,
-  ScaleControl,
-  GeolocateControl,
-} from "react-map-gl";
+import Map, { Marker, Popup, GeolocateControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useContext, useEffect, useState, useMemo } from "react";
 import { AppContext } from "../../Context/AppContext";
@@ -40,8 +31,14 @@ https://docs.mapbox.com/mapbox-gl-js/guides/
 */
 
 const MapContainer = () => {
-  const { userLocation, setUserLocation, showFilterMenu, setShowFilterMenu } =
-    useContext(MappingContext);
+  const {
+    userLocation,
+    setUserLocation,
+    showFilterMenu,
+    setShowFilterMenu,
+    selectedMapFilter,
+    mapModalMessage,
+  } = useContext(MappingContext);
   const [clickedLocation, setClickedLocation] = useState(null);
   const [filteredPins, setFilteredPins] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
@@ -54,9 +51,10 @@ const MapContainer = () => {
   useEffect(() => {
     (async () => {
       setUserLocation(await getUserLocation());
-      setFilteredPins(await handleGetPinsOfType("bike-shops")); // change once other data is available
+      // if (!selectedMapFilter) return; // don't do anything if no filter selected
+      setFilteredPins(await handleGetPinsOfType("bike-shops")); //
     })();
-  }, [popupInfo, setUserLocation]);
+  }, [popupInfo, setUserLocation, selectedMapFilter]);
 
   if (!filteredPins) return null;
   const { pins } = filteredPins;
@@ -170,7 +168,7 @@ const MapContainer = () => {
             )}
             <GeolocateControl position="top-left" />
           </Map>
-          <InfoModal message={"test"} />
+          {mapModalMessage !== "" && <InfoModal message={mapModalMessage} />}
           <MapFilters
             showFilterMenu={showFilterMenu}
             setShowFilterMenu={setShowFilterMenu}

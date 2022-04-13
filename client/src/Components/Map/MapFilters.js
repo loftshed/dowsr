@@ -13,12 +13,20 @@ import {
   BikeIcon,
   FilterIcon,
 } from "../../Styling/Icons";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MappingContext } from "../../Context/MapContext";
 
+//TODO: Not important but annoying. Fix method by which modal fades out. currently not ideal.
+
 const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
-  const { selectedMapFilter, setSelectedMapFilter } =
+  const { selectedMapFilter, setSelectedMapFilter, setMapModalMessage } =
     useContext(MappingContext);
+
+  // for testing
+  useEffect(() => {
+    console.log(selectedMapFilter);
+  }, [selectedMapFilter]);
+
   return (
     <Boundary>
       <ToggleWrapper>
@@ -38,19 +46,59 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
         <FilterMenuWrapper>
           <InnerContainer>
             <InnerContainerLiner>
-              <Option>
+              <Option
+                onClick={() => {
+                  setSelectedMapFilter("bike-shops");
+                  setMapModalMessage("Filtering by: Bike Shops");
+                  setTimeout(() => {
+                    setMapModalMessage("");
+                  }, 2500);
+                }}
+              >
                 <BikeIcon />
               </Option>
-              <Option>
+              <Option
+                onClick={() => {
+                  setSelectedMapFilter("stores");
+                  setMapModalMessage("Filtering by: Stores");
+                  setTimeout(() => {
+                    setMapModalMessage("");
+                  }, 2500);
+                }}
+              >
                 <StoreIcon />
               </Option>
-              <Option>
+              <Option
+                onClick={() => {
+                  setSelectedMapFilter("hazards");
+                  setMapModalMessage("Filtering by: Hazards");
+                  setTimeout(() => {
+                    setMapModalMessage("");
+                  }, 2500);
+                }}
+              >
                 <HazardIcon />
               </Option>
-              <Option>
+              <Option
+                onClick={() => {
+                  setSelectedMapFilter("popo");
+                  setMapModalMessage("Filtering by: Police");
+                  setTimeout(() => {
+                    setMapModalMessage("");
+                  }, 2500);
+                }}
+              >
                 <PoliceIcon />
               </Option>
-              <Option>
+              <Option
+                onClick={() => {
+                  setSelectedMapFilter("coffee");
+                  setMapModalMessage("Filtering by: Coffee");
+                  setTimeout(() => {
+                    setMapModalMessage("");
+                  }, 2500);
+                }}
+              >
                 <CoffeeIcon />
               </Option>
             </InnerContainerLiner>
@@ -109,7 +157,7 @@ const ToggleWrapper = styled.div`
   position: relative;
   z-index: 10;
   ${menuWrapperStyling}
-  outline: 1px solid var(--color-darkest-grey);
+  outline: 1px solid var(--color-super-dark-grey);
 `;
 
 const FilterToggle = styled(InnerContainer)`

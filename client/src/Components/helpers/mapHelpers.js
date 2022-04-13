@@ -8,7 +8,6 @@ const getUserLocation = async () => {
 };
 
 const handleGetPinsOfType = async (filter) => {
-  console.log(`Getting pins of type: ${filter}`);
   try {
     const response = await fetch(
       `http://localhost:9001/api/map-pins?filter=${filter}`

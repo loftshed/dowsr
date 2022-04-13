@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { SIZES } from "../../Styling/constants";
 import { centeredFlexRow } from "../../Styling/StyledComponents";
+import { fadeIn, fadeOut } from "../../Styling/Animations";
 
 const InfoModal = ({ message }) => {
   return (
@@ -22,12 +23,14 @@ const ModalWrapper = styled.div`
   background-color: var(--color-dark-grey);
   outline: 1px solid var(--color-super-dark-grey);
   border-radius: ${SIZES.borderRadius}px;
-  padding: 5px 10px;
-  transition: 0.3s ease all;
+  padding: 1px 10px;
+  pointer-events: none;
+  animation: ${fadeIn} 0.3s forwards ease;
 `;
 
 const InnerContainer = styled.div`
   ${centeredFlexRow}
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--color-medium-grey);
 `;
