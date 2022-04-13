@@ -16,6 +16,9 @@ import { getUserLocation, handleGetPinsOfType } from "../helpers/mapHelpers";
 import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
 import styled, { css } from "styled-components";
 import Pin from "./Pin";
+import MapFilters from "./MapFilters";
+import InfoModal from "./InfoModal";
+import { MappingContext } from "../../Context/MapContext";
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
 
@@ -37,7 +40,8 @@ https://docs.mapbox.com/mapbox-gl-js/guides/
 */
 
 const MapContainer = () => {
-  const { userLocation, setUserLocation } = useContext(AppContext);
+  const { userLocation, setUserLocation, showFilterMenu, setShowFilterMenu } =
+    useContext(MappingContext);
   const [clickedLocation, setClickedLocation] = useState(null);
   const [filteredPins, setFilteredPins] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
@@ -125,7 +129,7 @@ const MapContainer = () => {
   // );
 
   return (
-    <>
+    <MapWrapper>
       {userLocation && (
         <>
           <Map
@@ -166,9 +170,14 @@ const MapContainer = () => {
             )}
             <GeolocateControl position="top-left" />
           </Map>
+          <InfoModal message={"test"} />
+          <MapFilters
+            showFilterMenu={showFilterMenu}
+            setShowFilterMenu={setShowFilterMenu}
+          />
         </>
       )}
-    </>
+    </MapWrapper>
   );
 };
 
@@ -183,16 +192,16 @@ const MapContainer = () => {
 
 export default MapContainer;
 
+const MapWrapper = styled.div`
+  ${fillSpace}
+`;
+
 const PopupContainer = styled.div`
   user-select: none;
   ${centeredFlexColumn}
   a {
     color: var(--color-super-dark-grey);
   }
-`;
-
-const PlaceImage = styled.img`
-  width: 50px;
 `;
 
 const Heading = styled.div`
@@ -205,4 +214,8 @@ const Heading = styled.div`
 const Body = styled.div`
   ${fillSpace}
   ${centeredFlexColumn}
+`;
+
+const PlaceImage = styled.img`
+  width: 50px;
 `;

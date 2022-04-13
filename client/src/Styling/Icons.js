@@ -12,6 +12,14 @@ import {
 } from "react-icons/bs";
 import { TiThMenu } from "react-icons/ti";
 import { IoLogOut, IoSend } from "react-icons/io5";
+import {
+  MdPedalBike,
+  MdCoffee,
+  MdLocalGroceryStore,
+  MdFilterAlt,
+} from "react-icons/md";
+import { BiTrafficCone } from "react-icons/bi";
+import { RiPoliceCarFill } from "react-icons/ri";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)``;
 const SearchIcon = styled(BsSearch)``;
@@ -29,6 +37,12 @@ const BurgerMenuIcon = styled(TiThMenu)`
 `;
 const LogoutIcon = styled(IoLogOut)``;
 const SendIcon = styled(IoSend)``;
+const FilterIcon = styled(MdFilterAlt)``;
+const BikeIcon = styled(MdPedalBike)``;
+const CoffeeIcon = styled(MdCoffee)``;
+const HazardIcon = styled(BiTrafficCone)``;
+const PoliceIcon = styled(RiPoliceCarFill)``;
+const StoreIcon = styled(MdLocalGroceryStore)``;
 
 export {
   CircledArrowRight,
@@ -43,4 +57,10 @@ export {
   BurgerMenuIcon,
   LogoutIcon,
   SendIcon,
+  BikeIcon,
+  CoffeeIcon,
+  HazardIcon,
+  PoliceIcon,
+  StoreIcon,
+  FilterIcon,
 };
