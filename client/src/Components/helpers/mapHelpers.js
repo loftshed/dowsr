@@ -7,4 +7,16 @@ const getUserLocation = async () => {
   }
 };
 
-export { getUserLocation };
+const handleGetPinsOfType = async (filter) => {
+  console.log(`Getting pins of type: ${filter}`);
+  try {
+    const response = await fetch(
+      `http://localhost:9001/api/map-pins?filter=${filter}`
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { getUserLocation, handleGetPinsOfType };

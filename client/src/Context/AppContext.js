@@ -11,7 +11,6 @@ export const AppProvider = ({ children }) => {
   const [threads, setThreads] = useState([]);
   const [displayedThreadId, setDisplayedThreadId] = useState("");
   const [showLoadingAnim, setShowLoadingAnim] = useState(false);
-
   // const socket = socketio.connect("http://localhost:8080");
 
   return (
@@ -31,7 +30,7 @@ export const AppProvider = ({ children }) => {
         setShowLoadingAnim,
         displayedThreadId,
         setDisplayedThreadId,
-        //socket
+        // socket,
       }}
     >
       {children}

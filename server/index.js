@@ -9,15 +9,19 @@ const app = express();
 /*-----------------
 | socket.io stuff |
 -----------------*/
-const http = require("http").createServer(app);
-const io = require("socket.io")(http, { cors: { origin: "*" } });
+// const http = require("http").createServer(app);
+// const io = require("socket.io")(http, { cors: { origin: "*" } });
 
-io.on("connection", (socket) => {
-  console.log(`a user connected ${socket.id}`);
-  socket.emit("connection", "null");
-});
+// io.on("connection", (socket) => {
+//   console.log(`a user connected ${socket.id}`);
+//   socket.emit("connection", "null");
+// });
 
-http.listen(8080, () => console.log("listening on http://localhost:8080"));
+// io.on("sendMsg", (socket) => {
+//   socket.emit("howdy", { data: "lol" });
+// });
+
+// http.listen(8080, () => console.log("listening on http://localhost:8080"));
 
 /*-----------
 | handlers |
