@@ -7,6 +7,7 @@ export const MappingProvider = ({ children }) => {
   const [selectedMapFilter, setSelectedMapFilter] = useState(null);
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [mapModalMessage, setMapModalMessage] = useState("");
+  const [creatingNewPin, setCreatingNewPin] = useState(false);
 
   return (
     <MappingContext.Provider
@@ -19,6 +20,8 @@ export const MappingProvider = ({ children }) => {
         setShowFilterMenu,
         mapModalMessage,
         setMapModalMessage,
+        creatingNewPin,
+        setCreatingNewPin,
       }}
     >
       {children}

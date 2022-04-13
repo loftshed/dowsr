@@ -9,11 +9,14 @@ import { NotificationIcon, ChatIcon, ProfileIcon } from "../Styling/Icons";
 import LogoutButton from "./Auth/LogoutButton";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
+import { MappingContext } from "../Context/MapContext";
 
 //TODO: confirm before logging out
 
 const BurgerMenu = ({ show }) => {
   const { setShowBurgerMenu } = useContext(AppContext);
+  const { creatingNewPin, setCreatingNewPin, setMapModalMessage } =
+    useContext(MappingContext);
   return (
     <BurgerWrapper show={show}>
       <Content>
@@ -29,6 +32,10 @@ const BurgerMenu = ({ show }) => {
             to="/notifications"
             onClick={() => {
               setShowBurgerMenu(false);
+              if (creatingNewPin) {
+                setCreatingNewPin(false);
+                setMapModalMessage("");
+              }
             }}
           >
             <NotificationIcon />
@@ -37,6 +44,10 @@ const BurgerMenu = ({ show }) => {
             to="/messages"
             onClick={() => {
               setShowBurgerMenu(false);
+              if (creatingNewPin) {
+                setCreatingNewPin(false);
+                setMapModalMessage("");
+              }
             }}
           >
             <ChatIcon />
@@ -45,6 +56,10 @@ const BurgerMenu = ({ show }) => {
             to="/profile"
             onClick={() => {
               setShowBurgerMenu(false);
+              if (creatingNewPin) {
+                setCreatingNewPin(false);
+                setMapModalMessage("");
+              }
             }}
           >
             <ProfileIcon />

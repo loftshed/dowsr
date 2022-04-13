@@ -19,7 +19,7 @@ import {
   MdFilterAlt,
 } from "react-icons/md";
 import { BiTrafficCone } from "react-icons/bi";
-import { RiPoliceCarFill } from "react-icons/ri";
+import { RiPoliceCarFill, RiMapPinAddFill } from "react-icons/ri";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)``;
 const SearchIcon = styled(BsSearch)``;
@@ -43,6 +43,7 @@ const CoffeeIcon = styled(MdCoffee)``;
 const HazardIcon = styled(BiTrafficCone)``;
 const PoliceIcon = styled(RiPoliceCarFill)``;
 const StoreIcon = styled(MdLocalGroceryStore)``;
+const CreatePinIcon = styled(RiMapPinAddFill)``;
 
 export {
   CircledArrowRight,
@@ -63,4 +64,5 @@ export {
   PoliceIcon,
   StoreIcon,
   FilterIcon,
+  CreatePinIcon,
 };

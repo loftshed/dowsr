@@ -37,11 +37,11 @@ const App = () => {
         <Content>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/new" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/messages" element={<Messages />} />
-            <Route path="/saved" element={<Home saved={true} />} />
             <Route path="/search" element={<Home search={true} />} />
             <Route path="/error" element={<Error />} />
           </Routes>

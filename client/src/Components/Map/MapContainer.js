@@ -40,6 +40,7 @@ const MapContainer = () => {
     selectedMapFilter,
     mapModalMessage,
   } = useContext(MappingContext);
+  const { setCreatingNewPin, creatingNewPin } = useContext(MappingContext);
   const [clickedLocation, setClickedLocation] = useState(null);
   const [filteredPins, setFilteredPins] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
@@ -56,9 +57,7 @@ const MapContainer = () => {
         setFilteredPins(await handleGetPinsOfType("bike-shops"));
         return;
       } // for now, just load bike shops if no filter selected
-      // console.log(selectedMapFilter);
       setFilteredPins(await handleGetPinsOfType(selectedMapFilter));
-      // console.log(filteredPins);
     })();
   }, [popupInfo, setUserLocation, selectedMapFilter, clickedLocation]);
 
@@ -97,14 +96,17 @@ const MapContainer = () => {
               latitude: userLocation.lat,
               zoom: 12,
             }}
-            style={{ width: "100%", height: "100%" }}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
             mapStyle="mapbox://styles/mapbox/dark-v10"
             logoPosition={"top-right"}
             onClick={(ev) => {
               handleMapClick(ev);
             }}
           >
-            {displayedPins}
+            {!creatingNewPin && <>{displayedPins}</>}
 
             {popupInfo && (
               <Popup

@@ -8,11 +8,8 @@ import {
 import {
   SearchIcon,
   MapIcon,
-  HeartIcon,
-  NotificationIcon,
-  ProfileIcon,
   BurgerMenuIcon,
-  ChatIcon,
+  CreatePinIcon,
 } from "../Styling/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
@@ -34,7 +31,13 @@ import { MappingContext } from "../Context/MapContext";
 const Menu = () => {
   const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
     useContext(AppContext);
-  const { setShowFilterMenu, showFilterMenu } = useContext(MappingContext);
+  const {
+    setShowFilterMenu,
+    showFilterMenu,
+    setMapModalMessage,
+    setCreatingNewPin,
+    creatingNewPin,
+  } = useContext(MappingContext);
 
   const { user, isAuthenticated } = useAuth0();
 
@@ -49,11 +52,36 @@ const Menu = () => {
           {isAuthenticated ? (
             <>
               <IconRow>
-                <IconNavLink to="/search">
+                <IconNavLink
+                  to="/search"
+                  onClick={() => {
+                    if (creatingNewPin) {
+                      setCreatingNewPin(false);
+                      setMapModalMessage("");
+                    }
+                  }}
+                >
                   <SearchIcon />
                 </IconNavLink>
-                <IconNavLink to="/">
+                <IconNavLink
+                  to="/"
+                  onClick={() => {
+                    if (creatingNewPin) {
+                      setCreatingNewPin(false);
+                      setMapModalMessage("");
+                    }
+                  }}
+                >
                   <MapIcon />
+                </IconNavLink>
+                <IconNavLink
+                  to="/new"
+                  onClick={() => {
+                    setMapModalMessage("Creating new pin");
+                    setCreatingNewPin(true);
+                  }}
+                >
+                  <CreatePinIcon />
                 </IconNavLink>
               </IconRow>
               <IconRow>
@@ -135,9 +163,6 @@ const IconRow = styled.div`
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
     gap: 3.5vw;
-  }
-  & * {
-    fill: var(--color-medium-grey);
   }
   svg {
     width: ${SIZES.iconSize}px;
