@@ -1,7 +1,7 @@
 // const { react_app_google_api_key } = process.env;
 import Map, { Marker, Popup, GeolocateControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useContext, useEffect, useState, useMemo } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
 import { getUserLocation, handleGetPinsOfType } from "../helpers/mapHelpers";
 import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
@@ -9,6 +9,7 @@ import styled, { css } from "styled-components";
 import Pin from "./Pin";
 import MapFilters from "./MapFilters";
 import InfoModal from "./InfoModal";
+import InfoPopup from "./InfoPopup";
 import { MappingContext } from "../../Context/MapContext";
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
@@ -39,15 +40,17 @@ const MapContainer = () => {
     setShowFilterMenu,
     selectedMapFilter,
     mapModalMessage,
+    setShowNewPinModal,
+    showNewPinModal,
   } = useContext(MappingContext);
   const { setCreatingNewPin, creatingNewPin } = useContext(MappingContext);
   const [clickedLocation, setClickedLocation] = useState(null);
   const [filteredPins, setFilteredPins] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
 
-  const handleMapClick = (ev) => {
-    setClickedLocation(ev.lngLat);
-    console.log(ev.lngLat);
+  const handleCreateNewPin = (ev) => {
+    setClickedLocation(ev.lngLat); // record location in state
+    setShowNewPinModal(true); // show the pin creation modal
   };
 
   useEffect(() => {
@@ -103,39 +106,19 @@ const MapContainer = () => {
             mapStyle="mapbox://styles/mapbox/dark-v10"
             logoPosition={"top-right"}
             onClick={(ev) => {
-              handleMapClick(ev);
+              if (creatingNewPin) handleCreateNewPin(ev);
             }}
           >
             {!creatingNewPin && <>{displayedPins}</>}
 
-            {popupInfo && (
-              <Popup
-                anchor="top"
-                longitude={popupInfo.longitude}
-                latitude={popupInfo.latitude}
-                closeOnClick={false}
-                maxWidth={"350px"}
-                // onClose={() => setPopupInfo(null)}
-              >
-                <PopupContainer>
-                  <Heading>
-                    <h3>{popupInfo.name}</h3>
-                  </Heading>
-                  <Body>
-                    {/* <PlaceImage src={popupInfo.logo} /> */}
-                    <a target="_new" href={popupInfo.site}>
-                      Website
-                    </a>
-                  </Body>
-                </PopupContainer>
-              </Popup>
-            )}
+            {popupInfo && <InfoPopup popupInfo={popupInfo} />}
+
             {clickedLocation && (
               <Marker
                 longitude={clickedLocation?.lng}
                 latitude={clickedLocation?.lat}
                 color="red"
-              />
+              ></Marker>
             )}
             <GeolocateControl position="top-left" />
           </Map>

@@ -13,19 +13,20 @@ import {
 } from "../Styling/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import styled /*, { css }*/ from "styled-components";
+import styled from "styled-components";
 import { SIZES } from "../Styling/constants";
 import LoginButton from "./Auth/LoginButton";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 import BurgerMenu from "./BurgerMenu";
 import { MappingContext } from "../Context/MapContext";
+import NewPinModal from "./Map/NewPinModal";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
 //STRETCH: make button appear on left/right side of screen according to user settings.
 //STRETCH: make numbers appear over icons for unread notifications..
-//TODO: GET NAVLINK HIGHLIGHT WORKING~!!
+//TODO: GET NAVLINK HIGHLIGHT WORKING~!! or some kind of equivalent
 // or just do something in state...
 
 const Menu = () => {
