@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { MappingContext } from "../../Context/MapContext";
+import { MappingContext } from "../../../Context/MapContext";
 import { Marker } from "react-map-gl";
-import Pin from "./Pin";
+import Pin from "../Pin";
 
-const DisplayedPins = ({ pins }) => {
+const DisplayedPinsMarker = ({ pins }) => {
   const setPopupInfo = useContext(MappingContext);
   return (
     <>
@@ -31,4 +31,4 @@ const DisplayedPins = ({ pins }) => {
   );
 };
 
-export default DisplayedPins;
+export default DisplayedPinsMarker;

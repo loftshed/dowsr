@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Popup } from "react-map-gl";
-import { fillSpace, centeredFlexColumn } from "../../Styling/StyledComponents";
+import {
+  fillSpace,
+  centeredFlexColumn,
+} from "../../../Styling/StyledComponents";
 
 const InfoPopup = ({ popupInfo }) => {
   return (

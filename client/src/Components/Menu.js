@@ -20,7 +20,7 @@ import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 import BurgerMenu from "./BurgerMenu";
 import { MappingContext } from "../Context/MapContext";
-import NewPinModal from "./Map/NewPinModal";
+import NewPinModal from "./Map/Modals/NewPinModal";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!

@@ -6,10 +6,11 @@ import { getUserLocation, handleGetPinsOfType } from "../helpers/mapHelpers";
 import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
 import styled, { css } from "styled-components";
 import MapFilters from "./MapFilters";
-import InfoModal from "./InfoModal";
-import InfoPopup from "./InfoPopup";
-import DisplayedPins from "./DisplayedPins";
+import InfoModal from "./Modals/InfoModal";
+import InfoPopup from "./Popups/InfoPopup";
+import DisplayedPinsMarker from "./Markers/DisplayedPinsMarker";
 import { MappingContext } from "../../Context/MapContext";
+import NewPinMarker from "./Markers/NewPinMarker";
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
 
@@ -87,16 +88,11 @@ const MapContainer = () => {
               if (creatingNewPin) handleCreateNewPin(ev);
             }}
           >
-            {!creatingNewPin && <DisplayedPins pins={pins} />}
-
+            {!creatingNewPin && <DisplayedPinsMarker pins={pins} />}
             {popupInfo && <InfoPopup popupInfo={popupInfo} />}
-
-            {clickedLocation && (
-              <Marker
-                longitude={clickedLocation?.lng}
-                latitude={clickedLocation?.lat}
-                color="red"
-              ></Marker>
+            {clickedLocation && creatingNewPin && (
+              // TODO: this is ok for now but definitely remove clicked location if canceling create new pin
+              <NewPinMarker clickedLocation={clickedLocation} />
             )}
             <GeolocateControl position="top-left" />
           </Map>
@@ -115,28 +111,4 @@ export default MapContainer;
 
 const MapWrapper = styled.div`
   ${fillSpace}
-`;
-
-const PopupContainer = styled.div`
-  user-select: none;
-  ${centeredFlexColumn}
-  a {
-    color: var(--color-super-dark-grey);
-  }
-`;
-
-const Heading = styled.div`
-  h3 {
-    color: var(--color-super-dark-grey);
-    font-size: 18px;
-  }
-`;
-
-const Body = styled.div`
-  ${fillSpace}
-  ${centeredFlexColumn}
-`;
-
-const PlaceImage = styled.img`
-  width: 50px;
 `;
