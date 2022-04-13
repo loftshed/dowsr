@@ -19,7 +19,7 @@ import LoginButton from "./Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 import BurgerMenu from "./BurgerMenu";
-import { MappingContext } from "../Context/MapContext";
+import { MappingContext } from "../Context/MappingContext";
 import NewPinModal from "./Map/Modals/NewPinModal";
 
 //TODO: make menu collapse with click of a button.

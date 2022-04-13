@@ -9,7 +9,7 @@ import MapFilters from "./MapFilters";
 import InfoModal from "./Modals/InfoModal";
 import InfoPopup from "./Popups/InfoPopup";
 import DisplayedPinsMarker from "./Markers/DisplayedPinsMarker";
-import { MappingContext } from "../../Context/MapContext";
+import { MappingContext } from "../../Context/MappingContext";
 import NewPinMarker from "./Markers/NewPinMarker";
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
@@ -42,11 +42,12 @@ const MapContainer = () => {
     mapModalMessage,
     setShowNewPinModal,
     showNewPinModal,
+    popupInfo,
+    setPopupInfo,
   } = useContext(MappingContext);
   const { setCreatingNewPin, creatingNewPin } = useContext(MappingContext);
   const [clickedLocation, setClickedLocation] = useState(null);
   const [filteredPins, setFilteredPins] = useState(null);
-  const [popupInfo, setPopupInfo] = useState(null);
 
   const handleCreateNewPin = (ev) => {
     setClickedLocation(ev.lngLat); // record location in state

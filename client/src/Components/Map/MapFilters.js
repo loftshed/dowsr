@@ -14,7 +14,7 @@ import {
   FilterIcon,
 } from "../../Styling/Icons";
 import { useContext, useEffect } from "react";
-import { MappingContext } from "../../Context/MapContext";
+import { MappingContext } from "../../Context/MappingContext";
 import { AppContext } from "../../Context/AppContext";
 
 //TODO: Not important but annoying. Fix method by which modal fades out. currently not ideal.

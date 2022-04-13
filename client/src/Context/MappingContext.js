@@ -9,6 +9,7 @@ export const MappingProvider = ({ children }) => {
   const [mapModalMessage, setMapModalMessage] = useState("");
   const [creatingNewPin, setCreatingNewPin] = useState(false);
   const [showNewPinModal, setShowNewPinModal] = useState(false);
+  const [popupInfo, setPopupInfo] = useState(null);
 
   return (
     <MappingContext.Provider
@@ -25,6 +26,8 @@ export const MappingProvider = ({ children }) => {
         setCreatingNewPin,
         setShowNewPinModal,
         showNewPinModal,
+        popupInfo,
+        setPopupInfo,
       }}
     >
       {children}
