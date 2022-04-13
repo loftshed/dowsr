@@ -98,7 +98,12 @@ const MapContainer = () => {
               // TODO: this is ok for now but definitely remove clicked location if canceling create new pin
               <NewPinMarker clickedLocation={clickedLocation} />
             )}
-            <GeolocateControl position="top-left" />
+            <GeolocateControl
+              position="top-left"
+              // positionOptions={{ enableHighAccuracy: true }}
+              trackUserLocation="true"
+              showUserHeading="true"
+            />
           </Map>
           {mapModalMessage !== "" && <InfoModal message={mapModalMessage} />}
           <MapFilters
