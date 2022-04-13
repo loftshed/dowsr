@@ -17,10 +17,6 @@ export default LogoutButton;
 
 const Button = styled.button`
   ${iconStyling}
-  svg {
-    width: 25px;
-    height: 25px;
-  }
   outline: unset;
   outline: 1px solid var(--color-super-dark-grey);
 `;

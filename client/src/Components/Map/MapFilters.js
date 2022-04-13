@@ -15,17 +15,19 @@ import {
 } from "../../Styling/Icons";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "../../Context/MapContext";
+import { AppContext } from "../../Context/AppContext";
 
 //TODO: Not important but annoying. Fix method by which modal fades out. currently not ideal.
 
 const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
   const { selectedMapFilter, setSelectedMapFilter, setMapModalMessage } =
     useContext(MappingContext);
+  const { setShowBurgerMenu, showBurgerMenu } = useContext(AppContext);
 
   // for testing
-  useEffect(() => {
-    console.log(selectedMapFilter);
-  }, [selectedMapFilter]);
+  // useEffect(() => {
+  //   console.log(selectedMapFilter);
+  // }, [selectedMapFilter]);
 
   return (
     <Boundary>
@@ -35,6 +37,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
             <Option
               onClick={() => {
                 setShowFilterMenu(!showFilterMenu);
+                if (showBurgerMenu) setShowBurgerMenu(false);
               }}
             >
               <FilterIcon />
@@ -47,6 +50,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
           <InnerContainer>
             <InnerContainerLiner>
               <Option
+                type="button"
                 onClick={() => {
                   setSelectedMapFilter("bike-shops");
                   setMapModalMessage("Filtering by: Bike Shops");
@@ -58,8 +62,9 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
                 <BikeIcon />
               </Option>
               <Option
+                type="button"
                 onClick={() => {
-                  setSelectedMapFilter("stores");
+                  setSelectedMapFilter("deps");
                   setMapModalMessage("Filtering by: Stores");
                   setTimeout(() => {
                     setMapModalMessage("");
@@ -69,6 +74,19 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
                 <StoreIcon />
               </Option>
               <Option
+                type="button"
+                onClick={() => {
+                  setSelectedMapFilter("cafes");
+                  setMapModalMessage("Filtering by: Coffee");
+                  setTimeout(() => {
+                    setMapModalMessage("");
+                  }, 2500);
+                }}
+              >
+                <CoffeeIcon />
+              </Option>
+              <Option
+                type="button"
                 onClick={() => {
                   setSelectedMapFilter("hazards");
                   setMapModalMessage("Filtering by: Hazards");
@@ -80,6 +98,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
                 <HazardIcon />
               </Option>
               <Option
+                type="button"
                 onClick={() => {
                   setSelectedMapFilter("popo");
                   setMapModalMessage("Filtering by: Police");
@@ -89,17 +108,6 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
                 }}
               >
                 <PoliceIcon />
-              </Option>
-              <Option
-                onClick={() => {
-                  setSelectedMapFilter("coffee");
-                  setMapModalMessage("Filtering by: Coffee");
-                  setTimeout(() => {
-                    setMapModalMessage("");
-                  }, 2500);
-                }}
-              >
-                <CoffeeIcon />
               </Option>
             </InnerContainerLiner>
           </InnerContainer>
@@ -173,6 +181,6 @@ const InnerContainerLiner = styled.div`
   }
 `;
 
-const Option = styled.div`
+const Option = styled.button`
   ${iconStyling}
 `;

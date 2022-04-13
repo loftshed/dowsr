@@ -22,6 +22,7 @@ import LoginButton from "./Auth/LoginButton";
 import { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import BurgerMenu from "./BurgerMenu";
+import { MappingContext } from "../Context/MapContext";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
@@ -31,8 +32,10 @@ import BurgerMenu from "./BurgerMenu";
 // or just do something in state...
 
 const Menu = () => {
-  const { loggedInUser } = useContext(AppContext);
-  const [showBurgerMenu, setShowBurgerMenu] = useState(false);
+  const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
+    useContext(AppContext);
+  const { setShowFilterMenu, showFilterMenu } = useContext(MappingContext);
+
   const { user, isAuthenticated } = useAuth0();
 
   //TODO: prevent user from accessing any of main page
@@ -44,31 +47,26 @@ const Menu = () => {
       <Wrapper>
         <Content>
           {isAuthenticated ? (
-            <IconRow>
-              <IconNavLink to="/">
-                <MapIcon />
-              </IconNavLink>
-              <IconNavLink to="/search">
-                <SearchIcon />
-              </IconNavLink>
-              <IconNavLink to="/notifications">
-                <NotificationIcon />
-              </IconNavLink>
-              <IconNavLink to="/messages">
-                <ChatIcon />
-              </IconNavLink>
-              <IconNavLink to="/profile">
-                <ProfileIcon />
-              </IconNavLink>
-
-              <BurgerButton
-                onClick={() => {
-                  setShowBurgerMenu(!showBurgerMenu);
-                }}
-              >
-                <BurgerMenuIcon />
-              </BurgerButton>
-            </IconRow>
+            <>
+              <IconRow>
+                <IconNavLink to="/search">
+                  <SearchIcon />
+                </IconNavLink>
+                <IconNavLink to="/">
+                  <MapIcon />
+                </IconNavLink>
+              </IconRow>
+              <IconRow>
+                <BurgerButton
+                  onClick={() => {
+                    setShowBurgerMenu(!showBurgerMenu);
+                    if (showFilterMenu) setShowFilterMenu(false);
+                  }}
+                >
+                  <BurgerMenuIcon />
+                </BurgerButton>
+              </IconRow>
+            </>
           ) : (
             <LoginContainer>
               <LoginButton />
@@ -128,11 +126,12 @@ const Content = styled.div`
     100px 100px 80px rgba(0, 0, 0, 0.07),
     inset 0px 0px 2px var(--color-super-dark-grey);
   outline: 1px solid var(--color-super-dark-grey);
+  justify-content: flex-end;
 `;
 
 const IconRow = styled.div`
   ${centeredFlexRow}
-  width: 100%;
+  width: fit-content;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
     gap: 3.5vw;
@@ -144,6 +143,7 @@ const IconRow = styled.div`
     width: ${SIZES.iconSize}px;
     height: ${SIZES.iconSize}px;
   }
+  padding: 0px 10px;
 `;
 
 const LoginContainer = styled.div`

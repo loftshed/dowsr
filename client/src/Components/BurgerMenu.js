@@ -1,14 +1,54 @@
 import styled from "styled-components";
 import { SIZES } from "../Styling/constants";
-import { centeredFlexColumn, fillSpace } from "../Styling/StyledComponents";
+import {
+  centeredFlexColumn,
+  fillSpace,
+  IconNavLink,
+} from "../Styling/StyledComponents";
+import { NotificationIcon, ChatIcon, ProfileIcon } from "../Styling/Icons";
 import LogoutButton from "./Auth/LogoutButton";
+import { useContext } from "react";
+import { AppContext } from "../Context/AppContext";
+
+//TODO: confirm before logging out
 
 const BurgerMenu = ({ show }) => {
+  const { setShowBurgerMenu } = useContext(AppContext);
   return (
     <BurgerWrapper show={show}>
       <Content>
         <InnerContainer>
-          <LogoutButton />
+          <LogoutButton
+            onClick={() => {
+              setShowBurgerMenu(false);
+            }}
+          />
+        </InnerContainer>
+        <InnerContainer>
+          <IconNavLink
+            to="/notifications"
+            onClick={() => {
+              setShowBurgerMenu(false);
+            }}
+          >
+            <NotificationIcon />
+          </IconNavLink>
+          <IconNavLink
+            to="/messages"
+            onClick={() => {
+              setShowBurgerMenu(false);
+            }}
+          >
+            <ChatIcon />
+          </IconNavLink>
+          <IconNavLink
+            to="/profile"
+            onClick={() => {
+              setShowBurgerMenu(false);
+            }}
+          >
+            <ProfileIcon />
+          </IconNavLink>
         </InnerContainer>
       </Content>
     </BurgerWrapper>
@@ -33,9 +73,15 @@ const BurgerWrapper = styled.div`
   transition: 0.2s all ease;
   opacity: ${(props) => (props.show ? "100%" : "0%")};
   z-index: -1;
+  svg {
+    width: 25px;
+    height: 25px;
+  }
 `;
 
 const Content = styled.div`
+  flex-direction: column;
+  gap: 10px;
   ${fillSpace};
   padding: 5px;
   padding-bottom: 30px;
@@ -50,4 +96,11 @@ const InnerContainer = styled.div`
   background-color: var(--color-darkest-blue);
   outline: 1px solid var(--color-super-dark-grey);
   padding: 5px;
+  gap: 10px;
+  box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2);
+  ${IconNavLink},
+  button {
+    outline: 1px solid var(--color-pink);
+  }
+  overflow: hidden;
 `;

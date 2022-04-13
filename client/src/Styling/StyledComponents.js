@@ -77,6 +77,8 @@ const IconNavLink = styled(NavLink)`
   ${iconStyling}
 `;
 
+const BurgerNavLink = styled(IconNavLink)``;
+
 const Input = styled.input`
   border-radius: 4px;
   background-color: var(--color-dark-grey);
@@ -116,4 +118,5 @@ export {
   centeredFlexColumn,
   centeredFlexRow,
   iconStyling,
+  BurgerNavLink,
 };

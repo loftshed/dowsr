@@ -3,7 +3,9 @@ const { get } = require("express/lib/response");
 const { MongoClient } = require("mongodb");
 
 const { v4: uuidv4 } = require("uuid");
-const { shops } = require("./shop_data"); // require data file
+const { shops } = require("./mockdata/data/shop_data"); // require data file
+const { deps } = require("./mockdata/data/dep_data"); // require data file
+const { cafes } = require("./mockdata/data/cafe_data"); // require data file
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -12,10 +14,10 @@ const client = new MongoClient(MONGO_URI, {
   useUnifiedTopology: true,
 });
 
-let bikeShops = [];
+let pins = [];
 
 const rearrangeData = () => {
-  shops.forEach(
+  cafes.forEach(
     ({
       name,
       site,
@@ -27,7 +29,7 @@ const rearrangeData = () => {
       longitude,
       description,
     }) => {
-      const shopObj = {
+      const pinObj = {
         _id: uuidv4(),
         latitude,
         longitude,
@@ -40,15 +42,15 @@ const rearrangeData = () => {
         description,
         users_vouched: [],
       };
-      bikeShops.push(shopObj);
+      pins.push(pinObj);
     }
   );
-  console.log(bikeShops);
+  console.log(pins);
 };
 
 rearrangeData();
 
-const mapPins = { _id: uuidv4(), filter: "bike-shops", pins: bikeShops };
+const mapPins = { _id: uuidv4(), filter: "cafes", pins: pins };
 
 const batchImport = async () => {
   try {

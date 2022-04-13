@@ -15,6 +15,7 @@ const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
 
 /*
 //TODO: CREATE MAP PIN. 
+//TODO: WHEN CLICKING A MAP PIN, IT SHOULD SHOW DISTANCE FROM USER
 - user selects a point on the map, that point is saved in state
 - a modal should pop up asking the user to describe the point
 - the point is pushed to an array of datapoints which are used to populate the map with markers.
@@ -43,18 +44,23 @@ const MapContainer = () => {
   const [filteredPins, setFilteredPins] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
 
-  // const handleMapClick = (ev) => {
-  //   setSelectedLocation(ev.lngLat);
-  //   console.log(ev.lngLat);
-  // };
+  const handleMapClick = (ev) => {
+    setClickedLocation(ev.lngLat);
+    console.log(ev.lngLat);
+  };
 
   useEffect(() => {
     (async () => {
       setUserLocation(await getUserLocation());
-      // if (!selectedMapFilter) return; // don't do anything if no filter selected
-      setFilteredPins(await handleGetPinsOfType("bike-shops")); //
+      if (!selectedMapFilter) {
+        setFilteredPins(await handleGetPinsOfType("bike-shops"));
+        return;
+      } // for now, just load bike shops if no filter selected
+      // console.log(selectedMapFilter);
+      setFilteredPins(await handleGetPinsOfType(selectedMapFilter));
+      // console.log(filteredPins);
     })();
-  }, [popupInfo, setUserLocation, selectedMapFilter]);
+  }, [popupInfo, setUserLocation, selectedMapFilter, clickedLocation]);
 
   if (!filteredPins) return null;
   const { pins } = filteredPins;
@@ -80,52 +86,6 @@ const MapContainer = () => {
     );
   });
 
-  // const displayedPins = useMemo(
-  //   () =>
-  //     filteredPins.map((shop) => (
-  //       <Marker
-  //         key={`marker-${shop.place_id}`}
-  //         longitude={shop.longitude}
-  //         latitude={shop.latitude}
-  //         color={"var(--color-pink)"}
-  //         style={{ cursor: "pointer" }}
-  //         onClick={(ev) => {
-  //           console.log(ev);
-  //         }}
-  //       >
-  //         <Pin
-  //           onClick={() => {
-  //             setPopupInfo(shop);
-  //           }}
-  //         />
-  //       </Marker>
-  //     )),
-  //   []
-  // );
-
-  // const userPins = useMemo(
-  //   () =>
-  //     userPins.map((pin) => (
-  //       <Marker
-  //         key={`marker-${pin.place_id}`}
-  //         longitude={pin.longitude}
-  //         latitude={pin.latitude}
-  //         color={"var(--color-pink)"}
-  //         style={{ cursor: "pointer" }}
-  //         onClick={(ev) => {
-  //           console.log(ev);
-  //         }}
-  //       >
-  //         <Pin
-  //           onClick={() => {
-  //             setPopupInfo(pin);
-  //           }}
-  //         />
-  //       </Marker>
-  //     )),
-  //   [userPins]
-  // );
-
   return (
     <MapWrapper>
       {userLocation && (
@@ -140,6 +100,9 @@ const MapContainer = () => {
             style={{ width: "100%", height: "100%" }}
             mapStyle="mapbox://styles/mapbox/dark-v10"
             logoPosition={"top-right"}
+            onClick={(ev) => {
+              handleMapClick(ev);
+            }}
           >
             {displayedPins}
 
@@ -150,7 +113,6 @@ const MapContainer = () => {
                 latitude={popupInfo.latitude}
                 closeOnClick={false}
                 maxWidth={"350px"}
-
                 // onClose={() => setPopupInfo(null)}
               >
                 <PopupContainer>
@@ -166,6 +128,13 @@ const MapContainer = () => {
                 </PopupContainer>
               </Popup>
             )}
+            {clickedLocation && (
+              <Marker
+                longitude={clickedLocation?.lng}
+                latitude={clickedLocation?.lat}
+                color="red"
+              />
+            )}
             <GeolocateControl position="top-left" />
           </Map>
           {mapModalMessage !== "" && <InfoModal message={mapModalMessage} />}
@@ -178,15 +147,6 @@ const MapContainer = () => {
     </MapWrapper>
   );
 };
-
-/* {selectedLocation && (
-              <Marker
-                longitude={selectedLocation?.lng}
-                latitude={selectedLocation?.lat}
-                color="red"
-                style={{ cursor: "pointer" }}
-              />
-            )} */
 
 export default MapContainer;
 
