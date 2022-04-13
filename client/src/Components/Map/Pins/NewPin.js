@@ -22,6 +22,7 @@ const NewPin = ({ onClick }) => {
 
 export default memo(NewPin);
 const Wrapper = styled.div`
+  margin-bottom: 20px;
   svg {
     width: 30px;
     height: 30px;

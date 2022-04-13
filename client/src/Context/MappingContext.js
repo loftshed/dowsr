@@ -9,6 +9,7 @@ export const MappingProvider = ({ children }) => {
   const [mapModalMessage, setMapModalMessage] = useState("");
   const [creatingNewPin, setCreatingNewPin] = useState(false);
   const [showNewPinModal, setShowNewPinModal] = useState(false);
+  const [clickedLocation, setClickedLocation] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
 
   return (
@@ -26,6 +27,8 @@ export const MappingProvider = ({ children }) => {
         setCreatingNewPin,
         setShowNewPinModal,
         showNewPinModal,
+        setClickedLocation,
+        clickedLocation,
         popupInfo,
         setPopupInfo,
       }}

@@ -3,9 +3,10 @@ import NewPin from "../Pins/NewPin";
 import { Marker } from "react-map-gl";
 import { useContext } from "react";
 import { MappingContext } from "../../../Context/MappingContext";
+import ConfirmPinPopup from "../Popups/ConfirmPinPopup";
 
-const NewPinMarker = ({ clickedLocation }) => {
-  // const {} = useContext(MappingContext);
+const NewPinMarker = () => {
+  const { clickedLocation } = useContext(MappingContext);
 
   return (
     <Marker
@@ -13,9 +14,7 @@ const NewPinMarker = ({ clickedLocation }) => {
       latitude={clickedLocation?.lat}
       color="red"
     >
-      {/* <NewPin onClick={() => {
-                setPopupInfo(pin);
-              }} /> */}
+      <ConfirmPinPopup clickedLocation={clickedLocation} />
     </Marker>
   );
 };

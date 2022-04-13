@@ -16,6 +16,7 @@ const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
 
 /*
 //TODO: CREATE MAP PIN. 
+//TODO: WHEN CREATING A PIN, OVERLAY MAP AREA WITH ANOTHER COLOR SO USER KNOWS WAT UP
 //TODO: WHEN CLICKING A MAP PIN, IT SHOULD SHOW DISTANCE FROM USER
 - user selects a point on the map, that point is saved in state
 - a modal should pop up asking the user to describe the point
@@ -44,14 +45,16 @@ const MapContainer = () => {
     showNewPinModal,
     popupInfo,
     setPopupInfo,
+    clickedLocation,
+    setClickedLocation,
+    setCreatingNewPin,
+    creatingNewPin,
   } = useContext(MappingContext);
-  const { setCreatingNewPin, creatingNewPin } = useContext(MappingContext);
-  const [clickedLocation, setClickedLocation] = useState(null);
   const [filteredPins, setFilteredPins] = useState(null);
 
   const handleCreateNewPin = (ev) => {
+    console.log(ev);
     setClickedLocation(ev.lngLat); // record location in state
-    setShowNewPinModal(true); // show the pin creation modal
   };
 
   useEffect(() => {

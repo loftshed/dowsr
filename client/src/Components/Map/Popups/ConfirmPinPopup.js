@@ -4,19 +4,22 @@ import {
   fillSpace,
   centeredFlexColumn,
 } from "../../../Styling/StyledComponents";
+import { MappingContext } from "../../../Context/MappingContext";
+import { useContext } from "react";
 
-const ConfirmPinPopup = ({ clickedLocation }) => {
+const ConfirmPinPopup = () => {
+  const { clickedLocation } = useContext(MappingContext);
   return (
     <Popup
-      anchor="top"
-      longitude={clickedLocation.longitude}
-      latitude={clickedLocation.latitude}
+      anchor="bottom"
+      longitude={clickedLocation?.lng}
+      latitude={clickedLocation?.lat}
       closeOnClick={false}
       maxWidth={"350px"}
       // onClose={() => setPopupInfo(null)}
     >
       <PopupContainer>
-        <Heading>coordinates go here</Heading>
+        {clickedLocation?.lat}, {clickedLocation?.lng}
         <Body>approx street address</Body>
       </PopupContainer>
     </Popup>
@@ -25,18 +28,13 @@ const ConfirmPinPopup = ({ clickedLocation }) => {
 export default ConfirmPinPopup;
 
 const PopupContainer = styled.div`
-  user-select: none;
   ${centeredFlexColumn}
-  a {
-    color: var(--color-super-dark-grey);
-  }
+  color: var(--color-super-dark-grey);
 `;
 
 const Heading = styled.div`
-  h3 {
-    color: var(--color-super-dark-grey);
-    font-size: 18px;
-  }
+  color: var(--color-super-dark-grey);
+  font-size: 18px;
 `;
 
 const Body = styled.div`
