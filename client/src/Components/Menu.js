@@ -20,7 +20,7 @@ import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
 import BurgerMenu from "./BurgerMenu";
 import { MappingContext } from "../Context/MappingContext";
-import NewPinModal from "./Map/Modals/NewPinModal";
+import NewPinModal from "./Map/Modals/PinCreationModal";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
@@ -38,6 +38,8 @@ const Menu = () => {
     setMapModalMessage,
     setCreatingNewPin,
     creatingNewPin,
+    showPinCreationModal,
+    setShowPinCreationModal,
   } = useContext(MappingContext);
 
   const { user, isAuthenticated } = useAuth0();
@@ -78,7 +80,7 @@ const Menu = () => {
                 <IconNavLink
                   to="/new"
                   onClick={() => {
-                    setMapModalMessage("Creating new pin");
+                    setMapModalMessage("Create a new pin");
                     setCreatingNewPin(true);
                   }}
                 >
@@ -102,7 +104,7 @@ const Menu = () => {
             </LoginContainer>
           )}
           <BurgerMenu show={showBurgerMenu} />
-          <NewPinModal />
+          <NewPinModal show={showPinCreationModal} />
         </Content>
       </Wrapper>
     </Boundary>

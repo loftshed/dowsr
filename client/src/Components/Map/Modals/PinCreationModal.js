@@ -12,56 +12,68 @@ import {
   textButtonStyling,
 } from "../../../Styling/StyledComponents";
 
-const NewPinModal = () => {
-  const { clickedLocation, setShowNewPinModal } = useContext(MappingContext);
-  console.log(clickedLocation);
-  console.log(`${clickedLocation?.addressShort}`);
+const NewPinModal = ({ show }) => {
+  const { clickedLocation, setShowPinCreationModal } =
+    useContext(MappingContext);
 
-  return (
-    <NewPinModalWrapper>
-      <InnerContainer>
-        <Heading>
-          <span>Creating a new pin</span>
-          <CloseIcon />
-        </Heading>
-        <Subheading>
-          Latitude {clickedLocation?.lat.toFixed(4)}, Longitude{" "}
-          {clickedLocation?.lng.toFixed(4)}
-        </Subheading>
-        <InnerContainerLiner>
-          <ModalForm
-            onSubmit={(ev) => {
-              ev.preventDefault();
-              console.log(ev);
-            }}
-          >
-            <InputRow>
+  console.log(`${clickedLocation?.addressShort}`);
+  useEffect(() => {}, [clickedLocation]);
+
+  if (show)
+    return (
+      <NewPinModalWrapper>
+        <InnerContainer>
+          <Heading>
+            <span>Creating a new pin</span>
+            <button
+              style={{ all: "unset" }}
+              onClick={(ev) => {
+                setShowPinCreationModal(false);
+              }}
+            >
+              <CloseIcon />
+            </button>
+          </Heading>
+          <Subheading>
+            Latitude {clickedLocation?.lat.toFixed(4)}, Longitude{" "}
+            {clickedLocation?.lng.toFixed(4)}
+          </Subheading>
+          <InnerContainerLiner>
+            <ModalForm
+              onSubmit={(ev) => {
+                ev.preventDefault();
+                console.log(ev);
+              }}
+            >
+              <InputRow>
+                <InputColumn>
+                  <InputHeading>Type</InputHeading>
+                  <ModalSelect>
+                    <Option value="default">Select one:</Option>
+                    <Option value="toilet">Toilets</Option>
+                    <Option value="water">Water</Option>
+                    <Option value="police">Police</Option>
+                    <Option value="hazard">Hazard</Option>
+                  </ModalSelect>
+                </InputColumn>
+              </InputRow>
               <InputColumn>
-                <InputHeading>Type</InputHeading>
-                <ModalSelect>
-                  <Option value="default">Select one:</Option>
-                  <Option value="toilet">Toilets</Option>
-                  <Option value="water">Water</Option>
-                </ModalSelect>
+                <InputHeading>Verify the approximate address</InputHeading>
+                <ModalInput
+                  type="text"
+                  defaultValue={clickedLocation?.addressFull}
+                />
               </InputColumn>
-            </InputRow>
-            <InputColumn>
-              <InputHeading>Verify the approximate address</InputHeading>
-              <ModalInput
-                type="text"
-                defaultValue={clickedLocation?.addressFull}
-              />
-            </InputColumn>
-            <InputColumn>
-              <InputHeading>Opening hours (if not 24/7)</InputHeading>
-              <ModalInput type="text" />
-            </InputColumn>
-            <ModalSubmit type="submit" />
-          </ModalForm>
-        </InnerContainerLiner>
-      </InnerContainer>
-    </NewPinModalWrapper>
-  );
+              <InputColumn>
+                <InputHeading>Opening hours (if not 24/7)</InputHeading>
+                <ModalInput type="text" />
+              </InputColumn>
+              <ModalSubmit type="submit" />
+            </ModalForm>
+          </InnerContainerLiner>
+        </InnerContainer>
+      </NewPinModalWrapper>
+    );
 };
 
 export default NewPinModal;
@@ -74,6 +86,7 @@ const NewPinModalWrapper = styled.div`
   padding-left: 2px;
   left: 50%;
   transform: translateX(-50%);
+  transition: all 0.3s ease;
 `;
 
 const Heading = styled.div`
@@ -95,7 +108,12 @@ const Heading = styled.div`
     height: 20px;
     bottom: 1.25px;
     width: 20px;
+
     &:hover {
+      fill: var(--color-teal);
+      cursor: pointer;
+    }
+    &:active {
       fill: var(--color-super-dark-grey);
       cursor: pointer;
     }

@@ -8,7 +8,7 @@ export const MappingProvider = ({ children }) => {
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [mapModalMessage, setMapModalMessage] = useState("");
   const [creatingNewPin, setCreatingNewPin] = useState(false);
-  const [showNewPinModal, setShowNewPinModal] = useState(false);
+  const [showPinCreationModal, setShowPinCreationModal] = useState(false);
   const [clickedLocation, setClickedLocation] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
 
@@ -25,8 +25,8 @@ export const MappingProvider = ({ children }) => {
         setMapModalMessage,
         creatingNewPin,
         setCreatingNewPin,
-        setShowNewPinModal,
-        showNewPinModal,
+        setShowPinCreationModal,
+        showPinCreationModal,
         setClickedLocation,
         clickedLocation,
         popupInfo,

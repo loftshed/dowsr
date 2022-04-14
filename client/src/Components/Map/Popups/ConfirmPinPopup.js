@@ -10,7 +10,8 @@ import { useContext } from "react";
 import { RefreshAnim } from "../../../Styling/Animations";
 
 const ConfirmPinPopup = () => {
-  const { clickedLocation, setShowNewPinModal } = useContext(MappingContext);
+  const { clickedLocation, setShowPinCreationModal } =
+    useContext(MappingContext);
   return (
     <Popup
       anchor="bottom"
@@ -30,7 +31,7 @@ const ConfirmPinPopup = () => {
 
           <CreateButton
             onClick={() => {
-              setShowNewPinModal(true);
+              setShowPinCreationModal(true);
             }}
           >
             Create a Pin

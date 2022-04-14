@@ -12,6 +12,8 @@ import {
   HazardIcon,
   BikeIcon,
   FilterIcon,
+  WaterIcon,
+  ToiletIcon,
 } from "../../Styling/Icons";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "../../Context/MappingContext";
@@ -85,17 +87,30 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               >
                 <CoffeeIcon />
               </Option>
+
               <Option
                 type="button"
                 onClick={() => {
-                  setSelectedMapFilter("hazards");
-                  setMapModalMessage("Filtering by: Hazards");
+                  setSelectedMapFilter("water");
+                  setMapModalMessage("Filtering by: Water");
                   setTimeout(() => {
                     setMapModalMessage("");
                   }, 2500);
                 }}
               >
-                <HazardIcon />
+                <WaterIcon />
+              </Option>
+              <Option
+                type="button"
+                onClick={() => {
+                  setSelectedMapFilter("toilets");
+                  setMapModalMessage("Filtering by: Toilets");
+                  setTimeout(() => {
+                    setMapModalMessage("");
+                  }, 2500);
+                }}
+              >
+                <ToiletIcon />
               </Option>
               <Option
                 type="button"
@@ -108,6 +123,18 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
                 }}
               >
                 <PoliceIcon />
+              </Option>
+              <Option
+                type="button"
+                onClick={() => {
+                  setSelectedMapFilter("hazards");
+                  setMapModalMessage("Filtering by: Hazards");
+                  setTimeout(() => {
+                    setMapModalMessage("");
+                  }, 2500);
+                }}
+              >
+                <HazardIcon />
               </Option>
             </InnerContainerLiner>
           </InnerContainer>

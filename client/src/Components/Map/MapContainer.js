@@ -41,8 +41,8 @@ const MapContainer = () => {
     setShowFilterMenu,
     selectedMapFilter,
     mapModalMessage,
-    setShowNewPinModal,
-    showNewPinModal,
+    setShowPinCreationModal,
+    showPinCreationModal,
     popupInfo,
     setPopupInfo,
     clickedLocation,
@@ -101,10 +101,6 @@ const MapContainer = () => {
               latitude: userLocation.lat,
               zoom: 12,
             }}
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
             mapStyle="mapbox://styles/mapbox/dark-v10"
             logoPosition={"top-right"}
             onClick={(ev) => {
@@ -139,4 +135,5 @@ export default MapContainer;
 
 const MapWrapper = styled.div`
   ${fillSpace}
+  overflow: hidden;
 `;

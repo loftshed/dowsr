@@ -12,6 +12,8 @@ import {
 } from "react-icons/bs";
 import { TiThMenu } from "react-icons/ti";
 import { IoLogOut, IoSend } from "react-icons/io5";
+import { IoIosWater } from "react-icons/io";
+import { FaToilet } from "react-icons/fa";
 import {
   MdPedalBike,
   MdCoffee,
@@ -49,6 +51,8 @@ const PoliceIcon = styled(RiPoliceCarFill)``;
 const StoreIcon = styled(MdLocalGroceryStore)``;
 const CreatePinIcon = styled(RiMapPinAddFill)``;
 const CloseIcon = styled(RiCloseCircleFill)``;
+const WaterIcon = styled(IoIosWater)``;
+const ToiletIcon = styled(FaToilet)``;
 
 export {
   CircledArrowRight,
@@ -71,4 +75,6 @@ export {
   FilterIcon,
   CreatePinIcon,
   CloseIcon,
+  WaterIcon,
+  ToiletIcon,
 };

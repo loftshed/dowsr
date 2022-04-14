@@ -3,9 +3,9 @@ import { SIZES } from "../../../Styling/constants";
 import { centeredFlexRow } from "../../../Styling/StyledComponents";
 import { fadeIn, fadeOut } from "../../../Styling/Animations";
 
-const InfoModal = ({ message }) => {
+const InfoModal = ({ message, style }) => {
   return (
-    <ModalWrapper>
+    <ModalWrapper style={style}>
       <InnerContainer>{message}</InnerContainer>
     </ModalWrapper>
   );
