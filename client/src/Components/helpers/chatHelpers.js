@@ -19,8 +19,16 @@ const getOneThread = async (threadId) => {
   }
 };
 
-const newThread = async (idA, idB, body) => {
+const newThread = async (idA, idB, msgObj) => {
   try {
+    const response = await fetch(`/api/new-thread?idA=${idA}&idB=${idB}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(msgObj),
+    });
+    return response.json();
   } catch (error) {
     console.log(error);
   }

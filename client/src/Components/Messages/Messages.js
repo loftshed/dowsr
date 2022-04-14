@@ -9,11 +9,15 @@ import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import ThreadTile from "./ThreadTile";
 import Chat from "./Chat";
 
-//TODO: by default, the most recent thread should be displayed.
-//TODO: use userefs for that?
+//TODO: BIG TODO: allow users to navigate to  profile of someone they are chatting with by clicking  their profile pic or some other thing
+//TODO: by default, the most recent thread should be displayed. use userefs for that?
 //TODO: should be some type of indicator for threads with new messages.
-//TODO: implement react-spring for scrolling through messages/threads
+//TODO: (STRETCH) implement react-spring for scrolling through messages/threads
 //TODO: (STRETCH) make a way for a user to delete their copy of a thread by deleting their user ID from the thread's users array. If the users array ends up empty, the thread is "deleted".
+//TODO: add some kind of text for empty inbox, "no messages yet. get out there and make some friends!"
+//TODO: add new message box to messages which allows you to search for a friend by name.
+// maybe with a link to the map. idk
+//FIXME: tons of api calls if messages is accessed when user has no messages
 
 const Messages = () => {
   const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);
@@ -24,9 +28,9 @@ const Messages = () => {
         <Sidebar>
           <>
             {threads.map((el) => {
-              const { _id, messages } = el;
-              const partnerMsg = messages.find((el) => {
-                return el.handle !== loggedInUser.username;
+              const { _id, messages, users } = el;
+              const partnerId = users.find((el) => {
+                return el !== loggedInUser._id;
               });
               const mostRecentMessage = messages[messages.length - 1];
               const { sent, message } = mostRecentMessage;
@@ -34,10 +38,9 @@ const Messages = () => {
                 <ThreadTile
                   key={_id}
                   threadId={_id}
-                  user={`@${partnerMsg.handle}`}
                   message={`${message}`}
                   time={sent}
-                  userId={partnerMsg.userId}
+                  userId={partnerId}
                 />
               );
             })}

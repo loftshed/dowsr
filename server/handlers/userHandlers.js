@@ -17,7 +17,7 @@ const db = client.db("final");
 /*----------------------------------------
 | Endpoints for accessing Users Database |
 ----------------------------------------*/
-const userDb = db.collection("users");
+const thisCollection = db.collection("users");
 /*--------------------------------------*/
 
 // Adds a new user to MongoDB.
@@ -29,7 +29,7 @@ const addUser = async ({ body }, res) => {
     const newId = uuidv4();
     const regDate = dayjs().format();
     await client.connect();
-    const newUser = await userDb.insertOne({
+    const newUser = await thisCollection.insertOne({
       _id: newId,
       regDate: regDate,
       ...body,
@@ -59,8 +59,8 @@ const getUser = async ({ query: { id, email, all } }, res) => {
     let returnedUsers;
     const searchBy = email ? { email: email } : { _id: id };
     all
-      ? (returnedUsers = await userDb.find().toArray())
-      : (returnedUsers = await userDb.findOne(searchBy));
+      ? (returnedUsers = await thisCollection.find().toArray())
+      : (returnedUsers = await thisCollection.findOne(searchBy));
     returnedUsers
       ? res
           .status(200)
@@ -79,7 +79,7 @@ const getUser = async ({ query: { id, email, all } }, res) => {
 const modifyUser = async ({ query: { email }, body }, res) => {
   try {
     await client.connect();
-    const modifiedUser = await userDb.updateOne(
+    const modifiedUser = await thisCollection.updateOne(
       { email: email },
       { $set: body }
     );
@@ -101,7 +101,7 @@ const modifyUser = async ({ query: { email }, body }, res) => {
 const removeUser = async ({ query: { email } }, res) => {
   try {
     await client.connect();
-    const { acknowledged, deletedCount } = await userDb.deleteOne({
+    const { acknowledged, deletedCount } = await thisCollection.deleteOne({
       email: email,
     });
     if (deletedCount) {

@@ -4,17 +4,23 @@ import { useState, useEffect, useContext } from "react";
 import Bubble from "./Bubble";
 import { AppContext } from "../../Context/AppContext";
 import { SIZES } from "../../Styling/constants";
-import { replyThread, getOneThread, getUserThreads } from "./chatHelpers";
+import {
+  replyThread,
+  getOneThread,
+  getUserThreads,
+} from "../helpers/chatHelpers";
 import { v4 as uuidv4 } from "uuid";
 import ScrollToNewest from "./ScrollToNewest";
 import LoadingSpinner from "../Etc/LoadingSpinner";
 import ResponsiveContainer from "../../Styling/ResponsiveContainer";
+import { SendIcon } from "../../Styling/Icons";
 
 //TODO: Make threads sort properly by latest. Will need to determine latest thread by message timestamps instead 💩
 //TODO: change this so that even if thread is null, chat window displays the same way.
 
 const Chat = () => {
   const [currentMessages, setCurrentMessages] = useState([]);
+  const [userHasNoThreads, setUserHasNoThreads] = useState(false);
 
   const {
     setThreads,
@@ -28,10 +34,15 @@ const Chat = () => {
 
   useEffect(() => {
     if (!loggedInUser) return;
-    if (threads.length === 0)
+    if (threads.length === 0 && !userHasNoThreads)
       (async () => {
         const { threads } = await getUserThreads(loggedInUser?._id);
-        setThreads(threads);
+        if (!threads) {
+          setUserHasNoThreads(true);
+          return;
+        } else {
+          setThreads(threads);
+        }
       })();
   }, [threads, loggedInUser]);
 
@@ -107,7 +118,9 @@ const Chat = () => {
         }}
       >
         <ChatInput id="message" type="text" autoComplete="off"></ChatInput>
-        <SendButton id="send" type="submit" value="Send" />
+        <SendButton id="send" type="submit">
+          <SendIcon />
+        </SendButton>
       </InputArea>
     </ChatWrapper>
   );
@@ -171,7 +184,7 @@ const ChatInput = styled.input`
   }
 `;
 
-const SendButton = styled.input`
+const SendButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   color: white;
@@ -181,13 +194,28 @@ const SendButton = styled.input`
   border: none;
   height: 100%;
   padding: 2px 10px;
+  margin: 0px 6px;
   transition: all 0.1s ease;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
+  svg {
+    width: 30px;
+    height: 30px;
+  }
   &:hover {
     background-color: var(--color-teal);
+    svg {
+      fill: var(--color-pink);
+      stroke: var(--color-super-dark-grey);
+    }
   }
   &:active {
     background-color: var(--color-pink);
-    transform: scale(0.95);
+    /* transform: scale(0.95); */
+    svg {
+      transition: all 0.5s ease;
+      fill: var(--color-teal);
+      transform: translateX(40px);
+    }
   }
+  overflow: hidden;
 `;

@@ -9,15 +9,19 @@ const app = express();
 /*-----------------
 | socket.io stuff |
 -----------------*/
-const http = require("http").createServer(app);
-const io = require("socket.io")(http, { cors: { origin: "*" } });
+// const http = require("http").createServer(app);
+// const io = require("socket.io")(http, { cors: { origin: "*" } });
 
-io.on("connection", (socket) => {
-  console.log(`a user connected ${socket.id}`);
-  socket.emit("connection", "null");
-});
+// io.on("connection", (socket) => {
+//   console.log(`a user connected ${socket.id}`);
+//   socket.emit("connection", "null");
+// });
 
-http.listen(8080, () => console.log("listening on http://localhost:8080"));
+// io.on("sendMsg", (socket) => {
+//   socket.emit("howdy", { data: "lol" });
+// });
+
+// http.listen(8080, () => console.log("listening on http://localhost:8080"));
 
 /*-----------
 | handlers |
@@ -36,6 +40,10 @@ const {
   getUserThreads,
   getAllThreads,
 } = require("./handlers/messageHandlers");
+
+const { getPinsOfType, submitNewPin } = require("./handlers/mappingHandlers");
+
+const { modifyPinWithId } = require("./handlers/adminHandlers");
 
 app.use(morgan("tiny"));
 app.use(express.json()); // this was used in slingair server..  do i need?
@@ -58,6 +66,13 @@ app.patch("/api/modify-thread", modifyThread);
 app.get("/api/get-thread", getOneThread);
 app.get("/api/get-user-threads", getUserThreads);
 app.get("/api/get-all-threads", getAllThreads);
+
+// mapping endpoints
+app.get("/api/get-pins", getPinsOfType);
+app.put("/api/submit-pin", submitNewPin);
+
+// admin endpoints
+app.patch("/api/modify-pin", modifyPinWithId);
 
 /*------------------
 | end of endpoints |

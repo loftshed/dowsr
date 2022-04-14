@@ -4,7 +4,8 @@ const getUser = async (by, value) => {
     by === "email"
       ? (response = await fetch(`/api/get-user?email=${value}`))
       : (response = await fetch(`/api/get-user?id=${value}`));
-    return await response.json();
+    const jsonResponse = await response.json();
+    return jsonResponse;
   } catch (error) {
     console.log(error);
   }

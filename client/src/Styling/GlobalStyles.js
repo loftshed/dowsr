@@ -89,6 +89,7 @@ const GlobalStyle = createGlobalStyle`
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       font-family: 'Lato', sans-serif;
+
     }
     img, picture, video, canvas, svg {
       display: block;

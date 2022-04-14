@@ -34,29 +34,7 @@ const centeredFlexColumn = css`
   align-items: center;
 `;
 
-const ContentGrid = styled.div`
-  display: grid;
-  grid-template-rows: repeat(2, 100px);
-  grid-template-columns: repeat(2, 100px);
-  gap: 10px;
-`;
-
-const TextButton = styled.button`
-  border-radius: ${SIZES.borderRadius}px;
-  background-color: transparent;
-  height: fit-content;
-  width: fit-content;
-  border-radius: none;
-  border: none;
-  margin: 0;
-  padding: 0;
-  transition: all ease 0.1s;
-  background-color: var(--color-darkest-grey);
-  outline: 1px var(--color-less-dark-grey) solid;
-  ${buttonAnim}
-`;
-
-const IconNavLink = styled(NavLink)`
+const iconStyling = css`
   padding: 8px;
   background-color: #1e2021;
   border: 1px solid var(--color-super-dark-grey);
@@ -73,7 +51,7 @@ const IconNavLink = styled(NavLink)`
   }
 `;
 
-const Input = styled.input`
+const inputStyling = css`
   border-radius: 4px;
   background-color: var(--color-dark-grey);
   box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
@@ -83,6 +61,44 @@ const Input = styled.input`
   line-height: 20px;
   padding: 5px 6px;
   border: 1px solid var(--color-extra-medium-grey);
+`;
+
+const textButtonStyling = css`
+  border-radius: ${SIZES.borderRadius}px;
+  background-color: transparent;
+  height: fit-content;
+  width: fit-content;
+  border-radius: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  transition: all ease 0.1s;
+  background-color: var(--color-darkest-grey);
+  outline: 1px var(--color-less-dark-grey) solid;
+  ${buttonAnim}
+`;
+
+const ContentGrid = styled.div`
+  display: grid;
+  grid-template-rows: repeat(2, 100px);
+  grid-template-columns: repeat(2, 100px);
+  gap: 10px;
+`;
+
+const TextButton = styled.button`
+  ${textButtonStyling}
+`;
+
+// vestigial
+const IconNavLink = styled(NavLink)`
+  ${iconStyling}
+`;
+
+const BurgerNavLink = styled(IconNavLink)``;
+
+// vestigial
+const Input = styled.input`
+  ${inputStyling}
 `;
 
 const Select = styled.select`
@@ -111,4 +127,8 @@ export {
   fillSpace,
   centeredFlexColumn,
   centeredFlexRow,
+  iconStyling,
+  inputStyling,
+  textButtonStyling,
+  BurgerNavLink,
 };

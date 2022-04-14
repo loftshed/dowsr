@@ -16,10 +16,39 @@ const db = client.db("final");
 /*----------------------------------------
 | Endpoints for accessing Users Database |
 ----------------------------------------*/
-const userDb = db.collection("users");
+const thisCollection = db.collection("map-pins");
+/*--------------------------------------*/
 
-const getUserLocation = async () => {};
+const getPinsOfType = async ({ query: { filter } }, res) => {
+  try {
+    await client.connect();
+    const { _id, pins } = await thisCollection.findOne({ filter: filter });
+    res.status(200).json({
+      status: 200,
+      filter: filter,
+      filter_id: _id,
+      pins: pins,
+    });
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
+const submitNewPin = async ({ body }, res) => {
+  try {
+    await client.connect();
+    console.log(body);
+    res.status(200).json({
+      status: 200,
+      submission: body,
+      message: "hullo theree",
+    });
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
 
 module.exports = {
-  getUserLocation,
+  getPinsOfType,
+  submitNewPin,
 };

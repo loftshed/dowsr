@@ -9,31 +9,65 @@ import { BurgerMenuIcon } from "../Styling/Icons";
 import { SIZES } from "../Styling/constants";
 import ResponsiveContainer from "../Styling/ResponsiveContainer";
 
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Flag from "react-world-flags";
 import dayjs from "dayjs";
 
 import { AppContext } from "../Context/AppContext";
-import { getUser } from "./Auth/userHelpers";
+import { getUser, handleGetProfile } from "./helpers/userHelpers";
 import LogoutButton from "./Auth/LogoutButton";
 import LoadingSpinner from "./Etc/LoadingSpinner";
+import { useNavigate, useParams } from "react-router-dom";
+import { newThread } from "./helpers/chatHelpers";
 
 const Profile = () => {
+  const [viewedProfile, setViewedProfile] = useState({});
   const { loggedInUser } = useContext(AppContext);
   const { isLoading } = useAuth0();
+  const navigate = useNavigate();
+  const params = useParams();
 
   //TODO: button to edit profile!
   //TODO: embed ig feed in profile
   //TODO: add bio to profile
 
-  //STRETCH: - nothing in backend for this yet.
-  //const handleFollowUser = (userId) => {};
+  //STRETCH: // const handleFollowUser = (userId) => {}; (nothing in backend for this yet)
+  //TODO: change this so you can also get profile by username..
 
-  // dummy data for now //TODO: set it up so profile can be used to retrieve different user profiles as well ..! no way to start convo yet
-  const viewedProfile = 123;
+  const handleGetProfile = async (userId) => {
+    if (!userId) {
+      setViewedProfile(loggedInUser);
+      return;
+    }
+    const { data } = await getUser("", userId);
+    setViewedProfile(data);
+  };
 
-  const handleMsgUser = (idA, idB, message) => {};
+  useEffect(() => {
+    if (!params.id) {
+      handleGetProfile(null, loggedInUser);
+      return;
+    } else {
+      handleGetProfile(params.id);
+    }
+  }, [params]);
+
+  const handleMsgUser = async (idA, idB, message) => {
+    // TODO: first get user messages.. if profile ID is not found in any of those messages, then create a new thread, otherwise just navigate to messages and open that user's thread.
+    try {
+      const messageBody = {
+        userId: idA,
+        handle: loggedInUser.username,
+        message: message,
+      };
+      const response = await newThread(idA, idB, messageBody);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/messages", { replace: true });
+  };
 
   if (isLoading)
     return (
@@ -42,9 +76,17 @@ const Profile = () => {
       </ResponsiveContainer>
     );
 
-  if (!loggedInUser) return null;
-  const { username, city, country, region, avatarUrl, contributions, regDate } =
-    loggedInUser;
+  if (!viewedProfile) return null;
+  const {
+    username,
+    city,
+    country,
+    region,
+    avatarUrl,
+    contributions,
+    regDate,
+    _id,
+  } = viewedProfile;
 
   return (
     <ResponsiveContainer>
@@ -71,7 +113,9 @@ const Profile = () => {
           </UserDetails>
           <Actions>
             <TextButton
-              onClick={handleMsgUser(loggedInUser._id, viewedProfile, "👋")}
+              onClick={() => {
+                handleMsgUser(loggedInUser._id, _id, "👋");
+              }}
             >
               Send Message
             </TextButton>
@@ -213,6 +257,6 @@ const DetailList = styled.div`
   padding: 25px;
 `;
 
-const BurgerButton = styled(TextButton)`
-  padding: 5px;
+const SendMessage = styled(TextButton)`
+  cursor: pointer;
 `;

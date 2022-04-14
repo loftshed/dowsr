@@ -8,30 +8,40 @@ import {
 import {
   SearchIcon,
   MapIcon,
-  HeartIcon,
-  NotificationIcon,
-  ProfileIcon,
   BurgerMenuIcon,
-  ChatIcon,
+  CreatePinIcon,
 } from "../Styling/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import styled /*, { css }*/ from "styled-components";
+import styled from "styled-components";
 import { SIZES } from "../Styling/constants";
 import LoginButton from "./Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
-import { getUserThreads } from "./Messages/chatHelpers";
+import BurgerMenu from "./BurgerMenu";
+import { MappingContext } from "../Context/MappingContext";
+import NewPinModal from "./Map/Modals/PinCreationModal";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
 //STRETCH: make button appear on left/right side of screen according to user settings.
 //STRETCH: make numbers appear over icons for unread notifications..
-//TODO: GET NAVLINK HIGHLIGHT WORKING~!!
+//TODO: GET NAVLINK HIGHLIGHT WORKING~!! or some kind of equivalent
 // or just do something in state...
 
 const Menu = () => {
-  const { loggedInUser } = useContext(AppContext);
+  const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
+    useContext(AppContext);
+  const {
+    setShowFilterMenu,
+    showFilterMenu,
+    setMapModalMessage,
+    setCreatingNewPin,
+    creatingNewPin,
+    showPinCreationModal,
+    setShowPinCreationModal,
+  } = useContext(MappingContext);
+
   const { user, isAuthenticated } = useAuth0();
 
   //TODO: prevent user from accessing any of main page
@@ -39,40 +49,88 @@ const Menu = () => {
   //FIXME: not ideal way of doing this below..?
 
   return (
-    <Wrapper>
-      <Content>
-        {isAuthenticated ? (
-          <IconRow>
-            <IconNavLink to="/">
-              <MapIcon />
-            </IconNavLink>
-            <IconNavLink to="/search">
-              <SearchIcon />
-            </IconNavLink>
-            <IconNavLink to="/notifications">
-              <NotificationIcon />
-            </IconNavLink>
-            <IconNavLink to="/messages">
-              <ChatIcon />
-            </IconNavLink>
-            <IconNavLink to="/profile">
-              <ProfileIcon />
-            </IconNavLink>
-            <BurgerButton>
-              <BurgerMenuIcon />
-            </BurgerButton>
-          </IconRow>
-        ) : (
-          <LoginContainer>
-            <LoginButton />
-          </LoginContainer>
-        )}
-      </Content>
-    </Wrapper>
+    <Boundary>
+      <Wrapper>
+        <Content>
+          {isAuthenticated ? (
+            <>
+              <IconRow>
+                <IconNavLink
+                  to="/search"
+                  onClick={() => {
+                    if (creatingNewPin) {
+                      setCreatingNewPin(false);
+                      setMapModalMessage("");
+                    }
+                  }}
+                >
+                  <SearchIcon />
+                </IconNavLink>
+                <IconNavLink
+                  to="/"
+                  onClick={() => {
+                    if (creatingNewPin) {
+                      setCreatingNewPin(false);
+                      setMapModalMessage("");
+                    }
+                  }}
+                >
+                  <MapIcon />
+                </IconNavLink>
+                <IconNavLink
+                  to="/new"
+                  onClick={() => {
+                    setMapModalMessage("Create a new pin");
+                    setCreatingNewPin(true);
+                  }}
+                >
+                  <CreatePinIcon />
+                </IconNavLink>
+              </IconRow>
+              <IconRow>
+                <BurgerButton
+                  onClick={() => {
+                    setShowBurgerMenu(!showBurgerMenu);
+                    if (showFilterMenu) setShowFilterMenu(false);
+                  }}
+                >
+                  <BurgerMenuIcon />
+                </BurgerButton>
+              </IconRow>
+            </>
+          ) : (
+            <LoginContainer>
+              <LoginButton />
+            </LoginContainer>
+          )}
+          <BurgerMenu show={showBurgerMenu} />
+          <NewPinModal show={showPinCreationModal} />
+        </Content>
+      </Wrapper>
+    </Boundary>
   );
 };
 
 export default Menu;
+
+const Boundary = styled.div`
+  pointer-events: none;
+  ${centeredFlexRow}
+  position: absolute;
+  align-items: flex-end;
+  height: 100%;
+  bottom: ${SIZES.topBottomPadding}px;
+  @media (max-width: ${SIZES.widthMin}px) {
+    width: calc(100% - ${SIZES.smallPadding}px*2);
+  }
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  overflow: hidden;
+  padding: 1px;
+  * {
+    pointer-events: auto;
+  }
+`;
 
 const BurgerButton = styled(TextButton)`
   box-sizing: border-box;
@@ -81,19 +139,17 @@ const BurgerButton = styled(TextButton)`
 `;
 
 const Wrapper = styled.div`
+  background-color: var(--color-darkest-grey);
   ${centeredFlexRow}
-  position: absolute;
-  height: ${SIZES.menuHeightCompact}px;
-  bottom: ${SIZES.topBottomPadding}px;
-  width: calc(100vw);
-  z-index: 1;
-  @media (max-width: ${SIZES.widthMin}px) {
-    width: calc(100% - ${SIZES.smallPadding}px*2);
-  }
+  width: 100%;
+  z-index: 100;
 `;
+
 const Content = styled.div`
+  position: relative;
   ${fillSpace}
   width: 525px;
+  height: ${SIZES.menuHeightCompact}px;
   background-color: var(--color-darkest-grey);
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
@@ -104,22 +160,21 @@ const Content = styled.div`
     100px 100px 80px rgba(0, 0, 0, 0.07),
     inset 0px 0px 2px var(--color-super-dark-grey);
   outline: 1px solid var(--color-super-dark-grey);
+  justify-content: flex-end;
 `;
 
 const IconRow = styled.div`
   ${centeredFlexRow}
-  width: 100%;
+  width: fit-content;
   gap: 50px;
   @media (max-width: ${SIZES.widthMin}px) {
     gap: 3.5vw;
-  }
-  & * {
-    fill: var(--color-medium-grey);
   }
   svg {
     width: ${SIZES.iconSize}px;
     height: ${SIZES.iconSize}px;
   }
+  padding: 0px 10px;
 `;
 
 const LoginContainer = styled.div`

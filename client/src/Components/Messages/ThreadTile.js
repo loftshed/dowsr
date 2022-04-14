@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { centeredFlexColumn } from "../../Styling/StyledComponents";
+import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 
 import { useContext, useEffect, useState } from "react";
@@ -7,14 +7,15 @@ import { useWindowWidth } from "@react-hook/window-size";
 import dayjs from "dayjs";
 
 import { AppContext } from "../../Context/AppContext";
-import { getUser } from "../Auth/userHelpers";
+import { getUser } from "../helpers/userHelpers";
 import LoadingSpinner from "../Etc/LoadingSpinner";
-import { gradientScroll } from "../../Styling/Animations";
+import { gradientScroll, fadeIn, RefreshAnim } from "../../Styling/Animations";
 
 const ThreadTile = ({ threadId, userId, user, time, message }) => {
   const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =
     useContext(AppContext);
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [partnerHandle, setPartnerHandle] = useState("");
   const collapseToAvatar = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
@@ -22,8 +23,9 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
   useEffect(() => {
     (async () => {
       const { data } = await getUser("id", userId);
-      const { avatarUrl } = data;
+      const { avatarUrl, username } = data;
       setAvatarUrl(avatarUrl);
+      setPartnerHandle(username);
     })();
   }, []);
 
@@ -45,19 +47,18 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
         <>
           <Heading>
             <Avatar src={avatarUrl} style={{ width: "20px", height: "20px" }} />
-            {user}
+            {partnerHandle}
           </Heading>
-          <Body overflow={showLoadingAnim}>
-            {showLoadingAnim ? (
+          <Body>
+            <Text isLoading={showLoadingAnim}>
+              {message}
+              <Timestamp>{dayjs(time).fromNow()}</Timestamp>
+            </Text>
+
+            {showLoadingAnim && (
               <ThreadRefreshBoundary>
-                <ThreadRefreshAnim />
+                <RefreshAnim />
               </ThreadRefreshBoundary>
-            ) : (
-              // <LoadingSpinner color="#353535" />
-              <>
-                {message}
-                <Timestamp>{dayjs(time).fromNow()}</Timestamp>
-              </>
             )}
           </Body>
         </>
@@ -68,26 +69,21 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
 
 export default ThreadTile;
 
+const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 3px 5px;
+  transition: all 0.2s ease;
+  opacity: ${(props) => (props.isLoading ? "0%" : "100%")};
+`;
+
 const ThreadRefreshBoundary = styled.div`
-  width: 100%;
+  position: absolute;
   height: 100%;
+  width: 100%;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   overflow: hidden;
-`;
-
-const ThreadRefreshAnim = styled.div`
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(231, 67, 106, 1) 0%,
-    rgba(109, 31, 50, 0.4947092563291139) 100%
-  );
-
-  height: 200%;
-  width: 500px;
-  animation: ${gradientScroll} 0.5s linear infinite;
 `;
 
 const Avatar = styled.img`
@@ -116,15 +112,11 @@ const TileWrapper = styled.div`
   &:active {
     outline: solid 2px var(--color-pink);
   }
-
   cursor: pointer;
   outline: ${(props) =>
     props.showOutline ? "2px solid var(--color-teal)" : ""};
+  animation: ${fadeIn} 0.3s forwards ease;
 `;
-/* margin: ${(props) => (props.small ? "2px" : "0px")}; */
-/* @media (max-width: 425px) {
-    width: 30px;
-  } */
 
 const Heading = styled.div`
   display: flex;
@@ -140,15 +132,13 @@ const Heading = styled.div`
 `;
 
 const Body = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  padding: ${(props) => (props.overflow ? "none" : "3px 5px")};
   width: 100%;
   height: 100%;
   font-size: 14px;
-
-  overflow: ${(props) => (props.overflow ? "hidden" : "auto")};
 `;
 
 const Timestamp = styled.div`

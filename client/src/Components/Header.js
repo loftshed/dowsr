@@ -22,7 +22,6 @@ const HeaderWrapper = styled.div`
   background-color: #05181e;
   box-shadow: 2px 2px 2px 10px var(--color-green);
   z-index: 5;
-  height: fit-content;
   height: ${SIZES.lrgHeader}px;
   @media (max-width: ${SIZES.widthMin}px) {
     height: 50px;

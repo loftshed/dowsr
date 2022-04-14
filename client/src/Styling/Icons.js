@@ -11,6 +11,21 @@ import {
   BsFillSaveFill,
 } from "react-icons/bs";
 import { TiThMenu } from "react-icons/ti";
+import { IoLogOut, IoSend } from "react-icons/io5";
+import { IoIosWater } from "react-icons/io";
+import { FaToilet } from "react-icons/fa";
+import {
+  MdPedalBike,
+  MdCoffee,
+  MdLocalGroceryStore,
+  MdFilterAlt,
+} from "react-icons/md";
+import { BiTrafficCone } from "react-icons/bi";
+import {
+  RiPoliceCarFill,
+  RiMapPinAddFill,
+  RiCloseCircleFill,
+} from "react-icons/ri";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)``;
 const SearchIcon = styled(BsSearch)``;
@@ -26,6 +41,18 @@ const BurgerMenuIcon = styled(TiThMenu)`
   width: 30px;
   height: 30px;
 `;
+const LogoutIcon = styled(IoLogOut)``;
+const SendIcon = styled(IoSend)``;
+const FilterIcon = styled(MdFilterAlt)``;
+const BikeIcon = styled(MdPedalBike)``;
+const CoffeeIcon = styled(MdCoffee)``;
+const HazardIcon = styled(BiTrafficCone)``;
+const PoliceIcon = styled(RiPoliceCarFill)``;
+const StoreIcon = styled(MdLocalGroceryStore)``;
+const CreatePinIcon = styled(RiMapPinAddFill)``;
+const CloseIcon = styled(RiCloseCircleFill)``;
+const WaterIcon = styled(IoIosWater)``;
+const ToiletIcon = styled(FaToilet)``;
 
 export {
   CircledArrowRight,
@@ -38,4 +65,16 @@ export {
   ProfileIcon,
   MapIcon,
   BurgerMenuIcon,
+  LogoutIcon,
+  SendIcon,
+  BikeIcon,
+  CoffeeIcon,
+  HazardIcon,
+  PoliceIcon,
+  StoreIcon,
+  FilterIcon,
+  CreatePinIcon,
+  CloseIcon,
+  WaterIcon,
+  ToiletIcon,
 };

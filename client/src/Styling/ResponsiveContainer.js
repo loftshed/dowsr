@@ -25,12 +25,14 @@ export default ResponsiveContainer;
 
 const Wrapper = styled.div`
   display: flex;
+  position: relative;
   width: 100%;
   height: 100%;
   background-color: var(--color-dark-grey);
 `;
 
 const Content = styled.div`
+  position: absolute;
   ${centeredFlexColumn}
   width: 100%;
   height: calc(
