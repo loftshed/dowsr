@@ -11,13 +11,13 @@ import {
   inputStyling,
   textButtonStyling,
 } from "../../../Styling/StyledComponents";
+import { handleSubmitPin } from "../mapHelpers";
+
+//TODO: figure out why address modal no longer updates on the fly..
 
 const NewPinModal = ({ show }) => {
   const { clickedLocation, setShowPinCreationModal } =
     useContext(MappingContext);
-
-  console.log(`${clickedLocation?.addressShort}`);
-  useEffect(() => {}, [clickedLocation]);
 
   if (show)
     return (
@@ -42,7 +42,7 @@ const NewPinModal = ({ show }) => {
             <ModalForm
               onSubmit={(ev) => {
                 ev.preventDefault();
-                console.log(ev);
+                handleSubmitPin(ev, clickedLocation);
               }}
             >
               <InputRow>

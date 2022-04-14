@@ -2,7 +2,11 @@ import Map, { Marker, Popup, GeolocateControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
-import { getUserLocation, handleGetPinsOfType } from "../helpers/mapHelpers";
+import {
+  getUserLocation,
+  handleGetPinsOfType,
+  handleSubmitPin,
+} from "./mapHelpers";
 import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
 import styled, { css } from "styled-components";
 import MapFilters from "./MapFilters";
@@ -11,10 +15,10 @@ import InfoPopup from "./Popups/InfoPopup";
 import DisplayedPinsMarker from "./Markers/DisplayedPinsMarker";
 import { MappingContext } from "../../Context/MappingContext";
 import NewPinMarker from "./Markers/NewPinMarker";
-
-const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
+import { MAPBOX_API_KEY, reverseGeocode } from "./mapHelpers";
 
 /*
+//TODO: FIGURE OUT WHY POPUPS NO LONGER REAPPEAR AFTER CLOSED >:(
 //TODO: CREATE MAP PIN. 
 //TODO: WHEN CREATING A PIN, OVERLAY MAP AREA WITH ANOTHER COLOR SO USER KNOWS WAT UP
 //TODO: WHEN CLICKING A MAP PIN, IT SHOULD SHOW DISTANCE FROM USER
@@ -30,7 +34,6 @@ STRETCH: submitted pins can be screened and pushed to a final array in an admin 
 so much useful things here:
 https://visgl.github.io/react-map-gl/docs/api-reference/map
 https://docs.mapbox.com/mapbox-gl-js/guides/
-
 */
 
 const MapContainer = () => {
@@ -52,28 +55,13 @@ const MapContainer = () => {
   } = useContext(MappingContext);
   const [filteredPins, setFilteredPins] = useState(null);
 
-  const handleCreateNewPin = (ev) => {
-    setClickedLocation(ev.lngLat); // record location in state
-    (async () => {
-      try {
-        const response = await fetch(
-          `https://api.mapbox.com/geocoding/v5/mapbox.places/${ev.lngLat.lng},${ev.lngLat.lat}.json?access_token=${MAPBOX_API_KEY}`
-        );
-        const jsonResponse = await response.json();
-        console.log(jsonResponse);
-        const { center, place_name } = jsonResponse.features[0];
-        const addressShort = place_name.split(",")[0];
-        const locationObj = {
-          lat: center[1],
-          lng: center[0],
-          addressShort: addressShort,
-          addressFull: place_name,
-        };
-        setClickedLocation(locationObj);
-      } catch (err) {
-        console.log(err);
-      }
-    })();
+  const handleCreateNewPin = async (ev) => {
+    try {
+      const locationObj = await reverseGeocode(ev);
+      setClickedLocation(locationObj);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {

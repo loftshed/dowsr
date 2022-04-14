@@ -7,7 +7,6 @@ import {
 } from "../../../Styling/StyledComponents";
 import { MappingContext } from "../../../Context/MappingContext";
 import { useContext } from "react";
-import { RefreshAnim } from "../../../Styling/Animations";
 
 const ConfirmPinPopup = () => {
   const { clickedLocation, setShowPinCreationModal } =

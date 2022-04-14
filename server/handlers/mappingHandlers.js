@@ -34,6 +34,15 @@ const getPinsOfType = async ({ query: { filter } }, res) => {
   }
 };
 
+const submitNewPin = async ({ body }, res) => {
+  try {
+    await client.connect();
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
 module.exports = {
   getPinsOfType,
+  submitNewPin,
 };
