@@ -18,12 +18,7 @@ import NewPinMarker from "./Markers/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./mapHelpers";
 
 /*
-
-
-//TODO: WHEN CLICKING A MAP PIN, IT SHOULD SHOW DISTANCE FROM USER
-- user selects a point on the map, that point is saved in state
-- a modal should pop up asking the user to describe the point
-- the point is pushed to an array of datapoints which are used to populate the map with markers.
+TODO: the point is pushed to an array of datapoints which are used to populate the map with markers.
 STRETCH: when the user submits the map pin, it is pushed into an array for review.
 STRETCH: submitted pins can be screened and pushed to a final array in an admin backoffice
 STRETCH: LOAD MAP POINTS BASED ON DISTANCE RANGE IN VIEWPORT

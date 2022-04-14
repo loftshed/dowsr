@@ -1,15 +1,20 @@
 import styled from "styled-components";
-import { Popup, useMap } from "react-map-gl";
+import { Popup } from "react-map-gl";
 import {
   fillSpace,
   centeredFlexColumn,
 } from "../../../Styling/StyledComponents";
 import { useContext } from "react";
 import { MappingContext } from "../../../Context/MappingContext";
+import { getDistanceFromPoint } from "../mapHelpers";
 
 const InfoPopup = ({ popupInfo }) => {
-  const { setPopupInfo } = useContext(MappingContext);
-  console.log(popupInfo);
+  const { setPopupInfo, userLocation } = useContext(MappingContext);
+  const distanceFromUser = getDistanceFromPoint(
+    { lat: +popupInfo.latitude, lng: +popupInfo.longitude },
+    { lat: userLocation.lat, lng: userLocation.lng }
+  );
+  const kmFromUser = (distanceFromUser * 100).toFixed(2);
 
   return (
     <Popup
@@ -25,6 +30,7 @@ const InfoPopup = ({ popupInfo }) => {
           <h3>{popupInfo.name}</h3>
         </Heading>
         <Body>
+          <span>({kmFromUser}km away)</span>
           <a target="_new" href={popupInfo.site}>
             Website
           </a>
