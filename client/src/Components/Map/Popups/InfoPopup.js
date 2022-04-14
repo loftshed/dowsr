@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Popup } from "react-map-gl";
+import { Popup, useMap } from "react-map-gl";
 import {
   fillSpace,
   centeredFlexColumn,
@@ -10,6 +10,7 @@ import { MappingContext } from "../../../Context/MappingContext";
 const InfoPopup = ({ popupInfo }) => {
   const { setPopupInfo } = useContext(MappingContext);
   console.log(popupInfo);
+
   return (
     <Popup
       anchor="top"

@@ -1,4 +1,4 @@
-import Map, { Marker, Popup, GeolocateControl } from "react-map-gl";
+import Map, { GeolocateControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../Context/AppContext";
@@ -7,8 +7,8 @@ import {
   handleGetPinsOfType,
   handleSubmitPin,
 } from "./mapHelpers";
-import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
-import styled, { css } from "styled-components";
+import { fillSpace } from "../../Styling/StyledComponents";
+import styled from "styled-components";
 import MapFilters from "./MapFilters";
 import InfoModal from "./Modals/InfoModal";
 import InfoPopup from "./Popups/InfoPopup";
@@ -18,11 +18,7 @@ import NewPinMarker from "./Markers/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./mapHelpers";
 
 /*
-const getDistance = (pos1, pos2) => {
-  return Math.sqrt(
-    Math.pow(pos1.lat - pos2.lat, 2) + Math.pow(pos1.lng - pos2.lng, 2)
-  );
-};
+
 
 //TODO: WHEN CLICKING A MAP PIN, IT SHOULD SHOW DISTANCE FROM USER
 - user selects a point on the map, that point is saved in state
@@ -68,10 +64,20 @@ const MapContainer = () => {
     }
   };
 
+  const handleGeolocateUser = () => {
+    return navigator.geolocation.getCurrentPosition((pos) => {
+      const {
+        coords: { latitude, longitude },
+      } = pos;
+      setUserLocation({ lat: latitude, lng: longitude });
+    });
+  };
+
   useEffect(() => {
     (async () => {
       if (creatingNewPin) return;
-      setUserLocation(await getUserLocation());
+      handleGeolocateUser();
+      console.log(await userLocation);
       if (!selectedMapFilter) {
         setStoredFilteredPins(await handleGetPinsOfType("bike-shops"));
         return;
@@ -92,7 +98,7 @@ const MapContainer = () => {
           <Map
             mapboxAccessToken={MAPBOX_API_KEY}
             initialViewState={{
-              longitude: userLocation.lon,
+              longitude: userLocation.lng,
               latitude: userLocation.lat,
               zoom: 12,
             }}
@@ -120,7 +126,7 @@ const MapContainer = () => {
                 />
                 {popupInfo && (
                   <>
-                    <>{console.log("hi")}</>
+                    {/* <>{console.log("hi")}</> */}
                     <InfoPopup popupInfo={popupInfo} />
                   </>
                 )}
