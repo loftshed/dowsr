@@ -49,7 +49,6 @@ const reverseGeocode = async (ev) => {
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${ev.lngLat.lng},${ev.lngLat.lat}.json?access_token=${MAPBOX_API_KEY}`
     );
     const jsonResponse = await response.json();
-    console.log(jsonResponse);
     const { center, place_name } = jsonResponse.features[0];
     const addressShort = place_name.split(",")[0];
     return {

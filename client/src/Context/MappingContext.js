@@ -9,6 +9,7 @@ export const MappingProvider = ({ children }) => {
   const [mapModalMessage, setMapModalMessage] = useState("");
   const [creatingNewPin, setCreatingNewPin] = useState(false);
   const [showPinCreationModal, setShowPinCreationModal] = useState(false);
+  const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [clickedLocation, setClickedLocation] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
 
@@ -31,6 +32,8 @@ export const MappingProvider = ({ children }) => {
         clickedLocation,
         popupInfo,
         setPopupInfo,
+        popupIsVisible,
+        setPopupIsVisible,
       }}
     >
       {children}

@@ -81,7 +81,7 @@ const Menu = () => {
                   to="/new"
                   onClick={() => {
                     console.log("initiating pin creation");
-                    setMapModalMessage("Create a new pin");
+                    setMapModalMessage("Creating a new pin");
                     setCreatingNewPin(true);
                   }}
                 >

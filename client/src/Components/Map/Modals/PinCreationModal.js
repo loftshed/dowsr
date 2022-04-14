@@ -16,7 +16,7 @@ import { handleSubmitPin } from "../mapHelpers";
 //TODO: figure out why address modal no longer updates on the fly..
 
 const NewPinModal = ({ show }) => {
-  const { clickedLocation, setShowPinCreationModal } =
+  const { setClickedLocation, clickedLocation, setShowPinCreationModal } =
     useContext(MappingContext);
 
   if (show)
@@ -61,7 +61,14 @@ const NewPinModal = ({ show }) => {
                 <InputHeading>Verify the approximate address</InputHeading>
                 <ModalInput
                   type="text"
-                  defaultValue={clickedLocation?.addressFull}
+                  value={clickedLocation?.addressFull}
+                  // Using onChange, it is possible to edit a field with a value that was assigned using state.
+                  onChange={(ev) => {
+                    setClickedLocation({
+                      ...clickedLocation,
+                      addressFull: ev.currentTarget.value,
+                    });
+                  }}
                 />
               </InputColumn>
               <InputColumn>

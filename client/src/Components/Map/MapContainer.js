@@ -48,6 +48,8 @@ const MapContainer = () => {
     setClickedLocation,
     setCreatingNewPin,
     creatingNewPin,
+    setPopupIsVisible,
+    popupIsVisible,
   } = useContext(MappingContext);
 
   const [storedFilteredPins, setStoredFilteredPins] = useState(null);
@@ -60,16 +62,6 @@ const MapContainer = () => {
       console.log(err);
     }
   };
-
-  /// FOR TESTING
-
-  useEffect(() => {
-    console.log(`MapContainer useEffect ran.`);
-    console.log(`Creating new pin is true? ${creatingNewPin}`);
-    console.log(`Clicked location is not null? ${clickedLocation}`);
-  }, []);
-
-  ///
 
   useEffect(() => {
     (async () => {
@@ -85,6 +77,8 @@ const MapContainer = () => {
 
   if (!storedFilteredPins) return null;
   const { pins } = storedFilteredPins;
+
+  console.log(popupIsVisible);
 
   return (
     <MapWrapper>
@@ -102,12 +96,16 @@ const MapContainer = () => {
             mapStyle="mapbox://styles/mapbox/dark-v10"
             logoPosition={"top-right"}
             onClick={(ev) => {
-              if (creatingNewPin) handleBeginPinCreation(ev);
+              if (creatingNewPin) {
+                handleBeginPinCreation(ev);
+                setPopupIsVisible(!popupIsVisible);
+                console.log("popup is visible: true");
+              }
             }}
           >
             {!creatingNewPin && <DisplayedPinsMarker pins={pins} />}
             {popupInfo && <InfoPopup popupInfo={popupInfo} />}
-            {clickedLocation && creatingNewPin && (
+            {clickedLocation && creatingNewPin && popupIsVisible && (
               // TODO: this is ok for now but definitely remove clicked location if canceling create new pin
               <NewPinMarker clickedLocation={clickedLocation} />
             )}

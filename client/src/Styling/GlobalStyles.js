@@ -107,6 +107,16 @@ const GlobalStyle = createGlobalStyle`
     #root {
       height: 100%;
     }
+    .mapboxgl-popup-content {
+      background-color: var(--color-less-dark-grey);
+      padding: 5px;
+      outline: 1px solid var(--color-super-dark-grey);
+    }
+    .mapboxgl-popup-anchor-bottom > .mapboxgl-popup-tip {
+      border-top-color: var(--color-less-dark-grey);
+      
+    }
+
     /*--------------------------------------------------|
     | Stuff above from Josh W. Comeau CSS reset...      |
     | https://www.joshwcomeau.com/css/custom-css-reset/ |

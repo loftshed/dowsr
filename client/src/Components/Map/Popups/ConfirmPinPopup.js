@@ -10,8 +10,20 @@ import { useContext, useEffect } from "react";
 
 const ConfirmPinPopup = () => {
   const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
-  const { clickedLocation, setShowPinCreationModal, creatingNewPin } =
-    useContext(MappingContext);
+  const {
+    clickedLocation,
+    setShowPinCreationModal,
+    setMapModalMessage,
+    setClickedLocation,
+    setPopupIsVisible,
+  } = useContext(MappingContext);
+
+  useEffect(() => {
+    return () => {
+      setClickedLocation(null);
+      console.log("Confirm pin dismounted");
+    };
+  }, []);
 
   return (
     <Wrapper>
@@ -19,11 +31,13 @@ const ConfirmPinPopup = () => {
         anchor="bottom"
         latitude={clickedLocation?.lat}
         longitude={clickedLocation?.lng}
-        // closeOnClick={true}
+        closeOnClick={true}
         closeButton={false}
-        maxWidth="350px"
-        // onClose={() => }
-        style={{ position: "absolute", zIndex: "5" }}
+        style={{
+          position: "relative",
+          zIndex: "5",
+          padding: "0",
+        }}
       >
         <PopupContainer>
           <Body>
@@ -55,10 +69,8 @@ const ConfirmPinPopup = () => {
 };
 export default ConfirmPinPopup;
 
-const Wrapper = styled.div`
-  all: unset;
-  position: relative;
-`;
+const Wrapper = styled.div``;
+
 const StreetView = styled.img`
   border-radius: 10px;
   border: 2px solid var(--color-pink);
@@ -85,11 +97,12 @@ const Body = styled.div`
   ${centeredFlexColumn}
   color: var(--color-light-grey);
   gap: 5px;
-  background-color: var(--color-dark-grey);
+  background-color: var(--color-darkest-grey);
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
   line-height: 18px;
+  outline: 1px solid var(--color-super-dark-grey);
 `;
 
 const CreateButton = styled(TextButton)`
