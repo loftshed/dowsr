@@ -107,6 +107,10 @@ const GlobalStyle = createGlobalStyle`
     #root {
       height: 100%;
     }
+    .mapboxgl-popup {
+
+    }
+    
     .mapboxgl-popup-content {
       background-color: var(--color-less-dark-grey);
       padding: 5px;
@@ -114,7 +118,6 @@ const GlobalStyle = createGlobalStyle`
     }
     .mapboxgl-popup-anchor-bottom > .mapboxgl-popup-tip {
       border-top-color: var(--color-less-dark-grey);
-      
     }
 
     /*--------------------------------------------------|

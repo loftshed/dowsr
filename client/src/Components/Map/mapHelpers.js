@@ -52,8 +52,10 @@ const reverseGeocode = async (ev) => {
     const { center, place_name } = jsonResponse.features[0];
     const addressShort = place_name.split(",")[0];
     return {
-      lat: center[1],
-      lng: center[0],
+      // lat: center[1],
+      // lng: center[0],
+      lat: ev.lngLat.lat,
+      lng: ev.lngLat.lng,
       addressShort: addressShort,
       addressFull: place_name,
     };

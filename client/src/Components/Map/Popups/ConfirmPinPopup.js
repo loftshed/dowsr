@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Popup } from "react-map-gl";
+import { Popup, useMap } from "react-map-gl";
 import {
   fillSpace,
   centeredFlexColumn,
@@ -18,10 +18,11 @@ const ConfirmPinPopup = () => {
     setPopupIsVisible,
   } = useContext(MappingContext);
 
+  const { current: map } = useMap();
+
   useEffect(() => {
     return () => {
       setClickedLocation(null);
-      console.log("Confirm pin dismounted");
     };
   }, []);
 
@@ -50,6 +51,13 @@ const ConfirmPinPopup = () => {
             <CreateButton
               onClick={() => {
                 setShowPinCreationModal(true);
+                const boundingBox = [
+                  [clickedLocation?.lng + 0.001, clickedLocation?.lat + 0.001],
+                  [clickedLocation?.lng - 0.001, clickedLocation?.lat - 0.001],
+                ];
+                map.fitBounds(boundingBox, {
+                  padding: { bottom: 125 },
+                });
               }}
             >
               Create a Pin
@@ -58,7 +66,7 @@ const ConfirmPinPopup = () => {
               href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
             >
               <StreetView
-                src={`https://maps.googleapis.com/maps/api/streetview?size=200x100&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
+                src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
               />
             </a>
           </Body>
@@ -108,4 +116,6 @@ const Body = styled.div`
 const CreateButton = styled(TextButton)`
   font-size: 12px;
   padding: 3px 8px;
+  background-color: var(--color-extra-medium-grey);
+  margin: 2px;
 `;
