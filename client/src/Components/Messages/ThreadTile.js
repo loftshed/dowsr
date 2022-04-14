@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { useWindowWidth } from "@react-hook/window-size";
 import dayjs from "dayjs";
 
-import { AppContext } from "../../Context/AppContext";
+import { AppContext } from "../../AppContext";
 import { getUser } from "../helpers/userHelpers";
 import LoadingSpinner from "../Etc/LoadingSpinner";
 import { gradientScroll, fadeIn, RefreshAnim } from "../../Styling/Animations";

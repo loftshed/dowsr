@@ -3,7 +3,7 @@ import { centeredFlexColumn } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 
 import { useContext, useState } from "react";
-import { AppContext } from "../../Context/AppContext";
+import { AppContext } from "../../AppContext";
 
 import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import ThreadTile from "./ThreadTile";

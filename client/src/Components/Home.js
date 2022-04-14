@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { SIZES } from "../Styling/constants";
 import { getUser } from "./helpers/userHelpers";
 import { centeredFlexColumn, fillSpace } from "../Styling/StyledComponents";
-import { AppContext } from "../Context/AppContext";
+import { AppContext } from "../AppContext";
 
 const Home = () => {
   const { firstLogin, setFirstLogin, loggedInUser, setLoggedInUser } =

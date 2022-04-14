@@ -14,7 +14,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Flag from "react-world-flags";
 import dayjs from "dayjs";
 
-import { AppContext } from "../Context/AppContext";
+import { AppContext } from "../AppContext";
 import { getUser, handleGetProfile } from "./helpers/userHelpers";
 import LogoutButton from "./Auth/LogoutButton";
 import LoadingSpinner from "./Etc/LoadingSpinner";

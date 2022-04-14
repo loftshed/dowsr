@@ -12,7 +12,7 @@ import Messages from "./Components/Messages/Messages";
 import Error from "./Components/Etc/Error";
 import LoginButton from "./Components/Auth/LoginButton";
 import { useContext, useEffect } from "react";
-import { AppContext } from "./Context/AppContext";
+import { AppContext } from "./AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./Components/helpers/userHelpers";
 

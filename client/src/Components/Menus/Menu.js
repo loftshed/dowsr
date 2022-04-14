@@ -17,7 +17,7 @@ import styled from "styled-components";
 import { SIZES } from "../../Styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
-import { AppContext } from "../../Context/AppContext";
+import { AppContext } from "../../AppContext";
 import BurgerMenu from "./BurgerMenu";
 import { MappingContext } from "../Map/MappingContext";
 import NewPinModal from "../Map/Modals/PinCreationModal";

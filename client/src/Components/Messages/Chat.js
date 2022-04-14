@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { fillSpace } from "../../Styling/StyledComponents";
 import { useState, useEffect, useContext } from "react";
 import Bubble from "./Bubble";
-import { AppContext } from "../../Context/AppContext";
+import { AppContext } from "../../AppContext";
 import { SIZES } from "../../Styling/constants";
 import {
   replyThread,

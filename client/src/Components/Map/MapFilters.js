@@ -17,7 +17,7 @@ import {
 } from "../../Styling/Icons";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "./MappingContext";
-import { AppContext } from "../../Context/AppContext";
+import { AppContext } from "../../AppContext";
 
 //TODO: Not important but annoying. Fix method by which modal fades out. currently not ideal.
 

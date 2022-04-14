@@ -8,7 +8,7 @@ import {
 import { NotificationIcon, ChatIcon, ProfileIcon } from "../../Styling/Icons";
 import LogoutButton from "../Auth/LogoutButton";
 import { useContext } from "react";
-import { AppContext } from "../../Context/AppContext";
+import { AppContext } from "../../AppContext";
 import { MappingContext } from "../Map/MappingContext";
 
 //TODO: confirm before logging out
