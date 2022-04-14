@@ -41,7 +41,7 @@ const {
   getAllThreads,
 } = require("./handlers/messageHandlers");
 
-const { getPinsOfType } = require("./handlers/mappingHandlers");
+const { getPinsOfType, submitNewPin } = require("./handlers/mappingHandlers");
 
 const { modifyPinWithId } = require("./handlers/adminHandlers");
 
@@ -68,7 +68,8 @@ app.get("/api/get-user-threads", getUserThreads);
 app.get("/api/get-all-threads", getAllThreads);
 
 // mapping endpoints
-app.get("/api/map-pins", getPinsOfType);
+app.get("/api/get-pins", getPinsOfType);
+app.put("/api/submit-pin", submitNewPin);
 
 // admin endpoints
 app.patch("/api/modify-pin", modifyPinWithId);

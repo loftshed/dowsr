@@ -37,6 +37,12 @@ const getPinsOfType = async ({ query: { filter } }, res) => {
 const submitNewPin = async ({ body }, res) => {
   try {
     await client.connect();
+    console.log(body);
+    res.status(200).json({
+      status: 200,
+      submission: body,
+      message: "hullo theree",
+    });
   } catch (err) {
     err ? console.log(err) : client.close();
   }

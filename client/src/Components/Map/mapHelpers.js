@@ -12,7 +12,7 @@ const getUserLocation = async () => {
 const handleGetPinsOfType = async (filter) => {
   try {
     const response = await fetch(
-      `http://localhost:9001/api/map-pins?filter=${filter}`
+      `http://localhost:9001/api/get-pins?filter=${filter}`
     );
     return await response.json();
   } catch (error) {
@@ -20,15 +20,27 @@ const handleGetPinsOfType = async (filter) => {
   }
 };
 
-const handleSubmitPin = (ev, locationObj) => {
-  const submissionObj = {
-    type: ev.target[0].value,
-    lat: locationObj.lat,
-    lng: locationObj.lng,
-    address: ev.target[1].value,
-    hours: ev.target[2].value,
-  };
-  console.log(submissionObj);
+const handleSubmitPin = async (ev, locationObj) => {
+  try {
+    const submissionObj = {
+      type: ev.target[0].value,
+      lat: locationObj.lat,
+      lng: locationObj.lng,
+      address: ev.target[1].value,
+      hours: ev.target[2].value,
+    };
+    const response = await fetch("http://localhost:9001/api/submit-pin", {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submissionObj),
+    });
+    console.log(response.json());
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const reverseGeocode = async (ev) => {
