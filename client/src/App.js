@@ -8,7 +8,7 @@ import Home from "./Components/Home";
 import Menu from "./Components/Menus/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
-import Messages from "./Components/Messages/Messages";
+import Messages from "./Components/Messages/MessagingContainer";
 import Error from "./Components/Etc/Error";
 import LoginButton from "./Components/Auth/LoginButton";
 import { useContext, useEffect } from "react";

@@ -11,7 +11,7 @@ import { getUser } from "../helpers/userHelpers";
 import LoadingSpinner from "../Etc/LoadingSpinner";
 import { gradientScroll, fadeIn, RefreshAnim } from "../../Styling/Animations";
 
-const ThreadTile = ({ threadId, userId, user, time, message }) => {
+const ThreadPreviewTile = ({ threadId, userId, user, time, message }) => {
   const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =
     useContext(AppContext);
   const [avatarUrl, setAvatarUrl] = useState("");
@@ -67,7 +67,7 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
   );
 };
 
-export default ThreadTile;
+export default ThreadPreviewTile;
 
 const Text = styled.div`
   display: flex;

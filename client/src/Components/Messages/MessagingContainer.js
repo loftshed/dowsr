@@ -6,8 +6,8 @@ import { useContext, useState } from "react";
 import { AppContext } from "../../AppContext";
 
 import ResponsiveContainer from "../../Styling/ResponsiveContainer";
-import ThreadTile from "./ThreadTile";
-import Chat from "./Chat";
+import ThreadPreviewTile from "./ThreadPreviewTile";
+import Chat from "./ChatInterface";
 
 //TODO: BIG TODO: allow users to navigate to  profile of someone they are chatting with by clicking  their profile pic or some other thing
 //TODO: by default, the most recent thread should be displayed. use userefs for that?
@@ -35,7 +35,7 @@ const Messages = () => {
               const mostRecentMessage = messages[messages.length - 1];
               const { sent, message } = mostRecentMessage;
               return (
-                <ThreadTile
+                <ThreadPreviewTile
                   key={_id}
                   threadId={_id}
                   message={`${message}`}

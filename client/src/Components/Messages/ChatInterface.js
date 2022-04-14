@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { fillSpace } from "../../Styling/StyledComponents";
 import { useState, useEffect, useContext } from "react";
-import Bubble from "./Bubble";
+import Bubble from "./MessageBubble";
 import { AppContext } from "../../AppContext";
 import { SIZES } from "../../Styling/constants";
 import {
@@ -10,7 +10,7 @@ import {
   getUserThreads,
 } from "../helpers/chatHelpers";
 import { v4 as uuidv4 } from "uuid";
-import ScrollToNewest from "./ScrollToNewest";
+import ScrollToMostRecentMessage from "./ScrollToMostRecentMsg";
 import LoadingSpinner from "../Etc/LoadingSpinner";
 import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import { SendIcon } from "../../Styling/Icons";
@@ -108,7 +108,7 @@ const Chat = () => {
             );
           })}
         </>
-        <ScrollToNewest />
+        <ScrollToMostRecentMessage />
       </ChatBody>
       <InputArea
         onSubmit={(ev) => {
