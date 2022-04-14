@@ -10,12 +10,8 @@ import { useContext, useEffect } from "react";
 
 const ConfirmPinPopup = () => {
   const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
-  const { clickedLocation, setShowPinCreationModal } =
+  const { clickedLocation, setShowPinCreationModal, creatingNewPin } =
     useContext(MappingContext);
-
-  useEffect(() => {
-    console.log(clickedLocation);
-  }, []);
 
   return (
     <Wrapper>
@@ -26,7 +22,7 @@ const ConfirmPinPopup = () => {
         // closeOnClick={true}
         closeButton={false}
         maxWidth="350px"
-        // onClose={() => setPopupInfo(null)}
+        // onClose={() => }
         style={{ position: "absolute", zIndex: "5" }}
       >
         <PopupContainer>

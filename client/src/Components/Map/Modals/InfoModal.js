@@ -5,7 +5,7 @@ import { fadeIn } from "../../../Styling/Animations";
 
 const InfoModal = ({ message }) => {
   let style = null;
-  if ((message = "Creating a new pin")) {
+  if (message === "Creating a new pin") {
     style = {
       outline: "2px solid var(--color-pink)",
     };

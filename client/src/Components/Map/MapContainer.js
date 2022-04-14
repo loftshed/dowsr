@@ -19,17 +19,13 @@ import { MAPBOX_API_KEY, reverseGeocode } from "./mapHelpers";
 
 /*
 //TODO: FIGURE OUT WHY POPUPS NO LONGER REAPPEAR AFTER CLOSED >:(
-//TODO: CREATE MAP PIN. 
-//TODO: WHEN CREATING A PIN, OVERLAY MAP AREA WITH ANOTHER COLOR SO USER KNOWS WAT UP
 //TODO: WHEN CLICKING A MAP PIN, IT SHOULD SHOW DISTANCE FROM USER
 - user selects a point on the map, that point is saved in state
 - a modal should pop up asking the user to describe the point
 - the point is pushed to an array of datapoints which are used to populate the map with markers.
 STRETCH: when the user submits the map pin, it is pushed into an array for review.
 STRETCH: submitted pins can be screened and pushed to a final array in an admin backoffice
-
-//TODO: LOAD MAP POINTS BASED ON DISTANCE RANGE IN VIEWPORT
-- no idea how to do this yet
+STRETCH: LOAD MAP POINTS BASED ON DISTANCE RANGE IN VIEWPORT
 
 so much useful things here:
 https://visgl.github.io/react-map-gl/docs/api-reference/map
@@ -53,7 +49,8 @@ const MapContainer = () => {
     setCreatingNewPin,
     creatingNewPin,
   } = useContext(MappingContext);
-  const [filteredPins, setFilteredPins] = useState(null);
+
+  const [storedFilteredPins, setStoredFilteredPins] = useState(null);
 
   const handleBeginPinCreation = async (ev) => {
     try {
@@ -64,20 +61,30 @@ const MapContainer = () => {
     }
   };
 
+  /// FOR TESTING
+
+  useEffect(() => {
+    console.log(`MapContainer useEffect ran.`);
+    console.log(`Creating new pin is true? ${creatingNewPin}`);
+    console.log(`Clicked location is not null? ${clickedLocation}`);
+  }, []);
+
+  ///
+
   useEffect(() => {
     (async () => {
       if (creatingNewPin) return;
       setUserLocation(await getUserLocation());
       if (!selectedMapFilter) {
-        setFilteredPins(await handleGetPinsOfType("bike-shops"));
+        setStoredFilteredPins(await handleGetPinsOfType("bike-shops"));
         return;
       } // for now, just load bike shops if no filter selected
-      setFilteredPins(await handleGetPinsOfType(selectedMapFilter));
+      setStoredFilteredPins(await handleGetPinsOfType(selectedMapFilter));
     })();
   }, [popupInfo, setUserLocation, selectedMapFilter, clickedLocation]);
 
-  if (!filteredPins) return null;
-  const { pins } = filteredPins;
+  if (!storedFilteredPins) return null;
+  const { pins } = storedFilteredPins;
 
   return (
     <MapWrapper>
@@ -106,7 +113,6 @@ const MapContainer = () => {
             )}
             <GeolocateControl
               position="top-left"
-              // positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation="true"
               showUserHeading="true"
             />
