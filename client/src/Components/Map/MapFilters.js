@@ -162,6 +162,7 @@ const Filters = styled.div`
   position: absolute;
   top: ${(props) => (props.show ? "70px" : "-500px")};
   transition: all 0.3s ease;
+  z-index: 5;
 `;
 
 const Boundary = styled.div`
@@ -170,15 +171,13 @@ const Boundary = styled.div`
   right: 10px;
   top: 40px;
   border-radius: ${SIZES.borderRadius}px;
-  background-color: yellow;
   pointer-events: none;
   padding: 1px;
   overflow: hidden;
 `;
 
 const FilterMenuWrapper = styled.div`
-  ${menuWrapperStyling}
-  z-index: -1;
+  ${menuWrapperStyling};
 `;
 
 const InnerContainer = styled.div`

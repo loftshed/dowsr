@@ -80,6 +80,7 @@ const Menu = () => {
                 <IconNavLink
                   to="/new"
                   onClick={() => {
+                    console.log("initiating pin creation");
                     setMapModalMessage("Create a new pin");
                     setCreatingNewPin(true);
                   }}

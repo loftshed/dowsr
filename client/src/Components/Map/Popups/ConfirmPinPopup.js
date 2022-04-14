@@ -10,8 +10,6 @@ import { useContext, useEffect } from "react";
 
 const ConfirmPinPopup = () => {
   const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
-  const REACT_APP_GOOGLE_API_SECRET_KEY =
-    process.env.REACT_APP_GOOGLE_API_SECRET_KEY;
   const { clickedLocation, setShowPinCreationModal } =
     useContext(MappingContext);
 
@@ -20,47 +18,54 @@ const ConfirmPinPopup = () => {
   }, []);
 
   return (
-    <Popup
-      anchor="bottom"
-      latitude={clickedLocation?.lat}
-      longitude={clickedLocation?.lng}
-      // closeOnClick={true}
-      closeButton={false}
-      maxWidth="350px"
-      // onClose={() => setPopupInfo(null)}
-    >
-      <PopupContainer>
-        <Body>
-          {!clickedLocation.addressShort ? (
-            <LoadingFiller />
-          ) : (
-            <>{clickedLocation.addressShort}</>
-          )}
+    <Wrapper>
+      <Popup
+        anchor="bottom"
+        latitude={clickedLocation?.lat}
+        longitude={clickedLocation?.lng}
+        // closeOnClick={true}
+        closeButton={false}
+        maxWidth="350px"
+        // onClose={() => setPopupInfo(null)}
+        style={{ position: "absolute", zIndex: "5" }}
+      >
+        <PopupContainer>
+          <Body>
+            {!clickedLocation.addressShort ? (
+              <LoadingFiller />
+            ) : (
+              <>{clickedLocation.addressShort}</>
+            )}
 
-          <CreateButton
-            onClick={() => {
-              setShowPinCreationModal(true);
-            }}
-          >
-            Create a Pin
-          </CreateButton>
-          <a
-            href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
-          >
-            <StreetView
-              src={`https://maps.googleapis.com/maps/api/streetview?size=200x100&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
-            />
-          </a>
-        </Body>
-      </PopupContainer>
-    </Popup>
+            <CreateButton
+              onClick={() => {
+                setShowPinCreationModal(true);
+              }}
+            >
+              Create a Pin
+            </CreateButton>
+            <a
+              href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
+            >
+              <StreetView
+                src={`https://maps.googleapis.com/maps/api/streetview?size=200x100&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
+              />
+            </a>
+          </Body>
+        </PopupContainer>
+      </Popup>
+    </Wrapper>
   );
 };
 export default ConfirmPinPopup;
 
+const Wrapper = styled.div`
+  all: unset;
+  position: relative;
+`;
 const StreetView = styled.img`
   border-radius: 10px;
-  border: 1px solid var(--color-super-dark-grey);
+  border: 2px solid var(--color-pink);
 `;
 
 const LoadingFiller = styled.div`

@@ -83,6 +83,8 @@ const MapContainer = () => {
     <MapWrapper>
       {userLocation && (
         <>
+          {creatingNewPin && <Overlay />}
+
           <Map
             mapboxAccessToken={MAPBOX_API_KEY}
             initialViewState={{
@@ -123,6 +125,17 @@ const MapContainer = () => {
 export default MapContainer;
 
 const MapWrapper = styled.div`
+  position: relative;
   ${fillSpace}
   overflow: hidden;
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  background-color: var(--color-pink);
+  ${fillSpace}
+  z-index: 1;
+  opacity: 15%;
+  box-shadow: inset 0px 0px 1000px var(--color-teal);
+  pointer-events: none;
 `;
