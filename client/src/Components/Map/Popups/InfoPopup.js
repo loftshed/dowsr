@@ -4,14 +4,17 @@ import {
   fillSpace,
   centeredFlexColumn,
 } from "../../../Styling/StyledComponents";
+import { useContext } from "react";
+import { MappingContext } from "../../../Context/MappingContext";
 
 const InfoPopup = ({ popupInfo }) => {
+  const { setPopupInfo } = useContext(MappingContext);
   return (
     <Popup
       anchor="top"
       longitude={popupInfo.longitude}
       latitude={popupInfo.latitude}
-      closeOnClick={false}
+      // closeOnClick={false}
       maxWidth={"350px"}
       // onClose={() => setPopupInfo(null)}
     >

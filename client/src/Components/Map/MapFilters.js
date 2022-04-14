@@ -166,10 +166,11 @@ const Filters = styled.div`
 
 const Boundary = styled.div`
   position: absolute;
-  height: 100%;
+  height: calc(100% - 40px);
   right: 10px;
   top: 40px;
   border-radius: ${SIZES.borderRadius}px;
+  background-color: yellow;
   pointer-events: none;
   padding: 1px;
   overflow: hidden;
@@ -188,6 +189,15 @@ const InnerContainer = styled.div`
   padding: 5px;
 `;
 
+const InnerContainerLiner = styled.div`
+  ${centeredFlexColumn}
+  gap: 5px;
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
+
 const ToggleWrapper = styled.div`
   position: relative;
   z-index: 10;
@@ -197,15 +207,6 @@ const ToggleWrapper = styled.div`
 
 const FilterToggle = styled(InnerContainer)`
   z-index: 10;
-`;
-
-const InnerContainerLiner = styled.div`
-  ${centeredFlexColumn}
-  gap: 5px;
-  svg {
-    width: 20px;
-    height: 20px;
-  }
 `;
 
 const Option = styled.button`
