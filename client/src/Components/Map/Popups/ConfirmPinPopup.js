@@ -20,16 +20,16 @@ const ConfirmPinPopup = () => {
       // onClose={() => setPopupInfo(null)}
     >
       <PopupContainer>
-        {/* <p>lat: {clickedLocation?.lat.toFixed(4)}</p>
-        <p>lon: {clickedLocation?.lng.toFixed(4)}</p> */}
-        <Body>{clickedLocation.addressShort}</Body>
-        <CreateButton
-          onClick={() => {
-            setShowNewPinModal(true);
-          }}
-        >
-          Create a Pin
-        </CreateButton>
+        <Body>
+          {clickedLocation.addressShort}
+          <CreateButton
+            onClick={() => {
+              setShowNewPinModal(true);
+            }}
+          >
+            Create a Pin
+          </CreateButton>
+        </Body>
       </PopupContainer>
     </Popup>
   );
@@ -51,4 +51,7 @@ const Body = styled.div`
   ${fillSpace}
   ${centeredFlexColumn}
   color: var(--color-super-dark-grey);
+  gap: 5px;
+  background-color: var(--color-dark-grey);
+  border-radius: 4px;
 `;

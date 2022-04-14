@@ -11,6 +11,8 @@ import {
 
 const NewPinModal = () => {
   const { clickedLocation, setShowNewPinModal } = useContext(MappingContext);
+  console.log(clickedLocation);
+  console.log(`${clickedLocation?.addressShort}`);
 
   return (
     <NewPinModalWrapper>
@@ -24,7 +26,7 @@ const NewPinModal = () => {
         <InnerContainerLiner>
           <InputRow>
             <InputHeading>Verify address</InputHeading>
-            <ModalInput />
+            <ModalInput defaultValue={clickedLocation?.addressShort} />
           </InputRow>
         </InnerContainerLiner>
       </InnerContainer>
@@ -89,5 +91,7 @@ const InputHeading = styled(Subheading)`
 `;
 
 const ModalInput = styled(Input)`
+  padding-left: 7.5px;
+  letter-spacing: 1px;
   background-color: var(--color-super-dark-grey);
 `;
