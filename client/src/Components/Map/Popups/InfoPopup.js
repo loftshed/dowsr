@@ -9,14 +9,15 @@ import { MappingContext } from "../../../Context/MappingContext";
 
 const InfoPopup = ({ popupInfo }) => {
   const { setPopupInfo } = useContext(MappingContext);
+  console.log(popupInfo);
   return (
     <Popup
       anchor="top"
       longitude={popupInfo.longitude}
       latitude={popupInfo.latitude}
-      // closeOnClick={false}
+      // closeOnClick={true}
       maxWidth={"350px"}
-      // onClose={() => setPopupInfo(null)}
+      onClose={() => setPopupInfo(null)}
     >
       <PopupContainer>
         <Heading>

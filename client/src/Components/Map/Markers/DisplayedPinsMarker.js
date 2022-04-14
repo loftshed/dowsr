@@ -11,8 +11,8 @@ const DisplayedPinsMarker = ({ pins }) => {
         return (
           <Marker
             key={`marker-${pin._id}`}
-            longitude={pin.longitude}
-            latitude={pin.latitude}
+            longitude={pin?.longitude}
+            latitude={pin?.latitude}
             color={"var(--color-pink)"}
             style={{ cursor: "pointer" }}
           >

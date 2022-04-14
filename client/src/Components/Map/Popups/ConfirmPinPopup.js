@@ -13,6 +13,7 @@ const ConfirmPinPopup = () => {
   const {
     clickedLocation,
     setShowPinCreationModal,
+    showPinCreationModal,
     setMapModalMessage,
     setClickedLocation,
     setPopupIsVisible,
@@ -27,57 +28,57 @@ const ConfirmPinPopup = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <Popup
-        anchor="bottom"
-        latitude={clickedLocation?.lat}
-        longitude={clickedLocation?.lng}
-        closeOnClick={true}
-        closeButton={false}
-        style={{
-          position: "relative",
-          zIndex: "5",
-          padding: "0",
-        }}
-      >
-        <PopupContainer>
-          <Body>
-            {!clickedLocation.addressShort ? (
-              <LoadingFiller />
-            ) : (
-              <>{clickedLocation.addressShort}</>
-            )}
+    <Popup
+      anchor="bottom"
+      latitude={clickedLocation?.lat}
+      longitude={clickedLocation?.lng}
+      closeOnClick={true}
+      closeButton={false}
+      style={{
+        position: "relative",
+        zIndex: "5",
+        padding: "0",
+        transition: "all ease 0.2s",
+      }}
+    >
+      <PopupContainer>
+        {!showPinCreationModal && (
+          <CreateButton
+            onClick={() => {
+              setShowPinCreationModal(true);
+              const boundingBox = [
+                [clickedLocation?.lng + 0.001, clickedLocation?.lat + 0.001],
+                [clickedLocation?.lng - 0.001, clickedLocation?.lat - 0.001],
+              ];
+              map.fitBounds(boundingBox, {
+                padding: { bottom: 150 },
+              });
+            }}
+          >
+            Create a pin here?
+          </CreateButton>
+        )}
 
-            <CreateButton
-              onClick={() => {
-                setShowPinCreationModal(true);
-                const boundingBox = [
-                  [clickedLocation?.lng + 0.001, clickedLocation?.lat + 0.001],
-                  [clickedLocation?.lng - 0.001, clickedLocation?.lat - 0.001],
-                ];
-                map.fitBounds(boundingBox, {
-                  padding: { bottom: 125 },
-                });
-              }}
-            >
-              Create a Pin
-            </CreateButton>
-            <a
-              href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
-            >
-              <StreetView
-                src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
-              />
-            </a>
-          </Body>
-        </PopupContainer>
-      </Popup>
-    </Wrapper>
+        <Body>
+          {!clickedLocation.addressShort ? (
+            <LoadingFiller />
+          ) : (
+            <>{clickedLocation.addressShort}</>
+          )}
+          <a
+            href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
+            target="_new"
+          >
+            <StreetView
+              src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
+            />
+          </a>
+        </Body>
+      </PopupContainer>
+    </Popup>
   );
 };
 export default ConfirmPinPopup;
-
-const Wrapper = styled.div``;
 
 const StreetView = styled.img`
   border-radius: 10px;
@@ -115,7 +116,8 @@ const Body = styled.div`
 
 const CreateButton = styled(TextButton)`
   font-size: 12px;
-  padding: 3px 8px;
+  padding: 0px 8px;
+  line-height: 15px;
   background-color: var(--color-extra-medium-grey);
-  margin: 2px;
+  margin: 0px 0px 5px 0px;
 `;

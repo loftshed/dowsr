@@ -18,7 +18,12 @@ import NewPinMarker from "./Markers/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./mapHelpers";
 
 /*
-//TODO: FIGURE OUT WHY POPUPS NO LONGER REAPPEAR AFTER CLOSED >:(
+const getDistance = (pos1, pos2) => {
+  return Math.sqrt(
+    Math.pow(pos1.lat - pos2.lat, 2) + Math.pow(pos1.lng - pos2.lng, 2)
+  );
+};
+
 //TODO: WHEN CLICKING A MAP PIN, IT SHOULD SHOW DISTANCE FROM USER
 - user selects a point on the map, that point is saved in state
 - a modal should pop up asking the user to describe the point
@@ -78,8 +83,6 @@ const MapContainer = () => {
   if (!storedFilteredPins) return null;
   const { pins } = storedFilteredPins;
 
-  console.log(popupIsVisible);
-
   return (
     <MapWrapper>
       {userLocation && (
@@ -95,8 +98,6 @@ const MapContainer = () => {
             }}
             mapStyle="mapbox://styles/mapbox/dark-v10"
             logoPosition={"top-right"}
-            dragRotate={false}
-            touchZoomRotate={false}
             onClick={(ev) => {
               if (creatingNewPin) {
                 handleBeginPinCreation(ev);
@@ -117,11 +118,16 @@ const MapContainer = () => {
                   showFilterMenu={showFilterMenu}
                   setShowFilterMenu={setShowFilterMenu}
                 />
+                {popupInfo && (
+                  <>
+                    <>{console.log("hi")}</>
+                    <InfoPopup popupInfo={popupInfo} />
+                  </>
+                )}
               </>
             )}
-            {popupInfo && <InfoPopup popupInfo={popupInfo} />}
+
             {clickedLocation && creatingNewPin && popupIsVisible && (
-              // TODO: this is ok for now but definitely remove clicked location if canceling create new pin
               <NewPinMarker clickedLocation={clickedLocation} />
             )}
           </Map>
