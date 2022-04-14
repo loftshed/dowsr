@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MappingContext } from "../../../Context/MappingContext";
+import { MappingContext } from "../MappingContext";
 import { Marker } from "react-map-gl";
 import Pin from "../Pins/Pin";
 

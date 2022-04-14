@@ -12,7 +12,7 @@ import MapFilters from "./MapFilters";
 import InfoModal from "./Modals/InfoModal";
 import InfoPopup from "./Popups/InfoPopup";
 import DisplayedPinsMarker from "./Markers/DisplayedPinsMarker";
-import { MappingContext } from "../../Context/MappingContext";
+import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./Markers/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./mapHelpers";
 

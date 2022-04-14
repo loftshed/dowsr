@@ -5,7 +5,7 @@ import {
   centeredFlexColumn,
   TextButton,
 } from "../../../Styling/StyledComponents";
-import { MappingContext } from "../../../Context/MappingContext";
+import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
 
 const ConfirmPinPopup = () => {

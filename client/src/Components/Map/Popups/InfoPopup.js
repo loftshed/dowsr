@@ -5,7 +5,7 @@ import {
   centeredFlexColumn,
 } from "../../../Styling/StyledComponents";
 import { useContext, useEffect } from "react";
-import { MappingContext } from "../../../Context/MappingContext";
+import { MappingContext } from "../MappingContext";
 import { getDistanceFromPoint } from "../mapHelpers";
 
 const InfoPopup = ({ popupInfo, setPopupInfo }) => {

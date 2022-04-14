@@ -2,7 +2,7 @@ import styled from "styled-components";
 import NewPin from "../Pins/NewPin";
 import { Marker } from "react-map-gl";
 import { useContext } from "react";
-import { MappingContext } from "../../../Context/MappingContext";
+import { MappingContext } from "../MappingContext";
 import ConfirmPinPopup from "../Popups/ConfirmPinPopup";
 
 const NewPinMarker = () => {
