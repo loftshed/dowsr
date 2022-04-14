@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import { SIZES } from "../Styling/constants";
+import { SIZES } from "../../Styling/constants";
 import {
   centeredFlexColumn,
   fillSpace,
   IconNavLink,
-} from "../Styling/StyledComponents";
-import { NotificationIcon, ChatIcon, ProfileIcon } from "../Styling/Icons";
-import LogoutButton from "./Auth/LogoutButton";
+} from "../../Styling/StyledComponents";
+import { NotificationIcon, ChatIcon, ProfileIcon } from "../../Styling/Icons";
+import LogoutButton from "../Auth/LogoutButton";
 import { useContext } from "react";
-import { AppContext } from "../Context/AppContext";
-import { MappingContext } from "../Context/MappingContext";
+import { AppContext } from "../../Context/AppContext";
+import { MappingContext } from "../../Context/MappingContext";
 
 //TODO: confirm before logging out
 

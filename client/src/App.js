@@ -5,7 +5,7 @@ import GlobalStyle from "./Styling/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
-import Menu from "./Components/Menu";
+import Menu from "./Components/Menus/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
 import Messages from "./Components/Messages/Messages";

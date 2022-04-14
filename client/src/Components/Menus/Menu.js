@@ -4,23 +4,23 @@ import {
   fillSpace,
   IconNavLink,
   TextButton,
-} from "../Styling/StyledComponents";
+} from "../../Styling/StyledComponents";
 import {
   SearchIcon,
   MapIcon,
   BurgerMenuIcon,
   CreatePinIcon,
-} from "../Styling/Icons";
+} from "../../Styling/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
-import { SIZES } from "../Styling/constants";
-import LoginButton from "./Auth/LoginButton";
+import { SIZES } from "../../Styling/constants";
+import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
-import { AppContext } from "../Context/AppContext";
+import { AppContext } from "../../Context/AppContext";
 import BurgerMenu from "./BurgerMenu";
-import { MappingContext } from "../Context/MappingContext";
-import NewPinModal from "./Map/Modals/PinCreationModal";
+import { MappingContext } from "../../Context/MappingContext";
+import NewPinModal from "../Map/Modals/PinCreationModal";
 
 //TODO: make menu collapse with click of a button.
 //TODO: make profile icon change to user avatar when logged in!
