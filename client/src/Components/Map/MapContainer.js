@@ -55,7 +55,7 @@ const MapContainer = () => {
   } = useContext(MappingContext);
   const [filteredPins, setFilteredPins] = useState(null);
 
-  const handleCreateNewPin = async (ev) => {
+  const handleBeginPinCreation = async (ev) => {
     try {
       const locationObj = await reverseGeocode(ev);
       setClickedLocation(locationObj);
@@ -66,6 +66,7 @@ const MapContainer = () => {
 
   useEffect(() => {
     (async () => {
+      if (creatingNewPin) return;
       setUserLocation(await getUserLocation());
       if (!selectedMapFilter) {
         setFilteredPins(await handleGetPinsOfType("bike-shops"));
@@ -92,7 +93,7 @@ const MapContainer = () => {
             mapStyle="mapbox://styles/mapbox/dark-v10"
             logoPosition={"top-right"}
             onClick={(ev) => {
-              if (creatingNewPin) handleCreateNewPin(ev);
+              if (creatingNewPin) handleBeginPinCreation(ev);
             }}
           >
             {!creatingNewPin && <DisplayedPinsMarker pins={pins} />}
