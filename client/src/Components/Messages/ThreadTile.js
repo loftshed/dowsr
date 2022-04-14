@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import { AppContext } from "../../Context/AppContext";
 import { getUser } from "../helpers/userHelpers";
 import LoadingSpinner from "../Etc/LoadingSpinner";
-import { gradientScroll, fadeIn } from "../../Styling/Animations";
+import { gradientScroll, fadeIn, RefreshAnim } from "../../Styling/Animations";
 
 const ThreadTile = ({ threadId, userId, user, time, message }) => {
   const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =
@@ -57,7 +57,7 @@ const ThreadTile = ({ threadId, userId, user, time, message }) => {
 
             {showLoadingAnim && (
               <ThreadRefreshBoundary>
-                <ThreadRefreshAnim />
+                <RefreshAnim />
               </ThreadRefreshBoundary>
             )}
           </Body>
@@ -84,20 +84,6 @@ const ThreadRefreshBoundary = styled.div`
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   overflow: hidden;
-`;
-
-const ThreadRefreshAnim = styled.div`
-  position: absolute;
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(231, 67, 106, 1) 0%,
-    rgba(109, 31, 50, 0.4947092563291139) 100%
-  );
-  height: 200%;
-  width: 500px;
-  animation: ${gradientScroll} 0.5s linear infinite;
 `;
 
 const Avatar = styled.img`

@@ -7,6 +7,7 @@ import {
 } from "../../../Styling/StyledComponents";
 import { MappingContext } from "../../../Context/MappingContext";
 import { useContext } from "react";
+import { RefreshAnim } from "../../../Styling/Animations";
 
 const ConfirmPinPopup = () => {
   const { clickedLocation, setShowNewPinModal } = useContext(MappingContext);
@@ -21,7 +22,12 @@ const ConfirmPinPopup = () => {
     >
       <PopupContainer>
         <Body>
-          {clickedLocation.addressShort}
+          {!clickedLocation.addressShort ? (
+            <LoadingFiller />
+          ) : (
+            <>{clickedLocation.addressShort}</>
+          )}
+
           <CreateButton
             onClick={() => {
               setShowNewPinModal(true);
@@ -36,22 +42,35 @@ const ConfirmPinPopup = () => {
 };
 export default ConfirmPinPopup;
 
-const CreateButton = styled(TextButton)`
-  padding: 3px 5px;
+const LoadingFiller = styled.div`
+  position: relative;
+  height: 18px;
+  width: 100px;
+  border-radius: 4px;
+  overflow: hidden;
 `;
 
 const PopupContainer = styled.div`
   ${centeredFlexColumn}
   p, span {
     color: var(--color-super-dark-grey);
-  } ;
+  }
+  padding: none;
 `;
 
 const Body = styled.div`
   ${fillSpace}
   ${centeredFlexColumn}
-  color: var(--color-super-dark-grey);
+  color: var(--color-light-grey);
   gap: 5px;
   background-color: var(--color-dark-grey);
   border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 18px;
+`;
+
+const CreateButton = styled(TextButton)`
+  font-size: 12px;
+  padding: 3px 8px;
 `;

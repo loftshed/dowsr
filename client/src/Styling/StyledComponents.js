@@ -51,14 +51,19 @@ const iconStyling = css`
   }
 `;
 
-const ContentGrid = styled.div`
-  display: grid;
-  grid-template-rows: repeat(2, 100px);
-  grid-template-columns: repeat(2, 100px);
-  gap: 10px;
+const inputStyling = css`
+  border-radius: 4px;
+  background-color: var(--color-dark-grey);
+  box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 5px 6px;
+  border: 1px solid var(--color-extra-medium-grey);
 `;
 
-const TextButton = styled.button`
+const textButtonStyling = css`
   border-radius: ${SIZES.borderRadius}px;
   background-color: transparent;
   height: fit-content;
@@ -73,22 +78,27 @@ const TextButton = styled.button`
   ${buttonAnim}
 `;
 
+const ContentGrid = styled.div`
+  display: grid;
+  grid-template-rows: repeat(2, 100px);
+  grid-template-columns: repeat(2, 100px);
+  gap: 10px;
+`;
+
+const TextButton = styled.button`
+  ${textButtonStyling}
+`;
+
+// vestigial
 const IconNavLink = styled(NavLink)`
   ${iconStyling}
 `;
 
 const BurgerNavLink = styled(IconNavLink)``;
 
+// vestigial
 const Input = styled.input`
-  border-radius: 4px;
-  background-color: var(--color-dark-grey);
-  box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
-  width: 100%;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  padding: 5px 6px;
-  border: 1px solid var(--color-extra-medium-grey);
+  ${inputStyling}
 `;
 
 const Select = styled.select`
@@ -118,5 +128,7 @@ export {
   centeredFlexColumn,
   centeredFlexRow,
   iconStyling,
+  inputStyling,
+  textButtonStyling,
   BurgerNavLink,
 };
