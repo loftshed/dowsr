@@ -1,7 +1,6 @@
-import Map, { GeolocateControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import Map, { GeolocateControl } from "react-map-gl";
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../Context/AppContext";
 import {
   getUserLocation,
   handleGetPinsOfType,
@@ -23,7 +22,7 @@ STRETCH: when the user submits the map pin, it is pushed into an array for revie
 STRETCH: submitted pins can be screened and pushed to a final array in an admin backoffice
 STRETCH: LOAD MAP POINTS BASED ON DISTANCE RANGE IN VIEWPORT
 
-so much useful things here:
+USEFUL:
 https://visgl.github.io/react-map-gl/docs/api-reference/map
 https://docs.mapbox.com/mapbox-gl-js/guides/
 */
@@ -38,8 +37,8 @@ const MapContainer = () => {
     mapModalMessage,
     setShowPinCreationModal,
     showPinCreationModal,
-    popupInfo,
-    setPopupInfo,
+    // popupInfo,
+    // setPopupInfo,
     clickedLocation,
     setClickedLocation,
     setCreatingNewPin,
@@ -48,6 +47,7 @@ const MapContainer = () => {
     popupIsVisible,
   } = useContext(MappingContext);
 
+  const [popupInfo, setPopupInfo] = useState(null);
   const [storedFilteredPins, setStoredFilteredPins] = useState(null);
 
   const handleBeginPinCreation = async (ev) => {
@@ -72,14 +72,13 @@ const MapContainer = () => {
     (async () => {
       if (creatingNewPin) return;
       handleGeolocateUser();
-      console.log(await userLocation);
       if (!selectedMapFilter) {
         setStoredFilteredPins(await handleGetPinsOfType("bike-shops"));
         return;
       } // for now, just load bike shops if no filter selected
       setStoredFilteredPins(await handleGetPinsOfType(selectedMapFilter));
     })();
-  }, [popupInfo, setUserLocation, selectedMapFilter, clickedLocation]);
+  }, [setUserLocation, selectedMapFilter]);
 
   if (!storedFilteredPins) return null;
   const { pins } = storedFilteredPins;
@@ -89,7 +88,6 @@ const MapContainer = () => {
       {userLocation && (
         <>
           {creatingNewPin && <Overlay />}
-
           <Map
             mapboxAccessToken={MAPBOX_API_KEY}
             initialViewState={{
@@ -103,13 +101,12 @@ const MapContainer = () => {
               if (creatingNewPin) {
                 handleBeginPinCreation(ev);
                 setPopupIsVisible(!popupIsVisible);
-                console.log("popup is visible: true");
               }
             }}
           >
             {!creatingNewPin && (
               <>
-                <DisplayedPinsMarker pins={pins} />
+                <DisplayedPinsMarker pins={pins} setPopupInfo={setPopupInfo} />
                 <GeolocateControl
                   position="top-left"
                   trackUserLocation="true"
@@ -119,12 +116,8 @@ const MapContainer = () => {
                   showFilterMenu={showFilterMenu}
                   setShowFilterMenu={setShowFilterMenu}
                 />
-                {popupInfo && (
-                  <>
-                    {/* <>{console.log("hi")}</> */}
-                    <InfoPopup popupInfo={popupInfo} />
-                  </>
-                )}
+
+                <InfoPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
               </>
             )}
 

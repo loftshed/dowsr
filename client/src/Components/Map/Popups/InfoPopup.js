@@ -4,12 +4,15 @@ import {
   fillSpace,
   centeredFlexColumn,
 } from "../../../Styling/StyledComponents";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MappingContext } from "../../../Context/MappingContext";
 import { getDistanceFromPoint } from "../mapHelpers";
 
-const InfoPopup = ({ popupInfo }) => {
-  const { setPopupInfo, userLocation } = useContext(MappingContext);
+const InfoPopup = ({ popupInfo, setPopupInfo }) => {
+  const { userLocation } = useContext(MappingContext);
+
+  if (!popupInfo) return null;
+
   const distanceFromUser = getDistanceFromPoint(
     { lat: +popupInfo.latitude, lng: +popupInfo.longitude },
     { lat: userLocation.lat, lng: userLocation.lng }
@@ -21,9 +24,9 @@ const InfoPopup = ({ popupInfo }) => {
       anchor="top"
       longitude={popupInfo.longitude}
       latitude={popupInfo.latitude}
-      // closeOnClick={true}
-      maxWidth={"350px"}
+      closeOnClick={true}
       onClose={() => setPopupInfo(null)}
+      maxWidth={"350px"}
     >
       <PopupContainer>
         <Heading>

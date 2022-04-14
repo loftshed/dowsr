@@ -3,22 +3,24 @@ import { MappingContext } from "../../../Context/MappingContext";
 import { Marker } from "react-map-gl";
 import Pin from "../Pins/Pin";
 
-const DisplayedPinsMarker = ({ pins }) => {
-  const { setPopupInfo } = useContext(MappingContext);
+const DisplayedPinsMarker = ({ pins, setPopupInfo }) => {
+  const { setPopupIsVisible, popupIsVisible } = useContext(MappingContext);
+
   return (
     <>
-      {pins.map((pin) => {
+      {pins.map((pinData) => {
         return (
           <Marker
-            key={`marker-${pin._id}`}
-            longitude={pin?.longitude}
-            latitude={pin?.latitude}
+            key={`marker-${pinData._id}`}
+            longitude={pinData?.longitude}
+            latitude={pinData?.latitude}
             color={"var(--color-pink)"}
             style={{ cursor: "pointer" }}
           >
             <Pin
-              onClick={() => {
-                setPopupInfo(pin);
+              onClick={(ev) => {
+                ev.stopPropagation();
+                setPopupInfo(pinData);
               }}
             />
           </Marker>
