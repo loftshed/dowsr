@@ -9,7 +9,7 @@ import { MappingContext } from "../../../Context/MappingContext";
 import { useContext } from "react";
 
 const ConfirmPinPopup = () => {
-  const { clickedLocation, showNewPinModal } = useContext(MappingContext);
+  const { clickedLocation, setShowNewPinModal } = useContext(MappingContext);
   return (
     <Popup
       anchor="bottom"
@@ -20,11 +20,16 @@ const ConfirmPinPopup = () => {
       // onClose={() => setPopupInfo(null)}
     >
       <PopupContainer>
-        <span>This Location:</span>
-        <p>lat: {clickedLocation?.lat}</p>
-        <p>lon: {clickedLocation?.lng}</p>
-        <Body>approx street address</Body>
-        <CreateButton>Create a Pin</CreateButton>
+        {/* <p>lat: {clickedLocation?.lat.toFixed(4)}</p>
+        <p>lon: {clickedLocation?.lng.toFixed(4)}</p> */}
+        <Body>{clickedLocation.addressShort}</Body>
+        <CreateButton
+          onClick={() => {
+            setShowNewPinModal(true);
+          }}
+        >
+          Create a Pin
+        </CreateButton>
       </PopupContainer>
     </Popup>
   );
@@ -45,4 +50,5 @@ const PopupContainer = styled.div`
 const Body = styled.div`
   ${fillSpace}
   ${centeredFlexColumn}
+  color: var(--color-super-dark-grey);
 `;

@@ -102,6 +102,7 @@ const Menu = () => {
             </LoginContainer>
           )}
           <BurgerMenu show={showBurgerMenu} />
+          <NewPinModal />
         </Content>
       </Wrapper>
     </Boundary>
@@ -136,12 +137,14 @@ const BurgerButton = styled(TextButton)`
 `;
 
 const Wrapper = styled.div`
+  background-color: var(--color-darkest-grey);
   ${centeredFlexRow}
   width: 100%;
   z-index: 100;
 `;
 
 const Content = styled.div`
+  position: relative;
   ${fillSpace}
   width: 525px;
   height: ${SIZES.menuHeightCompact}px;

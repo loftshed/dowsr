@@ -53,8 +53,27 @@ const MapContainer = () => {
   const [filteredPins, setFilteredPins] = useState(null);
 
   const handleCreateNewPin = (ev) => {
-    console.log(ev);
     setClickedLocation(ev.lngLat); // record location in state
+    (async () => {
+      try {
+        const response = await fetch(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${ev.lngLat.lng},${ev.lngLat.lat}.json?access_token=${MAPBOX_API_KEY}`
+        );
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+        const { center, place_name } = jsonResponse.features[0];
+        const addressShort = place_name.split(",")[0];
+        const locationObj = {
+          lat: center[1],
+          lng: center[0],
+          addressShort: addressShort,
+          addressFull: place_name,
+        };
+        setClickedLocation(locationObj);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
   };
 
   useEffect(() => {
