@@ -9,6 +9,8 @@ import { forwardGeocode } from "../Home/Map/helpers";
 
 const SearchContainer = ({ show }) => {
   const [searchResults, setSearchResults] = useState(null);
+  // const { current: map } = useMap();
+
   const handleSearch = async (ev) => {
     try {
       const results = await forwardGeocode(ev.target.search.value);
@@ -20,17 +22,32 @@ const SearchContainer = ({ show }) => {
     }
   };
 
+  const handleResultClick = (result) => {
+    const { center } = result;
+    console.log(center);
+    // map.flyTo({ center: [0, 0], zoom: 9 });
+  };
+
   return (
     <SearchWrapper>
-      <ResultsContainer>
-        {searchResults && (
+      {searchResults && (
+        <ResultsContainer>
           <ul>
             {searchResults.map((el) => {
-              return <li key={el.id}>{el.place_name}</li>;
+              return (
+                <li
+                  key={el.id}
+                  onClick={() => {
+                    handleResultClick(el);
+                  }}
+                >
+                  {el.place_name}
+                </li>
+              );
             })}
           </ul>
-        )}
-      </ResultsContainer>
+        </ResultsContainer>
+      )}
       <SearchBar
         // onChange={(ev) => {
         //   ev.preventDefault();
@@ -53,7 +70,7 @@ export default SearchContainer;
 const ResultsContainer = styled.div`
   ${inputStyling}
   flex-direction: column-reverse;
-  width: 80%;
+  width: 95%;
   height: fit-content;
   padding: 5px 10px;
   border-radius: 5px;
@@ -64,8 +81,12 @@ const ResultsContainer = styled.div`
     list-style: none;
     font-size: 14px;
     height: fit-content;
+    gap: 2px;
+
     li {
-      color: var(--color-super-dark-grey);
+      font-weight: 300;
+      color: black;
+      text-overflow: ellipsis;
       &:hover {
         cursor: pointer;
         background-color: var(--color-teal);

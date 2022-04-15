@@ -26,10 +26,13 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
     useContext(MappingContext);
   const { setShowBurgerMenu, showBurgerMenu } = useContext(AppContext);
 
-  // for testing
-  // useEffect(() => {
-  //   console.log(selectedMapFilter);
-  // }, [selectedMapFilter]);
+  const handleFilter = (type, friendlyName) => {
+    setSelectedMapFilter(type);
+    setMapModalMessage(`Filtering by: ${friendlyName}`);
+    setTimeout(() => {
+      setMapModalMessage("");
+    }, 2500);
+  };
 
   return (
     <Boundary>
@@ -54,11 +57,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  setSelectedMapFilter("bike-shops");
-                  setMapModalMessage("Filtering by: Bike Shops");
-                  setTimeout(() => {
-                    setMapModalMessage("");
-                  }, 2500);
+                  handleFilter("bike-shops", "Bike Shops");
                 }}
               >
                 <BikeIcon />
@@ -66,11 +65,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  setSelectedMapFilter("deps");
-                  setMapModalMessage("Filtering by: Stores");
-                  setTimeout(() => {
-                    setMapModalMessage("");
-                  }, 2500);
+                  handleFilter("deps", "Stores");
                 }}
               >
                 <StoreIcon />
@@ -78,11 +73,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  setSelectedMapFilter("cafes");
-                  setMapModalMessage("Filtering by: Coffee");
-                  setTimeout(() => {
-                    setMapModalMessage("");
-                  }, 2500);
+                  handleFilter("cafes", "Coffee");
                 }}
               >
                 <CoffeeIcon />
@@ -91,11 +82,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  setSelectedMapFilter("water");
-                  setMapModalMessage("Filtering by: Water");
-                  setTimeout(() => {
-                    setMapModalMessage("");
-                  }, 2500);
+                  handleFilter("water", "Water");
                 }}
               >
                 <WaterIcon />
@@ -103,11 +90,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  setSelectedMapFilter("toilets");
-                  setMapModalMessage("Filtering by: Toilets");
-                  setTimeout(() => {
-                    setMapModalMessage("");
-                  }, 2500);
+                  handleFilter("toilets", "Toilets");
                 }}
               >
                 <ToiletIcon />
@@ -115,11 +98,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  setSelectedMapFilter("popo");
-                  setMapModalMessage("Filtering by: Police");
-                  setTimeout(() => {
-                    setMapModalMessage("");
-                  }, 2500);
+                  handleFilter("popo", "Police");
                 }}
               >
                 <PoliceIcon />
@@ -127,11 +106,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  setSelectedMapFilter("hazards");
-                  setMapModalMessage("Filtering by: Hazards");
-                  setTimeout(() => {
-                    setMapModalMessage("");
-                  }, 2500);
+                  handleFilter("hazards", "Hazards");
                 }}
               >
                 <HazardIcon />
