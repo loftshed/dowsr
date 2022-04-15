@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useMap } from "react-map-gl";
 import styled from "styled-components";
 import {
   centeredFlexColumn,
@@ -9,7 +10,7 @@ import { forwardGeocode } from "../Home/Map/helpers";
 
 const SearchContainer = ({ show }) => {
   const [searchResults, setSearchResults] = useState(null);
-  // const { current: map } = useMap();
+  // const {id: } = useMap();
 
   const handleSearch = async (ev) => {
     try {
@@ -23,9 +24,9 @@ const SearchContainer = ({ show }) => {
   };
 
   const handleResultClick = (result) => {
-    const { center } = result;
-    console.log(center);
-    // map.flyTo({ center: [0, 0], zoom: 9 });
+    // const { center } = result;
+    // console.log(center);
+    // mainMap.flyTo({ center: [0, 0], zoom: 9 });
   };
 
   return (

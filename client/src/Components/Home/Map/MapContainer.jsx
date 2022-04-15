@@ -1,6 +1,6 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { GeolocateControl } from "react-map-gl";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   getUserLocation,
   handleGetPinsOfType,
@@ -35,6 +35,8 @@ const MapContainer = () => {
     setPopupIsVisible,
     popupIsVisible,
   } = useContext(MappingContext);
+
+  const mapRef = useRef();
 
   // const [popupInfo, setPopupInfo] = useState(null);
   const [storedFilteredPins, setStoredFilteredPins] = useState(null);
@@ -79,6 +81,8 @@ const MapContainer = () => {
           {creatingNewPin && <Overlay />}
           <Map
             mapboxAccessToken={MAPBOX_API_KEY}
+            id="map"
+            ref={mapRef}
             initialViewState={{
               longitude: userLocation.lng,
               latitude: userLocation.lat,

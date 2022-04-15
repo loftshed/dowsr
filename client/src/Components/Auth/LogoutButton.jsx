@@ -6,6 +6,7 @@ import { LogoutIcon } from "../../styling/react-icons";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
+
   return (
     <Button onClick={() => logout({ returnTo: window.location.origin })}>
       <LogoutIcon />

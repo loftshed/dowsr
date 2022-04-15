@@ -13,8 +13,6 @@ import {
 } from "../../../../styling/sharedstyles";
 import { handleSubmitPin } from "../helpers";
 
-//TODO: figure out why address modal no longer updates on the fly..
-
 const NewPinModal = ({ show }) => {
   const { setClickedLocation, clickedLocation, setShowPinCreationModal } =
     useContext(MappingContext);
