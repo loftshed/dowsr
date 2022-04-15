@@ -4,22 +4,21 @@ import {
   centeredFlexRow,
   fillSpace,
   TextButton,
-} from "../styling/sharedstyles";
-import { BurgerMenuIcon } from "../styling/react-icons";
-import { SIZES } from "../styling/constants";
-import ResponsiveContainer from "../styling/ResponsiveContainer";
+} from "../../styling/sharedstyles";
+import { BurgerMenuIcon } from "../../styling/react-icons";
+import { SIZES } from "../../styling/constants";
+import ResponsiveContainer from "../../styling/ResponsiveContainer";
 
 import { useEffect, useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Flag from "react-world-flags";
 import dayjs from "dayjs";
 
-import { AppContext } from "../AppContext";
-import { getUser, handleGetProfile } from "./Auth/helpers";
-import LogoutButton from "./Auth/LogoutButton";
-import LoadingSpinner from "../styling/LoadingSpinner";
+import { AppContext } from "../../AppContext";
+import { getUser, handleGetProfile } from "../Auth/helpers";
+import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
-import { newThread } from "./Messaging/helpers";
+import { newThread } from "../Messaging/helpers";
 
 const Profile = () => {
   const [viewedProfile, setViewedProfile] = useState({});
@@ -27,13 +26,6 @@ const Profile = () => {
   const { isLoading } = useAuth0();
   const navigate = useNavigate();
   const params = useParams();
-
-  //TODO: button to edit profile!
-  //TODO: embed ig feed in profile
-  //TODO: add bio to profile
-
-  //STRETCH: // const handleFollowUser = (userId) => {}; (nothing in backend for this yet)
-  //TODO: change this so you can also get profile by username..
 
   const handleGetProfile = async (userId) => {
     if (!userId) {

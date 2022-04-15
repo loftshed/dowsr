@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import ResponsiveContainer from "../styling/ResponsiveContainer";
-import { SIZES } from "../styling/constants";
-import { centeredFlexColumn } from "../styling/sharedstyles";
+import ResponsiveContainer from "../../styling/ResponsiveContainer";
+import { SIZES } from "../../styling/constants";
+import { centeredFlexColumn } from "../../styling/sharedstyles";
 
 const Notifications = () => {
   return (
