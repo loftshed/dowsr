@@ -24,45 +24,47 @@ const SearchContainer = ({ show }) => {
     }
   };
 
-  const handleResultClick = (result) => {
+  const handleResultClick = (ev, result) => {
     setClickedResult(result);
     setSearchResults(null);
+    // probably stupid way of targeting the input
+    ev.nativeEvent.path[3].search.value = result.place_name;
+    console.log(ev);
     // const { center } = result;
     // console.log(center);
+
     // mainMap.flyTo({ center: [0, 0], zoom: 9 });
   };
 
   if (show)
     return (
-      <SearchWrapper>
+      <SearchWrapper
+        onSubmit={(ev) => {
+          ev.preventDefault();
+          handleSearch(ev);
+        }}
+        id="searchForm"
+      >
         {searchResults && (
           <ResultsContainer>
             <ul>
-              {searchResults.map((el) => {
+              {searchResults.map((result) => {
                 return (
                   <li
-                    key={el.id}
-                    onClick={() => {
-                      handleResultClick(el);
+                    id={result.id}
+                    key={result.id}
+                    onClick={(ev) => {
+                      handleResultClick(ev, result);
                     }}
                   >
-                    {el.place_name}
+                    {result.place_name}
                   </li>
                 );
               })}
             </ul>
           </ResultsContainer>
         )}
-        <SearchBar
-          // onChange={(ev) => {
-          //   ev.preventDefault();
-          //   console.log(ev.target.value);
-          // }}
-          onSubmit={(ev) => {
-            ev.preventDefault();
-            handleSearch(ev);
-          }}
-        >
+        <SearchBar>
           <Input id="search" type="text" key="search" placeholder="search" />
           <input type="submit" hidden />
         </SearchBar>
@@ -102,7 +104,7 @@ const ResultsContainer = styled.div`
   }
 `;
 
-const SearchWrapper = styled.div`
+const SearchWrapper = styled.form`
   position: absolute;
   ${centeredFlexColumn}
   gap: 5px;
@@ -113,7 +115,7 @@ const SearchWrapper = styled.div`
   pointer-events: none;
 `;
 
-const SearchBar = styled.form`
+const SearchBar = styled.div`
   width: 90%;
   ${centeredFlexRow};
   background-color: grey;
