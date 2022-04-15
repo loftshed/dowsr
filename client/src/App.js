@@ -5,10 +5,11 @@ import GlobalStyle from "./Styling/GlobalStyles";
 import styled from "styled-components";
 import Header from "./Components/Header";
 import Home from "./Components/Home";
-import Menu from "./Components/Menus/Menu";
+import { Menu } from "./Components/Menu";
+import { Messaging } from "./Components/Messaging";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
-import { Messaging } from "./Components/Messaging";
+
 import Error from "./Components/Etc/Error";
 import LoginButton from "./Components/Auth/LoginButton";
 import { useContext, useEffect } from "react";

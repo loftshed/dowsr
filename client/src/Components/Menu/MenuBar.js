@@ -18,18 +18,12 @@ import { SIZES } from "../../Styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
-import BurgerMenu from "./BurgerMenu";
 import { MappingContext } from "../Map/MappingContext";
+import BurgerMenuPopout from "./BurgerMenuPopout";
+
 import NewPinModal from "../Map/Modals/PinCreationModal";
 
-//TODO: make menu collapse with click of a button.
-//TODO: make profile icon change to user avatar when logged in!
-//STRETCH: make button appear on left/right side of screen according to user settings.
-//STRETCH: make numbers appear over icons for unread notifications..
-//TODO: GET NAVLINK HIGHLIGHT WORKING~!! or some kind of equivalent
-// or just do something in state...
-
-const Menu = () => {
+const MenuBar = () => {
   const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
     useContext(AppContext);
   const {
@@ -43,10 +37,6 @@ const Menu = () => {
   } = useContext(MappingContext);
 
   const { user, isAuthenticated } = useAuth0();
-
-  //TODO: prevent user from accessing any of main page
-  // before first login completed?
-  //FIXME: not ideal way of doing this below..?
 
   return (
     <Boundary>
@@ -104,7 +94,7 @@ const Menu = () => {
               <LoginButton />
             </LoginContainer>
           )}
-          <BurgerMenu show={showBurgerMenu} />
+          <BurgerMenuPopout show={showBurgerMenu} />
           <NewPinModal show={showPinCreationModal} />
         </Content>
       </Wrapper>
@@ -112,7 +102,7 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default MenuBar;
 
 const Boundary = styled.div`
   pointer-events: none;

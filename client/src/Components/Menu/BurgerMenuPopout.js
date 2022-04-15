@@ -1,19 +1,13 @@
 import styled from "styled-components";
 import { SIZES } from "../../Styling/constants";
-import {
-  centeredFlexColumn,
-  fillSpace,
-  IconNavLink,
-} from "../../Styling/StyledComponents";
+import { fillSpace, IconNavLink } from "../../Styling/StyledComponents";
 import { NotificationIcon, ChatIcon, ProfileIcon } from "../../Styling/Icons";
 import LogoutButton from "../Auth/LogoutButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 import { MappingContext } from "../Map/MappingContext";
 
-//TODO: confirm before logging out
-
-const BurgerMenu = ({ show }) => {
+const BurgerMenuPopout = ({ show }) => {
   const { setShowBurgerMenu } = useContext(AppContext);
   const { creatingNewPin, setCreatingNewPin, setMapModalMessage } =
     useContext(MappingContext);
@@ -70,7 +64,7 @@ const BurgerMenu = ({ show }) => {
   );
 };
 
-export default BurgerMenu;
+export default BurgerMenuPopout;
 
 const Boundary = styled.div``;
 
