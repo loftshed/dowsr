@@ -24,8 +24,13 @@ import NewPinModal from "../Home/Map/PinCreation/NewPinModal";
 import SearchContainer from "./SearchContainer";
 
 const MenuBar = () => {
-  const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
-    useContext(AppContext);
+  const {
+    loggedInUser,
+    showBurgerMenu,
+    setShowBurgerMenu,
+    showSearchBar,
+    setShowSearchBar,
+  } = useContext(AppContext);
   const {
     setShowFilterMenu,
     showFilterMenu,
@@ -34,8 +39,6 @@ const MenuBar = () => {
     creatingNewPin,
     showPinCreationModal,
     setShowPinCreationModal,
-    showSearchBar,
-    setShowSearchBar,
   } = useContext(MappingContext);
 
   const { user, isAuthenticated } = useAuth0();
@@ -49,11 +52,14 @@ const MenuBar = () => {
               <IconRow>
                 <IconNavLink
                   to="/search"
-                  onClick={() => {
+                  onClick={(ev) => {
+                    ev.preventDefault();
                     if (creatingNewPin) {
                       setCreatingNewPin(false);
                       setMapModalMessage("");
                     }
+                    if (showBurgerMenu) setShowBurgerMenu(false);
+                    setShowSearchBar(true);
                   }}
                 >
                   <SearchIcon />
@@ -65,6 +71,8 @@ const MenuBar = () => {
                       setCreatingNewPin(false);
                       setMapModalMessage("");
                     }
+                    if (showSearchBar) setShowSearchBar(false);
+                    if (showBurgerMenu) setShowBurgerMenu(false);
                   }}
                 >
                   <MapIcon />
@@ -72,7 +80,8 @@ const MenuBar = () => {
                 <IconNavLink
                   to="/new"
                   onClick={() => {
-                    console.log("initiating pin creation");
+                    if (showSearchBar) setShowSearchBar(false);
+                    if (showBurgerMenu) setShowBurgerMenu(false);
                     setMapModalMessage("Creating a new pin");
                     setCreatingNewPin(true);
                   }}
@@ -85,6 +94,7 @@ const MenuBar = () => {
                   onClick={() => {
                     setShowBurgerMenu(!showBurgerMenu);
                     if (showFilterMenu) setShowFilterMenu(false);
+                    if (showSearchBar) setShowSearchBar(false);
                   }}
                 >
                   <BurgerMenuIcon />

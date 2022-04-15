@@ -32,41 +32,42 @@ const SearchContainer = ({ show }) => {
     // mainMap.flyTo({ center: [0, 0], zoom: 9 });
   };
 
-  return (
-    <SearchWrapper>
-      {searchResults && (
-        <ResultsContainer>
-          <ul>
-            {searchResults.map((el) => {
-              return (
-                <li
-                  key={el.id}
-                  onClick={() => {
-                    handleResultClick(el);
-                  }}
-                >
-                  {el.place_name}
-                </li>
-              );
-            })}
-          </ul>
-        </ResultsContainer>
-      )}
-      <SearchBar
-        // onChange={(ev) => {
-        //   ev.preventDefault();
-        //   console.log(ev.target.value);
-        // }}
-        onSubmit={(ev) => {
-          ev.preventDefault();
-          handleSearch(ev);
-        }}
-      >
-        <Input id="search" type="text" key="search" placeholder="search" />
-        <input type="submit" hidden />
-      </SearchBar>
-    </SearchWrapper>
-  );
+  if (show)
+    return (
+      <SearchWrapper>
+        {searchResults && (
+          <ResultsContainer>
+            <ul>
+              {searchResults.map((el) => {
+                return (
+                  <li
+                    key={el.id}
+                    onClick={() => {
+                      handleResultClick(el);
+                    }}
+                  >
+                    {el.place_name}
+                  </li>
+                );
+              })}
+            </ul>
+          </ResultsContainer>
+        )}
+        <SearchBar
+          // onChange={(ev) => {
+          //   ev.preventDefault();
+          //   console.log(ev.target.value);
+          // }}
+          onSubmit={(ev) => {
+            ev.preventDefault();
+            handleSearch(ev);
+          }}
+        >
+          <Input id="search" type="text" key="search" placeholder="search" />
+          <input type="submit" hidden />
+        </SearchBar>
+      </SearchWrapper>
+    );
 };
 
 export default SearchContainer;
