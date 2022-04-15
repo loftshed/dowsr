@@ -10,7 +10,7 @@ const pinStyle = {
   stroke: "none",
 };
 
-const Pin = ({ size = 20, onClick }) => {
+const PinInfoIcon = ({ size = 20, onClick }) => {
   return (
     <svg height={size} viewBox="0 0 24 24" style={pinStyle} onClick={onClick}>
       <path d={ICON} />
@@ -18,4 +18,4 @@ const Pin = ({ size = 20, onClick }) => {
   );
 };
 
-export default memo(Pin);
+export default memo(PinInfoIcon);

@@ -11,7 +11,7 @@ export const MappingProvider = ({ children }) => {
   const [showPinCreationModal, setShowPinCreationModal] = useState(false);
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [clickedLocation, setClickedLocation] = useState(null);
-  // const [popupInfo, setPopupInfo] = useState(null);
+  const [popupInfo, setPopupInfo] = useState(null);
 
   return (
     <MappingContext.Provider
@@ -30,8 +30,8 @@ export const MappingProvider = ({ children }) => {
         showPinCreationModal,
         setClickedLocation,
         clickedLocation,
-        // popupInfo,
-        // setPopupInfo,
+        popupInfo,
+        setPopupInfo,
         popupIsVisible,
         setPopupIsVisible,
       }}

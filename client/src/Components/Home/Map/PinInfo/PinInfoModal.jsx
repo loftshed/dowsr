@@ -3,7 +3,7 @@ import { SIZES } from "../../../../styling/constants";
 import { centeredFlexRow } from "../../../../styling/sharedstyles";
 import { fadeIn } from "../../../../styling/animations";
 
-const InfoModal = ({ message }) => {
+const PinInfoModal = ({ message }) => {
   let style = null;
   if (message === "Creating a new pin") {
     style = {
@@ -17,7 +17,7 @@ const InfoModal = ({ message }) => {
   );
 };
 
-export default InfoModal;
+export default PinInfoModal;
 
 const ModalWrapper = styled.div`
   left: 50%;

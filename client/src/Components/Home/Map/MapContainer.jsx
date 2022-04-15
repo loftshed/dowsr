@@ -9,23 +9,14 @@ import {
 import { fillSpace } from "../../../styling/sharedstyles";
 import styled from "styled-components";
 import MapFilters from "./MapFilters";
-import InfoModal from "./PinInfo/PinInfoModal";
-import InfoPopup from "./PinInfo/PinInfoPopup";
-import DisplayedPinsMarker from "./PinInfo/PinInfoMarker";
+import PinInfoModal from "./PinInfo/PinInfoModal";
+import PinInfoPopup from "./PinInfo/PinInfoPopup";
+import PinInfoMarker from "./PinInfo/PinInfoMarker";
 import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 
-/*
-TODO: the point is pushed to an array of datapoints which are used to populate the map with markers.
-STRETCH: when the user submits the map pin, it is pushed into an array for review.
-STRETCH: submitted pins can be screened and pushed to a final array in an admin backoffice
-STRETCH: LOAD MAP POINTS BASED ON DISTANCE RANGE IN VIEWPORT
 
-USEFUL:
-https://visgl.github.io/react-map-gl/docs/api-reference/map
-https://docs.mapbox.com/mapbox-gl-js/guides/
-*/
 
 const MapContainer = () => {
   const {
@@ -37,8 +28,8 @@ const MapContainer = () => {
     mapModalMessage,
     setShowPinCreationModal,
     showPinCreationModal,
-    // popupInfo,
-    // setPopupInfo,
+    popupInfo,
+    setPopupInfo,
     clickedLocation,
     setClickedLocation,
     setCreatingNewPin,
@@ -47,7 +38,7 @@ const MapContainer = () => {
     popupIsVisible,
   } = useContext(MappingContext);
 
-  const [popupInfo, setPopupInfo] = useState(null);
+  // const [popupInfo, setPopupInfo] = useState(null);
   const [storedFilteredPins, setStoredFilteredPins] = useState(null);
 
   const handleBeginPinCreation = async (ev) => {
@@ -106,7 +97,7 @@ const MapContainer = () => {
           >
             {!creatingNewPin && (
               <>
-                <DisplayedPinsMarker pins={pins} setPopupInfo={setPopupInfo} />
+                <PinInfoMarker pins={pins} setPopupInfo={setPopupInfo} />
                 <GeolocateControl
                   position="top-left"
                   trackUserLocation="true"
@@ -117,7 +108,7 @@ const MapContainer = () => {
                   setShowFilterMenu={setShowFilterMenu}
                 />
 
-                <InfoPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
+                <PinInfoPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
               </>
             )}
 
@@ -125,7 +116,7 @@ const MapContainer = () => {
               <NewPinMarker clickedLocation={clickedLocation} />
             )}
           </Map>
-          {mapModalMessage !== "" && <InfoModal message={mapModalMessage} />}
+          {mapModalMessage !== "" && <PinInfoModal message={mapModalMessage} />}
         </>
       )}
     </MapWrapper>

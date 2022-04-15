@@ -5,7 +5,7 @@ import { useContext, useEffect } from "react";
 import { MappingContext } from "../MappingContext";
 import { getDistanceFromPoint } from "../helpers";
 
-const InfoPopup = ({ popupInfo, setPopupInfo }) => {
+const PinInfoPopup = ({ popupInfo, setPopupInfo }) => {
   const { userLocation } = useContext(MappingContext);
 
   if (!popupInfo) return null;
@@ -39,7 +39,7 @@ const InfoPopup = ({ popupInfo, setPopupInfo }) => {
     </Popup>
   );
 };
-export default InfoPopup;
+export default PinInfoPopup;
 
 const PopupContainer = styled.div`
   user-select: none;

@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { MappingContext } from "../MappingContext";
 import { Marker } from "react-map-gl";
-import Pin from "./PinInfoIcon";
+import PinInfoIcon from "./PinInfoIcon";
 
-const DisplayedPinsMarker = ({ pins, setPopupInfo }) => {
+const PinInfoMarker = ({ pins, setPopupInfo }) => {
   const { setPopupIsVisible, popupIsVisible } = useContext(MappingContext);
 
   return (
@@ -17,7 +17,7 @@ const DisplayedPinsMarker = ({ pins, setPopupInfo }) => {
             color={"var(--color-pink)"}
             style={{ cursor: "pointer" }}
           >
-            <Pin
+            <PinInfoIcon
               onClick={(ev) => {
                 ev.stopPropagation();
                 setPopupInfo(pinData);
@@ -30,4 +30,4 @@ const DisplayedPinsMarker = ({ pins, setPopupInfo }) => {
   );
 };
 
-export default DisplayedPinsMarker;
+export default PinInfoMarker;
