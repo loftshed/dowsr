@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { MappingContext } from "../MappingContext";
 import { SIZES } from "../../../../styling/constants";
@@ -11,18 +11,43 @@ import {
   inputStyling,
   textButtonstyling,
 } from "../../../../styling/sharedstyles";
-import { handleSubmitPin } from "../helpers";
+import { submitPin } from "../helpers";
+import { AppContext } from "../../../../AppContext";
 
-const NewPinModal = ({ show }) => {
+// Called from the Menu component
+// DON'T FORGET TO VALIDATE THE FRIGGIN DATA BRUH
+
+const NewPinModal = ({ show, type }) => {
   const {
     setClickedLocation,
     clickedLocation,
     setShowPinCreationModal,
     setCreatingNewPin,
     setMapModalMessage,
+    pinCreationSuccessful,
+    setPinCreationSuccessful,
+    newPinData,
+    setNewPinData,
   } = useContext(MappingContext);
+  const { loggedInUser } = useContext(AppContext);
 
-  if (show)
+  const handleSubmitPin = async (ev, clickedLocation, loggedInUser) => {
+    try {
+      const result = await submitPin(ev, clickedLocation, loggedInUser);
+      // clean up this goddamn mess of state!
+      if (result.success) {
+        setNewPinData(result.submission);
+        setCreatingNewPin(false);
+        setShowPinCreationModal(false);
+        setPinCreationSuccessful(true);
+        setMapModalMessage(`Thank you, @${result.submittedBy}!`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (show && type === "creation")
     return (
       <NewPinModalWrapper>
         <InnerContainer>
@@ -48,7 +73,7 @@ const NewPinModal = ({ show }) => {
               autoComplete="off"
               onSubmit={(ev) => {
                 ev.preventDefault();
-                handleSubmitPin(ev, clickedLocation);
+                handleSubmitPin(ev, clickedLocation, loggedInUser);
               }}
             >
               <InputRow>
@@ -89,6 +114,35 @@ const NewPinModal = ({ show }) => {
               </InputColumn>
               <ModalSubmit id="submit" key="submit" type="submit" />
             </ModalForm>
+          </InnerContainerLiner>
+        </InnerContainer>
+      </NewPinModalWrapper>
+    );
+
+  if (show && type === "success")
+    return (
+      <NewPinModalWrapper>
+        <InnerContainer>
+          <Heading>
+            Pin created successfully :){" "}
+            <button
+              style={{ all: "unset" }}
+              onClick={(ev) => {
+                setPinCreationSuccessful(null);
+                setNewPinData(null);
+                setMapModalMessage("");
+              }}
+            >
+              <CloseIcon />
+            </button>
+          </Heading>
+          <Subheading>
+            Latitude {newPinData.lat.toFixed(4)}, Longitude{" "}
+            {newPinData.lng.toFixed(4)}
+          </Subheading>
+          <InnerContainerLiner>
+            Awesome! Your submission has been entered into the queue for review
+            and will be added to the map shortly.
           </InnerContainerLiner>
         </InnerContainer>
       </NewPinModalWrapper>
@@ -165,6 +219,7 @@ const InnerContainerLiner = styled.div`
   border-radius: 4px;
   gap: 5px;
   padding: 10px 20px;
+  text-align: center;
 `;
 
 const InputRow = styled.div`

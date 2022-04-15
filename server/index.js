@@ -69,7 +69,7 @@ app.get("/api/get-all-threads", getAllThreads);
 
 // mapping endpoints
 app.get("/api/get-pins", getPinsOfType);
-app.put("/api/submit-pin", submitNewPin);
+app.patch("/api/submit-pin", submitNewPin);
 
 // admin endpoints
 app.patch("/api/modify-pin", modifyPinWithId);

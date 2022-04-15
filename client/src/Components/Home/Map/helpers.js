@@ -20,7 +20,7 @@ const handleGetPinsOfType = async (filter) => {
   }
 };
 
-const handleSubmitPin = async (ev, locationObj) => {
+const submitPin = async (ev, locationObj, loggedInUser) => {
   try {
     const submissionObj = {
       type: ev.target.pinType.value,
@@ -29,16 +29,19 @@ const handleSubmitPin = async (ev, locationObj) => {
       hours: ev.target.hours.value,
       address: ev.target.address.value,
       desc: ev.target.desc.value,
+      submittedBy: loggedInUser.username,
+      submittedByID: loggedInUser._id,
     };
     const response = await fetch("http://localhost:9001/api/submit-pin", {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(submissionObj),
     });
-    console.log(await response.json());
+
+    return await response.json();
   } catch (error) {
     console.log(error);
   }
@@ -50,11 +53,9 @@ const reverseGeocode = async (ev) => {
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${ev.lngLat.lng},${ev.lngLat.lat}.json?access_token=${MAPBOX_API_KEY}`
     );
     const jsonResponse = await response.json();
-    const { center, place_name } = jsonResponse.features[0];
+    const { place_name } = jsonResponse.features[0];
     const addressShort = place_name.split(",")[0];
     return {
-      // lat: center[1],
-      // lng: center[0],
       lat: ev.lngLat.lat,
       lng: ev.lngLat.lng,
       addressShort: addressShort,
@@ -88,7 +89,7 @@ export {
   forwardGeocode,
   getUserLocation,
   handleGetPinsOfType,
-  handleSubmitPin,
+  submitPin,
   getDistanceFromPoint,
   MAPBOX_API_KEY,
 };

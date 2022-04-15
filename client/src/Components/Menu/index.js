@@ -2,6 +2,8 @@
 | Menu |
 ------*/
 
+//TODO REFACTOR EVERYTHING WITH THE KNOWLEDGE OF ONBLUR
+
 //TODO: Make search fly to location on click.
 
 //STRETCH: Add a confirmation before logging out.

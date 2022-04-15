@@ -36,6 +36,7 @@ const MapContainer = () => {
     creatingNewPin,
     setPopupIsVisible,
     popupIsVisible,
+    pinCreationSuccessful,
   } = useContext(MappingContext);
 
   const mapRef = useRef();
@@ -100,7 +101,7 @@ const MapContainer = () => {
             }}
             cursorModifier={creatingNewPin}
           >
-            {!creatingNewPin && (
+            {!creatingNewPin && !pinCreationSuccessful && (
               <>
                 <PinInfoMarker pins={pins} setPopupInfo={setPopupInfo} />
                 <GeolocateControl
@@ -119,7 +120,6 @@ const MapContainer = () => {
                 />
               </>
             )}
-
             {clickedLocation && creatingNewPin && popupIsVisible && (
               <NewPinMarker clickedLocation={clickedLocation} />
             )}

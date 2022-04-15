@@ -90,7 +90,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  handleFilter("toilets", "Toilets");
+                  handleFilter("toilet", "Toilets");
                 }}
               >
                 <ToiletIcon />

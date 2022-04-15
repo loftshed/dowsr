@@ -40,6 +40,10 @@ const MenuBar = () => {
     showPinCreationModal,
     setShowPinCreationModal,
     mapModalMessage,
+    pinCreationSuccessful,
+    setPinCreationSuccessful,
+    newPinData,
+    setNewPinData,
   } = useContext(MappingContext);
 
   const { user, isAuthenticated } = useAuth0();
@@ -116,7 +120,10 @@ const MenuBar = () => {
             </LoginContainer>
           )}
           <BurgerMenuPopout show={showBurgerMenu} />
-          <NewPinModal show={showPinCreationModal} />
+          <NewPinModal
+            show={showPinCreationModal || pinCreationSuccessful}
+            type={!pinCreationSuccessful ? "creation" : "success"}
+          />
           <SearchContainer show={showSearchBar} />
         </Content>
       </Wrapper>

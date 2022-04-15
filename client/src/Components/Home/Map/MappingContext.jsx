@@ -12,6 +12,8 @@ export const MappingProvider = ({ children }) => {
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [clickedLocation, setClickedLocation] = useState(null);
   const [popupInfo, setPopupInfo] = useState(null);
+  const [pinCreationSuccessful, setPinCreationSuccessful] = useState(null);
+  const [newPinData, setNewPinData] = useState(null);
 
   return (
     <MappingContext.Provider
@@ -34,6 +36,10 @@ export const MappingProvider = ({ children }) => {
         setPopupInfo,
         popupIsVisible,
         setPopupIsVisible,
+        pinCreationSuccessful,
+        setPinCreationSuccessful,
+        newPinData,
+        setNewPinData,
       }}
     >
       {children}
