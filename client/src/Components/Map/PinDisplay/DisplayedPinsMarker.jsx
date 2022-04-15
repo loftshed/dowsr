@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { MappingContext } from "../MappingContext";
 import { Marker } from "react-map-gl";
-import Pin from "../Pins/Pin";
+import Pin from "./Pin";
 
 const DisplayedPinsMarker = ({ pins, setPopupInfo }) => {
   const { setPopupIsVisible, popupIsVisible } = useContext(MappingContext);

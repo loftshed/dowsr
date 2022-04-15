@@ -4,26 +4,32 @@ import {
   fillSpace,
   IconNavLink,
   TextButton,
-} from "../../styling/sharedstyles";
+} from "../../Styling/StyledComponents";
 import {
   SearchIcon,
   MapIcon,
   BurgerMenuIcon,
   CreatePinIcon,
-} from "../../styling/react-icons";
+} from "../../Styling/Icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
-import { SIZES } from "../../styling/constants";
+import { SIZES } from "../../Styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
+import BurgerMenu from "./BurgerMenu";
 import { MappingContext } from "../Map/MappingContext";
-import BurgerMenuPopout from "./BurgerMenuPopout";
-
 import NewPinModal from "../Map/PinCreation/PinCreationModal";
 
-const MenuBar = () => {
+//TODO: make menu collapse with click of a button.
+//TODO: make profile icon change to user avatar when logged in!
+//STRETCH: make button appear on left/right side of screen according to user settings.
+//STRETCH: make numbers appear over icons for unread notifications..
+//TODO: GET NAVLINK HIGHLIGHT WORKING~!! or some kind of equivalent
+// or just do something in state...
+
+const Menu = () => {
   const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
     useContext(AppContext);
   const {
@@ -37,6 +43,10 @@ const MenuBar = () => {
   } = useContext(MappingContext);
 
   const { user, isAuthenticated } = useAuth0();
+
+  //TODO: prevent user from accessing any of main page
+  // before first login completed?
+  //FIXME: not ideal way of doing this below..?
 
   return (
     <Boundary>
@@ -94,7 +104,7 @@ const MenuBar = () => {
               <LoginButton />
             </LoginContainer>
           )}
-          <BurgerMenuPopout show={showBurgerMenu} />
+          <BurgerMenu show={showBurgerMenu} />
           <NewPinModal show={showPinCreationModal} />
         </Content>
       </Wrapper>
@@ -102,7 +112,7 @@ const MenuBar = () => {
   );
 };
 
-export default MenuBar;
+export default Menu;
 
 const Boundary = styled.div`
   pointer-events: none;

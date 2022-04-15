@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import NewPin from "../Pins/NewPin";
+import NewPin from "../PinCreation/NewPin";
 import { Marker } from "react-map-gl";
 import { useContext } from "react";
 import { MappingContext } from "../MappingContext";
-import ConfirmPinPopup from "../Popups/ConfirmPinPopup";
+import ConfirmPinPopup from "./ConfirmPinPopup";
 
 const NewPinMarker = () => {
   const { clickedLocation } = useContext(MappingContext);

@@ -9,11 +9,11 @@ import {
 import { fillSpace } from "../../styling/sharedstyles";
 import styled from "styled-components";
 import MapFilters from "./MapFilters";
-import InfoModal from "./Modals/InfoModal";
-import InfoPopup from "./Popups/InfoPopup";
-import DisplayedPinsMarker from "./Markers/DisplayedPinsMarker";
+import InfoModal from "./PinDisplay/InfoModal";
+import InfoPopup from "./PinDisplay/InfoPopup";
+import DisplayedPinsMarker from "./PinDisplay/DisplayedPinsMarker";
 import { MappingContext } from "./MappingContext";
-import NewPinMarker from "./Markers/NewPinMarker";
+import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 
 /*
