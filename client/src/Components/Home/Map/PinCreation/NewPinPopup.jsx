@@ -70,6 +70,7 @@ const NewPinPopup = () => {
             target="_new"
           >
             <StreetView
+              id="street-view"
               src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
             />
           </a>

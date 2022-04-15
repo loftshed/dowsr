@@ -46,7 +46,6 @@ const Profile = () => {
   }, [params]);
 
   const handleMsgUser = async (idA, idB, message) => {
-    // TODO: first get user messages.. if profile ID is not found in any of those messages, then create a new thread, otherwise just navigate to messages and open that user's thread.
     try {
       const messageBody = {
         userId: idA,

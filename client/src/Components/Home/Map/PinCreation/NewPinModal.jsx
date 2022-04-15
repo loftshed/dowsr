@@ -14,8 +14,13 @@ import {
 import { handleSubmitPin } from "../helpers";
 
 const NewPinModal = ({ show }) => {
-  const { setClickedLocation, clickedLocation, setShowPinCreationModal } =
-    useContext(MappingContext);
+  const {
+    setClickedLocation,
+    clickedLocation,
+    setShowPinCreationModal,
+    setCreatingNewPin,
+    setMapModalMessage,
+  } = useContext(MappingContext);
 
   if (show)
     return (
@@ -27,6 +32,8 @@ const NewPinModal = ({ show }) => {
               style={{ all: "unset" }}
               onClick={(ev) => {
                 setShowPinCreationModal(false);
+                setCreatingNewPin(false);
+                setMapModalMessage("");
               }}
             >
               <CloseIcon />

@@ -10,6 +10,7 @@ import { forwardGeocode } from "../Home/Map/helpers";
 
 const SearchContainer = ({ show }) => {
   const [searchResults, setSearchResults] = useState(null);
+  const [clickedResult, setClickedResult] = useState(null);
   // const {id: } = useMap();
 
   const handleSearch = async (ev) => {
@@ -24,6 +25,8 @@ const SearchContainer = ({ show }) => {
   };
 
   const handleResultClick = (result) => {
+    setClickedResult(result);
+    setSearchResults(null);
     // const { center } = result;
     // console.log(center);
     // mainMap.flyTo({ center: [0, 0], zoom: 9 });
@@ -70,6 +73,7 @@ export default SearchContainer;
 
 const ResultsContainer = styled.div`
   ${inputStyling}
+  position: absolute;
   flex-direction: column-reverse;
   width: 95%;
   height: fit-content;
@@ -77,6 +81,7 @@ const ResultsContainer = styled.div`
   border-radius: 5px;
   background-color: unset;
   background-color: var(--color-medium-grey);
+  bottom: 60px;
   ul {
     all: unset;
     list-style: none;
@@ -101,16 +106,29 @@ const SearchWrapper = styled.div`
   ${centeredFlexColumn}
   gap: 5px;
   width: 100%;
-  bottom: 65px;
+  bottom: 60px;
+  height: 100%;
+
+  pointer-events: none;
 `;
 
 const SearchBar = styled.form`
-  width: 80%;
+  width: 90%;
   ${centeredFlexRow};
+  background-color: grey;
+  padding: 5px;
+  border-radius: 50px;
+  border: 1px solid var(--color-super-dark-grey);
 `;
 
 const Input = styled.input`
   ${inputStyling};
   border-radius: 50px;
   text-align: center;
+  height: 40px;
+  border: 1px solid var(--color-super-dark-grey);
+  &:focus {
+    outline: none;
+    box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2);
+  }
 `;
