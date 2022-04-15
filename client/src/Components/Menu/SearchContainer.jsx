@@ -29,10 +29,11 @@ const SearchContainer = ({ show }) => {
     setSearchResults(null);
     // probably stupid way of targeting the input
     ev.nativeEvent.path[3].search.value = result.place_name;
-    console.log(ev);
+    // make viewport fly to result
+    // display "add a pin here? marker"
+
     // const { center } = result;
     // console.log(center);
-
     // mainMap.flyTo({ center: [0, 0], zoom: 9 });
   };
 
@@ -111,7 +112,6 @@ const SearchWrapper = styled.form`
   width: 100%;
   bottom: 60px;
   height: 100%;
-
   pointer-events: none;
 `;
 

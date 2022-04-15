@@ -22,13 +22,13 @@ const handleGetPinsOfType = async (filter) => {
 
 const handleSubmitPin = async (ev, locationObj) => {
   try {
-    //TODO: edit this to use form keys looool
     const submissionObj = {
-      type: ev.target[0].value,
+      type: ev.target.pinType.value,
       lat: locationObj.lat,
       lng: locationObj.lng,
-      address: ev.target[1].value,
-      hours: ev.target[2].value,
+      hours: ev.target.hours.value,
+      address: ev.target.address.value,
+      desc: ev.target.desc.value,
     };
     const response = await fetch("http://localhost:9001/api/submit-pin", {
       method: "PUT",
@@ -38,7 +38,7 @@ const handleSubmitPin = async (ev, locationObj) => {
       },
       body: JSON.stringify(submissionObj),
     });
-    console.log(response.json());
+    console.log(await response.json());
   } catch (error) {
     console.log(error);
   }

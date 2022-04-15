@@ -36,11 +36,13 @@ const getPinsOfType = async ({ query: { filter } }, res) => {
 
 const submitNewPin = async ({ body }, res) => {
   try {
+    const newPin = { ...body, _id: uuidv4() };
+
     await client.connect();
-    console.log(body);
+
     res.status(200).json({
       status: 200,
-      submission: body,
+      submission: newPin,
       message: "hullo theree",
     });
   } catch (err) {

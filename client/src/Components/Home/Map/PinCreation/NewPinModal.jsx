@@ -45,6 +45,7 @@ const NewPinModal = ({ show }) => {
           </Subheading>
           <InnerContainerLiner>
             <ModalForm
+              autoComplete="off"
               onSubmit={(ev) => {
                 ev.preventDefault();
                 handleSubmitPin(ev, clickedLocation);
@@ -53,13 +54,17 @@ const NewPinModal = ({ show }) => {
               <InputRow>
                 <InputColumn>
                   <InputHeading>Type</InputHeading>
-                  <ModalSelect>
+                  <ModalSelect key="pinType" id="pinType">
                     <Option value="default">Select one:</Option>
                     <Option value="toilet">Toilets</Option>
                     <Option value="water">Water</Option>
                     <Option value="police">Police</Option>
                     <Option value="hazard">Hazard</Option>
                   </ModalSelect>
+                </InputColumn>
+                <InputColumn>
+                  <InputHeading>Hours</InputHeading>
+                  <ModalInput id="hours" key="hours" type="text" />
                 </InputColumn>
               </InputRow>
               <InputColumn>
@@ -79,8 +84,8 @@ const NewPinModal = ({ show }) => {
                 />
               </InputColumn>
               <InputColumn>
-                <InputHeading>Opening hours (if not 24/7)</InputHeading>
-                <ModalInput id="hours" key="hours" type="text" />
+                <InputHeading>Brief Description</InputHeading>
+                <ModalInput id="desc" key="desc" type="text" />
               </InputColumn>
               <ModalSubmit id="submit" key="submit" type="submit" />
             </ModalForm>
