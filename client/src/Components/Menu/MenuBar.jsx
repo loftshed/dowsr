@@ -39,6 +39,7 @@ const MenuBar = () => {
     creatingNewPin,
     showPinCreationModal,
     setShowPinCreationModal,
+    mapModalMessage,
   } = useContext(MappingContext);
 
   const { user, isAuthenticated } = useAuth0();
@@ -53,12 +54,15 @@ const MenuBar = () => {
                 <IconNavLink
                   to="/search"
                   onClick={(ev) => {
-                    ev.preventDefault();
                     if (creatingNewPin) {
                       setCreatingNewPin(false);
                       setMapModalMessage("");
                     }
                     if (showBurgerMenu) setShowBurgerMenu(false);
+                    if (showSearchBar) {
+                      setShowSearchBar(false);
+                      return;
+                    }
                     setShowSearchBar(true);
                   }}
                 >
@@ -82,6 +86,11 @@ const MenuBar = () => {
                   onClick={() => {
                     if (showSearchBar) setShowSearchBar(false);
                     if (showBurgerMenu) setShowBurgerMenu(false);
+                    if (creatingNewPin) {
+                      setCreatingNewPin(false);
+                      setMapModalMessage("");
+                      return;
+                    }
                     setMapModalMessage("Creating a new pin");
                     setCreatingNewPin(true);
                   }}
