@@ -16,8 +16,6 @@ import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 
-
-
 const MapContainer = () => {
   const {
     userLocation,
@@ -108,7 +106,10 @@ const MapContainer = () => {
                   setShowFilterMenu={setShowFilterMenu}
                 />
 
-                <PinInfoPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
+                <PinInfoPopup
+                  popupInfo={popupInfo}
+                  setPopupInfo={setPopupInfo}
+                />
               </>
             )}
 

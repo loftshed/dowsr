@@ -21,6 +21,7 @@ import { AppContext } from "../../AppContext";
 import { MappingContext } from "../Home/Map/MappingContext";
 import BurgerMenuPopout from "./BurgerMenuPopout";
 import NewPinModal from "../Home/Map/PinCreation/NewPinModal";
+import SearchContainer from "./SearchContainer";
 
 const MenuBar = () => {
   const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
@@ -33,6 +34,8 @@ const MenuBar = () => {
     creatingNewPin,
     showPinCreationModal,
     setShowPinCreationModal,
+    showSearchBar,
+    setShowSearchBar,
   } = useContext(MappingContext);
 
   const { user, isAuthenticated } = useAuth0();
@@ -95,6 +98,7 @@ const MenuBar = () => {
           )}
           <BurgerMenuPopout show={showBurgerMenu} />
           <NewPinModal show={showPinCreationModal} />
+          <SearchContainer show={showSearchBar} />
         </Content>
       </Wrapper>
     </Boundary>

@@ -22,6 +22,7 @@ const handleGetPinsOfType = async (filter) => {
 
 const handleSubmitPin = async (ev, locationObj) => {
   try {
+    //TODO: edit this to use form keys looool
     const submissionObj = {
       type: ev.target[0].value,
       lat: locationObj.lat,
@@ -64,6 +65,18 @@ const reverseGeocode = async (ev) => {
   }
 };
 
+const forwardGeocode = async (search) => {
+  try {
+    console.log(search);
+    const response = await fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${MAPBOX_API_KEY}`
+    );
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const getDistanceFromPoint = (pos1, pos2) => {
   return Math.sqrt(
     Math.pow(pos1.lat - pos2.lat, 2) + Math.pow(pos1.lng - pos2.lng, 2)
@@ -72,6 +85,7 @@ const getDistanceFromPoint = (pos1, pos2) => {
 
 export {
   reverseGeocode,
+  forwardGeocode,
   getUserLocation,
   handleGetPinsOfType,
   handleSubmitPin,

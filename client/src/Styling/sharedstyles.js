@@ -51,7 +51,7 @@ const iconstyling = css`
   }
 `;
 
-const inputstyling = css`
+const inputStyling = css`
   border-radius: 4px;
   background-color: var(--color-dark-grey);
   box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
@@ -98,7 +98,7 @@ const BurgerNavLink = styled(IconNavLink)``;
 
 // vestigial
 const Input = styled.input`
-  ${inputstyling}
+  ${inputStyling}
 `;
 
 const Select = styled.select`
@@ -128,7 +128,7 @@ export {
   centeredFlexColumn,
   centeredFlexRow,
   iconstyling,
-  inputstyling,
+  inputStyling,
   textButtonstyling,
   BurgerNavLink,
 };

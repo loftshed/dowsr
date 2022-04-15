@@ -8,7 +8,7 @@ import {
   centeredFlexRow,
   fillSpace,
   Input,
-  inputstyling,
+  inputStyling,
   textButtonstyling,
 } from "../../../../styling/sharedstyles";
 import { handleSubmitPin } from "../helpers";
@@ -61,6 +61,8 @@ const NewPinModal = ({ show }) => {
                 <InputHeading>Verify the approximate address</InputHeading>
                 <ModalInput
                   type="text"
+                  key="address"
+                  id="address"
                   value={clickedLocation?.addressFull}
                   // Using onChange, it is possible to edit a field with a value that was assigned using state.
                   onChange={(ev) => {
@@ -73,9 +75,9 @@ const NewPinModal = ({ show }) => {
               </InputColumn>
               <InputColumn>
                 <InputHeading>Opening hours (if not 24/7)</InputHeading>
-                <ModalInput type="text" />
+                <ModalInput id="hours" key="hours" type="text" />
               </InputColumn>
-              <ModalSubmit type="submit" />
+              <ModalSubmit id="submit" key="submit" type="submit" />
             </ModalForm>
           </InnerContainerLiner>
         </InnerContainer>
@@ -179,7 +181,7 @@ const ModalInput = styled(Input)`
 `;
 
 const ModalSelect = styled.select`
-  ${inputstyling}
+  ${inputStyling}
   background-color: var(--color-super-dark-grey);
 `;
 

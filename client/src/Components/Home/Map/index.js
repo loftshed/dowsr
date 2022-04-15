@@ -3,6 +3,8 @@
 ---------*/
 
 /*
+TODO: DO MORE CONDITIONAL RENDERING INSIDE OF COMPONENTS, NOT PARENT
+for readability!!
 TODO: the point is pushed to an array of datapoints which are used to populate the map with markers.
 STRETCH: when the user submits the map pin, it is pushed into an array for review.
 STRETCH: submitted pins can be screened and pushed to a final array in an admin backoffice

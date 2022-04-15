@@ -12,6 +12,7 @@ export const AppProvider = ({ children }) => {
   const [displayedThreadId, setDisplayedThreadId] = useState("");
   const [showLoadingAnim, setShowLoadingAnim] = useState(false);
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
   // const socket = socketio.connect("http://localhost:8080");
 
   return (
@@ -33,6 +34,8 @@ export const AppProvider = ({ children }) => {
         setDisplayedThreadId,
         showBurgerMenu,
         setShowBurgerMenu,
+        showSearchBar,
+        setShowSearchBar,
         // socket,
       }}
     >
