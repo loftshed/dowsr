@@ -2,24 +2,14 @@ import styled from "styled-components";
 import { centeredFlexColumn } from "../../Styling/StyledComponents";
 import { SIZES } from "../../Styling/constants";
 
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 
 import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import ThreadPreviewTile from "./ThreadPreviewTile";
-import Chat from "./ChatInterface";
+import ChatInterface from "./ChatInterface";
 
-//TODO: BIG TODO: allow users to navigate to  profile of someone they are chatting with by clicking  their profile pic or some other thing
-//TODO: by default, the most recent thread should be displayed. use userefs for that?
-//TODO: should be some type of indicator for threads with new messages.
-//TODO: (STRETCH) implement react-spring for scrolling through messages/threads
-//TODO: (STRETCH) make a way for a user to delete their copy of a thread by deleting their user ID from the thread's users array. If the users array ends up empty, the thread is "deleted".
-//TODO: add some kind of text for empty inbox, "no messages yet. get out there and make some friends!"
-//TODO: add new message box to messages which allows you to search for a friend by name.
-// maybe with a link to the map. idk
-//FIXME: tons of api calls if messages is accessed when user has no messages
-
-const Messages = () => {
+const MessagingContainer = () => {
   const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);
 
   return (
@@ -47,14 +37,14 @@ const Messages = () => {
           </>
         </Sidebar>
         <MessagesContainer>
-          <Chat thread={displayedThreadId} />
+          <ChatInterface thread={displayedThreadId} />
         </MessagesContainer>
       </LayoutContainer>
     </ResponsiveContainer>
   );
 };
 
-export default Messages;
+export default MessagingContainer;
 
 const LayoutContainer = styled.div`
   display: flex;

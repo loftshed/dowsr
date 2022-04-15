@@ -8,7 +8,7 @@ import Home from "./Components/Home";
 import Menu from "./Components/Menus/Menu";
 import Profile from "./Components/Profile";
 import Notifications from "./Components/Notifications";
-import Messages from "./Components/Messages/MessagingContainer";
+import { Messaging } from "./Components/Messaging";
 import Error from "./Components/Etc/Error";
 import LoginButton from "./Components/Auth/LoginButton";
 import { useContext, useEffect } from "react";
@@ -16,9 +16,11 @@ import { AppContext } from "./AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./Components/helpers/userHelpers";
 
+//TODO: ULTRA MEGA TODO: Redo signin flow!!
+
 const App = () => {
   const { setLoggedInUser } = useContext(AppContext);
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, /* isAuthenticated, */ isLoading } = useAuth0();
 
   useEffect(() => {
     (async () => {
@@ -41,7 +43,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
-            <Route path="/messages" element={<Messages />} />
+            <Route path="/messages" element={<Messaging />} />
             <Route path="/search" element={<Home search={true} />} />
             <Route path="/error" element={<Error />} />
           </Routes>
@@ -54,7 +56,6 @@ const App = () => {
 
 export default App;
 
-// TODO: fix this shit (mobile browsers don't work well with viewport height)
 const Main = styled.div`
   ${centeredFlexColumn}
   background-color: var(--color-dark-grey);

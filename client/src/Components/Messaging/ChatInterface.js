@@ -12,13 +12,9 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import ScrollToMostRecentMessage from "./ScrollToMostRecentMsg";
 import LoadingSpinner from "../Etc/LoadingSpinner";
-import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import { SendIcon } from "../../Styling/Icons";
 
-//TODO: Make threads sort properly by latest. Will need to determine latest thread by message timestamps instead 💩
-//TODO: change this so that even if thread is null, chat window displays the same way.
-
-const Chat = () => {
+const ChatInterface = () => {
   const [currentMessages, setCurrentMessages] = useState([]);
   const [userHasNoThreads, setUserHasNoThreads] = useState(false);
 
@@ -126,7 +122,7 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatInterface;
 
 const ChatWrapper = styled.div`
   ${fillSpace}
