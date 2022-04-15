@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { centeredFlexColumn, fillSpace } from "../../Styling/StyledComponents";
+import { centeredFlexColumn, fillSpace } from "../../Styling/sharedstyles";
 import { SIZES } from "../../Styling/constants";
 
 import { useContext, useEffect, useState } from "react";
@@ -7,9 +7,9 @@ import { useWindowWidth } from "@react-hook/window-size";
 import dayjs from "dayjs";
 
 import { AppContext } from "../../AppContext";
-import { getUser } from "../helpers/userHelpers";
+import { getUser } from "../Auth/helpers";
 import LoadingSpinner from "../Etc/LoadingSpinner";
-import { gradientScroll, fadeIn, RefreshAnim } from "../../Styling/Animations";
+import { gradientScroll, fadeIn, RefreshAnim } from "../../Styling/animations";
 
 const ThreadPreviewTile = ({ threadId, userId, user, time, message }) => {
   const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =

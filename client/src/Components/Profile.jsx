@@ -4,8 +4,8 @@ import {
   centeredFlexRow,
   fillSpace,
   TextButton,
-} from "../Styling/StyledComponents";
-import { BurgerMenuIcon } from "../Styling/Icons";
+} from "../Styling/sharedstyles";
+import { BurgerMenuIcon } from "../Styling/react-icons";
 import { SIZES } from "../Styling/constants";
 import ResponsiveContainer from "../Styling/ResponsiveContainer";
 
@@ -15,11 +15,11 @@ import Flag from "react-world-flags";
 import dayjs from "dayjs";
 
 import { AppContext } from "../AppContext";
-import { getUser, handleGetProfile } from "./helpers/userHelpers";
+import { getUser, handleGetProfile } from "./Auth/helpers";
 import LogoutButton from "./Auth/LogoutButton";
 import LoadingSpinner from "./Etc/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
-import { newThread } from "./helpers/chatHelpers";
+import { newThread } from "./Messaging/helpers";
 
 const Profile = () => {
   const [viewedProfile, setViewedProfile] = useState({});

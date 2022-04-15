@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ResponsiveContainer from "../../Styling/ResponsiveContainer";
 import { SIZES } from "../../Styling/constants";
-import { centeredFlexColumn } from "../../Styling/StyledComponents";
+import { centeredFlexColumn } from "../../Styling/sharedstyles";
 
 const Error = () => {
   return (

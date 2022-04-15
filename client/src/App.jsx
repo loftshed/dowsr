@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { centeredFlexColumn } from "./Styling/StyledComponents";
+import { centeredFlexColumn } from "./Styling/sharedstyles";
 import { SIZES } from "./Styling/constants";
 import GlobalStyle from "./Styling/GlobalStyles";
 import styled from "styled-components";
-import Header from "./Components/Header";
-import Home from "./Components/Home";
+import Header from "./Components/Home/Header";
+import { Home } from "./Components/Home";
 import { Menu } from "./Components/Menu";
 import { Messaging } from "./Components/Messaging";
 import Profile from "./Components/Profile";
@@ -15,7 +15,7 @@ import LoginButton from "./Components/Auth/LoginButton";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getUser } from "./Components/helpers/userHelpers";
+import { getUser } from "./Components/Auth/helpers";
 
 //TODO: ULTRA MEGA TODO: Redo signin flow!!
 

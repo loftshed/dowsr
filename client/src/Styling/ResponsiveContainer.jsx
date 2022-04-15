@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { centeredFlexColumn, centeredFlexRow } from "./StyledComponents";
+import { centeredFlexColumn, centeredFlexRow } from "./sharedstyles";
 import { SIZES } from "./constants";
 
 const ResponsiveContainer = ({ children, heading }) => {

@@ -4,13 +4,13 @@ import {
   fillSpace,
   IconNavLink,
   TextButton,
-} from "../../Styling/StyledComponents";
+} from "../../Styling/sharedstyles";
 import {
   SearchIcon,
   MapIcon,
   BurgerMenuIcon,
   CreatePinIcon,
-} from "../../Styling/Icons";
+} from "../../Styling/react-icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";

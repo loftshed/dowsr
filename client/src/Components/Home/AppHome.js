@@ -1,22 +1,19 @@
-import ResponsiveContainer from "../Styling/ResponsiveContainer";
-import { centeredFlexColumn, fillSpace } from "../Styling/StyledComponents";
+import ResponsiveContainer from "../../Styling/ResponsiveContainer";
+import { centeredFlexColumn, fillSpace } from "../../Styling/sharedstyles";
 import styled from "styled-components";
-import { SIZES } from "../Styling/constants";
+import { SIZES } from "../../Styling/constants";
 
 import { useContext, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { AppContext } from "../AppContext";
-import { getUser } from "./helpers/userHelpers";
-import { Map } from "./Map";
-import FirstLogin from "./Auth/FirstLogin";
+import { AppContext } from "../../AppContext";
+import { getUser } from "../Auth/helpers";
+import { Map } from "../Map";
+import FirstLogin from "../Auth/FirstLogin";
 
 const Home = () => {
   const { firstLogin, setFirstLogin } = useContext(AppContext);
   const { user, isAuthenticated /*, isLoading*/ } = useAuth0();
-  // TODO: maybe move this action to login button? as something other than a useEffect..?
-  // TODO: maybe if user has been found to exist in db, keep in local storage and don't query again
-  // TODO: make it so you don't have to log in to use the app..
 
   useEffect(() => {
     (async () => {

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { SIZES } from "../../../Styling/constants";
-import { centeredFlexRow } from "../../../Styling/StyledComponents";
-import { fadeIn } from "../../../Styling/Animations";
+import { centeredFlexRow } from "../../../Styling/sharedstyles";
+import { fadeIn } from "../../../Styling/animations";
 
 const InfoModal = ({ message }) => {
   let style = null;

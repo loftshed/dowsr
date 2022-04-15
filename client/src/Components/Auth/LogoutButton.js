@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import { iconStyling } from "../../Styling/StyledComponents";
+import { iconStyling } from "../../Styling/sharedstyles";
 import { SIZES } from "../../Styling/constants";
-import { LogoutIcon } from "../../Styling/Icons";
+import { LogoutIcon } from "../../Styling/react-icons";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();

@@ -4,7 +4,7 @@ import {
   centeredFlexColumn,
   fillSpace,
   iconStyling,
-} from "../../Styling/StyledComponents";
+} from "../../Styling/sharedstyles";
 import {
   StoreIcon,
   CoffeeIcon,
@@ -14,7 +14,7 @@ import {
   FilterIcon,
   WaterIcon,
   ToiletIcon,
-} from "../../Styling/Icons";
+} from "../../Styling/react-icons";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "./MappingContext";
 import { AppContext } from "../../AppContext";

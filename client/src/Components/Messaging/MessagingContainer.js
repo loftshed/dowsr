@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { centeredFlexColumn } from "../../Styling/StyledComponents";
+import { centeredFlexColumn } from "../../Styling/sharedstyles";
 import { SIZES } from "../../Styling/constants";
 
 import { useContext } from "react";

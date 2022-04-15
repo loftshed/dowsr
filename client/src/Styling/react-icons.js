@@ -36,11 +36,6 @@ const NotificationIcon = styled(BsFillBellFill)``;
 const ChatIcon = styled(BsFillChatDotsFill)``;
 const ProfileIcon = styled(BsPersonCircle)``;
 const MapIcon = styled(BsMapFill)``;
-const BurgerMenuIcon = styled(TiThMenu)`
-  filter: drop-shadow(1px 1px 1px var(--color-pink));
-  width: 30px;
-  height: 30px;
-`;
 const LogoutIcon = styled(IoLogOut)``;
 const SendIcon = styled(IoSend)``;
 const FilterIcon = styled(MdFilterAlt)``;
@@ -53,6 +48,11 @@ const CreatePinIcon = styled(RiMapPinAddFill)``;
 const CloseIcon = styled(RiCloseCircleFill)``;
 const WaterIcon = styled(IoIosWater)``;
 const ToiletIcon = styled(FaToilet)``;
+const BurgerMenuIcon = styled(TiThMenu)`
+  filter: drop-shadow(1px 1px 1px var(--color-pink));
+  width: 30px;
+  height: 30px;
+`;
 
 export {
   CircledArrowRight,

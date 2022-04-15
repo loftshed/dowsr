@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FaSpinner } from "react-icons/fa";
-import { centeredFlexColumn } from "../../Styling/StyledComponents";
-import { rotate360 } from "../../Styling/Animations";
+import { centeredFlexColumn } from "../../Styling/sharedstyles";
+import { rotate360 } from "../../Styling/animations";
 
 const LoadingSpinner = ({ size, color }) => {
   return (

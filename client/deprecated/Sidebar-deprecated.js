@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { useWindowWidth } from "@react-hook/window-size";
-import { TextButton, pageWidth } from "../src/styles/StyledComponents";
+import { TextButton, pageWidth } from "../src/styles/sharedstyles";
 import {
   CircledArrowRight,
   MapIcon,
@@ -11,15 +11,15 @@ import {
   NotificationIcon,
   ChatIcon,
   ProfileIcon,
-} from "../src/styles/Icons";
+} from "../src/styles/react-icons";
 import {
   rotate180,
   unrotate180,
   drawerIn,
   drawerOut,
-} from "../src/styles/Animations";
+} from "../src/styles/animations";
 import { SIZES } from "../src/styles/constants";
-import { centeredFlexColumn } from "../src/Styling/StyledComponents";
+import { centeredFlexColumn } from "../src/Styling/sharedstyles";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
