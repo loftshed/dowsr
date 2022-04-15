@@ -4,10 +4,10 @@ import {
   centeredFlexRow,
   fillSpace,
   TextButton,
-} from "../Styling/sharedstyles";
-import { BurgerMenuIcon } from "../Styling/react-icons";
-import { SIZES } from "../Styling/constants";
-import ResponsiveContainer from "../Styling/ResponsiveContainer";
+} from "../styling/sharedstyles";
+import { BurgerMenuIcon } from "../styling/react-icons";
+import { SIZES } from "../styling/constants";
+import ResponsiveContainer from "../styling/ResponsiveContainer";
 
 import { useEffect, useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -17,7 +17,7 @@ import dayjs from "dayjs";
 import { AppContext } from "../AppContext";
 import { getUser, handleGetProfile } from "./Auth/helpers";
 import LogoutButton from "./Auth/LogoutButton";
-import LoadingSpinner from "./Etc/LoadingSpinner";
+import LoadingSpinner from "../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { newThread } from "./Messaging/helpers";
 

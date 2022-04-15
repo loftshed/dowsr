@@ -1,16 +1,16 @@
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { MappingContext } from "../MappingContext";
-import { SIZES } from "../../../Styling/constants";
-import { CloseIcon } from "../../../Styling/react-icons";
+import { SIZES } from "../../../styling/constants";
+import { CloseIcon } from "../../../styling/react-icons";
 import {
   centeredFlexColumn,
   centeredFlexRow,
   fillSpace,
   Input,
-  inputStyling,
-  textButtonStyling,
-} from "../../../Styling/sharedstyles";
+  inputstyling,
+  textButtonstyling,
+} from "../../../styling/sharedstyles";
 import { handleSubmitPin } from "../helpers";
 
 //TODO: figure out why address modal no longer updates on the fly..
@@ -179,14 +179,14 @@ const ModalInput = styled(Input)`
 `;
 
 const ModalSelect = styled.select`
-  ${inputStyling}
+  ${inputstyling}
   background-color: var(--color-super-dark-grey);
 `;
 
 const ModalSubmit = styled(Input)`
   all: unset;
   background-color: var(--color-darkest-grey);
-  ${textButtonStyling}
+  ${textButtonstyling}
   padding: 5px 20px;
 `;
 

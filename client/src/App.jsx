@@ -1,21 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { centeredFlexColumn } from "./Styling/sharedstyles";
-import { SIZES } from "./Styling/constants";
-import GlobalStyle from "./Styling/GlobalStyles";
+import { centeredFlexColumn } from "./styling/sharedstyles";
+import { SIZES } from "./styling/constants";
+import GlobalStyle from "./styling/GlobalStyles";
 import styled from "styled-components";
-import Header from "./Components/Home/Header";
-import { Home } from "./Components/Home";
-import { Menu } from "./Components/Menu";
-import { Messaging } from "./Components/Messaging";
-import Profile from "./Components/Profile";
-import Notifications from "./Components/Notifications";
+import Header from "./components/Home/Header";
+import { Home } from "./components/Home";
+import { Menu } from "./components/Menu";
+import { Messaging } from "./components/Messaging";
+import Profile from "./components/Profile";
+import Notifications from "./components/Notifications";
 
-import Error from "./Components/Etc/Error";
-import LoginButton from "./Components/Auth/LoginButton";
+import Error from "./components/Error";
+import LoginButton from "./components/Auth/LoginButton";
 import { useContext, useEffect } from "react";
 import { AppContext } from "./AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import { getUser } from "./Components/Auth/helpers";
+import { getUser } from "./components/Auth/helpers";
 
 //TODO: ULTRA MEGA TODO: Redo signin flow!!
 

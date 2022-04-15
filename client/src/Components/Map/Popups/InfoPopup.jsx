@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Popup } from "react-map-gl";
-import { fillSpace, centeredFlexColumn } from "../../../Styling/sharedstyles";
+import { fillSpace, centeredFlexColumn } from "../../../styling/sharedstyles";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "../MappingContext";
 import { getDistanceFromPoint } from "../helpers";

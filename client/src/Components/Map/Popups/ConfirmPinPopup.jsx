@@ -4,7 +4,7 @@ import {
   fillSpace,
   centeredFlexColumn,
   TextButton,
-} from "../../../Styling/sharedstyles";
+} from "../../../styling/sharedstyles";
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
 

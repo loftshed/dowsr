@@ -4,17 +4,17 @@ import {
   fillSpace,
   IconNavLink,
   TextButton,
-} from "../../Styling/sharedstyles";
+} from "../../styling/sharedstyles";
 import {
   SearchIcon,
   MapIcon,
   BurgerMenuIcon,
   CreatePinIcon,
-} from "../../Styling/react-icons";
+} from "../../styling/react-icons";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
-import { SIZES } from "../../Styling/constants";
+import { SIZES } from "../../styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";

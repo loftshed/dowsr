@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { fillSpace } from "../../Styling/sharedstyles";
+import { fillSpace } from "../../styling/sharedstyles";
 import { useState, useEffect, useContext } from "react";
 import Bubble from "./MessageBubble";
 import { AppContext } from "../../AppContext";
-import { SIZES } from "../../Styling/constants";
+import { SIZES } from "../../styling/constants";
 import { replyThread, getOneThread, getUserThreads } from "./helpers";
 import { v4 as uuidv4 } from "uuid";
 import ScrollToMostRecentMessage from "./ScrollToMostRecentMsg";
-import LoadingSpinner from "../Etc/LoadingSpinner";
-import { SendIcon } from "../../Styling/react-icons";
+import LoadingSpinner from "../../styling/LoadingSpinner";
+import { SendIcon } from "../../styling/react-icons";
 
 const ChatInterface = () => {
   const [currentMessages, setCurrentMessages] = useState([]);

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ResponsiveContainer from "../../Styling/ResponsiveContainer";
+import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import {
   Input,
   Select,
@@ -7,12 +7,12 @@ import {
   buttonAnim,
   fillSpace,
   centeredFlexColumn,
-} from "../../Styling/sharedstyles";
+} from "../../styling/sharedstyles";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { countryData } from "./data/states-provinces";
-import { SIZES } from "../../Styling/constants";
+import { SIZES } from "../../styling/constants";
 import { addNewUser } from "./helpers";
 import { AppContext } from "../../AppContext";
 

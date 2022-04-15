@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
-import { SIZES } from "../../Styling/constants";
+import { SIZES } from "../../styling/constants";
 import {
   centeredFlexColumn,
   fillSpace,
-  iconStyling,
-} from "../../Styling/sharedstyles";
+  iconstyling,
+} from "../../styling/sharedstyles";
 import {
   StoreIcon,
   CoffeeIcon,
@@ -14,7 +14,7 @@ import {
   FilterIcon,
   WaterIcon,
   ToiletIcon,
-} from "../../Styling/react-icons";
+} from "../../styling/react-icons";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "./MappingContext";
 import { AppContext } from "../../AppContext";
@@ -146,7 +146,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
 
 export default MapFilters;
 
-const menuWrapperStyling = css`
+const menuWrapperstyling = css`
   display: flex;
   flex-direction: column;
   width: fit-content;
@@ -177,7 +177,7 @@ const Boundary = styled.div`
 `;
 
 const FilterMenuWrapper = styled.div`
-  ${menuWrapperStyling};
+  ${menuWrapperstyling};
 `;
 
 const InnerContainer = styled.div`
@@ -200,7 +200,7 @@ const InnerContainerLiner = styled.div`
 const ToggleWrapper = styled.div`
   position: relative;
   z-index: 10;
-  ${menuWrapperStyling}
+  ${menuWrapperstyling}
   outline: 1px solid var(--color-super-dark-grey);
 `;
 
@@ -209,5 +209,5 @@ const FilterToggle = styled(InnerContainer)`
 `;
 
 const Option = styled.button`
-  ${iconStyling}
+  ${iconstyling}
 `;

@@ -6,7 +6,7 @@ import {
   handleGetPinsOfType,
   handleSubmitPin,
 } from "./helpers";
-import { fillSpace } from "../../Styling/sharedstyles";
+import { fillSpace } from "../../styling/sharedstyles";
 import styled from "styled-components";
 import MapFilters from "./MapFilters";
 import InfoModal from "./Modals/InfoModal";

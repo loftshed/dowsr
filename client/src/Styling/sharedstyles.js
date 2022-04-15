@@ -34,7 +34,7 @@ const centeredFlexColumn = css`
   align-items: center;
 `;
 
-const iconStyling = css`
+const iconstyling = css`
   padding: 8px;
   background-color: #1e2021;
   border: 1px solid var(--color-super-dark-grey);
@@ -51,7 +51,7 @@ const iconStyling = css`
   }
 `;
 
-const inputStyling = css`
+const inputstyling = css`
   border-radius: 4px;
   background-color: var(--color-dark-grey);
   box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
@@ -63,7 +63,7 @@ const inputStyling = css`
   border: 1px solid var(--color-extra-medium-grey);
 `;
 
-const textButtonStyling = css`
+const textButtonstyling = css`
   border-radius: ${SIZES.borderRadius}px;
   background-color: transparent;
   height: fit-content;
@@ -86,19 +86,19 @@ const ContentGrid = styled.div`
 `;
 
 const TextButton = styled.button`
-  ${textButtonStyling}
+  ${textButtonstyling}
 `;
 
 // vestigial
 const IconNavLink = styled(NavLink)`
-  ${iconStyling}
+  ${iconstyling}
 `;
 
 const BurgerNavLink = styled(IconNavLink)``;
 
 // vestigial
 const Input = styled.input`
-  ${inputStyling}
+  ${inputstyling}
 `;
 
 const Select = styled.select`
@@ -127,8 +127,8 @@ export {
   fillSpace,
   centeredFlexColumn,
   centeredFlexRow,
-  iconStyling,
-  inputStyling,
-  textButtonStyling,
+  iconstyling,
+  inputstyling,
+  textButtonstyling,
   BurgerNavLink,
 };

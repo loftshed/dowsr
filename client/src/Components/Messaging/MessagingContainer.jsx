@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { centeredFlexColumn } from "../../Styling/sharedstyles";
-import { SIZES } from "../../Styling/constants";
+import { centeredFlexColumn } from "../../styling/sharedstyles";
+import { SIZES } from "../../styling/constants";
 
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 
-import ResponsiveContainer from "../../Styling/ResponsiveContainer";
+import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import ThreadPreviewTile from "./ThreadPreviewTile";
 import ChatInterface from "./ChatInterface";
 

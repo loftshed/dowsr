@@ -1,7 +1,7 @@
-import ResponsiveContainer from "../../Styling/ResponsiveContainer";
-import { centeredFlexColumn, fillSpace } from "../../Styling/sharedstyles";
+import ResponsiveContainer from "../../styling/ResponsiveContainer";
+import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import styled from "styled-components";
-import { SIZES } from "../../Styling/constants";
+import { SIZES } from "../../styling/constants";
 
 import { useContext, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";

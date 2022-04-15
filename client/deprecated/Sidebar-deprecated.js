@@ -19,7 +19,7 @@ import {
   drawerOut,
 } from "../src/styles/animations";
 import { SIZES } from "../src/styles/constants";
-import { centeredFlexColumn } from "../src/Styling/sharedstyles";
+import { centeredFlexColumn } from "../src/styling/sharedstyles";
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(null);
