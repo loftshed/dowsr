@@ -9,7 +9,7 @@ import {
 import LogoutButton from "../Auth/LogoutButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
-import { MappingContext } from "../Map/MappingContext";
+import { MappingContext } from "../Home/Map/MappingContext";
 
 const BurgerMenuPopout = ({ show }) => {
   const { setShowBurgerMenu } = useContext(AppContext);

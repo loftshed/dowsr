@@ -6,12 +6,12 @@ import {
   handleGetPinsOfType,
   handleSubmitPin,
 } from "./helpers";
-import { fillSpace } from "../../styling/sharedstyles";
+import { fillSpace } from "../../../styling/sharedstyles";
 import styled from "styled-components";
 import MapFilters from "./MapFilters";
-import InfoModal from "./PinDisplay/InfoModal";
-import InfoPopup from "./PinDisplay/InfoPopup";
-import DisplayedPinsMarker from "./PinDisplay/DisplayedPinsMarker";
+import InfoModal from "./PinInfo/PinInfoModal";
+import InfoPopup from "./PinInfo/PinInfoPopup";
+import DisplayedPinsMarker from "./PinInfo/PinInfoMarker";
 import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";

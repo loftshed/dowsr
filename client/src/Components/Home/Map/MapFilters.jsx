@@ -1,10 +1,10 @@
 import styled, { css } from "styled-components";
-import { SIZES } from "../../styling/constants";
+import { SIZES } from "../../../styling/constants";
 import {
   centeredFlexColumn,
   fillSpace,
   iconstyling,
-} from "../../styling/sharedstyles";
+} from "../../../styling/sharedstyles";
 import {
   StoreIcon,
   CoffeeIcon,
@@ -14,10 +14,10 @@ import {
   FilterIcon,
   WaterIcon,
   ToiletIcon,
-} from "../../styling/react-icons";
+} from "../../../styling/react-icons";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "./MappingContext";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../../../AppContext";
 
 //TODO: Not important but annoying. Fix method by which modal fades out. currently not ideal.
 

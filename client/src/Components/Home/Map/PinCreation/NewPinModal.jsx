@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { MappingContext } from "../MappingContext";
-import { SIZES } from "../../../styling/constants";
-import { CloseIcon } from "../../../styling/react-icons";
+import { SIZES } from "../../../../styling/constants";
+import { CloseIcon } from "../../../../styling/react-icons";
 import {
   centeredFlexColumn,
   centeredFlexRow,
@@ -10,7 +10,7 @@ import {
   Input,
   inputstyling,
   textButtonstyling,
-} from "../../../styling/sharedstyles";
+} from "../../../../styling/sharedstyles";
 import { handleSubmitPin } from "../helpers";
 
 //TODO: figure out why address modal no longer updates on the fly..

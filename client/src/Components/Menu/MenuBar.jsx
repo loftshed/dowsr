@@ -18,10 +18,9 @@ import { SIZES } from "../../styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
-import { MappingContext } from "../Map/MappingContext";
+import { MappingContext } from "../Home/Map/MappingContext";
 import BurgerMenuPopout from "./BurgerMenuPopout";
-
-import NewPinModal from "../Map/PinCreation/NewPinModal";
+import NewPinModal from "../Home/Map/PinCreation/NewPinModal";
 
 const MenuBar = () => {
   const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
