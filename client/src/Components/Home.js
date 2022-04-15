@@ -1,18 +1,19 @@
-import { useContext, useEffect } from "react";
-import styled from "styled-components";
-import MapContainer from "./Map/MapContainer";
 import ResponsiveContainer from "../Styling/ResponsiveContainer";
-import FirstLogin from "./Auth/FirstLogin";
-import { useAuth0 } from "@auth0/auth0-react";
-import { SIZES } from "../Styling/constants";
-import { getUser } from "./helpers/userHelpers";
 import { centeredFlexColumn, fillSpace } from "../Styling/StyledComponents";
+import styled from "styled-components";
+import { SIZES } from "../Styling/constants";
+
+import { useContext, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+
 import { AppContext } from "../AppContext";
+import { getUser } from "./helpers/userHelpers";
+import { Map } from "./Map";
+import FirstLogin from "./Auth/FirstLogin";
 
 const Home = () => {
-  const { firstLogin, setFirstLogin, loggedInUser, setLoggedInUser } =
-    useContext(AppContext);
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { firstLogin, setFirstLogin } = useContext(AppContext);
+  const { user, isAuthenticated /*, isLoading*/ } = useAuth0();
   // TODO: maybe move this action to login button? as something other than a useEffect..?
   // TODO: maybe if user has been found to exist in db, keep in local storage and don't query again
   // TODO: make it so you don't have to log in to use the app..
@@ -37,7 +38,7 @@ const Home = () => {
       <>
         {isAuthenticated ? (
           <Content>
-            <MapContainer />
+            <Map />
           </Content>
         ) : (
           <ResponsiveContainer>

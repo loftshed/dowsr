@@ -6,7 +6,7 @@ import {
 } from "../../../Styling/StyledComponents";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "../MappingContext";
-import { getDistanceFromPoint } from "../mapHelpers";
+import { getDistanceFromPoint } from "../helpers";
 
 const InfoPopup = ({ popupInfo, setPopupInfo }) => {
   const { userLocation } = useContext(MappingContext);

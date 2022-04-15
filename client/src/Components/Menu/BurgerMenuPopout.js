@@ -66,8 +66,6 @@ const BurgerMenuPopout = ({ show }) => {
 
 export default BurgerMenuPopout;
 
-const Boundary = styled.div``;
-
 const BurgerWrapper = styled.div`
   position: absolute;
   display: flex;

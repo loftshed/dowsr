@@ -5,7 +5,7 @@ import {
   getUserLocation,
   handleGetPinsOfType,
   handleSubmitPin,
-} from "./mapHelpers";
+} from "./helpers";
 import { fillSpace } from "../../Styling/StyledComponents";
 import styled from "styled-components";
 import MapFilters from "./MapFilters";
@@ -14,7 +14,7 @@ import InfoPopup from "./Popups/InfoPopup";
 import DisplayedPinsMarker from "./Markers/DisplayedPinsMarker";
 import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./Markers/NewPinMarker";
-import { MAPBOX_API_KEY, reverseGeocode } from "./mapHelpers";
+import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 
 /*
 TODO: the point is pushed to an array of datapoints which are used to populate the map with markers.

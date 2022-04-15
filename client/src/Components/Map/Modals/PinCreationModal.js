@@ -11,7 +11,7 @@ import {
   inputStyling,
   textButtonStyling,
 } from "../../../Styling/StyledComponents";
-import { handleSubmitPin } from "../mapHelpers";
+import { handleSubmitPin } from "../helpers";
 
 //TODO: figure out why address modal no longer updates on the fly..
 
