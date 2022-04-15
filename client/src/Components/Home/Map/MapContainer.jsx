@@ -7,7 +7,7 @@ import {
   handleSubmitPin,
 } from "./helpers";
 import { fillSpace } from "../../../styling/sharedstyles";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import MapFilters from "./MapFilters";
 import PinInfoModal from "./PinInfo/PinInfoModal";
 import PinInfoPopup from "./PinInfo/PinInfoPopup";
@@ -17,6 +17,8 @@ import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 
 const MapContainer = () => {
+  // TODO: Figure out why you must double click to create a pin
+
   const {
     userLocation,
     setUserLocation,
@@ -75,7 +77,7 @@ const MapContainer = () => {
   const { pins } = storedFilteredPins;
 
   return (
-    <MapWrapper>
+    <MapWrapper cursorType={creatingNewPin ? "pointer" : ""}>
       {userLocation && (
         <>
           {creatingNewPin && <Overlay />}
@@ -96,6 +98,7 @@ const MapContainer = () => {
                 setPopupIsVisible(!popupIsVisible);
               }
             }}
+            cursorModifier={creatingNewPin}
           >
             {!creatingNewPin && (
               <>
@@ -134,6 +137,9 @@ const MapWrapper = styled.div`
   position: relative;
   ${fillSpace}
   overflow: hidden;
+  #map canvas {
+    cursor: ${(props) => props.cursorType};
+  }
 `;
 
 const Overlay = styled.div`

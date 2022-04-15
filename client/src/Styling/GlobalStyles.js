@@ -46,6 +46,7 @@ const GlobalStyle = createGlobalStyle`
       font-family: "Karla";
     }
     
+    
     p {
       font-size: 20px;
     }
@@ -108,10 +109,7 @@ const GlobalStyle = createGlobalStyle`
     #root {
       height: 100%;
     }
-    .mapboxgl-popup {
-
-    }
-    
+        
     .mapboxgl-popup-content {
       background-color: var(--color-less-dark-grey);
       padding: 5px;
