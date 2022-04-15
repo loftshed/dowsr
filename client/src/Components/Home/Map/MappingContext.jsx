@@ -14,6 +14,7 @@ export const MappingProvider = ({ children }) => {
   const [popupInfo, setPopupInfo] = useState(null);
   const [pinCreationSuccessful, setPinCreationSuccessful] = useState(null);
   const [newPinData, setNewPinData] = useState(null);
+  const [storedFilteredPins, setStoredFilteredPins] = useState(null);
 
   return (
     <MappingContext.Provider
@@ -40,6 +41,8 @@ export const MappingProvider = ({ children }) => {
         setPinCreationSuccessful,
         newPinData,
         setNewPinData,
+        storedFilteredPins,
+        setStoredFilteredPins,
       }}
     >
       {children}

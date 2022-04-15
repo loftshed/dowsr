@@ -24,8 +24,8 @@ const submitPin = async (ev, locationObj, loggedInUser) => {
   try {
     const submissionObj = {
       type: ev.target.pinType.value,
-      lat: locationObj.lat,
-      lng: locationObj.lng,
+      latitude: locationObj.lat,
+      longitude: locationObj.lng,
       hours: ev.target.hours.value,
       address: ev.target.address.value,
       desc: ev.target.desc.value,

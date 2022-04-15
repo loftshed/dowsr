@@ -22,6 +22,7 @@ const thisCollection = db.collection("map-pins");
 
 const getPinsOfType = async ({ query: { filter } }, res) => {
   try {
+    console.log(filter);
     await client.connect();
     const { _id, pins } = await thisCollection.findOne({ filter: filter });
     res.status(200).json({

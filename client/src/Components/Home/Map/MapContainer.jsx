@@ -37,12 +37,13 @@ const MapContainer = () => {
     setPopupIsVisible,
     popupIsVisible,
     pinCreationSuccessful,
+    storedFilteredPins,
+    setStoredFilteredPins,
   } = useContext(MappingContext);
 
   const mapRef = useRef();
 
   // const [popupInfo, setPopupInfo] = useState(null);
-  const [storedFilteredPins, setStoredFilteredPins] = useState(null);
 
   const handleBeginPinCreation = async (ev) => {
     try {

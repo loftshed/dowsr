@@ -11,7 +11,7 @@ import {
   inputStyling,
   textButtonstyling,
 } from "../../../../styling/sharedstyles";
-import { submitPin } from "../helpers";
+import { handleGetPinsOfType, submitPin } from "../helpers";
 import { AppContext } from "../../../../AppContext";
 
 // Called from the Menu component
@@ -25,6 +25,7 @@ const NewPinModal = ({ show, type }) => {
     setCreatingNewPin,
     setMapModalMessage,
     pinCreationSuccessful,
+    setStoredFilteredPins,
     setPinCreationSuccessful,
     newPinData,
     setNewPinData,
@@ -37,10 +38,14 @@ const NewPinModal = ({ show, type }) => {
       // clean up this goddamn mess of state!
       if (result.success) {
         setNewPinData(result.submission);
+        console.log(result.submission.type);
         setCreatingNewPin(false);
         setShowPinCreationModal(false);
         setPinCreationSuccessful(true);
-        setMapModalMessage(`Thank you, @${result.submittedBy}!`);
+        // setStoredFilteredPins(
+        //   handleGetPinsOfType(await result.submission.type)
+        // );
+        setMapModalMessage(`Thank you, @${loggedInUser.username}!`);
       }
     } catch (error) {
       console.log(error);
@@ -137,8 +142,8 @@ const NewPinModal = ({ show, type }) => {
             </button>
           </Heading>
           <Subheading>
-            Latitude {newPinData.lat.toFixed(4)}, Longitude{" "}
-            {newPinData.lng.toFixed(4)}
+            Latitude {newPinData.latitude.toFixed(4)}, Longitude{" "}
+            {newPinData.longitude.toFixed(4)}
           </Subheading>
           <InnerContainerLiner>
             Awesome! Your submission has been entered into the queue for review
