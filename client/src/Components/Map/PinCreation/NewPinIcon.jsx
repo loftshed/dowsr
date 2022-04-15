@@ -2,7 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import { CreatePinIcon } from "../../../styling/react-icons";
 
-const NewPin = ({ onClick }) => {
+const NewPinIcon = ({ onClick }) => {
   return (
     <Wrapper>
       <CreatePinIcon onClick={onClick} />
@@ -10,7 +10,7 @@ const NewPin = ({ onClick }) => {
   );
 };
 
-export default memo(NewPin);
+export default memo(NewPinIcon);
 
 const Wrapper = styled.div`
   margin-bottom: 20px;

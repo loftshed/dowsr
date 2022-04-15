@@ -8,7 +8,7 @@ import {
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
 
-const ConfirmPinPopup = () => {
+const NewPinPopup = () => {
   const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
   const {
     clickedLocation,
@@ -78,7 +78,7 @@ const ConfirmPinPopup = () => {
     </Popup>
   );
 };
-export default ConfirmPinPopup;
+export default NewPinPopup;
 
 const StreetView = styled.img`
   border-radius: 10px;
