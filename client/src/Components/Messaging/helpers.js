@@ -55,4 +55,24 @@ const replyThread = async (threadId, message, userId, handle) => {
   }
 };
 
-export { getUserThreads, getOneThread, newThread, replyThread };
+const startThreadWithUser = async (idA, idB, message, senderUsername) => {
+  try {
+    const messageBody = {
+      userId: idA,
+      handle: senderUsername,
+      message: message,
+    };
+    const response = await newThread(idA, idB, messageBody);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  getUserThreads,
+  getOneThread,
+  newThread,
+  replyThread,
+  startThreadWithUser,
+};

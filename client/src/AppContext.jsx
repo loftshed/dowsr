@@ -13,6 +13,7 @@ export const AppProvider = ({ children }) => {
   const [showLoadingAnim, setShowLoadingAnim] = useState(false);
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [viewedProfile, setViewedProfile] = useState({});
   // const socket = socketio.connect("http://localhost:8080");
 
   return (
@@ -36,6 +37,8 @@ export const AppProvider = ({ children }) => {
         setShowBurgerMenu,
         showSearchBar,
         setShowSearchBar,
+        viewedProfile,
+        setViewedProfile,
         // socket,
       }}
     >

@@ -13,37 +13,37 @@ import { useEffect, useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Flag from "react-world-flags";
 import dayjs from "dayjs";
-
 import { AppContext } from "../../AppContext";
-import { getUser, handleGetProfile } from "../Auth/helpers";
+import { getUser, getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
-import { newThread } from "../Messaging/helpers";
+import { newThread, startThreadWithUser } from "../Messaging/helpers";
 
 const Profile = () => {
-  const [viewedProfile, setViewedProfile] = useState({});
-  const { loggedInUser } = useContext(AppContext);
+  const { loggedInUser, viewedProfile, setViewedProfile } =
+    useContext(AppContext);
   const { isLoading } = useAuth0();
   const navigate = useNavigate();
   const params = useParams();
+  const isOwnProfile = loggedInUser.username === params.username;
 
-  const handleGetProfile = async (userId) => {
-    if (!userId) {
+  const handleGetProfile = async (username) => {
+    if (!username) {
       setViewedProfile(loggedInUser);
       return;
     }
-    const { data } = await getUser("", userId);
+    const { data } = await getUserByUsername(username);
     setViewedProfile(data);
   };
 
   useEffect(() => {
-    if (!params.id) {
+    if (!params.username) {
       handleGetProfile(null, loggedInUser);
       return;
     } else {
-      handleGetProfile(params.id);
+      handleGetProfile(params.username);
     }
-  }, [params]);
+  }, [params.username]);
 
   const handleMsgUser = async (idA, idB, message) => {
     try {
@@ -57,7 +57,6 @@ const Profile = () => {
     } catch (error) {
       console.log(error);
     }
-    navigate("/messages", { replace: true });
   };
 
   if (isLoading)
@@ -94,20 +93,27 @@ const Profile = () => {
             <Details>
               <Location>{`${city}, ${region}`}</Location>
               <DetailList>
-                <li>{contributions} followers</li>
-                <li>{contributions} contributions</li>
+                <li>{contributions?.length} contributions</li>
                 <li>Member since {dayjs(regDate).format("MMMM YYYY")}</li>
               </DetailList>
             </Details>
           </UserDetails>
           <Actions>
-            <TextButton
-              onClick={() => {
-                handleMsgUser(loggedInUser._id, _id, "👋");
-              }}
-            >
-              Send Message
-            </TextButton>
+            {!isOwnProfile && (
+              <TextButton
+                onClick={() => {
+                  startThreadWithUser(
+                    loggedInUser._id,
+                    _id,
+                    "👋",
+                    loggedInUser.username
+                  );
+                  navigate("/messages", { replace: true });
+                }}
+              >
+                Send Message
+              </TextButton>
+            )}
           </Actions>
         </InnerContainerLiner>
       </InnerContainer>
