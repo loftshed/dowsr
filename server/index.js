@@ -25,7 +25,7 @@ io.on("message", (message) => {
 
 http.listen(8080, () => console.log("listening on http://localhost:8080"));
 
-/*-----------
+/*----------
 | handlers |
 -----------*/
 const {
@@ -34,6 +34,8 @@ const {
   modifyUser, // Modifies a user.
   removeUser, // Removes a user from the DB.
   addPinToUserContributions, // Pushes a newly created pin to the creator's contributions array.
+  checkAdminStatus, // Checks to see if the user is an admin.
+  toggleFollowUser, // Toggles one user following/unfollowing another.
 } = require("./handlers/userHandlers");
 
 const {
@@ -49,17 +51,19 @@ const {
 const {
   submitNewPin, // Submits a new pin to the DB.
   moderatePin, // Moderates a user-submitted pin.
-  modifyPin,
-  deletePin,
-  getSubmissionsByUsername,
-  getSubmissionsPendingReview,
-  getPinsOfType,
-  getOnePin,
+  modifyPin, // Modifies the details of a pin.
+  deletePin, // Deletes a pin from the DB.
+  getSubmissionsByUsername, // Gets all submissions by a given user.
+  getSubmissionsPendingReview, // Gets all submissions pending review.
+  getAllPins, // Gets all pins in the DB.
+  getPinsOfType, // Gets all pins of a given type.
+  getOnePin, // Gets a single pin by its ID.
+  toggleLikePin, // Likes or dislikes a pin.
 } = require("./handlers/mappingHandlers");
 
 app.use(morgan("tiny"));
-app.use(express.json()); // this was used in slingair server..  do i need?
-app.use(express.static("public")); // requests for static files go to public folder
+app.use(express.json());
+app.use(express.static("public"));
 app.use(helmet());
 app.use(cors());
 
@@ -69,10 +73,12 @@ app.use(cors());
 // user endpoints
 app.post("/api/add-user", addUser); // working
 app.get("/api/get-user", getUser); // working
-app.get("/api/get-user/:username", getUser);
+app.get("/api/get-user/:username", getUser); // working
+app.get("/api/get-user/admin-status", checkAdminStatus); //BROOOKEN
 app.patch("/api/modify-user", modifyUser); // working
 app.patch("/api/:username/add-contribution", addPinToUserContributions); // working
 app.delete("/api/remove-user", removeUser); // working
+app.patch("/api/toggle-follow", toggleFollowUser);
 
 // messaging endpoints
 app.post("/api/new-thread", newThread); // working
@@ -84,14 +90,16 @@ app.patch("/api/delete-thread", deleteThreadForUser); // working
 app.patch("/api/delete-thread-permanently", deleteThreadPermanently); // working
 
 // mapping endpoints
-app.get("/api/get-submissions", getSubmissionsByUsername);
-app.get("/api/get-pending-review", getSubmissionsPendingReview);
-app.get("/api/get-pins", getPinsOfType);
-app.get("/api/get-pin", getOnePin);
-app.patch("/api/submit-pin", submitNewPin);
-app.patch("/api/modify-pin", modifyPin);
-app.patch("/api/moderate-pin", moderatePin);
-app.patch("/api/delete-pin", deletePin);
+app.get("/api/get-submissions", getSubmissionsByUsername); // working
+app.get("/api/get-pending-review", getSubmissionsPendingReview); // working
+app.get("/api/get-pins", getPinsOfType); // working
+app.get("/api/get-pin", getOnePin); // working
+app.get("/api/get-pins/all", getAllPins); // working
+app.patch("/api/submit-pin", submitNewPin); // working
+app.patch("/api/modify-pin", modifyPin); // working
+app.patch("/api/moderate-pin", moderatePin); // working
+app.patch("/api/delete-pin", deletePin); // working
+app.patch("/api/toggle-like", toggleLikePin); // working!!!!!!!!!!!!!!!!!!
 
 /*------------------
 | end of endpoints |

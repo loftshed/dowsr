@@ -149,10 +149,101 @@ const addPinToUserContributions = async (
   }
 };
 
+// Follows or unfollows another user. Requires userId and targetUserId in the query.
+// If the optional third parameter "follow" is included, userId will follow targetUserId.
+// If the optional third parameter "follow" is not included, userId will unfollow targetUserId.
+// When a user follows another user, their userId is pushed into the target user's followers array, and the target user's userId is pushed into the initiating user's following array, and vice versa. If a user makes a redundant request it is ignored.
+// Try to make this way more DRY!!!
+// Maybe take userIds in the query and then assign them to variables dynamically in the function based on whether or not the "follow" parameter is included.
+const toggleFollowUser = async (
+  { query: { userId, targetUserId, follow } },
+  res
+) => {
+  try {
+    await client.connect();
+    const user = await thisCollection.findOne({ _id: userId });
+    const targetUser = await thisCollection.findOne({ _id: targetUserId });
+    // If the user already follows the target user that they are requesting to follow, ignore the request.
+    if (user.following.includes(targetUserId) && follow) {
+      res.status(200).json({
+        status: 200,
+        message: "You are already following this user.",
+      });
+    } else if (user && targetUser) {
+      if (follow) {
+        const updatedFollowedUser = await db
+          .collection("users")
+          .updateOne({ _id: targetUserId }, { $push: { followers: userId } });
+        const updatedFollowingUser = await db
+          .collection("users")
+          .updateOne({ _id: userId }, { $push: { following: targetUserId } });
+        updatedFollowingUser
+          ? res.status(200).json({
+              status: 200,
+              userFound: true,
+              data: [updatedFollowingUser, updatedFollowedUser],
+              message: `You are now following userId ${targetUserId}.`,
+            })
+          : res.status(500).json({
+              status: 500,
+              userFound: false,
+              message: "Something went wrong.",
+            });
+      } else {
+        if (!user.following.includes(targetUserId) && !follow) {
+          res.status(200).json({
+            status: 200,
+            message: "You cannot unfollow a user that you are not following.",
+          });
+        } else {
+          const updatedFollowedUser = await db
+            .collection("users")
+            .updateOne({ _id: targetUserId }, { $pull: { followers: userId } });
+          const updatedFollowingUser = await db
+            .collection("users")
+            .updateOne({ _id: userId }, { $pull: { following: targetUserId } });
+          updatedFollowingUser
+            ? res.status(200).json({
+                status: 200,
+                userFound: true,
+                data: [updatedFollowingUser, updatedFollowedUser],
+                message: `You are no longer following userId ${targetUserId}.`,
+              })
+            : res.status(500).json({
+                status: 500,
+                userFound: false,
+                message: "Something went wrong.",
+              });
+        }
+      }
+    }
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
+// Checks the database to see if submitted ID has a bool field of 'isAdmin' set to true.
+const checkAdminStatus = async ({ query: { id } }, res) => {
+  // try {
+  //   await client.connect();
+  //   const user = await thisCollection.findOne({ _id: id });
+  //   console.log(user);
+  //   if (user) {
+  //     user.isAdmin === true
+  //       ? res.status(200).json({ status: 200, isAdmin: true })
+  //       : res.status(200).json({ status: 200, isAdmin: false });
+  //   }
+  // } catch (err) {
+  //   err ? console.log(err) : client.close();
+  // }
+};
+
 module.exports = {
   addUser,
   getUser,
   modifyUser,
   removeUser,
   addPinToUserContributions,
+  toggleFollowUser,
+  checkAdminStatus,
 };

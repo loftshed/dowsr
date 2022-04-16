@@ -74,20 +74,27 @@ const submitNewPin = async ({ body }, res) => {
   }
 };
 
-// Retrieves all pins submitted by a given username
-const getSubmissionsByUsername = async ({ query: { submittedBy } }, res) => {
+// First returns a particular user's contributions array
+// Next, searches the map-pins collection for all pinIds that match any of the contributions array, then returns those pins.
+const getSubmissionsByUsername = async ({ query: { username } }, res) => {
   try {
     await client.connect();
-    const returnedPins = await thisCollection
-      .find({ "pins.submittedBy": submittedBy })
+    const { contributions } = await db
+      .collection("users")
+      .findOne({ username: username });
+    const userContributions = await thisCollection
+      .find({
+        "pins._id": { $in: contributions },
+      })
       .toArray();
-    // Uses array.find to search returnedPins for elements with a submittedBy property matching submittedBy.
-
-    // Searches through documents in collection "map-pins" in MongoDB database "final" and returns any array elements that have a field with a value matching the submittedBy parameter.
+    // Maps through the array contained in userContributions, and for each element, returns every element from the pins array with a submittedBy value matching the username.
+    const userSubmissions = userContributions.map((contribution) =>
+      contribution.pins.filter((pin) => pin.submittedBy === username)
+    );
     res.status(200).json({
       status: 200,
-      message: "Successfully retrieved submissions by username.",
-      pins: returnedPins,
+      submissions: userSubmissions,
+      message: "Successfully retrieved user contributions.",
     });
   } catch (err) {
     err ? console.log(err) : client.close();
@@ -165,9 +172,11 @@ const deletePin = async ({ query: { pinId } }, res) => {
 const getSubmissionsPendingReview = async (req, res) => {
   try {
     await client.connect();
-    const pendingReview = await thisCollection.find({
-      "pins.pendingReview": true,
-    });
+    const pendingReview = await thisCollection
+      .find({
+        "pins.pendingReview": true,
+      })
+      .toArray();
     res.status(200).json({
       status: 200,
       pendingReview: pendingReview,
@@ -200,13 +209,85 @@ const getOnePin = async ({ query: { pinId } }, res) => {
   }
 };
 
+// Retrieves everything from the map-pins collection in the database.
+const getAllPins = async (req, res) => {
+  try {
+    await client.connect();
+    const allPins = await thisCollection.find({}).toArray();
+    res.status(200).json({
+      status: 200,
+      allPins: allPins,
+      message: "Successfully retrieved all pins.",
+    });
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
+// Toggles liking/disliking a pin. Takes userId, pinId, and liked in the query.
+// If liked is true, the userId is added to the likedByIds array.
+// If the 'liked' parameter is not included in the query, the userId is added to the dislikedByIds array.
+// If the user clicks like or dislike on a pin that they have already liked or disliked, respectively, the userId is removed from that array.
+// Returns the updated pin.
+const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
+  try {
+    await client.connect();
+    let updatedPin;
+    let actionTaken;
+    if (liked) {
+      actionTaken = "liked";
+      updatedPin = await thisCollection.updateOne(
+        { "pins._id": pinId },
+        {
+          $addToSet: { "pins.$.likedByIds": userId },
+          $pull: { "pins.$.dislikedByIds": userId },
+        }
+      );
+      const { modifiedCount } = updatedPin;
+      if (!modifiedCount) {
+        actionTaken = "unliked";
+        updatedPin = await thisCollection.updateOne(
+          { "pins._id": pinId },
+          { $pull: { "pins.$.likedByIds": userId } }
+        );
+      }
+    } else {
+      actionTaken = "disliked";
+      updatedPin = await thisCollection.updateOne(
+        { "pins._id": pinId },
+        {
+          $addToSet: { "pins.$.dislikedByIds": userId },
+          $pull: { "pins.$.likedByIds": userId },
+        }
+      );
+      const { modifiedCount } = updatedPin;
+      if (!modifiedCount) {
+        actionTaken = "un-disliked";
+        updatedPin = await thisCollection.updateOne(
+          { "pins._id": pinId },
+          { $pull: { "pins.$.dislikedByIds": userId } }
+        );
+      }
+    }
+    res.status(200).json({
+      status: 200,
+      updatedPin: updatedPin,
+      message: `Successfully ${actionTaken} pin.`,
+    });
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
 module.exports = {
   getSubmissionsByUsername,
   getSubmissionsPendingReview,
   getOnePin,
+  getAllPins,
   getPinsOfType,
   submitNewPin,
   moderatePin,
   modifyPin,
   deletePin,
+  toggleLikePin,
 };
