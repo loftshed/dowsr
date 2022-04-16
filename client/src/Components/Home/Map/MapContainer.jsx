@@ -26,13 +26,10 @@ const MapContainer = () => {
     setShowFilterMenu,
     selectedMapFilter,
     mapModalMessage,
-    setShowPinCreationModal,
-    showPinCreationModal,
     popupInfo,
     setPopupInfo,
     clickedLocation,
     setClickedLocation,
-    setCreatingNewPin,
     creatingNewPin,
     setPopupIsVisible,
     popupIsVisible,
@@ -45,6 +42,7 @@ const MapContainer = () => {
 
   // const [popupInfo, setPopupInfo] = useState(null);
 
+  // Begins the process of creating a new pin. First grabs the street address of the clicked location, then records that location in state as clickedLocation.
   const handleBeginPinCreation = async (ev) => {
     try {
       const locationObj = await reverseGeocode(ev);
@@ -54,6 +52,7 @@ const MapContainer = () => {
     }
   };
 
+  // Uses built in browser geolocation to get the user's current location, then records that location in state as userLocation.
   const handleGeolocateUser = () => {
     return navigator.geolocation.getCurrentPosition((pos) => {
       const {
@@ -63,19 +62,26 @@ const MapContainer = () => {
     });
   };
 
+  // Each time the page renders...
+  // If creating a new pin, do nothing.
+  // Otherwise, if the user has not yet been geolocated, geolocate the user.
+  // If no map filter is selected, just show water pins.
+  // Otherwise, filter the pins by the selected map filter.
   useEffect(() => {
     (async () => {
       if (creatingNewPin) return;
-      handleGeolocateUser();
+      if (!userLocation) handleGeolocateUser();
       if (!selectedMapFilter) {
-        setStoredFilteredPins(await handleGetPinsOfType("bike-shops"));
-        return;
-      } // for now, just load bike shops if no filter selected
-      setStoredFilteredPins(await handleGetPinsOfType(selectedMapFilter));
+        setStoredFilteredPins(await handleGetPinsOfType("water"));
+      } else {
+        setStoredFilteredPins(await handleGetPinsOfType(selectedMapFilter));
+      }
     })();
   }, [setUserLocation, selectedMapFilter]);
 
+  // If there are no filtered pins in state, do not continue.
   if (!storedFilteredPins) return null;
+  // Once pins become available in state destructure them.
   const { pins } = storedFilteredPins;
 
   return (

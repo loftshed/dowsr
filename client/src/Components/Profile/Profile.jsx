@@ -45,20 +45,6 @@ const Profile = () => {
     }
   }, [params.username]);
 
-  const handleMsgUser = async (idA, idB, message) => {
-    try {
-      const messageBody = {
-        userId: idA,
-        handle: loggedInUser.username,
-        message: message,
-      };
-      const response = await newThread(idA, idB, messageBody);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   if (isLoading)
     return (
       <ResponsiveContainer>
