@@ -5,6 +5,7 @@ import {
   NotificationIcon,
   ChatIcon,
   ProfileIcon,
+  AdminIcon,
 } from "../../styling/react-icons";
 import LogoutButton from "../Auth/LogoutButton";
 import { useContext } from "react";
@@ -18,6 +19,20 @@ const BurgerMenuPopout = ({ show }) => {
   return (
     <BurgerWrapper show={show}>
       <Content>
+        <AdminContainer>
+          <IconNavLink
+            to="/admin"
+            onClick={() => {
+              setShowBurgerMenu(false);
+              if (creatingNewPin) {
+                setCreatingNewPin(false);
+                setMapModalMessage("");
+              }
+            }}
+          >
+            <AdminIcon />
+          </IconNavLink>
+        </AdminContainer>
         <InnerContainer>
           <LogoutButton
             onClick={() => {
@@ -115,3 +130,5 @@ const InnerContainer = styled.div`
   }
   overflow: hidden;
 `;
+
+const AdminContainer = styled(InnerContainer)``;

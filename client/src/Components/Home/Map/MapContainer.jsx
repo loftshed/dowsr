@@ -69,12 +69,14 @@ const MapContainer = () => {
   // Otherwise, filter the pins by the selected map filter.
   useEffect(() => {
     (async () => {
-      if (creatingNewPin) return;
-      if (!userLocation) handleGeolocateUser();
-      if (!selectedMapFilter) {
-        setStoredFilteredPins(await handleGetPinsOfType("water"));
-      } else {
-        setStoredFilteredPins(await handleGetPinsOfType(selectedMapFilter));
+      try {
+        if (creatingNewPin) return;
+        if (!userLocation) handleGeolocateUser();
+        !selectedMapFilter
+          ? setStoredFilteredPins(await handleGetPinsOfType("water"))
+          : setStoredFilteredPins(await handleGetPinsOfType(selectedMapFilter));
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, [setUserLocation, selectedMapFilter]);

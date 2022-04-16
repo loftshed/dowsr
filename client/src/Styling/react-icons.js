@@ -19,13 +19,13 @@ import {
   MdCoffee,
   MdLocalGroceryStore,
   MdFilterAlt,
+  MdAdminPanelSettings,
 } from "react-icons/md";
 import { BiTrafficCone } from "react-icons/bi";
 import {
   RiPoliceCarFill,
   RiMapPinAddFill,
   RiCloseCircleFill,
-  RiAdminFill,
 } from "react-icons/ri";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)``;
@@ -49,7 +49,7 @@ const CreatePinIcon = styled(RiMapPinAddFill)``;
 const CloseIcon = styled(RiCloseCircleFill)``;
 const WaterIcon = styled(IoIosWater)``;
 const ToiletIcon = styled(FaToilet)``;
-const AdminIcon = styled(RiAdminFill)``;
+const AdminIcon = styled(MdAdminPanelSettings)``;
 const BurgerMenuIcon = styled(TiThMenu)`
   filter: drop-shadow(1px 1px 1px var(--color-pink));
   width: 30px;
