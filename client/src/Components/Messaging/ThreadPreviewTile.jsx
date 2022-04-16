@@ -40,9 +40,7 @@ const ThreadPreviewTile = ({ threadId, userId, user, time, message }) => {
       }}
     >
       {collapseToAvatar ? (
-        <>
-          <Avatar src={avatarUrl} />
-        </>
+        <Avatar src={avatarUrl} />
       ) : (
         <>
           <Heading>
@@ -55,11 +53,15 @@ const ThreadPreviewTile = ({ threadId, userId, user, time, message }) => {
               <Timestamp>{dayjs(time).fromNow()}</Timestamp>
             </Text>
 
-            {showLoadingAnim && (
-              <ThreadRefreshBoundary>
-                <RefreshAnim />
-              </ThreadRefreshBoundary>
-            )}
+            {
+              // show the loading animation if the thread has just received a new message
+
+              showLoadingAnim && (
+                <ThreadRefreshBoundary>
+                  <RefreshAnim />
+                </ThreadRefreshBoundary>
+              )
+            }
           </Body>
         </>
       )}
