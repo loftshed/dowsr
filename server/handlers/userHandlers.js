@@ -131,10 +131,9 @@ const addPinToUserContributions = async (
     await client.connect();
     const user = await thisCollection.findOne({ username: username });
     if (user) {
-      const updatedUser = await thisCollection.updateOne(
-        { username: username },
-        { $push: { contributions: pinId } }
-      );
+      const updatedUser = await db
+        .collection("users")
+        .updateOne({ username: username }, { $push: { contributions: pinId } });
       updatedUser
         ? res
             .status(200)

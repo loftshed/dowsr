@@ -39,21 +39,32 @@ const getPinsOfType = async ({ query: { filter } }, res) => {
 const submitNewPin = async ({ body }, res) => {
   try {
     const currentTime = dayjs().format();
+    const pinId = uuidv4();
     const newPin = {
+      _id: pinId,
       ...body,
       submitted: currentTime,
       pendingReview: true,
     };
     await client.connect();
+    // Submits the new pin to the database.
     const submissionResult = await thisCollection.updateOne(
       { filter: newPin.type },
       { $push: { pins: newPin } }
     );
+    // Pushes the ID of the new pin to the 'contributions' array of the user that submitted it.
+    const updatedUser = await db
+      .collection("users")
+      .updateOne(
+        { username: newPin.submittedBy },
+        { $push: { contributions: pinId } }
+      );
     res.status(200).json({
       status: 200,
       submission: newPin,
       success: true,
-      result: submissionResult,
+      submissionResult: submissionResult,
+      updatedUser: updatedUser,
       message: "Pin submission successful. Awaiting review.",
     });
   } catch (err) {
