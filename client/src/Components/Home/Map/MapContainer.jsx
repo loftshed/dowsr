@@ -65,6 +65,8 @@ const MapContainer = () => {
   // In useEffect ... If creating a new pin, do nothing.
   // If the user has not yet been geolocated, geolocate the user.
   // If no map filter is selected, show water pins by default, otherwise show the selected map filter's pins.
+  // If not an admin, store only the pins that are not pending approval.
+
   useEffect(() => {
     (async () => {
       try {
@@ -72,8 +74,9 @@ const MapContainer = () => {
         if (!userLocation) handleGeolocateUser();
         let filter;
         !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
-        const retrievedPins = await handleGetPinsOfType(filter);
-        setStoredFilteredPins(retrievedPins);
+        const retrieved = await handleGetPinsOfType(filter);
+        const filteredPins = retrieved.pins.filter((pin) => !pin.pendingReview);
+        setStoredFilteredPins(filteredPins);
       } catch (error) {
         console.log(error);
       }
@@ -82,9 +85,6 @@ const MapContainer = () => {
 
   // Halts execution until storedFilteredPins are present in state.
   if (!storedFilteredPins) return null;
-
-  // Once storedFilteredPins are available in state, destructure them.
-  const { pins } = storedFilteredPins;
 
   return (
     <MapWrapper cursorType={creatingNewPin ? "pointer" : ""}>
@@ -112,7 +112,10 @@ const MapContainer = () => {
           >
             {!creatingNewPin && !pinCreationSuccessful && (
               <>
-                <PinInfoMarker pins={pins} setPopupInfo={setPopupInfo} />
+                <PinInfoMarker
+                  pins={storedFilteredPins}
+                  setPopupInfo={setPopupInfo}
+                />
                 <GeolocateControl
                   position="top-left"
                   trackUserLocation="true"
