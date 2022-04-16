@@ -62,9 +62,28 @@ const submitNewPin = async ({ body }, res) => {
   }
 };
 
+// Retrieves all pins submitted by a given username
+const getSubmissionsByUsername = async ({ query: { submittedBy } }, res) => {
+  try {
+    await client.connect();
+    const returnedPins = await thisCollection
+      .find({ "pins.submittedBy": submittedBy })
+      .toArray();
+    // Searches through documents in collection "map-pins" in MongoDB database "final" and returns any array elements that have a field with a value matching the submittedBy parameter.
+    res.status(200).json({
+      status: 200,
+      message: "Successfully retrieved submissions by username.",
+      pins: returnedPins,
+    });
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
 // After a pin has been approved, pendingReview will be set to false, making the pin visible to the public. The user will be notified via email and in their notifications panel. The user's contibutions count will be incremented by 1.
 
 module.exports = {
+  getSubmissionsByUsername,
   getPinsOfType,
   submitNewPin,
 };

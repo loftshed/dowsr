@@ -31,6 +31,7 @@ const {
   getUser,
   modifyUser,
   removeUser,
+  // addToContributions,
 } = require("./handlers/userHandlers");
 
 const {
@@ -41,7 +42,11 @@ const {
   getAllThreads,
 } = require("./handlers/messageHandlers");
 
-const { getPinsOfType, submitNewPin } = require("./handlers/mappingHandlers");
+const {
+  getPinsOfType,
+  submitNewPin,
+  getSubmissionsByUsername,
+} = require("./handlers/mappingHandlers");
 
 const { modifyPinWithId } = require("./handlers/adminHandlers");
 
@@ -57,7 +62,9 @@ app.use(cors());
 // user endpoints
 app.post("/api/add-user", addUser);
 app.get("/api/get-user", getUser);
+app.get("/api/get-user/:username", getUser);
 app.patch("/api/modify-user", modifyUser);
+// app.patch("/api/add-contribution", addToContributions);
 app.delete("/api/remove-user", removeUser);
 
 // messaging endpoints
@@ -69,6 +76,7 @@ app.get("/api/get-all-threads", getAllThreads);
 
 // mapping endpoints
 app.get("/api/get-pins", getPinsOfType);
+app.get("/api/get-submissions", getSubmissionsByUsername);
 app.patch("/api/submit-pin", submitNewPin);
 
 // admin endpoints

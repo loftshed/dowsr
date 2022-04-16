@@ -20,8 +20,9 @@ const db = client.db("final");
 const thisCollection = db.collection("users");
 /*--------------------------------------*/
 
-// Adds a new user to MongoDB.
-// In the body, expects a user object to be sent in JSON format.
+// Adds a new users to the DB.
+//
+// In req.body, expects a user object to be sent in JSON format.
 // An ID and a registration date will be inserted into the object by the backend upon new user creation.
 
 const addUser = async ({ body }, res) => {
@@ -49,22 +50,25 @@ const addUser = async ({ body }, res) => {
 };
 
 // Returns users stored in MongoDB.
-// Takes one of two parameters in query, depending on your request.
-// If you wish to return a single user, query key should be "email", and the value should be the user's email address.
-// If you wish to return all users, query key should be "all," with bool value "true".
+// If you wish to return a single user valid queries are:
+//
+// Through URL query (?id=, ?email=) ---
+// "email" - value should be the user's email address.
+// "id" - value should be the user's UUID.
+// Or, through URL params (:username) ---
+// "username" - value should be the user's username.
 
-const getUser = async ({ query: { id, email, all } }, res) => {
+const getUser = async ({ query: { id, email }, params: { username } }, res) => {
   try {
     await client.connect();
-    let returnedUsers;
-    const searchBy = email ? { email: email } : { _id: id };
-    all
-      ? (returnedUsers = await thisCollection.find().toArray())
-      : (returnedUsers = await thisCollection.findOne(searchBy));
-    returnedUsers
-      ? res
-          .status(200)
-          .json({ status: 200, userFound: true, data: returnedUsers })
+    let users;
+    if (id) users = await thisCollection.findOne({ _id: id });
+    if (email) users = await thisCollection.findOne({ email: email });
+    if (username) users = await thisCollection.findOne({ username: username });
+    if (!id && !email && !username)
+      users = await thisCollection.find().toArray();
+    users
+      ? res.status(200).json({ status: 200, userFound: true, data: users })
       : res.status(500).json({
           status: 500,
           userFound: false,
@@ -98,7 +102,7 @@ const modifyUser = async ({ query: { email }, body }, res) => {
   }
 };
 
-const removeUser = async ({ query: { email } }, res) => {
+const removeUser = async ({ query: { id, email } }, res) => {
   try {
     await client.connect();
     const { acknowledged, deletedCount } = await thisCollection.deleteOne({
@@ -116,6 +120,35 @@ const removeUser = async ({ query: { email } }, res) => {
     err ? console.log(err) : client.close();
   }
 };
+
+// Push a pin ID to the user's contributions array.
+// Takes a username and a pin ID as parameters.
+// const addToContributions = async (
+//   { params: { username }, query: { pinId } },
+//   res
+// ) => {
+//   try {
+//     await client.connect();
+//     const user = await thisCollection.findOne({ username: username });
+//     if (user) {
+//       const updatedUser = await thisCollection.updateOne(
+//         { username: username },
+//         { $push: { contributions: pinId } }
+//       );
+//       updatedUser
+//         ? res
+//             .status(200)
+//             .json({ status: 200, userFound: true, data: updatedUser })
+//         : res.status(500).json({
+//             status: 500,
+//             userFound: false,
+//             message: "Something went wrong.",
+//           });
+//     }
+//   } catch (err) {
+//     err ? console.log(err) : client.close();
+//   }
+// };
 
 module.exports = {
   addUser,
