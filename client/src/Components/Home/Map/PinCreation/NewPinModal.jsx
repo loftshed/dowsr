@@ -88,7 +88,7 @@ const NewPinModal = ({ show, type }) => {
                     <Option value="default">Select one:</Option>
                     <Option value="toilet">Toilets</Option>
                     <Option value="water">Water</Option>
-                    <Option value="police">Police</Option>
+                    <Option value="popo">Police</Option>
                     <Option value="hazard">Hazard</Option>
                   </ModalSelect>
                 </InputColumn>

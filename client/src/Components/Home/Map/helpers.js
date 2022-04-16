@@ -32,6 +32,7 @@ const submitPin = async (ev, locationObj, loggedInUser) => {
       submittedBy: loggedInUser.username,
       submittedByID: loggedInUser._id,
     };
+    console.log(submissionObj);
     const response = await fetch("http://localhost:9001/api/submit-pin", {
       method: "PATCH",
       headers: {
