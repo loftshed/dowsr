@@ -49,7 +49,7 @@ const PinInfoPopup = () => {
       closeButton={false}
       style={{
         position: "relative",
-        zIndex: "5",
+        zIndex: "1",
         padding: "0",
         transition: "all ease 0.2s",
       }}

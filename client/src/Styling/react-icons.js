@@ -25,6 +25,7 @@ import {
   RiPoliceCarFill,
   RiMapPinAddFill,
   RiCloseCircleFill,
+  RiAdminFill,
 } from "react-icons/ri";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)``;
@@ -48,6 +49,7 @@ const CreatePinIcon = styled(RiMapPinAddFill)``;
 const CloseIcon = styled(RiCloseCircleFill)``;
 const WaterIcon = styled(IoIosWater)``;
 const ToiletIcon = styled(FaToilet)``;
+const AdminIcon = styled(RiAdminFill)``;
 const BurgerMenuIcon = styled(TiThMenu)`
   filter: drop-shadow(1px 1px 1px var(--color-pink));
   width: 30px;
@@ -77,4 +79,5 @@ export {
   CloseIcon,
   WaterIcon,
   ToiletIcon,
+  AdminIcon,
 };
