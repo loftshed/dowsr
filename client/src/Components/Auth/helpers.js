@@ -43,7 +43,9 @@ const addNewUser = async ({ target }, user) => {
         country: target.country.value,
         region: target.region.value,
         avatarUrl: user.picture,
-        contributions: 0,
+        contributions: [],
+        followers: [],
+        following: [],
       }),
     });
     const result = await response.json();
