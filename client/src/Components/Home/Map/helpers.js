@@ -30,7 +30,9 @@ const submitPin = async (ev, locationObj, loggedInUser) => {
       address: ev.target.address.value,
       desc: ev.target.desc.value,
       submittedBy: loggedInUser.username,
-      submittedByID: loggedInUser._id,
+      submittedById: loggedInUser._id,
+      likedByIds: [],
+      dislikedByIds: [],
     };
     console.log(submissionObj);
     const response = await fetch("http://localhost:9001/api/submit-pin", {
