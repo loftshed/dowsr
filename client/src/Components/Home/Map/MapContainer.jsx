@@ -62,28 +62,28 @@ const MapContainer = () => {
     });
   };
 
-  // Each time the page renders...
-  // If creating a new pin, do nothing.
-  // Otherwise, if the user has not yet been geolocated, geolocate the user.
-  // If no map filter is selected, just show water pins.
-  // Otherwise, filter the pins by the selected map filter.
+  // In useEffect ... If creating a new pin, do nothing.
+  // If the user has not yet been geolocated, geolocate the user.
+  // If no map filter is selected, show water pins by default, otherwise show the selected map filter's pins.
   useEffect(() => {
     (async () => {
       try {
         if (creatingNewPin) return;
         if (!userLocation) handleGeolocateUser();
-        !selectedMapFilter
-          ? setStoredFilteredPins(await handleGetPinsOfType("water"))
-          : setStoredFilteredPins(await handleGetPinsOfType(selectedMapFilter));
+        let filter;
+        !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
+        const retrievedPins = await handleGetPinsOfType(filter);
+        setStoredFilteredPins(retrievedPins);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [setUserLocation, selectedMapFilter]);
 
-  // If there are no filtered pins in state, do not continue.
+  // Halts execution until storedFilteredPins are present in state.
   if (!storedFilteredPins) return null;
-  // Once pins become available in state destructure them.
+
+  // Once storedFilteredPins are available in state, destructure them.
   const { pins } = storedFilteredPins;
 
   return (
