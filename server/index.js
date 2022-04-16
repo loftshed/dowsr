@@ -9,46 +9,53 @@ const app = express();
 /*-----------------
 | socket.io stuff |
 -----------------*/
-// const http = require("http").createServer(app);
-// const io = require("socket.io")(http, { cors: { origin: "*" } });
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, { cors: { origin: "*" } });
 
-// io.on("connection", (socket) => {
-//   console.log(`a user connected ${socket.id}`);
-//   socket.emit("connection", "null");
-// });
+// Opens a socket connection to the client.
+io.on("connection", (socket) => {
+  console.log(`a user connected ${socket.id}`);
+  socket.emit("connection", "null");
+});
 
-// io.on("sendMsg", (socket) => {
-//   socket.emit("howdy", { data: "lol" });
-// });
+// Emits a message to the client.
+io.on("message", (message) => {
+  console.log(message);
+});
 
-// http.listen(8080, () => console.log("listening on http://localhost:8080"));
+http.listen(8080, () => console.log("listening on http://localhost:8080"));
 
 /*-----------
 | handlers |
 -----------*/
 const {
-  addUser,
-  getUser,
-  modifyUser,
-  removeUser,
-  addPinToUserContributions,
+  addUser, // Adds a new user to the DB.
+  getUser, // Returns a single user.
+  modifyUser, // Modifies a user.
+  removeUser, // Removes a user from the DB.
+  addPinToUserContributions, // Pushes a newly created pin to the creator's contributions array.
 } = require("./handlers/userHandlers");
 
 const {
-  getOneThread,
-  newThread,
-  modifyThread,
-  getUserThreads,
-  getAllThreads,
+  getOneThread, // Gets a single thread by its ID.
+  newThread, // Creates a new thread between two users if one doesn't already exist.
+  modifyThread, // Modifies a thread. This is used to add a message to a thread.
+  getUserThreads, // Gets all threads involving a given user by their userId.
+  getAllThreads, // Gets every single thread in the DB.
+  deleteThreadForUser, // Deletes one user's copy of a thread.
+  deleteThreadPermanently, // Deletes a thread from the DB completely.
 } = require("./handlers/messageHandlers");
 
 const {
-  getPinsOfType,
-  submitNewPin,
+  submitNewPin, // Submits a new pin to the DB.
+  moderatePin, // Moderates a user-submitted pin.
+  modifyPin,
+  deletePin,
   getSubmissionsByUsername,
+  getSubmissionsPendingReview,
+  getPinsOfType,
+  getOnePin,
 } = require("./handlers/mappingHandlers");
-
-const { modifyPinWithId } = require("./handlers/adminHandlers");
 
 app.use(morgan("tiny"));
 app.use(express.json()); // this was used in slingair server..  do i need?
@@ -60,27 +67,31 @@ app.use(cors());
 | endpoints |
 -----------*/
 // user endpoints
-app.post("/api/add-user", addUser);
-app.get("/api/get-user", getUser);
+app.post("/api/add-user", addUser); // working
+app.get("/api/get-user", getUser); // working
 app.get("/api/get-user/:username", getUser);
-app.patch("/api/modify-user", modifyUser);
-app.patch("/api/:username/add-contribution", addPinToUserContributions);
-app.delete("/api/remove-user", removeUser);
+app.patch("/api/modify-user", modifyUser); // working
+app.patch("/api/:username/add-contribution", addPinToUserContributions); // working
+app.delete("/api/remove-user", removeUser); // working
 
 // messaging endpoints
-app.post("/api/new-thread", newThread);
-app.patch("/api/modify-thread", modifyThread);
-app.get("/api/get-thread", getOneThread);
-app.get("/api/get-user-threads", getUserThreads);
-app.get("/api/get-all-threads", getAllThreads);
+app.post("/api/new-thread", newThread); // working
+app.patch("/api/modify-thread", modifyThread); // working
+app.get("/api/get-thread", getOneThread); // working
+app.get("/api/get-user-threads", getUserThreads); // working
+app.get("/api/get-all-threads", getAllThreads); // working
+app.patch("/api/delete-thread", deleteThreadForUser); // working
+app.patch("/api/delete-thread-permanently", deleteThreadPermanently); // working
 
 // mapping endpoints
-app.get("/api/get-pins", getPinsOfType);
 app.get("/api/get-submissions", getSubmissionsByUsername);
+app.get("/api/get-pending-review", getSubmissionsPendingReview);
+app.get("/api/get-pins", getPinsOfType);
+app.get("/api/get-pin", getOnePin);
 app.patch("/api/submit-pin", submitNewPin);
-
-// admin endpoints
-app.patch("/api/modify-pin", modifyPinWithId);
+app.patch("/api/modify-pin", modifyPin);
+app.patch("/api/moderate-pin", moderatePin);
+app.patch("/api/delete-pin", deletePin);
 
 /*------------------
 | end of endpoints |
