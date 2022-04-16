@@ -123,36 +123,37 @@ const removeUser = async ({ query: { id, email } }, res) => {
 
 // Push a pin ID to the user's contributions array.
 // Takes a username and a pin ID as parameters.
-// const addToContributions = async (
-//   { params: { username }, query: { pinId } },
-//   res
-// ) => {
-//   try {
-//     await client.connect();
-//     const user = await thisCollection.findOne({ username: username });
-//     if (user) {
-//       const updatedUser = await thisCollection.updateOne(
-//         { username: username },
-//         { $push: { contributions: pinId } }
-//       );
-//       updatedUser
-//         ? res
-//             .status(200)
-//             .json({ status: 200, userFound: true, data: updatedUser })
-//         : res.status(500).json({
-//             status: 500,
-//             userFound: false,
-//             message: "Something went wrong.",
-//           });
-//     }
-//   } catch (err) {
-//     err ? console.log(err) : client.close();
-//   }
-// };
+const addPinToUserContributions = async (
+  { params: { username }, query: { pinId } },
+  res
+) => {
+  try {
+    await client.connect();
+    const user = await thisCollection.findOne({ username: username });
+    if (user) {
+      const updatedUser = await thisCollection.updateOne(
+        { username: username },
+        { $push: { contributions: pinId } }
+      );
+      updatedUser
+        ? res
+            .status(200)
+            .json({ status: 200, userFound: true, data: updatedUser })
+        : res.status(500).json({
+            status: 500,
+            userFound: false,
+            message: "Something went wrong.",
+          });
+    }
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
 
 module.exports = {
   addUser,
   getUser,
   modifyUser,
   removeUser,
+  addPinToUserContributions,
 };

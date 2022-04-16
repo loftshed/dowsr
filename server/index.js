@@ -31,7 +31,7 @@ const {
   getUser,
   modifyUser,
   removeUser,
-  // addToContributions,
+  addPinToUserContributions,
 } = require("./handlers/userHandlers");
 
 const {
@@ -64,7 +64,7 @@ app.post("/api/add-user", addUser);
 app.get("/api/get-user", getUser);
 app.get("/api/get-user/:username", getUser);
 app.patch("/api/modify-user", modifyUser);
-// app.patch("/api/add-contribution", addToContributions);
+app.patch("/api/:username/add-contribution", addPinToUserContributions);
 app.delete("/api/remove-user", removeUser);
 
 // messaging endpoints

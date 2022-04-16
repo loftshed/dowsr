@@ -91,10 +91,8 @@ const Profile = () => {
               <h3>{username}</h3>
               <Flag code={country} height={16} />
             </DetailsHeading>
-
             <Details>
               <Location>{`${city}, ${region}`}</Location>
-
               <DetailList>
                 <li>{contributions} followers</li>
                 <li>{contributions} contributions</li>
@@ -112,9 +110,6 @@ const Profile = () => {
             </TextButton>
           </Actions>
         </InnerContainerLiner>
-        {/* <ProfileChin>
-          <LogoutButton />
-        </ProfileChin> */}
       </InnerContainer>
     </ResponsiveContainer>
   );

@@ -41,7 +41,6 @@ const submitNewPin = async ({ body }, res) => {
     const currentTime = dayjs().format();
     const newPin = {
       ...body,
-      _id: uuidv4(),
       submitted: currentTime,
       pendingReview: true,
     };
