@@ -19,19 +19,24 @@ const AdminPanel = () => {
 
   useEffect(() => {
     (async () => {
-      const { pendingReview } = await getPinsPendingReview();
-      console.log(pendingReview);
-      // setPendingPins(pendingReview);
+      try {
+        const { pendingReview } = await getPinsPendingReview();
+        setPendingPins(pendingReview);
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, [moderationResult]);
+
+  if (!pendingPins) return null;
 
   return (
     <ResponsiveContainer>
       <InnerContainer>
         <InnerContainerLiner>
-          <h3>Pending Pins</h3>
+          <h3>Pending Pins - Admin Only</h3>
           <>
-            {pendingPins.length === 0 ? (
+            {pendingPins?.length === 0 ? (
               <Filler>No pins in queue :) 🤘</Filler>
             ) : (
               <>
@@ -60,6 +65,10 @@ const InnerContainer = styled.div`
   padding: 5px;
   * {
     transition: all 0.2s ease;
+  }
+  h3 {
+    font-family: "Fira Mono", monospace;
+    text-transform: uppercase;
   }
 `;
 const InnerContainerLiner = styled.div`

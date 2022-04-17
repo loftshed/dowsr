@@ -22,9 +22,8 @@ const PendingPin = ({ pin, setPendingPins }) => {
 
   const handleModeratePendingPin = async (pinId, approved) => {
     try {
-      const response = await moderatePendingPin(pinId, approved);
-      console.log(response);
-      // if (message) setModerationResult(message);
+      const { message } = await moderatePendingPin(pinId, approved);
+      setModerationResult(message);
     } catch (error) {
       console.log(error);
     }
@@ -109,8 +108,7 @@ const Details = styled.div`
 
 const Divider = styled.div`
   height: 10px;
-
-  margin: 5px 0px;
+  margin-top: 5px;
   width: 100%;
   background-color: var(--color-dark-grey);
 `;
@@ -130,7 +128,6 @@ const Heading = styled.div`
 const PendingPinWrapper = styled.div`
   outline: 3px solid var(--color-dark-grey);
   border-radius: 3px;
-  margin-bottom: 15px;
   ul {
     all: unset;
     list-style: none;

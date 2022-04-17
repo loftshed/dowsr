@@ -13,26 +13,28 @@ import { AppContext } from "../../AppContext";
 import { MappingContext } from "../Home/Map/MappingContext";
 
 const BurgerMenuPopout = ({ show }) => {
-  const { setShowBurgerMenu } = useContext(AppContext);
+  const { setShowBurgerMenu, loggedInUser } = useContext(AppContext);
   const { creatingNewPin, setCreatingNewPin, setMapModalMessage } =
     useContext(MappingContext);
   return (
     <BurgerWrapper show={show}>
       <Content>
-        <AdminContainer>
-          <IconNavLink
-            to="/admin"
-            onClick={() => {
-              setShowBurgerMenu(false);
-              if (creatingNewPin) {
-                setCreatingNewPin(false);
-                setMapModalMessage("");
-              }
-            }}
-          >
-            <AdminIcon />
-          </IconNavLink>
-        </AdminContainer>
+        {loggedInUser.isAdmin && (
+          <AdminContainer>
+            <IconNavLink
+              to="/admin"
+              onClick={() => {
+                setShowBurgerMenu(false);
+                if (creatingNewPin) {
+                  setCreatingNewPin(false);
+                  setMapModalMessage("");
+                }
+              }}
+            >
+              <AdminIcon />
+            </IconNavLink>
+          </AdminContainer>
+        )}
         <InnerContainer>
           <LogoutButton
             onClick={() => {

@@ -10,32 +10,23 @@ import {
 } from "../../styling/react-icons";
 
 const PendingFilterItems = ({ item, setPendingPins }) => {
-  const { pins } = item;
   return (
     <PendingItemWrapper>
       <FilterType>
         <FilterTypeHeader>
           <Icon>
-            {item.filter === "water" && <WaterIcon />}
-            {item.filter === "toilet" && <ToiletIcon />}
-            {item.filter === "popo" && <PoliceIcon />}
-            {item.filter === "hazard" && <HazardIcon />}
+            {item.type === "water" && <WaterIcon />}
+            {item.type === "toilet" && <ToiletIcon />}
+            {item.type === "popo" && <PoliceIcon />}
+            {item.type === "hazard" && <HazardIcon />}
           </Icon>
         </FilterTypeHeader>
         <PinContainer>
-          {pins.length > 0 && (
-            <>
-              {pins.map((pin) => {
-                return (
-                  <PendingPin
-                    key={pin._id}
-                    pin={pin}
-                    setPendingPins={setPendingPins}
-                  />
-                );
-              })}
-            </>
-          )}
+          <PendingPin
+            key={item._id}
+            pin={item}
+            setPendingPins={setPendingPins}
+          />
         </PinContainer>
       </FilterType>
     </PendingItemWrapper>
