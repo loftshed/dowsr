@@ -46,6 +46,9 @@ const GlobalStyle = createGlobalStyle`
       font-family: "Karla";
     }
     
+    .react-icons {
+       vertical-align: middle;
+    }
     
     p {
       font-size: 20px;

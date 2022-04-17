@@ -10,6 +10,7 @@ import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
 import { getDistanceFromPoint } from "../helpers";
 import { useNavigate } from "react-router-dom";
+import { ThumbsDownIcon, ThumbsUpIcon } from "../../../../styling/react-icons";
 
 const PinInfoPopup = () => {
   const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -30,6 +31,7 @@ const PinInfoPopup = () => {
   const kmFromUser = (distanceFromUser * 100).toFixed(2);
 
   useEffect(() => {
+    // console.log(popupInfo);
     return () => {
       setClickedLocation(null);
     };
@@ -86,12 +88,27 @@ const PinInfoPopup = () => {
               </>
             )}
           </SubmittedBy>
+          <LikeDislike>
+            <Button value={"like"}>
+              <ThumbsUpIcon />
+              <span>{popupInfo.likedByIds.length}</span>
+            </Button>
+            <Button value={"dislike"}>
+              <ThumbsDownIcon />
+              <span>{popupInfo.dislikedByIds.length}</span>
+            </Button>
+          </LikeDislike>
         </Body>
       </PopupContainer>
     </Popup>
   );
 };
 export default PinInfoPopup;
+
+const LikeDislike = styled.div`
+  gap: 5px;
+  display: flex;
+`;
 
 const SubmittedBy = styled.button`
   ${textButtonstyling}
@@ -116,9 +133,7 @@ const Heading = styled.div`
   text-align: center;
 `;
 
-const Distance = styled.div`
-  padding: 3px;
-`;
+const Distance = styled.div``;
 
 const StreetView = styled.img`
   border-radius: 10px;
@@ -139,8 +154,19 @@ const Body = styled.div`
   color: var(--color-light-grey);
   background-color: var(--color-darkest-grey);
   border-radius: 4px;
-  padding: 0px 5px;
+  padding: 3px 5px;
+  gap: 3px;
   font-size: 14px;
   line-height: 18px;
   outline: 1px solid var(--color-super-dark-grey);
+`;
+
+const Button = styled.button`
+  ${textButtonstyling}
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background-color: var(--color-pink);
+  padding: 0px 2px;
+  border-radius: 4px;
 `;

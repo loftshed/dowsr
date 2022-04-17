@@ -9,6 +9,8 @@ import {
   BsSearch,
   BsMapFill,
   BsFillSaveFill,
+  BsFillHandThumbsUpFill,
+  BsFillHandThumbsDownFill,
 } from "react-icons/bs";
 import { TiThMenu } from "react-icons/ti";
 import { IoLogOut, IoSend } from "react-icons/io5";
@@ -50,11 +52,9 @@ const CloseIcon = styled(RiCloseCircleFill)``;
 const WaterIcon = styled(IoIosWater)``;
 const ToiletIcon = styled(FaToilet)``;
 const AdminIcon = styled(MdAdminPanelSettings)``;
-const BurgerMenuIcon = styled(TiThMenu)`
-  filter: drop-shadow(1px 1px 1px var(--color-pink));
-  width: 30px;
-  height: 30px;
-`;
+const BurgerMenuIcon = styled(TiThMenu)``;
+const ThumbsUpIcon = styled(BsFillHandThumbsUpFill)``;
+const ThumbsDownIcon = styled(BsFillHandThumbsDownFill)``;
 
 export {
   CircledArrowRight,
@@ -80,4 +80,6 @@ export {
   WaterIcon,
   ToiletIcon,
   AdminIcon,
+  ThumbsUpIcon,
+  ThumbsDownIcon,
 };

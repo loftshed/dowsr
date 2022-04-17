@@ -11,6 +11,7 @@ import {
   BurgerMenuIcon,
   CreatePinIcon,
 } from "../../styling/react-icons";
+import { TiThMenu } from "react-icons/ti";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
@@ -102,7 +103,7 @@ const MenuBar = () => {
                   <CreatePinIcon />
                 </IconNavLink>
               </IconRow>
-              <IconRow>
+              <BurgerZone>
                 <BurgerButton
                   onClick={() => {
                     setShowBurgerMenu(!showBurgerMenu);
@@ -110,9 +111,10 @@ const MenuBar = () => {
                     if (showSearchBar) setShowSearchBar(false);
                   }}
                 >
-                  <BurgerMenuIcon />
+                  {/* <BurgerMenuIcon /> */}
+                  <TiThMenu />
                 </BurgerButton>
-              </IconRow>
+              </BurgerZone>
             </>
           ) : (
             <LoginContainer>
@@ -152,10 +154,41 @@ const Boundary = styled.div`
   }
 `;
 
-const BurgerButton = styled(TextButton)`
-  box-sizing: border-box;
-  background-color: var(--color-button-bg);
-  padding: 7.5px;
+const BurgerButton = styled.button`
+  padding: unset;
+  padding: 2px;
+  margin-right: 3px;
+  border-radius: 3px;
+  height: fit-content;
+  width: fit-content;
+  border: none;
+  background: none;
+  outline: 1px solid var(--color-super-dark-grey);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-pink);
+  }
+`;
+
+const BurgerZone = styled.div`
+  ${centeredFlexRow}
+  width: fit-content;
+  svg {
+    width: 35px;
+    height: 35px;
+    background-color: var(--color-dark-grey);
+    fill: var(--color-medium-grey);
+    border-radius: 3px;
+
+    outline: 1px solid var(--color-less-dark-grey);
+    &:active {
+      background-color: var(--color-teal);
+      transform: scale(0.95);
+      outline: 2px solid var(--color-less-dark-grey);
+    }
+  }
+
+  padding: 0px 10px;
 `;
 
 const Wrapper = styled.div`
