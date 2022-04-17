@@ -63,7 +63,7 @@ const startThreadWithUser = async (idA, idB, message, senderUsername) => {
       message: message,
     };
     const response = await newThread(idA, idB, messageBody);
-    console.log(response);
+    return response;
   } catch (error) {
     console.log(error);
   }

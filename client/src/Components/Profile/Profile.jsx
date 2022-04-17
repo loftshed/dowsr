@@ -17,7 +17,11 @@ import { AppContext } from "../../AppContext";
 import { getUser, getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
-import { newThread, startThreadWithUser } from "../Messaging/helpers";
+import {
+  newThread,
+  startThreadWithUser,
+  getUserThreads,
+} from "../Messaging/helpers";
 
 const Profile = () => {
   const { loggedInUser, viewedProfile, setViewedProfile } =
@@ -88,8 +92,8 @@ const Profile = () => {
           <Actions>
             {!isOwnProfile && (
               <TextButton
-                onClick={() => {
-                  startThreadWithUser(
+                onClick={async () => {
+                  const result = await startThreadWithUser(
                     loggedInUser._id,
                     _id,
                     "👋",
