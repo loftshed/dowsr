@@ -20,7 +20,8 @@ const AdminPanel = () => {
   useEffect(() => {
     (async () => {
       const { pendingReview } = await getPinsPendingReview();
-      setPendingPins(pendingReview);
+      console.log(pendingReview);
+      // setPendingPins(pendingReview);
     })();
   }, [moderationResult]);
 
