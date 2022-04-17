@@ -33,6 +33,7 @@ const PinInfoPopup = () => {
   const [pinFeedback, setPinFeedback] = useState({});
 
   const isOwnPin = localStorage.getItem("username") === popupInfo?.submittedBy;
+  const isDefaultPin = popupInfo?.submittedBy === null;
 
   const kmFromUser = (distanceFromUser * 100).toFixed(2);
 
@@ -66,7 +67,13 @@ const PinInfoPopup = () => {
       }}
     >
       <PopupContainer>
-        <Heading>{popupInfo.desc}</Heading>
+        <Heading>
+          {popupInfo.submittedBy ? (
+            <>{popupInfo.desc}</>
+          ) : (
+            <>{popupInfo.name}</>
+          )}
+        </Heading>
         <Body>
           <Distance>{kmFromUser} km away</Distance>
           <a
@@ -80,72 +87,76 @@ const PinInfoPopup = () => {
           </a>
 
           {/* TODO do something to stop button from animation if submitted by dowsr */}
-          <SubmittedBy
-            key="linkToProfile"
-            disabled={!popupInfo.submittedBy}
-            onClick={(ev) => {
-              navigate(`/profile/${popupInfo.submittedBy}`);
-            }}
-          >
-            {popupInfo.submittedBy ? (
-              <>
+
+          {popupInfo.submittedBy !== "dowsr" ? (
+            <>
+              <SubmittedBy
+                key="linkToProfile"
+                disabled={!popupInfo.submittedBy}
+                onClick={(ev) => {
+                  navigate(`/profile/${popupInfo.submittedBy}`);
+                }}
+              >
                 <span>Submitted by</span>
                 <>{isOwnPin ? <>you!</> : <>@{popupInfo.submittedBy}</>}</>
-              </>
-            ) : (
-              <>
-                <span>Submitted by</span>dowsr
-              </>
-            )}
-          </SubmittedBy>
-          <LikeDislike>
-            <Button
-              isOwnPin={isOwnPin}
-              value={"like"}
-              onClick={async (ev) => {
-                const { success, action } = await togglePinLike(
-                  popupInfo._id,
-                  loggedInUser._id,
-                  true
-                );
+              </SubmittedBy>
+              <LikeDislike>
+                <Button
+                  isOwnPin={isOwnPin}
+                  value={"like"}
+                  onClick={async (ev) => {
+                    const { success, action } = await togglePinLike(
+                      popupInfo._id,
+                      loggedInUser._id,
+                      true
+                    );
 
-                if (success) {
-                  setPinFeedback({
-                    ...pinFeedback,
-                    numLikes:
-                      action === "liked"
-                        ? pinFeedback.numLikes + 1
-                        : pinFeedback.numLikes - 1,
-                  });
-                }
-              }}
-            >
-              <ThumbsUpIcon />
-              <span>{pinFeedback?.numLikes}</span>
-            </Button>
-            <Button
-              isOwnPin={isOwnPin}
-              value={"dislike"}
-              onClick={async (ev) => {
-                const { success, action } = await togglePinLike(
-                  popupInfo._id,
-                  loggedInUser._id
-                );
-                if (success) {
-                  setPinFeedback({
-                    ...pinFeedback,
-                    numDislikes:
-                      action === "disliked"
-                        ? (pinFeedback.numDislikes += 1)
-                        : (pinFeedback.numDislikes -= 1),
-                  });
-                }
-              }}
-            >
-              <ThumbsDownIcon />
-              <span>{pinFeedback?.numDislikes}</span>
-            </Button>
-          </LikeDislike>
+                    if (success) {
+                      setPinFeedback({
+                        ...pinFeedback,
+                        numLikes:
+                          action === "liked"
+                            ? pinFeedback.numLikes + 1
+                            : pinFeedback.numLikes - 1,
+                      });
+                    }
+                  }}
+                >
+                  <ThumbsUpIcon />
+                  <span>{pinFeedback?.numLikes}</span>
+                </Button>
+                <Button
+                  isDefaultPin={isDefaultPin}
+                  isOwnPin={isOwnPin}
+                  value={"dislike"}
+                  onClick={async (ev) => {
+                    const { success, action } = await togglePinLike(
+                      popupInfo._id,
+                      loggedInUser._id
+                    );
+                    if (success) {
+                      setPinFeedback({
+                        ...pinFeedback,
+                        numDislikes:
+                          action === "disliked"
+                            ? (pinFeedback.numDislikes += 1)
+                            : (pinFeedback.numDislikes -= 1),
+                      });
+                    }
+                  }}
+                >
+                  <ThumbsDownIcon />
+                  <span>{pinFeedback?.numDislikes}</span>
+                </Button>
+              </LikeDislike>
+            </>
+          ) : (
+            <DefaultPin>
+              <span>
+                Submitted by <span>dowsr</span>
+              </span>
+            </DefaultPin>
+          )}
         </Body>
       </PopupContainer>
     </Popup>
@@ -166,10 +177,19 @@ const SubmittedBy = styled.button`
   border-radius: 5px;
   line-height: 10px;
   background-color: var(--color-less-dark-grey);
-
   span {
     padding-right: 5px;
     font-size: 0.8rem;
+  }
+`;
+
+const DefaultPin = styled(SubmittedBy)`
+  pointer-events: none;
+  span {
+    all: unset;
+    span {
+      color: var(--color-light-grey);
+    }
   }
 `;
 

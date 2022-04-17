@@ -57,7 +57,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  handleFilter("bike-shops", "Bike Shops");
+                  handleFilter("shops", "Bike Shops");
                 }}
               >
                 <BikeIcon />

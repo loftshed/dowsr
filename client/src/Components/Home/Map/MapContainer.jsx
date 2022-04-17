@@ -101,8 +101,7 @@ const MapContainer = () => {
               zoom: 12,
             }}
             // mapStyle="mapbox://styles/mapbox/dark-v10"
-
-            mapStyle="mapbox://styles/loftshed/cl22xqvdk002316mvwn97htrh"
+            mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
             logoPosition={"top-right"}
             onClick={(ev) => {
               if (creatingNewPin) {
