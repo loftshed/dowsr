@@ -1,4 +1,5 @@
 import {
+  boxShadow,
   centeredFlexColumn,
   centeredFlexRow,
   fillSpace,
@@ -168,6 +169,7 @@ const BurgerButton = styled.button`
   &:hover {
     background-color: var(--color-pink);
   }
+  ${boxShadow}
 `;
 
 const BurgerZone = styled.div`

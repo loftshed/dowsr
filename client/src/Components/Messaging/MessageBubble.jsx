@@ -8,13 +8,21 @@ const Bubble = ({ recd, author, content, timestamp }) => {
   return (
     <BubbleWrapper>
       <MessageContainer recd={recd}>
-        <Heading recd={recd}>{recd && <>{author}</>}</Heading>
+        <Heading recd={recd}>
+          {recd && (
+            <ProfileLink
+            // onClick={(ev) => {
+            //   navigate(`/profile/${popupInfo.submittedBy}`);
+            // }}
+            >
+              {author}
+            </ProfileLink>
+          )}
+        </Heading>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           {recd && <Tip src="/tip-received.svg" recd={recd} />}
           <Body recd={recd}>
             {content}
-            <></>
-
             <Timestamp>{dayjs(timestamp).format("MMM D, hh:mma")}</Timestamp>
           </Body>
           {!recd && <Tip src="/tip-sent.svg" />}
@@ -25,6 +33,15 @@ const Bubble = ({ recd, author, content, timestamp }) => {
 };
 
 export default Bubble;
+const ProfileLink = styled.div`
+  all: inherit;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-pink);
+  }
+`;
 
 const Tip = styled.img`
   align-self: flex-end;

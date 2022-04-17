@@ -98,6 +98,26 @@ const getPinsPendingReview = async () => {
   }
 };
 
+const togglePinLike = async (pinId, userId, liked) => {
+  try {
+    const response = await fetch(
+      `http://localhost:9001/api/toggle-like?pinId=${pinId}&userId=${userId}${
+        liked && `&liked=${liked}`
+      }`,
+      {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   reverseGeocode,
   forwardGeocode,
@@ -106,5 +126,6 @@ export {
   submitPin,
   getDistanceFromPoint,
   getPinsPendingReview,
+  togglePinLike,
   MAPBOX_API_KEY,
 };

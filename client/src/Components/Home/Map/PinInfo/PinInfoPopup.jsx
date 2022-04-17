@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Popup, useMap } from "react-map-gl";
 import {
   fillSpace,
@@ -6,11 +6,13 @@ import {
   TextButton,
   textButtonstyling,
 } from "../../../../styling/sharedstyles";
+
 import { MappingContext } from "../MappingContext";
-import { useContext, useEffect } from "react";
-import { getDistanceFromPoint } from "../helpers";
+import { useContext, useEffect, useState } from "react";
+import { getDistanceFromPoint, togglePinLike } from "../helpers";
 import { useNavigate } from "react-router-dom";
 import { ThumbsDownIcon, ThumbsUpIcon } from "../../../../styling/react-icons";
+import { AppContext } from "../../../../AppContext";
 
 const PinInfoPopup = () => {
   const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -23,19 +25,24 @@ const PinInfoPopup = () => {
     setClickedLocation,
     setStoredFilteredPins,
   } = useContext(MappingContext);
+  const { loggedInUser } = useContext(AppContext);
   const distanceFromUser = getDistanceFromPoint(
     { lat: +popupInfo?.latitude, lng: +popupInfo?.longitude },
     { lat: userLocation.lat, lng: userLocation.lng }
   );
+  const [pinFeedback, setPinFeedback] = useState({});
 
   const kmFromUser = (distanceFromUser * 100).toFixed(2);
 
   useEffect(() => {
-    // console.log(popupInfo);
+    setPinFeedback({
+      numLikes: popupInfo?.likedByIds.length,
+      numDislikes: popupInfo?.dislikedByIds.length,
+    });
     return () => {
       setClickedLocation(null);
     };
-  }, []);
+  }, [pinFeedback.numLikes, pinFeedback.numDislikes]);
 
   // Get the user's avatarUrl from the db
 
@@ -89,13 +96,49 @@ const PinInfoPopup = () => {
             )}
           </SubmittedBy>
           <LikeDislike>
-            <Button value={"like"}>
+            <Button
+              value={"like"}
+              onClick={async (ev) => {
+                const { success, action } = await togglePinLike(
+                  popupInfo._id,
+                  loggedInUser._id,
+                  true
+                );
+
+                if (success) {
+                  setPinFeedback({
+                    ...pinFeedback,
+                    numLikes:
+                      action === "liked"
+                        ? pinFeedback.numLikes + 1
+                        : pinFeedback.numLikes - 1,
+                  });
+                }
+              }}
+            >
               <ThumbsUpIcon />
-              <span>{popupInfo.likedByIds.length}</span>
+              <span>{pinFeedback?.numLikes}</span>
             </Button>
-            <Button value={"dislike"}>
+            <Button
+              value={"dislike"}
+              onClick={async (ev) => {
+                const { success, action } = await togglePinLike(
+                  popupInfo._id,
+                  loggedInUser._id
+                );
+                if (success) {
+                  setPinFeedback({
+                    ...pinFeedback,
+                    numDislikes:
+                      action === "disliked"
+                        ? (pinFeedback.numDislikes += 1)
+                        : (pinFeedback.numDislikes -= 1),
+                  });
+                }
+              }}
+            >
               <ThumbsDownIcon />
-              <span>{popupInfo.dislikedByIds.length}</span>
+              <span>{pinFeedback?.numDislikes}</span>
             </Button>
           </LikeDislike>
         </Body>
@@ -166,7 +209,30 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   gap: 2px;
-  background-color: var(--color-pink);
-  padding: 0px 2px;
+  // if value is like, set background color to teal
+  ${(props) =>
+    props.value === "like"
+      ? css`
+          background-color: var(--color-teal);
+          &:hover {
+            background-color: var(--color-pink);
+          }
+        `
+      : css`
+          background-color: var(--color-pink);
+        `}
+
+  padding: 1px 2px;
   border-radius: 4px;
+  svg,
+  span {
+    pointer-events: none;
+  }
+  span {
+    font-weight: 800;
+    color: var(--color-medium-grey);
+    border-radius: 4px;
+    line-height: 11px;
+    padding: 2px;
+  }
 `;

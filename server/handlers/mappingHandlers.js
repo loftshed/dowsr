@@ -124,8 +124,8 @@ const moderatePin = async ({ query: { pinId, approved } }, res) => {
       status: 200,
       updatedPin: updatedPin,
       message: !approved
-        ? "Pin rejected. Pin has been removed from the database."
-        : "Pin approved. Pin is now visible to the public.",
+        ? `Pin with id '${pinId}' rejected. Pin has been removed from the database.`
+        : `Pin with id '${pinId}' approved. Pin is now visible to the public.`,
     });
   } catch (err) {
     err ? console.log(err) : client.close();
@@ -169,6 +169,7 @@ const deletePin = async ({ query: { pinId } }, res) => {
 };
 
 // Returns all submissions pending review from the database.
+
 const getSubmissionsPendingReview = async (req, res) => {
   try {
     await client.connect();
@@ -177,9 +178,17 @@ const getSubmissionsPendingReview = async (req, res) => {
         "pins.pendingReview": true,
       })
       .toArray();
+
+    // TODO: In retrospect I should have just put all of the documents directly into the top level of the collection in MongoDB and then filtered them out here. Time is tight now tho we'll see. Band-aid solution for now.
+    let returnedPendingItems = [];
+    pendingReview.map((contribution) =>
+      returnedPendingItems.push(
+        contribution.pins.filter((pin) => pin.pendingReview === true)[0]
+      )
+    );
     res.status(200).json({
       status: 200,
-      pendingReview: pendingReview,
+      pendingReview: returnedPendingItems,
       message: "Successfully retrieved all submissions pending review.",
     });
   } catch (err) {
@@ -262,7 +271,7 @@ const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
       );
       const { modifiedCount } = updatedPin;
       if (!modifiedCount) {
-        actionTaken = "un-disliked";
+        actionTaken = "undisliked";
         updatedPin = await thisCollection.updateOne(
           { "pins._id": pinId },
           { $pull: { "pins.$.dislikedByIds": userId } }
@@ -272,6 +281,8 @@ const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
     res.status(200).json({
       status: 200,
       updatedPin: updatedPin,
+      success: true,
+      action: actionTaken,
       message: `Successfully ${actionTaken} pin.`,
     });
   } catch (err) {
