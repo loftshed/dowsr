@@ -22,16 +22,28 @@ const AdminPanel = () => {
     })();
   }, []);
 
-  if (!pendingPins.length === 0) return null;
-
   return (
     <ResponsiveContainer>
       <InnerContainer>
         <InnerContainerLiner>
           <h3>Pending Pins</h3>
-          {pendingPins.map((pin) => {
-            return <PendingFilterItems key={pin._id} item={pin} />;
-          })}
+          <>
+            {pendingPins.length === 0 ? (
+              <Filler>No pins in queue :) 🤘</Filler>
+            ) : (
+              <>
+                {pendingPins.map((pin) => {
+                  return (
+                    <PendingFilterItems
+                      key={pin._id}
+                      item={pin}
+                      setPendingPins={setPendingPins}
+                    />
+                  );
+                })}
+              </>
+            )}
+          </>
         </InnerContainerLiner>
       </InnerContainer>
     </ResponsiveContainer>
@@ -43,6 +55,9 @@ export default AdminPanel;
 const InnerContainer = styled.div`
   ${fillSpace}
   padding: 5px;
+  * {
+    transition: all 0.2s ease;
+  }
 `;
 const InnerContainerLiner = styled.div`
   flex-direction: column;
@@ -52,6 +67,11 @@ const InnerContainerLiner = styled.div`
   border-radius: ${SIZES.borderRadius}px;
   ${fillSpace}
   padding: 10px;
-  gap: 10px;
+  gap: 20px;
   overflow-y: scroll;
+`;
+
+const Filler = styled.div`
+  ${centeredFlexColumn}
+  ${fillSpace}
 `;

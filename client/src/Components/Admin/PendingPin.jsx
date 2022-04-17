@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { centeredFlexRow } from "../../styling/sharedstyles";
-import { useNavigate } from "react-router-dom";
+import { moderatePendingPin } from "./helpers";
+import { getPinsPendingReview } from "../Home/Map/helpers";
 
-const PendingPin = ({ pin }) => {
+const PendingPin = ({ pin, setPendingPins }) => {
   const {
     _id,
     type,
@@ -15,6 +16,20 @@ const PendingPin = ({ pin }) => {
     submittedById,
     submitted,
   } = pin;
+
+  const handleModeratePendingPin = async (pinId, approved) => {
+    try {
+      const { matchedCount } = await moderatePendingPin(pinId, approved);
+      if (matchedCount > 0) {
+        setPendingPins((prevPins) => {
+          return prevPins.filter((pin) => pin._id !== pinId);
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <PendingPinWrapper>
       <ul>
@@ -23,52 +38,84 @@ const PendingPin = ({ pin }) => {
             <span>pinId</span> {_id}
           </li>
         </Heading>
-        <li>
-          <span>filter</span> {type}
-        </li>
-        <a
-          href={`http://maps.google.com/maps?q=&layer=c&cbll=${latitude},${longitude}`}
-          target="_new"
-        >
+        <Details>
           <li>
-            <span>latitude</span> {latitude}
+            <span>filter</span> {type}
           </li>
-          <li>
-            <span>longitude</span> {longitude}
-          </li>
-        </a>
-        <li>
-          <span>hours</span> {hours}
-        </li>
-        <li>
-          <span>address</span> {address}
-        </li>
-        <li>
-          <span>desc</span> '{desc}'
-        </li>
-        <li>
-          <span>submittedBy</span>{" "}
-          <a href={`http://localhost:3000/users/${submittedBy}`} target="_new">
-            <span style={{ color: "var(--color-teal)" }}>@</span>
-            {submittedBy}
+          <a
+            href={`http://maps.google.com/maps?q=&layer=c&cbll=${latitude},${longitude}`}
+            target="_new"
+          >
+            <li>
+              <span>latitude</span> {latitude}
+            </li>
+            <li>
+              <span>longitude</span> {longitude}
+            </li>
           </a>
-        </li>
-        <li>
-          <span>submittedById</span> {submittedById}
-        </li>
-        <li>
-          <span>submitted</span> {submitted}
-        </li>
+          <li>
+            <span>hours</span> {hours}
+          </li>
+          <li>
+            <span>address</span> {address}
+          </li>
+          <li>
+            <span>desc</span> '{desc}'
+          </li>
+          <li>
+            <span>submittedBy</span>{" "}
+            <a
+              href={`http://localhost:3000/users/${submittedBy}`}
+              target="_new"
+            >
+              <span style={{ color: "var(--color-teal)" }}>@</span>
+              {submittedBy}
+            </a>
+          </li>
+          <li>
+            <span>submittedById</span> {submittedById}
+          </li>
+          <li>
+            <span>submitted</span> {submitted}
+          </li>
+        </Details>
       </ul>
       <ButtonRow>
-        <button>Approve</button>
-        <button>Reject</button>
+        <button
+          onClick={() => {
+            const response = handleModeratePendingPin(_id, true);
+            const { success } = response;
+          }}
+        >
+          Approve
+        </button>
+        <button
+          onClick={() => {
+            const response = handleModeratePendingPin(_id, false);
+            const { success } = response;
+          }}
+        >
+          Reject
+        </button>
       </ButtonRow>
+      <Divider />
     </PendingPinWrapper>
   );
 };
 
 export default PendingPin;
+
+const Details = styled.div`
+  padding: 4px;
+`;
+
+const Divider = styled.div`
+  height: 10px;
+
+  margin: 5px 0px;
+  width: 100%;
+  background-color: var(--color-dark-grey);
+`;
 
 const ButtonRow = styled.div`
   ${centeredFlexRow}
@@ -80,10 +127,12 @@ const Heading = styled.div`
   background-color: var(--color-dark-grey);
   padding: 5px;
   margin-bottom: 3px;
-  border-radius: 3px;
 `;
 
 const PendingPinWrapper = styled.div`
+  outline: 3px solid var(--color-dark-grey);
+  border-radius: 3px;
+  margin-bottom: 15px;
   ul {
     all: unset;
     list-style: none;
@@ -97,6 +146,7 @@ const PendingPinWrapper = styled.div`
     color: var(--color-pink);
   }
   button {
+    font-weight: 600;
     border-radius: 2px;
     border: unset;
     text-align: center;
@@ -105,6 +155,7 @@ const PendingPinWrapper = styled.div`
     &:hover {
       cursor: pointer;
       background-color: var(--color-medium-grey);
+      color: var(--color-pink);
     }
     &:active {
       background-color: var(--color-teal);

@@ -9,7 +9,7 @@ import {
   PoliceIcon,
 } from "../../styling/react-icons";
 
-const PendingFilterItems = ({ item }) => {
+const PendingFilterItems = ({ item, setPendingPins }) => {
   const { pins } = item;
   return (
     <PendingItemWrapper>
@@ -26,7 +26,13 @@ const PendingFilterItems = ({ item }) => {
           {pins.length > 0 && (
             <>
               {pins.map((pin) => {
-                return <PendingPin key={pin._id} pin={pin} />;
+                return (
+                  <PendingPin
+                    key={pin._id}
+                    pin={pin}
+                    setPendingPins={setPendingPins}
+                  />
+                );
               })}
             </>
           )}
@@ -52,6 +58,7 @@ const PinContainer = styled.div`
   background-color: var(--color-super-dark-grey);
   border-radius: 10px;
   padding: 10px;
+  height: fit-content;
 `;
 
 const PendingItemWrapper = styled.div`
