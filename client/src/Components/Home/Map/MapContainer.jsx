@@ -93,13 +93,16 @@ const MapContainer = () => {
           <Map
             mapboxAccessToken={MAPBOX_API_KEY}
             id="map"
+            container="map"
             ref={mapRef}
             initialViewState={{
               longitude: userLocation.lng,
               latitude: userLocation.lat,
               zoom: 12,
             }}
-            mapStyle="mapbox://styles/mapbox/dark-v10"
+            // mapStyle="mapbox://styles/mapbox/dark-v10"
+
+            mapStyle="mapbox://styles/loftshed/cl22xqvdk002316mvwn97htrh"
             logoPosition={"top-right"}
             onClick={(ev) => {
               if (creatingNewPin) {

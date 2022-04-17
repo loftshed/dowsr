@@ -32,6 +32,8 @@ const PinInfoPopup = () => {
   );
   const [pinFeedback, setPinFeedback] = useState({});
 
+  const isOwnPin = localStorage.getItem("username") === popupInfo?.submittedBy;
+
   const kmFromUser = (distanceFromUser * 100).toFixed(2);
 
   useEffect(() => {
@@ -87,7 +89,8 @@ const PinInfoPopup = () => {
           >
             {popupInfo.submittedBy ? (
               <>
-                <span>Submitted by</span>@{popupInfo.submittedBy}
+                <span>Submitted by</span>
+                <>{isOwnPin ? <>you!</> : <>@{popupInfo.submittedBy}</>}</>
               </>
             ) : (
               <>
@@ -97,6 +100,7 @@ const PinInfoPopup = () => {
           </SubmittedBy>
           <LikeDislike>
             <Button
+              isOwnPin={isOwnPin}
               value={"like"}
               onClick={async (ev) => {
                 const { success, action } = await togglePinLike(
@@ -120,6 +124,7 @@ const PinInfoPopup = () => {
               <span>{pinFeedback?.numLikes}</span>
             </Button>
             <Button
+              isOwnPin={isOwnPin}
               value={"dislike"}
               onClick={async (ev) => {
                 const { success, action } = await togglePinLike(
@@ -221,7 +226,11 @@ const Button = styled.button`
       : css`
           background-color: var(--color-pink);
         `}
-
+  ${(props) =>
+    props.isOwnPin &&
+    css`
+      pointer-events: none;
+    `}        
   padding: 1px 2px;
   border-radius: 4px;
   svg,
