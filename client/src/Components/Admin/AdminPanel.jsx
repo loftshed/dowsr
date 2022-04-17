@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { getPinsPendingReview } from "../Home/Map/helpers";
@@ -9,10 +9,12 @@ import {
   fillSpace,
 } from "../../styling/sharedstyles";
 import PendingFilterItems from "./PendingFilterItems";
+import { MappingContext } from "../Home/Map/MappingContext";
 
 // Minimum viable product: Display a list with all the pins in the database that are currently awaiting review, and a button to approve or reject them.
 
 const AdminPanel = () => {
+  const { moderationResult, setModerationResult } = useContext(MappingContext);
   const [pendingPins, setPendingPins] = useState([]);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const AdminPanel = () => {
       const { pendingReview } = await getPinsPendingReview();
       setPendingPins(pendingReview);
     })();
-  }, []);
+  }, [moderationResult]);
 
   return (
     <ResponsiveContainer>

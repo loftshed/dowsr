@@ -15,6 +15,7 @@ export const MappingProvider = ({ children }) => {
   const [pinCreationSuccessful, setPinCreationSuccessful] = useState(null);
   const [newPinData, setNewPinData] = useState(null);
   const [storedFilteredPins, setStoredFilteredPins] = useState(null);
+  const [moderationResult, setModerationResult] = useState(null);
 
   return (
     <MappingContext.Provider
@@ -43,6 +44,8 @@ export const MappingProvider = ({ children }) => {
         setNewPinData,
         storedFilteredPins,
         setStoredFilteredPins,
+        moderationResult,
+        setModerationResult,
       }}
     >
       {children}

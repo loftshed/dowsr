@@ -2,8 +2,11 @@ import styled from "styled-components";
 import { centeredFlexRow } from "../../styling/sharedstyles";
 import { moderatePendingPin } from "./helpers";
 import { getPinsPendingReview } from "../Home/Map/helpers";
+import { MappingContext } from "../Home/Map/MappingContext";
+import { useContext } from "react";
 
 const PendingPin = ({ pin, setPendingPins }) => {
+  const { setModerationResult } = useContext(MappingContext);
   const {
     _id,
     type,
@@ -19,12 +22,9 @@ const PendingPin = ({ pin, setPendingPins }) => {
 
   const handleModeratePendingPin = async (pinId, approved) => {
     try {
-      const { matchedCount } = await moderatePendingPin(pinId, approved);
-      if (matchedCount > 0) {
-        setPendingPins((prevPins) => {
-          return prevPins.filter((pin) => pin._id !== pinId);
-        });
-      }
+      const response = await moderatePendingPin(pinId, approved);
+      console.log(response);
+      // if (message) setModerationResult(message);
     } catch (error) {
       console.log(error);
     }
@@ -83,16 +83,14 @@ const PendingPin = ({ pin, setPendingPins }) => {
       <ButtonRow>
         <button
           onClick={() => {
-            const response = handleModeratePendingPin(_id, true);
-            const { success } = response;
+            handleModeratePendingPin(_id, true);
           }}
         >
           Approve
         </button>
         <button
           onClick={() => {
-            const response = handleModeratePendingPin(_id, false);
-            const { success } = response;
+            handleModeratePendingPin(_id, false);
           }}
         >
           Reject
