@@ -12,6 +12,7 @@ import { useContext, useEffect, useState } from "react";
 import { getDistanceFromPoint, togglePinLike } from "../helpers";
 import { useNavigate } from "react-router-dom";
 import { ThumbsDownIcon, ThumbsUpIcon } from "../../../../styling/react-icons";
+import { RiLinkM as LinkIcon } from "react-icons/ri";
 import { AppContext } from "../../../../AppContext";
 
 const PinInfoPopup = () => {
@@ -68,10 +69,15 @@ const PinInfoPopup = () => {
     >
       <PopupContainer>
         <Heading>
-          {popupInfo.submittedBy ? (
-            <>{popupInfo.desc}</>
+          {popupInfo.submittedBy === "dowsr" && popupInfo.site ? (
+            <>
+              <a href={`${popupInfo.site}`} target="_new">
+                {popupInfo.desc}
+                <LinkIcon style={{ pointerEvents: "none" }} />
+              </a>
+            </>
           ) : (
-            <>{popupInfo.name}</>
+            <>{popupInfo.desc}</>
           )}
         </Heading>
         <Body>
@@ -194,11 +200,20 @@ const DefaultPin = styled(SubmittedBy)`
 `;
 
 const Heading = styled.div`
+  display: flex;
   font-size: 15px;
   font-weight: 800;
   color: var(--color-light-grey);
   padding: 3px;
   text-align: center;
+  a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    &:hover {
+      color: var(--color-teal);
+    }
+  }
 `;
 
 const Distance = styled.div``;
