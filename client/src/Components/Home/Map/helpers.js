@@ -87,6 +87,17 @@ const getDistanceFromPoint = (pos1, pos2) => {
   );
 };
 
+const getPinsPendingReview = async () => {
+  try {
+    const response = await fetch(
+      "http://localhost:9001/api/get-pending-review"
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   reverseGeocode,
   forwardGeocode,
@@ -94,5 +105,6 @@ export {
   handleGetPinsOfType,
   submitPin,
   getDistanceFromPoint,
+  getPinsPendingReview,
   MAPBOX_API_KEY,
 };

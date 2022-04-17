@@ -40,8 +40,6 @@ const MapContainer = () => {
 
   const mapRef = useRef();
 
-  // const [popupInfo, setPopupInfo] = useState(null);
-
   // Begins the process of creating a new pin. First grabs the street address of the clicked location, then records that location in state as clickedLocation.
   const handleBeginPinCreation = async (ev) => {
     try {
@@ -52,6 +50,7 @@ const MapContainer = () => {
     }
   };
 
+  //TODO: Try to get this out of the component. So messsy.
   // Uses built in browser geolocation to get the user's current location, then records that location in state as userLocation.
   const handleGeolocateUser = () => {
     return navigator.geolocation.getCurrentPosition((pos) => {
