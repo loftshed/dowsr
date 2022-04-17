@@ -68,7 +68,7 @@ const BurgerMenuPopout = ({ show }) => {
             <ChatIcon />
           </IconNavLink>
           <IconNavLink
-            to="/profile"
+            to={`/profile/${loggedInUser.username}`}
             onClick={() => {
               setShowBurgerMenu(false);
               if (creatingNewPin) {

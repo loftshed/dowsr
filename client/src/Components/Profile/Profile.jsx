@@ -26,6 +26,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const params = useParams();
   const isOwnProfile = loggedInUser.username === params.username;
+  console.log(params);
 
   const handleGetProfile = async (username) => {
     if (!username) {
@@ -38,12 +39,12 @@ const Profile = () => {
 
   useEffect(() => {
     if (!params.username) {
-      handleGetProfile(null, loggedInUser);
+      handleGetProfile(loggedInUser.username);
       return;
     } else {
       handleGetProfile(params.username);
     }
-  }, [params.username]);
+  }, [params.username, loggedInUser.username]);
 
   if (isLoading)
     return (
