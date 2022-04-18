@@ -1,10 +1,14 @@
 import styled from "styled-components";
-import { SIZES } from "../../../styling/constants";
 import { sharedDetailStyle } from "../sharedstyles";
 
 const ContributionsHeader = ({ submissionsPending, contributions }) => {
   if (!submissionsPending && !contributions)
     return <ContributionsHeaderWrapper />;
+
+  if (contributions?.length === 1)
+    return (
+      <ContributionsHeaderWrapper>1 contribution</ContributionsHeaderWrapper>
+    );
 
   if (contributions?.length < 1)
     return (
