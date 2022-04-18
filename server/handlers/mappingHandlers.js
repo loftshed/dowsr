@@ -183,28 +183,34 @@ const deletePin = async ({ query: { pinId } }, res) => {
   }
 };
 
-// Returns all submissions pending review from the database.
-
-const getSubmissionsPendingReview = async (req, res) => {
+// Retrieves all pins that are pending review. This is used to display the pins to the admin. Optionally, accepts a userId in query to return only that user's pending pins.
+const getSubmissionsPendingReview = async ({ query: { userId } }, res) => {
   try {
     await client.connect();
+    let returnedSubmissions;
     const pendingReview = await thisCollection
       .find({
         "pins.pendingReview": true,
       })
       .toArray();
 
-    // TODO: In retrospect I should have just put all of the documents directly into the top level of the collection in MongoDB and then filtered them out here. Time is tight now tho we'll see. Band-aid solution for now.
-    let returnedPendingItems = [];
-    pendingReview.map((contribution) =>
-      returnedPendingItems.push(
-        contribution.pins.filter((pin) => pin.pendingReview === true)[0]
-      )
+    const foundPendingSubmissions = pendingReview.map((submission) =>
+      submission.pins.filter((pin) => pin.pendingReview === true)
     );
+
+    // Have to flattens the array cause it's a mess like all of this :(
+    returnedSubmissions = foundPendingSubmissions.flat();
+
+    // If a userId is provided, only return the submissions by that user.
+    if (userId) {
+      returnedSubmissions = returnedSubmissions.filter(
+        (submission) => submission.submittedById === userId
+      );
+    }
     res.status(200).json({
       status: 200,
-      pendingReview: returnedPendingItems,
-      message: "Successfully retrieved all submissions pending review.",
+      pendingReview: returnedSubmissions,
+      message: "Successfully retrieved submissions pending review.",
     });
   } catch (err) {
     err ? console.log(err) : client.close();

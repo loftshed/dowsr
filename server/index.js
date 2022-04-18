@@ -34,7 +34,7 @@ const {
   modifyUser, // Modifies a user.
   removeUser, // Removes a user from the DB.
   addPinToUserContributions, // Pushes a newly created pin to the creator's contributions array.
-  checkAdminStatus, // Checks to see if the user is an admin.
+
   toggleFollowUser, // Toggles one user following/unfollowing another.
 } = require("./handlers/userHandlers");
 
@@ -74,7 +74,7 @@ app.use(cors());
 app.post("/api/add-user", addUser); // working
 app.get("/api/get-user", getUser); // working
 app.get("/api/get-user/:username", getUser); // working
-app.get("/api/get-user/admin-status", checkAdminStatus); //BROOOKEN
+
 app.patch("/api/modify-user", modifyUser); // working
 app.patch("/api/:username/add-contribution", addPinToUserContributions); // working
 app.delete("/api/remove-user", removeUser); // working

@@ -167,6 +167,7 @@ const toggleFollowUser = async (
     if (user.following.includes(targetUserId) && follow) {
       res.status(200).json({
         status: 200,
+        unmodified: true,
         message: "You are already following this user.",
       });
     } else if (user && targetUser) {
@@ -193,6 +194,7 @@ const toggleFollowUser = async (
         if (!user.following.includes(targetUserId) && !follow) {
           res.status(200).json({
             status: 200,
+            unmodified: true,
             message: "You cannot unfollow a user that you are not following.",
           });
         } else {
@@ -222,22 +224,6 @@ const toggleFollowUser = async (
   }
 };
 
-// Checks the database to see if submitted ID has a bool field of 'isAdmin' set to true.
-const checkAdminStatus = async ({ query: { id } }, res) => {
-  // try {
-  //   await client.connect();
-  //   const user = await thisCollection.findOne({ _id: id });
-  //   console.log(user);
-  //   if (user) {
-  //     user.isAdmin === true
-  //       ? res.status(200).json({ status: 200, isAdmin: true })
-  //       : res.status(200).json({ status: 200, isAdmin: false });
-  //   }
-  // } catch (err) {
-  //   err ? console.log(err) : client.close();
-  // }
-};
-
 module.exports = {
   addUser,
   getUser,
@@ -245,5 +231,4 @@ module.exports = {
   removeUser,
   addPinToUserContributions,
   toggleFollowUser,
-  checkAdminStatus,
 };
