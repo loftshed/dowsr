@@ -31,6 +31,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const params = useParams();
   const isOwnProfile = loggedInUser.username === params.username;
+  console.log(isOwnProfile);
 
   const handleGetProfile = async (username) => {
     try {
@@ -99,15 +100,16 @@ const Profile = () => {
               <h3>{username}</h3>
             </DetailsHeading>
             <Details>
-              <LocationBar country={country} city={city} region={region} />
-              <FollowBar
-                loggedInUser={loggedInUser}
-                _id={_id}
-                viewedProfile={viewedProfile}
-                isOwnProfile={isOwnProfile}
-              />
-              <BottomContainer isOwnProfile={isOwnProfile}>
-                {/* <BottomSubcontainer>other stuff</BottomSubcontainer> */}
+              <div>
+                <LocationBar country={country} city={city} region={region} />
+                <FollowBar
+                  loggedInUser={loggedInUser}
+                  _id={_id}
+                  viewedProfile={viewedProfile}
+                  isOwnProfile={isOwnProfile}
+                />
+              </div>
+              <div>
                 <RegDate regDate={regDate} />
                 <Contributions
                   submissionsByType={submissionsByType}
@@ -119,7 +121,7 @@ const Profile = () => {
                   _id={_id}
                   isOwnProfile={isOwnProfile}
                 />
-              </BottomContainer>
+              </div>
             </Details>
           </UserDetails>
         </InnerContainerLiner>
@@ -132,13 +134,17 @@ export default Profile;
 
 const InnerContainer = styled.div`
   ${fillSpace}
+
   user-select: none;
   padding: 5px;
   flex-direction: column;
 `;
 
 const InnerContainerLiner = styled.div`
-  ${fillSpace}
+  display: flex;
+  max-height: 100%;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
   outline: 1px solid var(--color-super-dark-grey);
   border-radius: ${SIZES.borderRadius}px;
@@ -152,6 +158,7 @@ const ProfileSplash = styled.div`
   background-image: url("/bg.jpg");
   border-top-left-radius: ${SIZES.borderRadius}px;
   border-top-right-radius: ${SIZES.borderRadius}px;
+  background-size: cover;
   @media (min-width: 450px) {
     height: 250px;
   }
@@ -182,9 +189,8 @@ const Avatar = styled.img`
 
 const UserDetails = styled.div`
   ${centeredFlexColumn}
-  flex-grow: 1;
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   border-radius: ${SIZES.borderRadius}px;
   border-top: 1px solid var(--color-super-dark-grey);
 `;
@@ -208,39 +214,16 @@ const DetailsHeading = styled.div`
 `;
 
 const Details = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: var(--color-super-dark-grey);
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
-  flex-grow: 1;
-  justify-content: space-between;
-  align-items: flex-start;
+
+  height: 100%;
   width: 100%;
-  gap: 10px;
   @media (min-width: 450px) {
     font-size: 28px;
   }
-`;
-
-const Item = styled.div`
-  ${sharedDetailStyle}
-`;
-
-const BottomContainer = styled.div`
-  justify-content: flex-end;
-  align-self: flex-end;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - ${BAR_HEIGHT.small * 2}px);
-  width: 100%;
-  @media (min-width: 450px) {
-    height: calc(100% - ${BAR_HEIGHT.large * 3}px);
-  }
-  ${(props) =>
-    props.isOwnProfile &&
-    css`
-  height: calc(100% - ${BAR_HEIGHT.small * 2}px});
-  @media (min-width: 450px) {
-    height: calc(100% - ${BAR_HEIGHT.large * 2}px);
-  `}
 `;

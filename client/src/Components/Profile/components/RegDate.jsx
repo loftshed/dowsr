@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import dayjs from "dayjs";
+import { centeredFlexRow } from "../../../styling/sharedstyles";
 
 const RegDate = ({ regDate }) => {
   return (
@@ -11,6 +12,7 @@ const RegDate = ({ regDate }) => {
 export default RegDate;
 
 const RegDateWrapper = styled.div`
+  ${centeredFlexRow}
   span {
     font-size: 12px;
     padding: 5px;
