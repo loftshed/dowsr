@@ -33,6 +33,11 @@ const GlobalStyle = createGlobalStyle`
       --color-light-grey: #e7e5df;
       --color-teal: #44bba4;
       --color-gold: #e7bb41;
+
+      --color-water: #48cae4;
+      --color-poo: #b2967d;
+      --color-cone: #e76f51;
+      --color-police: #118ab2;
     }
 
     /*-----------------|

@@ -5,13 +5,7 @@ import {
   fillSpace,
   TextButton,
 } from "../../styling/sharedstyles";
-import {
-  BurgerMenuIcon,
-  HazardIcon,
-  PoliceIcon,
-  ToiletIcon,
-  WaterIcon,
-} from "../../styling/react-icons";
+
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { useEffect, useContext, useState } from "react";
@@ -23,11 +17,13 @@ import { getUser, getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { startThreadWithUser } from "../Messaging/helpers";
+import { handleGetUserContributions } from "./helpers";
 import {
   RiGlobeLine as GlobeIcon,
   RiUserFollowLine as FollowIcon,
 } from "react-icons/ri";
 import { SendIcon } from "../../styling/react-icons";
+import Contributions from "./Contributions";
 
 //FIXME: Literally everything is a disaster but I am in a mega super rush
 //TODO: Redesign this component from the ground up after all other features are complete
@@ -58,6 +54,18 @@ const Profile = () => {
     }
   }, [params.username, loggedInUser.username]);
 
+  // TODO: Get this into main useEffect lol again yes this component is a travesty
+  useEffect(() => {
+    (async () => {
+      console.log(loggedInUser);
+      const result = await handleGetUserContributions(loggedInUser.username);
+      setViewedProfile({
+        ...viewedProfile,
+        submissionsByType: result.submissionsByType,
+      });
+    })();
+  }, [params.username, loggedInUser.username]);
+
   if (isLoading)
     return (
       <ResponsiveContainer>
@@ -75,6 +83,7 @@ const Profile = () => {
     contributions,
     regDate,
     _id,
+    submissionsByType,
   } = viewedProfile;
 
   return (
@@ -120,6 +129,10 @@ const Profile = () => {
                 </Item>
               )}
               <BottomContainer isOwnProfile={isOwnProfile}>
+                <BottomSubcontainer>
+                  <div>followers: {loggedInUser.followers.length}</div>
+                  <div>following: {loggedInUser.following.length}</div>
+                </BottomSubcontainer>
                 <span style={{ fontSize: "12px", padding: "5px" }}>
                   Member since {dayjs(regDate).format("MMMM YYYY")}
                 </span>
@@ -128,32 +141,7 @@ const Profile = () => {
                     <span>{contributions?.length}</span> pin contribution
                     {contributions?.length === 1 ? "" : "s"}
                   </Item>
-                  <Contributions>
-                    <Column>
-                      <Icon color={"#48cae4"}>
-                        <WaterIcon />
-                      </Icon>
-                      <Number>2</Number>
-                    </Column>
-                    <Column>
-                      <Icon color={"#b2967d"}>
-                        <ToiletIcon />
-                      </Icon>
-                      <Number>2</Number>
-                    </Column>
-                    <Column>
-                      <Icon color={"#e76f51"}>
-                        <HazardIcon />
-                      </Icon>
-                      <Number>1</Number>
-                    </Column>
-                    <Column>
-                      <Icon color={"#db7f8e"}>
-                        <PoliceIcon />
-                      </Icon>
-                      <Number>6</Number>
-                    </Column>
-                  </Contributions>
+                  <Contributions submissionsByType={submissionsByType} />
                 </ItemContainer>
               </BottomContainer>
             </Details>
@@ -169,21 +157,6 @@ const Profile = () => {
 }
 
 export default Profile;
-
-const Icon = styled.div`
-  width: fit-content;
-  height: fit-content;
-  padding: 8px;
-  background-color: var(--color-less-dark-grey);
-  border-radius: 50%;
-  border: 2px solid ${(props) => props.color};
-  svg {
-    fill: ${(props) => props.color};
-  }
-  @media (min-width: 450px) {
-    padding: 12px;
-  }
-`;
 
 const sharedDetailStyle = css`
   background-color: var(--color-less-dark-grey);
@@ -308,33 +281,6 @@ const ProfileButton = styled(TextButton)`
   gap: 3px;
 `;
 
-const Number = styled.div`
-  line-height: 12px;
-`;
-
-const Column = styled.div`
-  ${centeredFlexColumn};
-  gap: 7.5px;
-  @media (min-width: 450px) {
-    gap: 15px;
-  }
-`;
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 3px;
-`;
-
-const Contributions = styled.div`
-  display: flex;
-  justify-content: space-around;
-  padding: 15px;
-  @media (min-width: 450px) {
-    padding: 20px 20px 25px 20px;
-  }
-`;
-
 const ItemContainer = styled.div`
   width: 100%;
 `;
@@ -356,4 +302,13 @@ const BottomContainer = styled.div`
   @media (min-width: 450px) {
     height: calc(100% - 40px);
   `}
+`;
+
+const BottomSubcontainer = styled.div`
+  ${fillSpace}
+  flex-direction: column;
+  padding: ${SIZES.universalPadding}px;
+  @media (min-width: 450px) {
+    padding: calc(${SIZES.universalPadding}px * 2);
+  }
 `;
