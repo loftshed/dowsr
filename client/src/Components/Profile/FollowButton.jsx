@@ -8,8 +8,12 @@ import {
 import { BsFillCheckCircleFill as CheckIcon } from "react-icons/bs";
 import { TextButton } from "../../styling/sharedstyles";
 
-const FollowButton = ({ loggedInUser, _id, following }) => {
-  const [followingState, setFollowingState] = useState(following);
+const FollowButton = ({
+  loggedInUser,
+  _id,
+  followingState,
+  setFollowingState,
+}) => {
   const [hover, setHover] = useState(false);
   // Follows or unfollows user.
 

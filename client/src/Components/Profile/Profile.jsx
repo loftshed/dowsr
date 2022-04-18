@@ -3,34 +3,24 @@ import {
   centeredFlexColumn,
   centeredFlexRow,
   fillSpace,
-  TextButton,
 } from "../../styling/sharedstyles";
 
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { useEffect, useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import Flag from "react-world-flags";
-import dayjs from "dayjs";
 import { AppContext } from "../../AppContext";
 import { getUser, getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
-import { startThreadWithUser } from "../Messaging/helpers";
 import { handleGetUserContributions, handleGetUserPending } from "./helpers";
-import { RiGlobeLine as GlobeIcon } from "react-icons/ri";
-import { SendIcon } from "../../styling/react-icons";
-import Contributions from "./Contributions";
-import FollowButton from "./FollowButton";
-import MessageButton from "./MessageButton";
-import RegDate from "./RegDate";
-import FollowCounts from "./FollowCounts";
-import ActionBar from "./ActionBar";
 import { sharedDetailStyle } from "./sharedstyles";
+import Contributions from "./Contributions";
+import RegDate from "./RegDate";
+import ActionBar from "./ActionBar";
+import LocationBar from "./LocationBar";
 
-//FIXME: Literally everything is a disaster but I am in a mega super rush
-// edit: less bad now that I moved out some shit
-//TODO: Redesign this component from the ground up after all other features are complete
+// TODO: Make this state less shitty
 
 const Profile = () => {
   const { loggedInUser, viewedProfile, setViewedProfile } =
@@ -106,21 +96,17 @@ const Profile = () => {
           <UserDetails>
             <DetailsHeading style={{ gap: "10px" }}>
               <h3>{username}</h3>
-              <Flag code={country} height={16} />
             </DetailsHeading>
             <Details>
-              <Item>
-                <GlobeIcon />
-                {`${city}, ${region}`}
-              </Item>
-
-              {!isOwnProfile && (
-                <ActionBar loggedInUser={loggedInUser} _id={_id} />
-              )}
+              <LocationBar country={country} city={city} region={region} />
+              <ActionBar
+                loggedInUser={loggedInUser}
+                _id={_id}
+                viewedProfile={viewedProfile}
+                isOwnProfile={isOwnProfile}
+              />
               <BottomContainer isOwnProfile={isOwnProfile}>
-                <BottomSubcontainer>
-                  <FollowCounts viewedProfile={viewedProfile} />
-                </BottomSubcontainer>
+                {/* <BottomSubcontainer>other stuff</BottomSubcontainer> */}
                 <RegDate regDate={regDate} />
                 <Contributions
                   submissionsByType={submissionsByType}

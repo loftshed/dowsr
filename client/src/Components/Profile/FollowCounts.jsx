@@ -1,10 +1,17 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { sharedDetailStyle } from "./sharedstyles";
 
 const FollowCounts = ({ viewedProfile }) => {
   return (
     <FollowCountsWrapper>
-      <Followers>followers: {viewedProfile.followers?.length}</Followers>
-      <Following>following: {viewedProfile.following?.length}</Following>
+      <Followers>
+        <Number>{viewedProfile.followers?.length}</Number>
+        <span>follower</span>
+      </Followers>
+      <Following>
+        <span>following</span>
+        <Number>{viewedProfile.following?.length}</Number>
+      </Following>
     </FollowCountsWrapper>
   );
 };
@@ -12,12 +19,30 @@ const FollowCounts = ({ viewedProfile }) => {
 export default FollowCounts;
 
 const FollowCountsWrapper = styled.div`
+  ${sharedDetailStyle}
   display: flex;
   width: 100%;
   justify-content: space-between;
-  text-transform: uppercase;
 `;
 
-const Followers = styled.div``;
+const sharedFollowStyling = css`
+  display: flex;
+  gap: 10px;
+  border-radius: 2px;
+  line-height: 20px;
+  padding: 0 5px;
+  * {
+    font-size: 18px;
+  }
+`;
 
-const Following = styled.div``;
+const Followers = styled.div`
+  ${sharedFollowStyling}
+`;
+const Following = styled.div`
+  ${sharedFollowStyling}
+`;
+
+const Number = styled.div`
+  background-color: var(--color-less-dark-grey);
+`;
