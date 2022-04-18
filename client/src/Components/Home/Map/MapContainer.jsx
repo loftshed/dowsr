@@ -9,9 +9,9 @@ import {
 import { fillSpace } from "../../../styling/sharedstyles";
 import styled, { css } from "styled-components";
 import MapFilters from "./MapFilters";
-import PinInfoModal from "./PinInfo/PinInfoModal";
+import PinInfoModal from "./PinInfo/components/PinInfoModal";
 import PinInfoPopup from "./PinInfo/PinInfoPopup";
-import PinInfoMarker from "./PinInfo/PinInfoMarker";
+import PinInfoMarker from "./PinInfo/components/PinInfoMarker";
 import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";

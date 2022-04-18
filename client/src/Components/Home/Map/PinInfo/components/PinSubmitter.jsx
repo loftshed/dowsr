@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { textButtonstyling } from "../../../../styling/sharedstyles";
+import { textButtonstyling } from "../../../../../styling/sharedstyles";
 
 const PinSubmitter = ({ popupInfo, isOwnPin }) => {
   const navigate = useNavigate();

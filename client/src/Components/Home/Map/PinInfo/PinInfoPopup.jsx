@@ -1,10 +1,8 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Popup, useMap } from "react-map-gl";
 import {
   fillSpace,
   centeredFlexColumn,
-  TextButton,
-  textButtonstyling,
 } from "../../../../styling/sharedstyles";
 
 import { MappingContext } from "../MappingContext";
@@ -12,23 +10,17 @@ import { useContext, useEffect, useState } from "react";
 import { getDistanceFromPoint } from "../helpers";
 import { useNavigate } from "react-router-dom";
 
-import { RiLinkM as LinkIcon } from "react-icons/ri";
 import { AppContext } from "../../../../AppContext";
-import PinVoting from "./PinVoting";
-import PinStreetView from "./PinStreetView";
-import PinSubmitter from "./PinSubmitter";
+import PinVoting from "./components/PinVoting";
+import PinStreetView from "./components/PinStreetView";
+import PinSubmitter from "./components/PinSubmitter";
+import PinInfoHeader from "./components/PinInfoHeader";
 
 const PinInfoPopup = () => {
-  const navigate = useNavigate();
   const { current: map } = useMap();
-  const {
-    popupInfo,
-    setPopupInfo,
-    userLocation,
-    setClickedLocation,
-    setStoredFilteredPins,
-  } = useContext(MappingContext);
   const { loggedInUser } = useContext(AppContext);
+  const { popupInfo, setPopupInfo, userLocation, setClickedLocation } =
+    useContext(MappingContext);
   const distanceFromUser = getDistanceFromPoint(
     { lat: +popupInfo?.latitude, lng: +popupInfo?.longitude },
     { lat: userLocation.lat, lng: userLocation.lng }
@@ -70,18 +62,7 @@ const PinInfoPopup = () => {
       }}
     >
       <PopupContainer>
-        <Heading>
-          {popupInfo.submittedBy === "dowsr" && popupInfo.site ? (
-            <>
-              <a href={`${popupInfo.site}`} target="_new">
-                {popupInfo.desc}
-                <LinkIcon style={{ pointerEvents: "none" }} />
-              </a>
-            </>
-          ) : (
-            <>{popupInfo.desc}</>
-          )}
-        </Heading>
+        <PinInfoHeader popupInfo={popupInfo} />
         <Body>
           <Distance>{kmFromUser} km away</Distance>
           <PinStreetView popupInfo={popupInfo} />
@@ -98,52 +79,6 @@ const PinInfoPopup = () => {
   );
 };
 export default PinInfoPopup;
-
-const LikeDislike = styled.div`
-  gap: 5px;
-  display: flex;
-`;
-
-const SubmittedBy = styled.button`
-  ${textButtonstyling}
-  position: relative;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 5px;
-  line-height: 10px;
-  background-color: var(--color-less-dark-grey);
-  span {
-    padding-right: 5px;
-    font-size: 0.8rem;
-  }
-`;
-
-const DefaultPin = styled(SubmittedBy)`
-  pointer-events: none;
-  span {
-    all: unset;
-    span {
-      color: var(--color-light-grey);
-    }
-  }
-`;
-
-const Heading = styled.div`
-  display: flex;
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--color-light-grey);
-  padding: 3px;
-  text-align: center;
-  a {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    &:hover {
-      color: var(--color-teal);
-    }
-  }
-`;
 
 const Distance = styled.div``;
 

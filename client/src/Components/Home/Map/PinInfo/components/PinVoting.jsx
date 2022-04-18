@@ -1,10 +1,13 @@
 import styled, { css } from "styled-components";
 import { useContext } from "react";
-import { AppContext } from "../../../../AppContext";
-import { MappingContext } from "../MappingContext";
-import { togglePinLike } from "../helpers";
-import { ThumbsDownIcon, ThumbsUpIcon } from "../../../../styling/react-icons";
-import { textButtonstyling } from "../../../../styling/sharedstyles";
+import { AppContext } from "../../../../../AppContext";
+import { MappingContext } from "../../MappingContext";
+import { togglePinLike } from "../../helpers";
+import {
+  ThumbsDownIcon,
+  ThumbsUpIcon,
+} from "../../../../../styling/react-icons";
+import { textButtonstyling } from "../../../../../styling/sharedstyles";
 
 const PinVoting = ({ isOwnPin, isDefaultPin, pinFeedback, setPinFeedback }) => {
   const { loggedInUser } = useContext(AppContext);

@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { MappingContext } from "../MappingContext";
+import { MappingContext } from "../../MappingContext";
 import { Marker } from "react-map-gl";
-import UniversalMapPin from "../UniversalMapPin";
+import UniversalMapPin from "../../UniversalMapPin";
 import {
   StoreIcon,
   CoffeeIcon,
@@ -11,7 +11,7 @@ import {
   FilterIcon,
   WaterIcon,
   ToiletIcon,
-} from "../../../../styling/react-icons";
+} from "../../../../../styling/react-icons";
 
 const PinInfoMarker = ({ pins, setPopupInfo }) => {
   const { setPopupIsVisible, popupIsVisible } = useContext(MappingContext);
