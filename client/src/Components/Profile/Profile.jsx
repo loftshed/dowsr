@@ -23,6 +23,7 @@ import { SendIcon } from "../../styling/react-icons";
 import Contributions from "./Contributions";
 import FollowButton from "./FollowButton";
 import MessageButton from "./MessageButton";
+import RegDate from "./RegDate";
 
 //FIXME: Literally everything is a disaster but I am in a mega super rush
 // edit: less bad now that I moved out some shit
@@ -121,10 +122,7 @@ const Profile = () => {
                   <div>followers: {viewedProfile.followers?.length}</div>
                   <div>following: {viewedProfile.following?.length}</div>
                 </BottomSubcontainer>
-                <span style={{ fontSize: "12px", padding: "5px" }}>
-                  Member since {dayjs(regDate).format("MMMM YYYY")}
-                </span>
-
+                <RegDate regDate={regDate} />
                 <Contributions
                   submissionsByType={submissionsByType}
                   submissionsPending={submissionsPending}
