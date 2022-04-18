@@ -24,6 +24,7 @@ import {
   MdFilterAlt,
   MdAdminPanelSettings,
   MdLocalPolice,
+  MdPendingActions,
 } from "react-icons/md";
 import { BiTrafficCone } from "react-icons/bi";
 import {
@@ -58,8 +59,10 @@ const AdminIcon = styled(MdAdminPanelSettings)``;
 const BurgerMenuIcon = styled(TiThMenu)``;
 const ThumbsUpIcon = styled(BsFillHandThumbsUpFill)``;
 const ThumbsDownIcon = styled(BsFillHandThumbsDownFill)``;
+const PendingIcon = styled(MdPendingActions)``;
 
 export {
+  PendingIcon,
   CircledArrowRight,
   SearchIcon,
   InboxIcon,

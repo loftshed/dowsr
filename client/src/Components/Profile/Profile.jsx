@@ -17,7 +17,7 @@ import { getUser, getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { startThreadWithUser } from "../Messaging/helpers";
-import { handleGetUserContributions } from "./helpers";
+import { handleGetUserContributions, handleGetUserPending } from "./helpers";
 import {
   RiGlobeLine as GlobeIcon,
   RiUserFollowLine as FollowIcon,
@@ -69,13 +69,13 @@ const Profile = () => {
   // TODO: Get this into main useEffect lol again yes this component is a travesty
   useEffect(() => {
     (async () => {
-      const result = await handleGetUserContributions(loggedInUser.username);
+      const response = await handleGetUserContributions(loggedInUser.username);
+      const pending = await handleGetUserPending(loggedInUser._id);
       setViewedProfile({
         ...viewedProfile,
-        submissionsByType: result.submissionsByType,
+        submissionsByType: response.submissionsByType,
+        submissionsPending: pending.pendingReview,
       });
-      console.log(await loggedInUser);
-      console.log(await viewedProfile);
     })();
   }, [params.username, loggedInUser.username]);
 
@@ -97,6 +97,7 @@ const Profile = () => {
     regDate,
     _id,
     submissionsByType,
+    submissionsPending,
   } = viewedProfile;
 
   return (
@@ -161,16 +162,28 @@ const Profile = () => {
               )}
               <BottomContainer isOwnProfile={isOwnProfile}>
                 <BottomSubcontainer>
-                  <div>followers: {viewedProfile.followers.length}</div>
-                  <div>following: {viewedProfile.following.length}</div>
+                  <div>followers: {viewedProfile.followers?.length}</div>
+                  <div>following: {viewedProfile.following?.length}</div>
                 </BottomSubcontainer>
                 <span style={{ fontSize: "12px", padding: "5px" }}>
                   Member since {dayjs(regDate).format("MMMM YYYY")}
                 </span>
                 <ItemContainer>
                   <Item style={{ justifyContent: "center" }}>
-                    <span>{contributions?.length}</span> pin contribution
-                    {contributions?.length === 1 ? "" : "s"}
+                    <span>
+                      {submissionsPending ? (
+                        <>
+                          {contributions?.length - submissionsPending?.length}
+                        </>
+                      ) : (
+                        <>{contributions.length}</>
+                      )}
+                    </span>{" "}
+                    pin contribution
+                    {contributions?.length === 1 ? "" : "s"}{" "}
+                    {submissionsPending?.length
+                      ? `(${submissionsPending?.length} pending)`
+                      : ""}
                   </Item>
                   <Contributions submissionsByType={submissionsByType} />
                 </ItemContainer>
