@@ -124,25 +124,12 @@ const Profile = () => {
                 <span style={{ fontSize: "12px", padding: "5px" }}>
                   Member since {dayjs(regDate).format("MMMM YYYY")}
                 </span>
-                <ItemContainer>
-                  <Item style={{ justifyContent: "center" }}>
-                    <span>
-                      {submissionsPending ? (
-                        <>
-                          {contributions?.length - submissionsPending?.length}
-                        </>
-                      ) : (
-                        <>{contributions?.length}</>
-                      )}
-                    </span>{" "}
-                    pin contribution
-                    {contributions?.length === 1 ? "" : "s"}{" "}
-                    {submissionsPending?.length
-                      ? `(${submissionsPending?.length} pending)`
-                      : ""}
-                  </Item>
-                  <Contributions submissionsByType={submissionsByType} />
-                </ItemContainer>
+
+                <Contributions
+                  submissionsByType={submissionsByType}
+                  submissionsPending={submissionsPending}
+                  contributions={contributions}
+                />
               </BottomContainer>
             </Details>
           </UserDetails>
@@ -151,10 +138,6 @@ const Profile = () => {
     </ResponsiveContainer>
   );
 };
-
-{
-  /*  */
-}
 
 export default Profile;
 
@@ -272,13 +255,6 @@ const Item = styled.div`
     height: 40px;
     font-size: 22px;
   }
-`;
-
-const ProfileButton = styled(TextButton)`
-  border-radius: 3px;
-  padding: 0px 5px;
-  cursor: pointer;
-  gap: 3px;
 `;
 
 const ItemContainer = styled.div`

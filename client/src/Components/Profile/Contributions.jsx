@@ -6,43 +6,66 @@ import {
   WaterIcon,
 } from "../../styling/react-icons";
 import { centeredFlexColumn } from "../../styling/sharedstyles";
+import ContributionsHeader from "./ContributionsHeader";
 
-const Contributions = ({ submissionsByType }) => {
+const Contributions = ({
+  submissionsByType,
+  submissionsPending,
+  contributions,
+}) => {
   return (
-    <ContributionsWrapper>
-      <Column>
-        <Icon color={"var(--color-water)"}>
-          <WaterIcon />
-        </Icon>
-        <Number>
-          {submissionsByType?.water ? <>{submissionsByType.water}</> : <>0</>}
-        </Number>
-      </Column>
-      <Column>
-        <Icon color={"var(--color-poo)"}>
-          <ToiletIcon />
-        </Icon>
-        <Number>
-          {submissionsByType?.toilet ? <>{submissionsByType.toilet}</> : <>0</>}
-        </Number>
-      </Column>
-      <Column>
-        <Icon color={"var(--color-cone)"}>
-          <HazardIcon />
-        </Icon>
-        <Number>
-          {submissionsByType?.hazard ? <>{submissionsByType.hazard}</> : <>0</>}
-        </Number>
-      </Column>
-      <Column>
-        <Icon color={"var(--color-police)"}>
-          <PoliceIcon />
-        </Icon>
-        <Number>
-          {submissionsByType?.police ? <>{submissionsByType.police}</> : <>0</>}
-        </Number>
-      </Column>
-    </ContributionsWrapper>
+    <>
+      <ContributionsHeader
+        submissionsPending={submissionsPending}
+        contributions={contributions}
+      />
+      <ContributionsWrapper>
+        <Column>
+          <Icon color={"var(--color-water)"}>
+            <WaterIcon />
+          </Icon>
+          <Number>
+            {submissionsByType?.water ? <>{submissionsByType.water}</> : <>0</>}
+          </Number>
+        </Column>
+        <Column>
+          <Icon color={"var(--color-poo)"}>
+            <ToiletIcon />
+          </Icon>
+          <Number>
+            {submissionsByType?.toilet ? (
+              <>{submissionsByType.toilet}</>
+            ) : (
+              <>0</>
+            )}
+          </Number>
+        </Column>
+        <Column>
+          <Icon color={"var(--color-cone)"}>
+            <HazardIcon />
+          </Icon>
+          <Number>
+            {submissionsByType?.hazard ? (
+              <>{submissionsByType.hazard}</>
+            ) : (
+              <>0</>
+            )}
+          </Number>
+        </Column>
+        <Column>
+          <Icon color={"var(--color-police)"}>
+            <PoliceIcon />
+          </Icon>
+          <Number>
+            {submissionsByType?.police ? (
+              <>{submissionsByType.police}</>
+            ) : (
+              <>0</>
+            )}
+          </Number>
+        </Column>
+      </ContributionsWrapper>
+    </>
   );
 };
 
@@ -50,6 +73,7 @@ export default Contributions;
 
 const ContributionsWrapper = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-around;
   padding: 15px;
   @media (min-width: 450px) {
