@@ -22,21 +22,16 @@ const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 const PinInfoPopup = () => {
   const { popupInfo, setPopupInfo, userLocation, setClickedLocation } =
     useContext(MappingContext);
-  const [pinFeedback, setPinFeedback] = useState({});
   const { current: map } = useMap();
 
   const isOwnPin = localStorage.getItem("username") === popupInfo?.submittedBy;
   const isDefaultPin = popupInfo?.submittedBy === null;
 
   useEffect(() => {
-    setPinFeedback({
-      numLikes: popupInfo?.likedByIds.length,
-      numDislikes: popupInfo?.dislikedByIds.length,
-    });
     return () => {
       setClickedLocation(null);
     };
-  }, [pinFeedback.numLikes, pinFeedback.numDislikes]);
+  }, []);
 
   // Get the user's avatarUrl from the db
 
@@ -60,12 +55,7 @@ const PinInfoPopup = () => {
             apiKey={REACT_APP_GOOGLE_API_KEY}
           />
           <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
-          <PinVoting
-            isOwnPin={isOwnPin}
-            isDefaultPin={isDefaultPin}
-            pinFeedback={pinFeedback}
-            setPinFeedback={setPinFeedback}
-          />
+          <PinVoting isOwnPin={isOwnPin} isDefaultPin={isDefaultPin} />
         </Body>
       </div>
     </PopupContainer>
