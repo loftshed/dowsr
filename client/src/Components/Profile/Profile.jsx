@@ -16,11 +16,11 @@ import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleGetUserContributions, handleGetUserPending } from "./helpers";
 import { sharedDetailStyle } from "./sharedstyles";
-import Contributions from "./Contributions";
-import RegDate from "./RegDate";
-import { ActionBar } from "./ActionBar";
-import LocationBar from "./LocationBar";
-import MessageBar from "./MessageBar";
+import Contributions from "./components/Contributions";
+import RegDate from "./components/RegDate";
+import { ActionBar } from "./components/ActionBar";
+import LocationBar from "./components/LocationBar";
+import MessageBar from "./components/MessageBar";
 
 // TODO: Make this state less shitty
 

@@ -4,8 +4,8 @@ import {
   PoliceIcon,
   ToiletIcon,
   WaterIcon,
-} from "../../styling/react-icons";
-import { centeredFlexColumn } from "../../styling/sharedstyles";
+} from "../../../styling/react-icons";
+import { centeredFlexColumn } from "../../../styling/sharedstyles";
 import ContributionsHeader from "./ContributionsHeader";
 
 const Contributions = ({

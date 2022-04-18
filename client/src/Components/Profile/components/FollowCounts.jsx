@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { sharedDetailStyle } from "./sharedstyles";
+import { sharedDetailStyle } from "../sharedstyles";
 import MessageButton from "./MessageButton";
 
 const FollowCounts = ({ followerCount, followingCount }) => {

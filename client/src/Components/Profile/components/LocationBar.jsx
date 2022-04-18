@@ -1,4 +1,4 @@
-import { sharedDetailStyle } from "./sharedstyles";
+import { sharedDetailStyle } from "../sharedstyles";
 import { RiGlobeLine as GlobeIcon } from "react-icons/ri";
 import Flag from "react-world-flags";
 import styled from "styled-components";

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { handleToggleFollow } from "./helpers";
+import { handleToggleFollow } from "../helpers";
 import {
   RiUserFollowLine as FollowIcon,
   RiUserUnfollowLine as UnfollowIcon,
 } from "react-icons/ri";
 import { BsFillCheckCircleFill as CheckIcon } from "react-icons/bs";
-import { TextButton } from "../../styling/sharedstyles";
-import { ProfileButton } from "./sharedstyles";
+import { TextButton } from "../../../styling/sharedstyles";
+import { ProfileButton } from "../sharedstyles";
 
 // TODO: After follow, first show "following!" confirmation and disable button until hover is false.
 

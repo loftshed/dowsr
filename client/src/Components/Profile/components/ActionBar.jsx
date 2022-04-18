@@ -2,8 +2,8 @@ import MessageButton from "./MessageButton";
 import FollowButton from "./FollowButton";
 import FollowCounts from "./FollowCounts";
 import styled, { css } from "styled-components";
-import { sharedDetailStyle } from "./sharedstyles";
-import { textButtonstyling } from "../../styling/sharedstyles";
+import { sharedDetailStyle } from "../sharedstyles";
+import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
 
 const ActionBar = ({
@@ -31,6 +31,7 @@ const ActionBar = ({
             _id={_id}
             followingState={followingState}
             setFollowingState={setFollowingState}
+            s
             setFollowerCount={setFollowerCount}
             setFollowingCount={setFollowingCount}
             followerCount={followerCount}

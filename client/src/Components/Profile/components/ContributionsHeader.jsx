@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { SIZES } from "../../styling/constants";
-import { sharedDetailStyle } from "./sharedstyles";
+import { SIZES } from "../../../styling/constants";
+import { sharedDetailStyle } from "../sharedstyles";
 
 const ContributionsHeader = ({ submissionsPending, contributions }) => {
   return (

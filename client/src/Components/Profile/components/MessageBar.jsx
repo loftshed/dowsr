@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SIZES } from "../../styling/constants";
+import { SIZES } from "../../../styling/constants";
 import MessageButton from "./MessageButton";
 
 const MessageBar = ({ loggedInUser, _id, isOwnProfile }) => {
