@@ -25,7 +25,6 @@ const Profile = () => {
   const { loggedInUser, viewedProfile, setViewedProfile } =
     useContext(AppContext);
   const { isLoading } = useAuth0();
-  const navigate = useNavigate();
   const params = useParams();
   const isOwnProfile = loggedInUser.username === params.username;
 
