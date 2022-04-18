@@ -21,6 +21,7 @@ import { handleGetUserContributions } from "./helpers";
 import {
   RiGlobeLine as GlobeIcon,
   RiUserFollowLine as FollowIcon,
+  RiUserUnfollowLine as UnfollowIcon,
 } from "react-icons/ri";
 import { SendIcon } from "../../styling/react-icons";
 import Contributions from "./Contributions";
@@ -36,13 +37,24 @@ const Profile = () => {
   const params = useParams();
   const isOwnProfile = loggedInUser.username === params.username;
 
-  const handleGetProfile = async (username) => {
-    if (!username) {
-      setViewedProfile(loggedInUser);
-      return;
+  const handleToggleFollow = async (userId) => {
+    try {
+    } catch (err) {
+      console.log(err);
     }
-    const { data } = await getUserByUsername(username);
-    setViewedProfile(data);
+  };
+
+  const handleGetProfile = async (username) => {
+    try {
+      if (!username) {
+        setViewedProfile(loggedInUser);
+        return;
+      }
+      const { data } = await getUserByUsername(username);
+      setViewedProfile(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -57,12 +69,13 @@ const Profile = () => {
   // TODO: Get this into main useEffect lol again yes this component is a travesty
   useEffect(() => {
     (async () => {
-      console.log(loggedInUser);
       const result = await handleGetUserContributions(loggedInUser.username);
       setViewedProfile({
         ...viewedProfile,
         submissionsByType: result.submissionsByType,
       });
+      console.log(await loggedInUser);
+      console.log(await viewedProfile);
     })();
   }, [params.username, loggedInUser.username]);
 
@@ -121,17 +134,35 @@ const Profile = () => {
                     {"   "}
                     <SendIcon style={{ display: "inline" }} />
                   </ProfileButton>
-                  <ProfileButton>
-                    <FollowIcon style={{ display: "inline" }} />
-                    {"   "}
-                    <span>Follow</span>
+                  <ProfileButton
+                    onClick={async () => {
+                      try {
+                        const response = await handleToggleFollow(_id);
+                      } catch (err) {
+                        console.log(err);
+                      }
+                    }}
+                  >
+                    {loggedInUser.following?.includes(_id) ? (
+                      <>
+                        <FollowIcon style={{ display: "inline" }} />
+                        {"   "}
+                        <span>Unfollow</span>
+                      </>
+                    ) : (
+                      <>
+                        <UnfollowIcon style={{ display: "inline" }} />
+                        {"   "}
+                        <span>Follow</span>
+                      </>
+                    )}
                   </ProfileButton>
                 </Item>
               )}
               <BottomContainer isOwnProfile={isOwnProfile}>
                 <BottomSubcontainer>
-                  <div>followers: {loggedInUser.followers.length}</div>
-                  <div>following: {loggedInUser.following.length}</div>
+                  <div>followers: {viewedProfile.followers.length}</div>
+                  <div>following: {viewedProfile.following.length}</div>
                 </BottomSubcontainer>
                 <span style={{ fontSize: "12px", padding: "5px" }}>
                   Member since {dayjs(regDate).format("MMMM YYYY")}
