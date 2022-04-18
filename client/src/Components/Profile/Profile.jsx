@@ -24,6 +24,9 @@ import Contributions from "./Contributions";
 import FollowButton from "./FollowButton";
 import MessageButton from "./MessageButton";
 import RegDate from "./RegDate";
+import FollowCounts from "./FollowCounts";
+import ActionBar from "./ActionBar";
+import { sharedDetailStyle } from "./sharedstyles";
 
 //FIXME: Literally everything is a disaster but I am in a mega super rush
 // edit: less bad now that I moved out some shit
@@ -112,15 +115,11 @@ const Profile = () => {
               </Item>
 
               {!isOwnProfile && (
-                <Item style={{ justifyContent: "space-between" }}>
-                  <MessageButton loggedInUser={loggedInUser} _id={_id} />
-                  <FollowButton loggedInUser={loggedInUser} _id={_id} />
-                </Item>
+                <ActionBar loggedInUser={loggedInUser} _id={_id} />
               )}
               <BottomContainer isOwnProfile={isOwnProfile}>
                 <BottomSubcontainer>
-                  <div>followers: {viewedProfile.followers?.length}</div>
-                  <div>following: {viewedProfile.following?.length}</div>
+                  <FollowCounts viewedProfile={viewedProfile} />
                 </BottomSubcontainer>
                 <RegDate regDate={regDate} />
                 <Contributions
@@ -138,20 +137,6 @@ const Profile = () => {
 };
 
 export default Profile;
-
-const sharedDetailStyle = css`
-  background-color: var(--color-less-dark-grey);
-  padding: 0 ${SIZES.universalPadding}px;
-  width: 100%;
-  font-size: 14px;
-  @media (min-width: 450px) {
-    padding: 2.5px 40px;
-    font-size: 20px;
-  }
-  border-top: 1px solid var(--color-super-dark-grey);
-  border-bottom: 1px solid var(--color-super-dark-grey);
-  display: flex;
-`;
 
 const InnerContainer = styled.div`
   ${fillSpace}
@@ -244,19 +229,7 @@ const Details = styled.div`
 `;
 
 const Item = styled.div`
-  gap: 3px;
-  align-items: center;
-  width: 100%;
-  height: 30px;
   ${sharedDetailStyle}
-  @media (min-width: 450px) {
-    height: 40px;
-    font-size: 22px;
-  }
-`;
-
-const ItemContainer = styled.div`
-  width: 100%;
 `;
 
 const BottomContainer = styled.div`

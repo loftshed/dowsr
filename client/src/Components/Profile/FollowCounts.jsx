@@ -3,10 +3,21 @@ import styled from "styled-components";
 const FollowCounts = ({ viewedProfile }) => {
   return (
     <FollowCountsWrapper>
-      <div>followers: {viewedProfile.followers?.length}</div>
-      <div>following: {viewedProfile.following?.length}</div>
+      <Followers>followers: {viewedProfile.followers?.length}</Followers>
+      <Following>following: {viewedProfile.following?.length}</Following>
     </FollowCountsWrapper>
   );
 };
 
-const FollowCountsWrapper = styled.div``;
+export default FollowCounts;
+
+const FollowCountsWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  text-transform: uppercase;
+`;
+
+const Followers = styled.div``;
+
+const Following = styled.div``;
