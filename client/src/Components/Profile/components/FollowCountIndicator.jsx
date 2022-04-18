@@ -2,33 +2,29 @@ import styled, { css } from "styled-components";
 import { sharedDetailStyle } from "../sharedstyles";
 import MessageButton from "./MessageButton";
 
-const FollowCounts = ({ followerCount, followingCount }) => {
+const FollowCountIndicator = ({ count, type, color }) => {
   return (
     <FollowCountsWrapper>
-      <Followers>
-        <span>followers </span>
-        <Number>{followerCount}</Number>
-      </Followers>
-      <Following>
-        <span>following </span>
-        <Number>{followingCount}</Number>
-      </Following>
+      <CountContainer color={color}>
+        <span>{type}</span>
+        <Number>{count}</Number>
+      </CountContainer>
     </FollowCountsWrapper>
   );
 };
 
-export default FollowCounts;
+export default FollowCountIndicator;
 
 const FollowCountsWrapper = styled.div`
-  ${sharedDetailStyle}
   display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  gap: 10px;
+  justify-content: flex-start;
+  gap: 5px;
+  @media (min-width: 450px) {
+    gap: 10px;
+  }
 `;
 
-//FUN WEIRD STYLE
-// 3AM EXPERIMeNT
+// Weird 3AM styling experiment because -webkit-text-stroke- doesn't work like I want it to
 const N = 1;
 
 const sharedFollowStyling = css`
@@ -40,6 +36,10 @@ const sharedFollowStyling = css`
   padding: 2px 8px;
   border: 1px solid var(--color-super-dark-grey);
   font-size: 20px;
+  @media (max-width: 450px) {
+    font-size: 16px;
+    padding: 1px 4px;
+  }
   text-shadow: ${N}px ${N}px var(--color-super-dark-grey),
     -${N}px -${N}px var(--color-super-dark-grey),
     ${N}px -${N}px var(--color-super-dark-grey),
@@ -48,18 +48,10 @@ const sharedFollowStyling = css`
     ${N}px 0px var(--color-super-dark-grey),
     0px -${N}px var(--color-super-dark-grey),
     0px ${N}px var(--color-super-dark-grey);
-  @media (max-width: 450px) {
-    font-size: 16px;
-    padding: 1px 4px;
-  }
 `;
 
-const Followers = styled.div`
-  background-color: var(--color-teal);
-  ${sharedFollowStyling}
-`;
-const Following = styled.div`
-  background-color: var(--color-pink);
+const CountContainer = styled.div`
+  background-color: ${(props) => props.color};
   ${sharedFollowStyling}
 `;
 

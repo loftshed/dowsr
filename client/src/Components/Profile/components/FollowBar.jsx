@@ -1,10 +1,12 @@
-import MessageButton from "./MessageButton";
 import FollowButton from "./FollowButton";
-import FollowCounts from "./FollowCounts";
 import styled, { css } from "styled-components";
 import { sharedDetailStyle } from "../sharedstyles";
 import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
+import FollowCountIndicator from "./FollowCountIndicator";
+import { getUser } from "../../Auth/helpers";
+
+// STRETCH: To get follower avatars make it so that when you follow someone their avatarUrl and username are saved in your followers arary along with their id.
 
 const FollowBar = ({
   loggedInUser,
@@ -22,10 +24,17 @@ const FollowBar = ({
   const [followingCount, setFollowingCount] = useState(
     viewedProfile.following.length
   );
+
   return (
     <>
-      {!isOwnProfile && (
-        <ActionBarWrapper>
+      <ActionBarWrapper>
+        <FollowCountIndicator
+          type={"followers"}
+          color={"var(--color-teal)"}
+          count={followerCount}
+        />
+
+        {!isOwnProfile && (
           <FollowButton
             loggedInUser={loggedInUser}
             _id={_id}
@@ -36,12 +45,17 @@ const FollowBar = ({
             setFollowingCount={setFollowingCount}
             followerCount={followerCount}
           />
-        </ActionBarWrapper>
-      )}
-      <FollowCounts
-        followerCount={followerCount}
-        followingCount={followingCount}
-      />
+        )}
+      </ActionBarWrapper>
+      bla bla bla
+      <ActionBarWrapper>
+        <FollowCountIndicator
+          type={"following"}
+          color={"var(--color-pink)"}
+          count={followingCount}
+        />
+      </ActionBarWrapper>
+      so on & so forth
     </>
   );
 };
@@ -49,7 +63,7 @@ const FollowBar = ({
 export { FollowBar, buttonStyle };
 
 const ActionBarWrapper = styled.div`
-  justify-content: flex-end;
+  justify-content: space-between;
   ${sharedDetailStyle};
 `;
 

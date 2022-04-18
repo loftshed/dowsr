@@ -28,7 +28,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const params = useParams();
   const isOwnProfile = loggedInUser.username === params.username;
-  console.log(isOwnProfile);
 
   const handleGetProfile = async (username) => {
     try {
@@ -100,8 +99,8 @@ const Profile = () => {
             <Avatar src={avatarUrl} />
           </ProfileSplash>
           <UserDetails>
-            <DetailsHeading style={{ gap: "10px" }}>
-              <h3>{username}</h3>
+            <DetailsHeading>
+              <Username>{username}</Username>
             </DetailsHeading>
             <Details>
               <div>
@@ -201,20 +200,21 @@ const UserDetails = styled.div`
 `;
 
 const DetailsHeading = styled.div`
-  ${centeredFlexRow}
-  justify-content: flex-start;
   background-color: var(--color-darkest-grey);
-  padding: ${SIZES.universalPadding}px;
-  gap: 10px;
-  height: 50px;
+  padding: 0 ${SIZES.universalPadding}px;
   width: 100%;
   @media (min-width: 450px) {
-    padding: 40px;
-    height: 75px;
-    font-size: 22px;
-    h3 {
-      font-size: 34px;
-    }
+    padding: 0px 40px;
+  }
+`;
+
+const Username = styled.h3`
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  padding: 5px 0px;
+  @media (min-width: 450px) {
+    padding: 10px 0px;
+    font-size: 40px;
   }
 `;
 
@@ -225,7 +225,6 @@ const Details = styled.div`
   background-color: var(--color-super-dark-grey);
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
-
   height: 100%;
   width: 100%;
   @media (min-width: 450px) {
