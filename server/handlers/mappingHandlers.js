@@ -91,9 +91,24 @@ const getSubmissionsByUsername = async ({ query: { username } }, res) => {
     const userSubmissions = userContributions.map((contribution) =>
       contribution.pins.filter((pin) => pin.submittedBy === username)
     );
+    // This entire thing is a bandaid solution because I didn't think of just counting these numbers upon creation.
+    // Flattens the array because I'm not sure why it's super wacky rn.
+    // TODO: Figure that out
+    const flattenedUserSubmissions = userSubmissions.flat();
+    // Maps through the array and returns an object with the types as keys and the number of times they are encountered as the values.
+    const typeCounts = flattenedUserSubmissions.reduce(
+      (accumulator, currentIndex) => {
+        accumulator[currentIndex.type]
+          ? accumulator[currentIndex.type]++
+          : (accumulator[currentIndex.type] = 1);
+        return accumulator;
+      },
+      {}
+    );
     res.status(200).json({
       status: 200,
-      submissions: userSubmissions,
+      submissions: userSubmissions.flat(),
+      submissionsByType: typeCounts,
       message: "Successfully retrieved user contributions.",
     });
   } catch (err) {

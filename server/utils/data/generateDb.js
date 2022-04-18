@@ -18,7 +18,7 @@ const client = new MongoClient(MONGO_URI, {
 let pins = [];
 
 const pinTypes = [
-  { _id: uuidv4(), filter: "bike-shops", pins: [] },
+  { _id: uuidv4(), filter: "shops", pins: [] },
   { _id: uuidv4(), filter: "deps", pins: [] },
   { _id: uuidv4(), filter: "cafes", pins: [] },
   { _id: uuidv4(), filter: "water", pins: [] },
