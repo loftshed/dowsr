@@ -9,14 +9,15 @@ import {
 
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect, useState } from "react";
-import { getDistanceFromPoint, togglePinLike } from "../helpers";
+import { getDistanceFromPoint } from "../helpers";
 import { useNavigate } from "react-router-dom";
-import { ThumbsDownIcon, ThumbsUpIcon } from "../../../../styling/react-icons";
+
 import { RiLinkM as LinkIcon } from "react-icons/ri";
 import { AppContext } from "../../../../AppContext";
+import PinVoting from "./PinVoting";
+import PinStreetView from "./PinStreetView";
 
 const PinInfoPopup = () => {
-  const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
   const navigate = useNavigate();
   const { current: map } = useMap();
   const {
@@ -82,15 +83,7 @@ const PinInfoPopup = () => {
         </Heading>
         <Body>
           <Distance>{kmFromUser} km away</Distance>
-          <a
-            href={`http://maps.google.com/maps?q=&layer=c&cbll=${popupInfo.latitude},${popupInfo.longitude}`}
-            target="_new"
-          >
-            <StreetView
-              id="street-view"
-              src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${popupInfo.latitude},${popupInfo.longitude}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
-            />
-          </a>
+          <PinStreetView popupInfo={popupInfo} />
 
           {/* TODO do something to stop button from animation if submitted by dowsr */}
 
@@ -106,55 +99,12 @@ const PinInfoPopup = () => {
                 <span>Submitted by</span>
                 <>{isOwnPin ? <>you!</> : <>@{popupInfo.submittedBy}</>}</>
               </SubmittedBy>
-              <LikeDislike>
-                <Button
-                  isOwnPin={isOwnPin}
-                  value={"like"}
-                  onClick={async (ev) => {
-                    const { success, action } = await togglePinLike(
-                      popupInfo._id,
-                      loggedInUser._id,
-                      true
-                    );
-
-                    if (success) {
-                      setPinFeedback({
-                        ...pinFeedback,
-                        numLikes:
-                          action === "liked"
-                            ? pinFeedback.numLikes + 1
-                            : pinFeedback.numLikes - 1,
-                      });
-                    }
-                  }}
-                >
-                  <ThumbsUpIcon />
-                  <span>{pinFeedback?.numLikes}</span>
-                </Button>
-                <Button
-                  isDefaultPin={isDefaultPin}
-                  isOwnPin={isOwnPin}
-                  value={"dislike"}
-                  onClick={async (ev) => {
-                    const { success, action } = await togglePinLike(
-                      popupInfo._id,
-                      loggedInUser._id
-                    );
-                    if (success) {
-                      setPinFeedback({
-                        ...pinFeedback,
-                        numDislikes:
-                          action === "disliked"
-                            ? (pinFeedback.numDislikes += 1)
-                            : (pinFeedback.numDislikes -= 1),
-                      });
-                    }
-                  }}
-                >
-                  <ThumbsDownIcon />
-                  <span>{pinFeedback?.numDislikes}</span>
-                </Button>
-              </LikeDislike>
+              <PinVoting
+                isOwnPin={isOwnPin}
+                isDefaultPin={isDefaultPin}
+                pinFeedback={pinFeedback}
+                setPinFeedback={setPinFeedback}
+              />
             </>
           ) : (
             <DefaultPin>
@@ -218,11 +168,6 @@ const Heading = styled.div`
 
 const Distance = styled.div``;
 
-const StreetView = styled.img`
-  border-radius: 10px;
-  border: 2px solid var(--color-pink);
-`;
-
 const PopupContainer = styled.div`
   user-select: none;
   ${centeredFlexColumn}
@@ -242,41 +187,4 @@ const Body = styled.div`
   font-size: 14px;
   line-height: 18px;
   outline: 1px solid var(--color-super-dark-grey);
-`;
-
-const Button = styled.button`
-  ${textButtonstyling}
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  // if value is like, set background color to teal
-  ${(props) =>
-    props.value === "like"
-      ? css`
-          background-color: var(--color-teal);
-          &:hover {
-            background-color: var(--color-pink);
-          }
-        `
-      : css`
-          background-color: var(--color-pink);
-        `}
-  ${(props) =>
-    props.isOwnPin &&
-    css`
-      pointer-events: none;
-    `}        
-  padding: 1px 2px;
-  border-radius: 4px;
-  svg,
-  span {
-    pointer-events: none;
-  }
-  span {
-    font-weight: 800;
-    color: var(--color-medium-grey);
-    border-radius: 4px;
-    line-height: 11px;
-    padding: 2px;
-  }
 `;
