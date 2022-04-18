@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { fillSpace } from "../../styling/sharedstyles";
 import { useState, useEffect, useContext } from "react";
-import Bubble from "./MessageBubble";
 import { AppContext } from "../../AppContext";
 import { SIZES } from "../../styling/constants";
 import { replyThread, getOneThread, getUserThreads } from "./helpers";
-import { v4 as uuidv4 } from "uuid";
-import ScrollToMostRecentMessage from "./ScrollToMostRecentMsg";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { SendIcon } from "../../styling/react-icons";
+import ChatMessages from "./ChatMessages";
+import SendButton from "./SendButton";
+import ChatLoading from "./ChatLoading";
 
 const ChatInterface = () => {
   const [currentMessages, setCurrentMessages] = useState([]);
@@ -73,35 +73,15 @@ const ChatInterface = () => {
     }
   };
 
-  if (!currentMessages) return;
-  <ChatWrapper>
-    <ChatBody>
-      <LoadingSpinner size={60} />
-    </ChatBody>
-    <InputArea>
-      <ChatInput disabled={true}></ChatInput>
-      <SendButton disabled={true} />
-    </InputArea>
-  </ChatWrapper>;
+  if (!currentMessages) return <ChatLoading />;
 
   return (
     <ChatWrapper>
-      <ChatBody>
-        <>
-          {currentMessages.map((el) => {
-            return (
-              <Bubble
-                key={uuidv4()}
-                recd={el.userId !== loggedInUser._id}
-                author={`@${el.handle}`}
-                content={el.message}
-                timestamp={el.sent}
-              />
-            );
-          })}
-        </>
-        <ScrollToMostRecentMessage />
-      </ChatBody>
+      <ChatMessages
+        currentMessages={currentMessages}
+        loggedInUser={loggedInUser}
+      />
+
       <InputArea
         onSubmit={(ev) => {
           ev.preventDefault(); //TODO: CLEAR INPUT ON SUBMIT
@@ -110,9 +90,7 @@ const ChatInterface = () => {
         }}
       >
         <ChatInput id="message" type="text" autoComplete="off"></ChatInput>
-        <SendButton id="send" type="submit">
-          <SendIcon />
-        </SendButton>
+        <SendButton />
       </InputArea>
     </ChatWrapper>
   );
@@ -130,29 +108,6 @@ const ChatWrapper = styled.div`
   gap: 4px;
   width: 100%;
   height: 100%;
-`;
-
-const ChatBody = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  border-radius: 5px;
-  padding: 6px 2px;
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-darkest-grey);
-  overflow-y: scroll;
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #282828;
-    box-shadow: 0px 0px 1px inset var(--color-super-dark-grey);
-  }
-  ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: var(--color-pink);
-  }
 `;
 
 const InputArea = styled.form`
@@ -174,40 +129,4 @@ const ChatInput = styled.input`
     //TODO: change transparency on this
     box-shadow: inset 0px 0px 50px rgba(68, 187, 164, 0.2);
   }
-`;
-
-const SendButton = styled.button`
-  font-weight: 600;
-  cursor: pointer;
-  color: white;
-  background-color: var(--color-darkest-grey);
-  width: fit-content;
-  border-radius: 5px;
-  border: none;
-  height: 100%;
-  padding: 2px 10px;
-  margin: 0px 6px;
-  transition: all 0.1s ease;
-  border-bottom-right-radius: ${SIZES.borderRadius}px;
-  svg {
-    width: 30px;
-    height: 30px;
-  }
-  &:hover {
-    background-color: var(--color-teal);
-    svg {
-      fill: var(--color-pink);
-      stroke: var(--color-super-dark-grey);
-    }
-  }
-  &:active {
-    background-color: var(--color-pink);
-    /* transform: scale(0.95); */
-    svg {
-      transition: all 0.5s ease;
-      fill: var(--color-teal);
-      transform: translateX(40px);
-    }
-  }
-  overflow: hidden;
 `;
