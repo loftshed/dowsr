@@ -195,6 +195,7 @@ const BurgerZone = styled.div`
 
 const Wrapper = styled.div`
   background-color: var(--color-darkest-grey);
+  border-radius: 10px;
   ${centeredFlexRow}
   width: 100%;
   z-index: 100;

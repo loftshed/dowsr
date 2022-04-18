@@ -35,8 +35,8 @@ const GlobalStyle = createGlobalStyle`
       --color-gold: #e7bb41;
 
       --color-water: #48cae4;
-      --color-poo: #b2967d;
-      --color-cone: #e76f51;
+      --color-toilet: #b2967d;
+      --color-hazard: #e76f51;
       --color-police: #118ab2;
     }
 

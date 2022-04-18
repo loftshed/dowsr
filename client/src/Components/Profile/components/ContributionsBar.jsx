@@ -7,12 +7,16 @@ import {
 } from "../../../styling/react-icons";
 import { centeredFlexColumn } from "../../../styling/sharedstyles";
 import ContributionsHeader from "./ContributionsHeader";
+import ContributionType from "./ContributionType";
 
-const Contributions = ({
+const ContributionsBar = ({
   submissionsByType,
   submissionsPending,
   contributions,
 }) => {
+  if (!submissionsByType) return null;
+  const { water, toilet, hazard, police } = submissionsByType;
+
   return (
     <>
       <ContributionsHeader
@@ -20,56 +24,24 @@ const Contributions = ({
         contributions={contributions}
       />
       <ContributionsWrapper>
-        <Column>
-          <Icon color={"var(--color-water)"}>
-            <WaterIcon />
-          </Icon>
-          <Number>
-            {submissionsByType?.water ? <>{submissionsByType.water}</> : <>0</>}
-          </Number>
-        </Column>
-        <Column>
-          <Icon color={"var(--color-poo)"}>
-            <ToiletIcon />
-          </Icon>
-          <Number>
-            {submissionsByType?.toilet ? (
-              <>{submissionsByType.toilet}</>
-            ) : (
-              <>0</>
-            )}
-          </Number>
-        </Column>
-        <Column>
-          <Icon color={"var(--color-cone)"}>
-            <HazardIcon />
-          </Icon>
-          <Number>
-            {submissionsByType?.hazard ? (
-              <>{submissionsByType.hazard}</>
-            ) : (
-              <>0</>
-            )}
-          </Number>
-        </Column>
-        <Column>
-          <Icon color={"var(--color-police)"}>
-            <PoliceIcon />
-          </Icon>
-          <Number>
-            {submissionsByType?.police ? (
-              <>{submissionsByType.police}</>
-            ) : (
-              <>0</>
-            )}
-          </Number>
-        </Column>
+        <ContributionType numSubmissions={water} filterName={"water"}>
+          <WaterIcon />
+        </ContributionType>
+        <ContributionType numSubmissions={toilet} filterName={"toilet"}>
+          <ToiletIcon />
+        </ContributionType>
+        <ContributionType numSubmissions={hazard} filterName={"hazard"}>
+          <HazardIcon />
+        </ContributionType>
+        <ContributionType numSubmissions={police} filterName={"police"}>
+          <PoliceIcon />
+        </ContributionType>
       </ContributionsWrapper>
     </>
   );
 };
 
-export default Contributions;
+export default ContributionsBar;
 
 const ContributionsWrapper = styled.div`
   display: flex;

@@ -1,22 +1,19 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import {
   centeredFlexColumn,
   centeredFlexRow,
   fillSpace,
 } from "../../styling/sharedstyles";
-
-import { BAR_HEIGHT } from "./sharedstyles";
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { useEffect, useContext, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { AppContext } from "../../AppContext";
-import { getUser, getUserByUsername } from "../Auth/helpers";
+import { getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleGetUserContributions, handleGetUserPending } from "./helpers";
-import { sharedDetailStyle } from "./sharedstyles";
-import Contributions from "./components/Contributions";
+import ContributionsBar from "./components/ContributionsBar";
 import RegDate from "./components/RegDate";
 import { FollowBar } from "./components/FollowBar";
 import LocationBar from "./components/LocationBar";
@@ -57,8 +54,15 @@ const Profile = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await handleGetUserContributions(loggedInUser.username);
-      const pending = await handleGetUserPending(loggedInUser._id);
+      let response;
+      let pending;
+      if (isOwnProfile) {
+        response = await handleGetUserContributions(loggedInUser.username);
+        pending = await handleGetUserPending(loggedInUser._id);
+      } else {
+        response = await handleGetUserContributions(viewedProfile.username);
+        pending = await handleGetUserPending(viewedProfile._id);
+      }
       setViewedProfile({
         ...viewedProfile,
         submissionsByType: response.submissionsByType,
@@ -67,7 +71,7 @@ const Profile = () => {
     })();
   }, [params.username, loggedInUser.username]);
 
-  if (isLoading)
+  if (isLoading || viewedProfile.submissionsByType === undefined)
     return (
       <ResponsiveContainer>
         <LoadingSpinner size={60} />
@@ -111,7 +115,7 @@ const Profile = () => {
               </div>
               <div>
                 <RegDate regDate={regDate} />
-                <Contributions
+                <ContributionsBar
                   submissionsByType={submissionsByType}
                   submissionsPending={submissionsPending}
                   contributions={contributions}
