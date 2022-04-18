@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { SendIcon } from "../../styling/react-icons";
-import { SIZES } from "../../styling/constants";
+import { SendIcon } from "../../../styling/react-icons";
+import { SIZES } from "../../../styling/constants";
 
 const SendButton = () => {
   return (
-    <SendButtonWrapper id="send" type="submit">
+    <SendButtonWrapper>
       <SendIcon />
     </SendButtonWrapper>
   );

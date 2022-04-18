@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import ThreadPreviewTile from "./ThreadPreviewTile";
+import ThreadPreviewTile from "./components/ThreadPreviewTile";
 import ChatInterface from "./ChatInterface";
 
 const MessagingContainer = () => {

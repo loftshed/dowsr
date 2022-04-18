@@ -6,9 +6,9 @@ import { SIZES } from "../../styling/constants";
 import { replyThread, getOneThread, getUserThreads } from "./helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { SendIcon } from "../../styling/react-icons";
-import ChatMessages from "./ChatMessages";
-import SendButton from "./SendButton";
-import ChatLoading from "./ChatLoading";
+import ChatMessages from "./components/ChatMessages";
+import SendButton from "./components/SendButton";
+import ChatLoading from "./components/ChatLoading";
 
 const ChatInterface = () => {
   const [currentMessages, setCurrentMessages] = useState([]);

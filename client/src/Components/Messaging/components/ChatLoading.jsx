@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import LoadingSpinner from "../../styling/LoadingSpinner";
+import LoadingSpinner from "../../../styling/LoadingSpinner";
 import SendButton from "./SendButton";
-import { fillSpace } from "../../styling/sharedstyles";
-import { SIZES } from "../../styling/constants";
+import { fillSpace } from "../../../styling/sharedstyles";
+import { SIZES } from "../../../styling/constants";
 
 const ChatLoading = () => {
   return (

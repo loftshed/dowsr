@@ -1,15 +1,18 @@
 import styled from "styled-components";
-import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
-import { SIZES } from "../../styling/constants";
+import { centeredFlexColumn, fillSpace } from "../../../styling/sharedstyles";
+import { SIZES } from "../../../styling/constants";
 
 import { useContext, useEffect, useState } from "react";
 import { useWindowWidth } from "@react-hook/window-size";
 import dayjs from "dayjs";
 
-import { AppContext } from "../../AppContext";
-import { getUser } from "../Auth/helpers";
-import LoadingSpinner from "../../styling/LoadingSpinner";
-import { gradientScroll, fadeIn, RefreshAnim } from "../../styling/animations";
+import { AppContext } from "../../../AppContext";
+import { getUser } from "../../Auth/helpers";
+import {
+  gradientScroll,
+  fadeIn,
+  RefreshAnim,
+} from "../../../styling/animations";
 
 const ThreadPreviewTile = ({ threadId, userId, user, time, message }) => {
   const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =
