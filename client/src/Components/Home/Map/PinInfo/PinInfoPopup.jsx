@@ -16,6 +16,7 @@ import { RiLinkM as LinkIcon } from "react-icons/ri";
 import { AppContext } from "../../../../AppContext";
 import PinVoting from "./PinVoting";
 import PinStreetView from "./PinStreetView";
+import PinSubmitter from "./PinSubmitter";
 
 const PinInfoPopup = () => {
   const navigate = useNavigate();
@@ -84,35 +85,13 @@ const PinInfoPopup = () => {
         <Body>
           <Distance>{kmFromUser} km away</Distance>
           <PinStreetView popupInfo={popupInfo} />
-
-          {/* TODO do something to stop button from animation if submitted by dowsr */}
-
-          {popupInfo.submittedBy !== "dowsr" ? (
-            <>
-              <SubmittedBy
-                key="linkToProfile"
-                disabled={!popupInfo.submittedBy}
-                onClick={(ev) => {
-                  navigate(`/profile/${popupInfo.submittedBy}`);
-                }}
-              >
-                <span>Submitted by</span>
-                <>{isOwnPin ? <>you!</> : <>@{popupInfo.submittedBy}</>}</>
-              </SubmittedBy>
-              <PinVoting
-                isOwnPin={isOwnPin}
-                isDefaultPin={isDefaultPin}
-                pinFeedback={pinFeedback}
-                setPinFeedback={setPinFeedback}
-              />
-            </>
-          ) : (
-            <DefaultPin>
-              <span>
-                Submitted by <span>dowsr</span>
-              </span>
-            </DefaultPin>
-          )}
+          <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
+          <PinVoting
+            isOwnPin={isOwnPin}
+            isDefaultPin={isDefaultPin}
+            pinFeedback={pinFeedback}
+            setPinFeedback={setPinFeedback}
+          />
         </Body>
       </PopupContainer>
     </Popup>
