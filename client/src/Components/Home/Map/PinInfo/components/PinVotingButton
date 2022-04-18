@@ -1,0 +1,9 @@
+import styled from "styled-components";
+
+const PinVotingButton = () => {
+  return <PinVotingButtonWrapper></PinVotingButtonWrapper>;
+};
+
+export default PinVotingButton;
+
+const PinVotingButtonWrapper = styled.div``;

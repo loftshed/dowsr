@@ -51,21 +51,23 @@ const PinInfoPopup = () => {
       closeOnClick={true}
       closeButton={false}
     >
-      <PinInfoHeader popupInfo={popupInfo} />
-      <Body>
-        <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
-        <PinStreetView
-          popupInfo={popupInfo}
-          apiKey={REACT_APP_GOOGLE_API_KEY}
-        />
-        <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
-        <PinVoting
-          isOwnPin={isOwnPin}
-          isDefaultPin={isDefaultPin}
-          pinFeedback={pinFeedback}
-          setPinFeedback={setPinFeedback}
-        />
-      </Body>
+      <div>
+        <PinInfoHeader popupInfo={popupInfo} />
+        <Body>
+          <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
+          <PinStreetView
+            popupInfo={popupInfo}
+            apiKey={REACT_APP_GOOGLE_API_KEY}
+          />
+          <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
+          <PinVoting
+            isOwnPin={isOwnPin}
+            isDefaultPin={isDefaultPin}
+            pinFeedback={pinFeedback}
+            setPinFeedback={setPinFeedback}
+          />
+        </Body>
+      </div>
     </PopupContainer>
   );
 };
@@ -77,9 +79,12 @@ const PopupContainer = styled(Popup)`
   padding: 0;
   transition: all ease 0.2s;
   user-select: none;
-  ${centeredFlexColumn}
-  p, span {
+  p,
+  span {
     color: var(--color-super-dark-grey);
+  }
+  div {
+    ${centeredFlexColumn}
   }
 `;
 
