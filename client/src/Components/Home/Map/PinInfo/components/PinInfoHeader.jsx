@@ -1,6 +1,9 @@
 import { RiLinkM as LinkIcon } from "react-icons/ri";
 import styled from "styled-components";
-import { centeredFlexRow } from "../../../../../styling/sharedstyles";
+import {
+  centeredFlexRow,
+  fakeStroke,
+} from "../../../../../styling/sharedstyles";
 
 const PinInfoHeader = ({ popupInfo }) => {
   if (popupInfo.site)
@@ -25,6 +28,7 @@ const PinInfoHeaderWrapper = styled.div`
   color: var(--color-light-grey);
   padding: 3px;
   text-align: center;
+  ${fakeStroke}
   a {
     display: flex;
     align-items: center;

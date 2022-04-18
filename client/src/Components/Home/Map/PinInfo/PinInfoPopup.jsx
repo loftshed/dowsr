@@ -6,11 +6,7 @@ import {
 } from "../../../../styling/sharedstyles";
 
 import { MappingContext } from "../MappingContext";
-import { useContext, useEffect, useState } from "react";
-import { getDistanceFromPoint } from "../helpers";
-import { useNavigate } from "react-router-dom";
-
-import { AppContext } from "../../../../AppContext";
+import { useContext, useEffect } from "react";
 import PinVoting from "./components/PinVoting";
 import PinStreetView from "./components/PinStreetView";
 import PinSubmitter from "./components/PinSubmitter";
@@ -25,15 +21,12 @@ const PinInfoPopup = () => {
   const { current: map } = useMap();
 
   const isOwnPin = localStorage.getItem("username") === popupInfo?.submittedBy;
-  const isDefaultPin = popupInfo?.submittedBy === null;
 
   useEffect(() => {
     return () => {
       setClickedLocation(null);
     };
   }, []);
-
-  // Get the user's avatarUrl from the db
 
   if (!popupInfo) return null;
 
@@ -55,7 +48,7 @@ const PinInfoPopup = () => {
             apiKey={REACT_APP_GOOGLE_API_KEY}
           />
           <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
-          <PinVoting isOwnPin={isOwnPin} isDefaultPin={isDefaultPin} />
+          <PinVoting isOwnPin={isOwnPin} />
         </Body>
       </div>
     </PopupContainer>
@@ -72,9 +65,6 @@ const PopupContainer = styled(Popup)`
   p,
   span {
     color: var(--color-super-dark-grey);
-  }
-  div {
-    ${centeredFlexColumn}
   }
 `;
 

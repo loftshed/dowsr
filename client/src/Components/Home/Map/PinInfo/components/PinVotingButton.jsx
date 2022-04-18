@@ -1,5 +1,8 @@
 import styled, { css } from "styled-components";
-import { textButtonstyling } from "../../../../../styling/sharedstyles";
+import {
+  fakeStroke,
+  textButtonstyling,
+} from "../../../../../styling/sharedstyles";
 import { useContext } from "react";
 import { AppContext } from "../../../../../AppContext";
 import { MappingContext } from "../../MappingContext";
@@ -52,7 +55,6 @@ export default PinVotingButton;
 const PinVotingButtonWrapper = styled.button`
   ${textButtonstyling}
   display: flex;
-  align-items: center;
   gap: 2px;
   // if value is like, set background color to teal
   ${(props) =>
@@ -71,17 +73,22 @@ const PinVotingButtonWrapper = styled.button`
     css`
       pointer-events: none;
     `}        
-  padding: 1px 2px;
+  padding: 3px 6px;
   border-radius: 4px;
+  svg {
+    stroke: var(--color-extra-medium-grey);
+    stroke-width: 1px;
+  }
   svg,
   span {
     pointer-events: none;
+    filter: drop-shadow(1px 1px 0px var(--color-super-dark-grey));
   }
   span {
     font-weight: 800;
-    color: var(--color-medium-grey);
     border-radius: 4px;
     line-height: 11px;
     padding: 2px;
+    -webkit-text-stroke: 1px var(--color-extra-medium-grey);
   }
 `;

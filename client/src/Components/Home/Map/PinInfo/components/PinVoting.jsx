@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../../../../AppContext";
 import { MappingContext } from "../../MappingContext";
 import {
   ThumbsDownIcon,
@@ -10,9 +9,8 @@ import {
 import PinVotingButton from "./PinVotingButton";
 import { centeredFlexRow } from "../../../../../styling/sharedstyles";
 
-const PinVoting = ({ isOwnPin, isDefaultPin }) => {
+const PinVoting = ({ isOwnPin }) => {
   const [pinFeedback, setPinFeedback] = useState({});
-  const { loggedInUser } = useContext(AppContext);
   const { popupInfo } = useContext(MappingContext);
 
   useEffect(() => {
@@ -48,6 +46,9 @@ const PinVoting = ({ isOwnPin, isDefaultPin }) => {
 export default PinVoting;
 
 const PinVotingWrapper = styled.div`
-  gap: 5px;
-  background-color: yellow;
+  ${centeredFlexRow}
+  padding: 3px 6px;
+  gap: 10px;
+  background-color: var(--color-extra-medium-grey);
+  border-radius: 4px;
 `;

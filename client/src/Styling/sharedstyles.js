@@ -124,6 +124,18 @@ const Option = styled.option`
   width: 100%;
 `;
 
+const N = 1;
+const fakeStroke = css`
+  text-shadow: ${N}px ${N}px var(--color-super-dark-grey),
+    -${N}px -${N}px var(--color-super-dark-grey),
+    ${N}px -${N}px var(--color-super-dark-grey),
+    -${N}px ${N}px var(--color-super-dark-grey),
+    -${N}px 0px var(--color-super-dark-grey),
+    ${N}px 0px var(--color-super-dark-grey),
+    0px -${N}px var(--color-super-dark-grey),
+    0px ${N}px var(--color-super-dark-grey);
+`;
+
 const pageWidth = document.documentElement.clientWidth;
 
 export {
@@ -143,4 +155,5 @@ export {
   textButtonstyling,
   BurgerNavLink,
   boxShadow,
+  fakeStroke,
 };

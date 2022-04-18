@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { fakeStroke } from "../../../styling/sharedstyles";
 import { sharedDetailStyle } from "../sharedstyles";
 import MessageButton from "./MessageButton";
 
@@ -40,14 +41,7 @@ const sharedFollowStyling = css`
     font-size: 16px;
     padding: 1px 4px;
   }
-  text-shadow: ${N}px ${N}px var(--color-super-dark-grey),
-    -${N}px -${N}px var(--color-super-dark-grey),
-    ${N}px -${N}px var(--color-super-dark-grey),
-    -${N}px ${N}px var(--color-super-dark-grey),
-    -${N}px 0px var(--color-super-dark-grey),
-    ${N}px 0px var(--color-super-dark-grey),
-    0px -${N}px var(--color-super-dark-grey),
-    0px ${N}px var(--color-super-dark-grey);
+  ${fakeStroke}
 `;
 
 const CountContainer = styled.div`
