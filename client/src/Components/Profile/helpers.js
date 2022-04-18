@@ -22,4 +22,34 @@ const handleGetUserPending = async (userId) => {
   }
 };
 
-export { handleGetUserContributions, handleGetUserPending };
+// Follows or unfollows another user. Requires userId and targetUserId in the query.
+// A third parameter "follow" should be included if userId is to follow targetUserId.
+// If the optional third parameter "follow" is not included, userId will unfollow targetUserId.
+// Uses a fetch request with PATCH method.
+// example - to follow:
+// /api/toggle-follow?userId=userId&targetUserId=targetUserId&follow=true
+// to unfollow:
+// /api/toggle-follow?userId=userId&targetUserId=targetUserId
+
+const handleToggleFollow = async (userId, targetUserId, follow) => {
+  try {
+    const response = await fetch(
+      `/api/toggle-follow?userId=${userId}&targetUserId=${targetUserId}${
+        follow ? "&follow=true" : ""
+      }`,
+      {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { handleGetUserContributions, handleGetUserPending, handleToggleFollow };

@@ -17,7 +17,11 @@ import { getUser, getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { startThreadWithUser } from "../Messaging/helpers";
-import { handleGetUserContributions, handleGetUserPending } from "./helpers";
+import {
+  handleGetUserContributions,
+  handleGetUserPending,
+  handleToggleFollow,
+} from "./helpers";
 import {
   RiGlobeLine as GlobeIcon,
   RiUserFollowLine as FollowIcon,
@@ -25,6 +29,7 @@ import {
 } from "react-icons/ri";
 import { SendIcon } from "../../styling/react-icons";
 import Contributions from "./Contributions";
+import FollowButton from "./FollowButton";
 
 //FIXME: Literally everything is a disaster but I am in a mega super rush
 //TODO: Redesign this component from the ground up after all other features are complete
@@ -36,13 +41,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const params = useParams();
   const isOwnProfile = loggedInUser.username === params.username;
-
-  const handleToggleFollow = async (userId) => {
-    try {
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleGetProfile = async (username) => {
     try {
@@ -135,29 +133,7 @@ const Profile = () => {
                     {"   "}
                     <SendIcon style={{ display: "inline" }} />
                   </ProfileButton>
-                  <ProfileButton
-                    onClick={async () => {
-                      try {
-                        const response = await handleToggleFollow(_id);
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    }}
-                  >
-                    {loggedInUser.following?.includes(_id) ? (
-                      <>
-                        <FollowIcon style={{ display: "inline" }} />
-                        {"   "}
-                        <span>Unfollow</span>
-                      </>
-                    ) : (
-                      <>
-                        <UnfollowIcon style={{ display: "inline" }} />
-                        {"   "}
-                        <span>Follow</span>
-                      </>
-                    )}
-                  </ProfileButton>
+                  <FollowButton loggedInUser={loggedInUser} _id={_id} />
                 </Item>
               )}
               <BottomContainer isOwnProfile={isOwnProfile}>
@@ -176,7 +152,7 @@ const Profile = () => {
                           {contributions?.length - submissionsPending?.length}
                         </>
                       ) : (
-                        <>{contributions.length}</>
+                        <>{contributions?.length}</>
                       )}
                     </span>{" "}
                     pin contribution
