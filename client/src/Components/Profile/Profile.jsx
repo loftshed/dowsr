@@ -189,6 +189,7 @@ const Avatar = styled.img`
     27.2px 23.8px 60.6px rgba(0, 0, 0, 0.05),
     65px 57px 145px rgba(0, 0, 0, 0.07);
   outline: 1px solid var(--color-super-dark-grey);
+  background-color: var(--color-pink);
 `;
 
 const UserDetails = styled.div`
