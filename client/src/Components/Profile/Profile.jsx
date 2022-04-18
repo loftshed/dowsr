@@ -114,7 +114,11 @@ const Profile = () => {
                   submissionsPending={submissionsPending}
                   contributions={contributions}
                 />
-                <MessageBar loggedInUser={loggedInUser} _id={_id} />
+                <MessageBar
+                  loggedInUser={loggedInUser}
+                  _id={_id}
+                  isOwnProfile={isOwnProfile}
+                />
               </BottomContainer>
             </Details>
           </UserDetails>
@@ -180,6 +184,7 @@ const UserDetails = styled.div`
   ${centeredFlexColumn}
   flex-grow: 1;
   width: 100%;
+  /* height: 100%; */
   border-radius: ${SIZES.borderRadius}px;
   border-top: 1px solid var(--color-super-dark-grey);
 `;
@@ -222,10 +227,11 @@ const Item = styled.div`
 
 const BottomContainer = styled.div`
   justify-content: flex-end;
+  align-self: flex-end;
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: calc(100% - ${BAR_HEIGHT.small * 3}px);
+  height: calc(100% - ${BAR_HEIGHT.small * 2}px);
   width: 100%;
   @media (min-width: 450px) {
     height: calc(100% - ${BAR_HEIGHT.large * 3}px);
@@ -237,13 +243,4 @@ const BottomContainer = styled.div`
   @media (min-width: 450px) {
     height: calc(100% - ${BAR_HEIGHT.large * 2}px);
   `}
-`;
-
-const BottomSubcontainer = styled.div`
-  ${fillSpace}
-  flex-direction: column;
-  padding: ${SIZES.universalPadding}px;
-  @media (min-width: 450px) {
-    padding: calc(${SIZES.universalPadding}px * 2);
-  }
 `;

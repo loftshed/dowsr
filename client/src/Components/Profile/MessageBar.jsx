@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
 import MessageButton from "./MessageButton";
 
-const MessageBar = ({ loggedInUser, _id }) => {
+const MessageBar = ({ loggedInUser, _id, isOwnProfile }) => {
   return (
     <MessageBarWrapper>
-      <MessageButton loggedInUser={loggedInUser} _id={_id} />
+      {!isOwnProfile && <MessageButton loggedInUser={loggedInUser} _id={_id} />}
     </MessageBarWrapper>
   );
 };
