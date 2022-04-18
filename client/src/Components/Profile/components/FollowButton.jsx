@@ -9,6 +9,7 @@ import { BsFillCheckCircleFill as CheckIcon } from "react-icons/bs";
 import { TextButton } from "../../../styling/sharedstyles";
 import { ProfileButton } from "../sharedstyles";
 
+// FollowButton is a child of ActionBar.
 // TODO: After follow, first show "following!" confirmation and disable button until hover is false.
 
 const FollowButton = ({

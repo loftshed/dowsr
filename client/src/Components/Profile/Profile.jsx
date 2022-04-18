@@ -18,7 +18,7 @@ import { handleGetUserContributions, handleGetUserPending } from "./helpers";
 import { sharedDetailStyle } from "./sharedstyles";
 import Contributions from "./components/Contributions";
 import RegDate from "./components/RegDate";
-import { ActionBar } from "./components/ActionBar";
+import { FollowBar } from "./components/FollowBar";
 import LocationBar from "./components/LocationBar";
 import MessageBar from "./components/MessageBar";
 
@@ -100,7 +100,7 @@ const Profile = () => {
             </DetailsHeading>
             <Details>
               <LocationBar country={country} city={city} region={region} />
-              <ActionBar
+              <FollowBar
                 loggedInUser={loggedInUser}
                 _id={_id}
                 viewedProfile={viewedProfile}

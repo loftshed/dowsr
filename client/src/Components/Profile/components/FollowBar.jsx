@@ -6,7 +6,7 @@ import { sharedDetailStyle } from "../sharedstyles";
 import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
 
-const ActionBar = ({
+const FollowBar = ({
   loggedInUser,
   _id,
   viewedProfile,
@@ -46,7 +46,7 @@ const ActionBar = ({
   );
 };
 
-export { ActionBar, buttonStyle };
+export { FollowBar, buttonStyle };
 
 const ActionBarWrapper = styled.div`
   justify-content: flex-end;
