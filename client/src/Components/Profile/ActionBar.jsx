@@ -35,7 +35,6 @@ const ActionBar = ({
             setFollowingCount={setFollowingCount}
             followerCount={followerCount}
           />
-          <MessageButton loggedInUser={loggedInUser} _id={_id} />
         </ActionBarWrapper>
       )}
       <FollowCounts
@@ -49,8 +48,8 @@ const ActionBar = ({
 export { ActionBar, buttonStyle };
 
 const ActionBarWrapper = styled.div`
-  justify-content: space-between;
-  ${sharedDetailStyle}
+  justify-content: flex-end;
+  ${sharedDetailStyle};
 `;
 
 const buttonStyle = css`

@@ -20,6 +20,7 @@ import Contributions from "./Contributions";
 import RegDate from "./RegDate";
 import { ActionBar } from "./ActionBar";
 import LocationBar from "./LocationBar";
+import MessageBar from "./MessageBar";
 
 // TODO: Make this state less shitty
 
@@ -113,6 +114,7 @@ const Profile = () => {
                   submissionsPending={submissionsPending}
                   contributions={contributions}
                 />
+                <MessageBar loggedInUser={loggedInUser} _id={_id} />
               </BottomContainer>
             </Details>
           </UserDetails>

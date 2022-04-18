@@ -4,12 +4,18 @@ import dayjs from "dayjs";
 const RegDate = ({ regDate }) => {
   return (
     <RegDateWrapper>
-      <span style={{ fontSize: "12px", padding: "5px" }}>
-        Member since {dayjs(regDate).format("MMMM YYYY")}
-      </span>
+      <span>Member since {dayjs(regDate).format("MMMM YYYY")}</span>
     </RegDateWrapper>
   );
 };
 export default RegDate;
 
-const RegDateWrapper = styled.div``;
+const RegDateWrapper = styled.div`
+  span {
+    font-size: 12px;
+    padding: 5px;
+    @media (min-width: 450px) {
+      font-size: 18px;
+    }
+  }
+`;

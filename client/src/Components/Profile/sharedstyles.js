@@ -29,17 +29,19 @@ const ProfileButton = styled.button`
   ${textButtonstyling}
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 18px;
   border-radius: 3px;
   padding: 0px 5px;
   gap: 4px;
   cursor: pointer;
   @media (min-width: 450px) {
-    width: 40%;
+    width: 270px;
   }
   @media (max-width: 450px) {
     font-size: 16px;
   }
+  border: 1px solid var(--color-super-dark-grey);
 `;
 
 export { sharedDetailStyle, ProfileButton, BAR_HEIGHT };
