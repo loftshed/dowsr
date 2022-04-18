@@ -1,17 +1,13 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { startThreadWithUser } from "../Messaging/helpers";
-import {
-  RiUserFollowLine as FollowIcon,
-  RiUserUnfollowLine as UnfollowIcon,
-} from "react-icons/ri";
 import { SendIcon } from "../../styling/react-icons";
 import { TextButton } from "../../styling/sharedstyles";
 
+// STRETCH: get this to send the user to the chat page but don't start a thread with the user until they actually send them a message.
+
 const MessageButton = ({ loggedInUser, _id }) => {
   const navigate = useNavigate();
-
   return (
     <MessageButtonWrapper
       onClick={async () => {

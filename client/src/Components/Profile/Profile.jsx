@@ -17,21 +17,15 @@ import { getUser, getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { startThreadWithUser } from "../Messaging/helpers";
-import {
-  handleGetUserContributions,
-  handleGetUserPending,
-  handleToggleFollow,
-} from "./helpers";
-import {
-  RiGlobeLine as GlobeIcon,
-  RiUserFollowLine as FollowIcon,
-  RiUserUnfollowLine as UnfollowIcon,
-} from "react-icons/ri";
+import { handleGetUserContributions, handleGetUserPending } from "./helpers";
+import { RiGlobeLine as GlobeIcon } from "react-icons/ri";
 import { SendIcon } from "../../styling/react-icons";
 import Contributions from "./Contributions";
 import FollowButton from "./FollowButton";
+import MessageButton from "./MessageButton";
 
 //FIXME: Literally everything is a disaster but I am in a mega super rush
+// edit: less bad now that I moved out some shit
 //TODO: Redesign this component from the ground up after all other features are complete
 
 const Profile = () => {
@@ -118,21 +112,7 @@ const Profile = () => {
 
               {!isOwnProfile && (
                 <Item style={{ justifyContent: "space-between" }}>
-                  <ProfileButton
-                    onClick={async () => {
-                      const result = await startThreadWithUser(
-                        loggedInUser._id,
-                        _id,
-                        "👋",
-                        loggedInUser.username
-                      );
-                      navigate("/messages", { replace: true });
-                    }}
-                  >
-                    <span>Message</span>
-                    {"   "}
-                    <SendIcon style={{ display: "inline" }} />
-                  </ProfileButton>
+                  <MessageButton loggedInUser={loggedInUser} _id={_id} />
                   <FollowButton loggedInUser={loggedInUser} _id={_id} />
                 </Item>
               )}
