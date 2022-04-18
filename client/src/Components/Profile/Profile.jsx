@@ -5,6 +5,7 @@ import {
   fillSpace,
 } from "../../styling/sharedstyles";
 
+import { BAR_HEIGHT } from "./sharedstyles";
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { useEffect, useContext, useState } from "react";
@@ -17,7 +18,7 @@ import { handleGetUserContributions, handleGetUserPending } from "./helpers";
 import { sharedDetailStyle } from "./sharedstyles";
 import Contributions from "./Contributions";
 import RegDate from "./RegDate";
-import ActionBar from "./ActionBar";
+import { ActionBar } from "./ActionBar";
 import LocationBar from "./LocationBar";
 
 // TODO: Make this state less shitty
@@ -52,7 +53,6 @@ const Profile = () => {
     }
   }, [params.username, loggedInUser.username]);
 
-  // TODO: Get this into main useEffect lol again yes this component is a travesty
   useEffect(() => {
     (async () => {
       const response = await handleGetUserContributions(loggedInUser.username);
@@ -223,17 +223,17 @@ const BottomContainer = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 60px);
+  height: calc(100% - ${BAR_HEIGHT.small * 3}px);
   width: 100%;
   @media (min-width: 450px) {
-    height: calc(100% - 80px);
+    height: calc(100% - ${BAR_HEIGHT.large * 3}px);
   }
   ${(props) =>
     props.isOwnProfile &&
     css`
-  height: calc(100% - 30px);
+  height: calc(100% - ${BAR_HEIGHT.small * 2}px});
   @media (min-width: 450px) {
-    height: calc(100% - 40px);
+    height: calc(100% - ${BAR_HEIGHT.large * 2}px);
   `}
 `;
 

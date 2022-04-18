@@ -7,27 +7,34 @@ import {
 } from "react-icons/ri";
 import { BsFillCheckCircleFill as CheckIcon } from "react-icons/bs";
 import { TextButton } from "../../styling/sharedstyles";
+import { ProfileButton } from "./sharedstyles";
+
+// TODO: After follow, first show "following!" confirmation and disable button until hover is false.
 
 const FollowButton = ({
   loggedInUser,
   _id,
   followingState,
   setFollowingState,
+  setFollowerCount,
+  followerCount,
 }) => {
   const [hover, setHover] = useState(false);
   // Follows or unfollows user.
-
+  // setFollowerCount(followerCount += 1);
   return (
     <FollowButtonWrapper
       onClick={async () => {
         if (!followingState) {
-          handleToggleFollow(loggedInUser._id, _id, true);
+          const result = handleToggleFollow(loggedInUser._id, _id, true);
           setFollowingState(true);
+          if (!result.unmodified) setFollowerCount(followerCount + 1);
           return;
         }
         if (followingState) {
-          handleToggleFollow(loggedInUser._id, _id);
+          const result = handleToggleFollow(loggedInUser._id, _id);
           setFollowingState(false);
+          if (!result.unmodified) setFollowerCount(followerCount - 1);
           return;
         }
       }}
@@ -38,20 +45,20 @@ const FollowButton = ({
         <>
           {hover ? (
             <>
+              <Text>Unfollow?</Text>
               <UnfollowIcon style={{ display: "inline" }} />
-              <span>Unfollow?</span>
             </>
           ) : (
             <>
+              <Text>{"Following"}</Text>
               <CheckIcon style={{ display: "inline" }} />
-              <span>{"Following"}</span>
             </>
           )}
         </>
       ) : (
         <>
+          <Text>{"Follow"}</Text>
           <FollowIcon style={{ display: "inline" }} />
-          <span>{"Follow"}</span>
         </>
       )}
     </FollowButtonWrapper>
@@ -60,9 +67,5 @@ const FollowButton = ({
 
 export default FollowButton;
 
-const FollowButtonWrapper = styled(TextButton)`
-  border-radius: 3px;
-  padding: 0px 5px;
-  cursor: pointer;
-  gap: 3px;
-`;
+const FollowButtonWrapper = styled(ProfileButton)``;
+const Text = styled.div``;

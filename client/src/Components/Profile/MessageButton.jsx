@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { startThreadWithUser } from "../Messaging/helpers";
 import { SendIcon } from "../../styling/react-icons";
-import { textButtonstyling } from "../../styling/sharedstyles";
+import { ProfileButton } from "./sharedstyles";
 
 // STRETCH: get this to send the user to the chat page but don't start a thread with the user until they actually send them a message.
 
@@ -24,7 +24,7 @@ const MessageButton = ({ loggedInUser, _id }) => {
         }
       }}
     >
-      <span>Message</span>
+      <Text>Message</Text>
       <SendIcon style={{ display: "inline" }} />
     </MessageButtonWrapper>
   );
@@ -32,10 +32,5 @@ const MessageButton = ({ loggedInUser, _id }) => {
 
 export default MessageButton;
 
-const MessageButtonWrapper = styled.button`
-  ${textButtonstyling}
-  border-radius: 3px;
-  padding: 0px 5px;
-  cursor: pointer;
-  gap: 3px;
-`;
+const MessageButtonWrapper = styled(ProfileButton)``;
+const Text = styled.div``;

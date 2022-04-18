@@ -1,8 +1,9 @@
 import MessageButton from "./MessageButton";
 import FollowButton from "./FollowButton";
 import FollowCounts from "./FollowCounts";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { sharedDetailStyle } from "./sharedstyles";
+import { textButtonstyling } from "../../styling/sharedstyles";
 import { useState } from "react";
 
 const ActionBar = ({
@@ -12,28 +13,48 @@ const ActionBar = ({
   isOwnProfile,
   following,
 }) => {
-  const [followingState, setFollowingState] = useState(following);
+  const [followingState, setFollowingState] = useState(
+    viewedProfile.following.length
+  );
+  const [followerCount, setFollowerCount] = useState(
+    viewedProfile.followers.length
+  );
+  const [followingCount, setFollowingCount] = useState(
+    viewedProfile.followers.length
+  );
   return (
     <>
       {!isOwnProfile && (
         <ActionBarWrapper>
-          <MessageButton loggedInUser={loggedInUser} _id={_id} />
           <FollowButton
             loggedInUser={loggedInUser}
             _id={_id}
             followingState={followingState}
             setFollowingState={setFollowingState}
+            setFollowerCount={setFollowerCount}
+            setFollowingCount={setFollowingCount}
+            followerCount={followerCount}
           />
+          <MessageButton loggedInUser={loggedInUser} _id={_id} />
         </ActionBarWrapper>
       )}
-      <FollowCounts viewedProfile={viewedProfile} />
+      <FollowCounts
+        followerCount={followerCount}
+        followingCount={followingCount}
+      />
     </>
   );
 };
 
-export default ActionBar;
+export { ActionBar, buttonStyle };
 
 const ActionBarWrapper = styled.div`
   justify-content: space-between;
   ${sharedDetailStyle}
+`;
+
+const buttonStyle = css`
+  ${textButtonstyling}
+  border-radius: 3px;
+  cursor: pointer;
 `;
