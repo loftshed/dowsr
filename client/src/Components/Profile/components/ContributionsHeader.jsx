@@ -3,26 +3,35 @@ import { SIZES } from "../../../styling/constants";
 import { sharedDetailStyle } from "../sharedstyles";
 
 const ContributionsHeader = ({ submissionsPending, contributions }) => {
-  return (
-    <ContributionsHeaderWrapper style={{ justifyContent: "center" }}>
-      <span>
-        {submissionsPending ? (
-          <>{contributions?.length - submissionsPending?.length}</>
-        ) : (
-          <>{contributions?.length}</>
-        )}
-      </span>{" "}
-      pin contribution
-      {contributions?.length === 1 ? "" : "s"}{" "}
-      {submissionsPending?.length
-        ? `(${submissionsPending?.length} pending)`
-        : ""}
-    </ContributionsHeaderWrapper>
-  );
+  if (!submissionsPending && !contributions)
+    return <ContributionsHeaderWrapper />;
+
+  if (contributions?.length < 1)
+    return (
+      <ContributionsHeaderWrapper>
+        No contributions yet!
+      </ContributionsHeaderWrapper>
+    );
+
+  if (contributions?.length > 0 && submissionsPending?.length > 0)
+    return (
+      <ContributionsHeaderWrapper>
+        {contributions?.length - submissionsPending?.length} contributions (
+        {submissionsPending?.length} pending)
+      </ContributionsHeaderWrapper>
+    );
+
+  if (contributions?.length > 0)
+    return (
+      <ContributionsHeaderWrapper>
+        {contributions?.length} contributions
+      </ContributionsHeaderWrapper>
+    );
 };
 
 export default ContributionsHeader;
 
 const ContributionsHeaderWrapper = styled.div`
   ${sharedDetailStyle}
+  justify-content: center;
 `;
