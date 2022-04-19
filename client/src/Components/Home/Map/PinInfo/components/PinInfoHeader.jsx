@@ -6,9 +6,9 @@ import {
 } from "../../../../../styling/sharedstyles";
 import { AppContext } from "../../../../../AppContext";
 import { useContext } from "react";
+import { getIcon } from "../../helpers";
 
 const PinInfoHeader = ({ popupInfo }) => {
-  const { loggedInUser } = useContext(AppContext);
   if (popupInfo.site)
     return (
       <PinInfoHeaderWrapper>
@@ -20,7 +20,12 @@ const PinInfoHeader = ({ popupInfo }) => {
     );
 
   if (!popupInfo.site)
-    return <PinInfoHeaderWrapper>{popupInfo.desc}</PinInfoHeaderWrapper>;
+    return (
+      <PinInfoHeaderWrapper>
+        {getIcon(popupInfo.type)}
+        {popupInfo.desc}
+      </PinInfoHeaderWrapper>
+    );
 };
 export default PinInfoHeader;
 
@@ -32,6 +37,7 @@ const PinInfoHeaderWrapper = styled.div`
   padding: 3px;
   text-align: center;
   ${fakeStroke}
+  gap: 4px;
   a {
     display: flex;
     align-items: center;

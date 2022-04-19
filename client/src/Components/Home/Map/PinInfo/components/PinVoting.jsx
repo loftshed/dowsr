@@ -45,7 +45,7 @@ export default PinVoting;
 const PinVotingWrapper = styled.div`
   width: 100%;
   ${centeredFlexRow}
-  gap: 10px;
+  gap: 5px;
 
   border-radius: 4px;
 `;

@@ -1,3 +1,13 @@
+import {
+  StoreIcon,
+  CoffeeIcon,
+  PoliceIcon,
+  HazardIcon,
+  BikeIcon,
+  WaterIcon,
+  ToiletIcon,
+} from "../../../styling/react-icons";
+
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
 
 const getUserLocation = async () => {
@@ -125,7 +135,29 @@ const getPin = async (pinId) => {
   }
 };
 
+const getIcon = (type) => {
+  switch (type) {
+    case "deps":
+      return <StoreIcon />;
+    case "cafes":
+      return <CoffeeIcon />;
+    case "popo":
+      return <PoliceIcon />;
+    case "hazard":
+      return <HazardIcon />;
+    case "shops":
+      return <BikeIcon />;
+    case "water":
+      return <WaterIcon />;
+    case "toilet":
+      return <ToiletIcon />;
+    default:
+      return <></>;
+  }
+};
+
 export {
+  getIcon,
   reverseGeocode,
   forwardGeocode,
   getUserLocation,

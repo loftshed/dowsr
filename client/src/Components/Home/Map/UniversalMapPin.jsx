@@ -35,7 +35,7 @@ const IconContainer = styled.div`
   ${centeredFlexColumn}
   position: relative;
   border-radius: 50%;
-  outline: solid 1px black;
+  filter: drop-shadow(0px 0px 1px var(--color-teal));
   padding: 17.5px;
   z-index: 2;
   background-color: var(--color-medium-grey);

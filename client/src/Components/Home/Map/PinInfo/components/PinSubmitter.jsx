@@ -28,26 +28,21 @@ const PinSubmitter = ({ popupInfo, isOwnPin }) => {
 export default PinSubmitter;
 
 const PinSubmitterWrapper = styled.button`
-  ${textButtonstyling}
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   padding: 5px;
   border-radius: 5px;
+  border: none;
   line-height: 10px;
   background-color: var(--color-less-dark-grey);
   width: 100%;
   gap: 5px;
+  transition: all ease 0.1s;
   span {
     pointer-events: none;
     font-size: 14px;
     color: var(--color-teal);
-  }
-  &:hover {
-    span {
-      background-color: var(--color-pink);
-      padding: 3px;
-    }
   }
 `;

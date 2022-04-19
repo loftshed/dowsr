@@ -42,18 +42,18 @@ const PinInfoPopup = () => {
       <div>
         <PinInfoHeader popupInfo={popupInfo} />
         <Body>
-          <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
           <DecorativeContainer>
-            <DecorativeSubContainer>
+            <ImageContainer>
+              <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
               <PinStreetView
                 popupInfo={popupInfo}
                 apiKey={REACT_APP_GOOGLE_API_KEY}
               />
-            </DecorativeSubContainer>
-            <DecorativeSubContainer>
+            </ImageContainer>
+            <ActionContainer>
               <PinVoting isOwnPin={isOwnPin} />
               <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
-            </DecorativeSubContainer>
+            </ActionContainer>
           </DecorativeContainer>
         </Body>
       </div>
@@ -62,10 +62,20 @@ const PinInfoPopup = () => {
 };
 export default PinInfoPopup;
 
-const DecorativeSubContainer = styled.div`
+const ImageContainer = styled.div`
+  ${centeredFlexColumn}
+  position: relative;
+  background-color: var(--color-medium-grey);
+  border-radius: 5px;
+  gap: 4px;
+  width: 100%;
+`;
+
+const ActionContainer = styled.div`
+  position: relative;
   ${centeredFlexColumn}
   padding: 3px;
-  background-color: var(--color-medium-grey);
+
   border-radius: 5px;
   gap: 4px;
   width: 100%;
@@ -73,12 +83,10 @@ const DecorativeSubContainer = styled.div`
 
 const DecorativeContainer = styled.div`
   ${centeredFlexColumn};
-
-  width: 200px;
-  background-color: #f5f5f5;
+  width: 100%;
   background-color: var(--color-dark-grey);
-  padding: 6px;
   border-radius: 10px;
+  gap: 5px;
 `;
 
 const PopupContainer = styled(Popup)`

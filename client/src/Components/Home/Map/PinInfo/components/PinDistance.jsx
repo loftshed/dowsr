@@ -14,5 +14,11 @@ const PinDistance = ({ popupInfo, userLocation }) => {
 export default PinDistance;
 
 const PinDistanceWrapper = styled.div`
+  top: 5px;
+  background-color: var(--color-dark-grey);
+  padding: 0 5px;
+  border-radius: 5px;
+  border: 1px solid var(--color-super-dark-grey);
+  position: absolute;
   ${centeredFlexRow}
 `;
