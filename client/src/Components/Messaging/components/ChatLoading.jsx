@@ -5,6 +5,7 @@ import { fillSpace } from "../../../styling/sharedstyles";
 import { SIZES } from "../../../styling/constants";
 
 const ChatLoading = () => {
+  // If everything is loading just show this
   return (
     <ChatLoadingWrapper>
       <ChatBody>

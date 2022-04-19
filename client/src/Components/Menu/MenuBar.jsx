@@ -26,13 +26,8 @@ import NewPinModal from "../Home/Map/PinCreation/NewPinModal";
 import SearchContainer from "./SearchContainer";
 
 const MenuBar = () => {
-  const {
-    loggedInUser,
-    showBurgerMenu,
-    setShowBurgerMenu,
-    showSearchBar,
-    setShowSearchBar,
-  } = useContext(AppContext);
+  const { showBurgerMenu, setShowBurgerMenu, showSearchBar, setShowSearchBar } =
+    useContext(AppContext);
   const {
     setShowFilterMenu,
     showFilterMenu,
@@ -40,15 +35,13 @@ const MenuBar = () => {
     setCreatingNewPin,
     creatingNewPin,
     showPinCreationModal,
-    setShowPinCreationModal,
-    mapModalMessage,
     pinCreationSuccessful,
     setPinCreationSuccessful,
-    newPinData,
-    setNewPinData,
+    // newPinData,
+    // setNewPinData,
   } = useContext(MappingContext);
 
-  const { user, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <Boundary>
@@ -116,7 +109,6 @@ const MenuBar = () => {
                     if (pinCreationSuccessful) setPinCreationSuccessful(null);
                   }}
                 >
-                  {/* <BurgerMenuIcon /> */}
                   <TiThMenu />
                 </BurgerButton>
               </BurgerZone>

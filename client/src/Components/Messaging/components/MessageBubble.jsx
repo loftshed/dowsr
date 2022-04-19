@@ -2,8 +2,10 @@ import styled from "styled-components";
 import dayjs from "dayjs";
 
 const Bubble = ({ recd, author, content, timestamp }) => {
+  // This still feels a bit messy. ....way she goes.
+
   const relativeTime = require("dayjs/plugin/relativeTime");
-  dayjs.extend(relativeTime);
+  dayjs.extend(relativeTime); // Used to display time in "(x) minutes ago" format
 
   return (
     <BubbleWrapper>

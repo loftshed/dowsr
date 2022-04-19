@@ -6,7 +6,6 @@
 //TODO: Add placeholder text for empty inbox.
 //TODO: Add indicator for threads with new messages.
 
-//FIXME: If user has no messages, frontend goes batshit and starts blowing up the backend with api calls.
 //FIXME: Chat window does not display properly when a thread is empty.
 
 //STRETCH: Use React-Spring to make chat look cooler.

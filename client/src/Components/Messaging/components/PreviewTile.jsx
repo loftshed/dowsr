@@ -20,19 +20,18 @@ const PreviewTile = ({
   showLoadingAnim,
   setCurrentMessages,
 }) => {
-  const [partner, setPartner] = useState(null);
-  const collapseView = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
-  const isCurrentlySelected = selectedThreadId === threadId ? true : false;
+  const [partner, setPartner] = useState(null); // Chat partner user object
+  const collapseView = useWindowWidth({ wait: 5 }) <= SIZES.widthMin; // If window is less than 500px wide, collapse view
+  const isCurrentlySelected = selectedThreadId === threadId ? true : false; // Used to determine if the tile should be highlighted
   const relativeTime = require("dayjs/plugin/relativeTime");
-  dayjs.extend(relativeTime);
-
-  // Each thread preview tile should listen for a socket event to update the thread tile when a new message is received
+  dayjs.extend(relativeTime); // Used to display time in "(x) minutes ago" format
 
   useEffect(() => {
     (async () => {
       try {
+        // Get the partner user's object which will be used to populate the tile with data
         const { data } = await getUser("id", partnerId);
-        setPartner(data);
+        setPartner(data); // Set the partner object to the state
       } catch (error) {
         console.log(error);
       }
@@ -41,6 +40,8 @@ const PreviewTile = ({
 
   const handleSelectThread = async (threadId) => {
     try {
+      // Uses the threadId to get the thread object from the database
+      // Also records the threadId in the state so that the tile can be highlighted
       const returnedThread = await getOneThread(threadId);
       setCurrentMessages(returnedThread);
       setSelectedThreadId(threadId);
@@ -49,13 +50,14 @@ const PreviewTile = ({
     }
   };
 
+  // If collapseView is false display desktop/tablet sized view
   if (partner && collapseView === false)
     return (
       <TileWrapper
         onClick={(ev) => {
           handleSelectThread(threadId);
         }}
-        showOutline={isCurrentlySelected}
+        showOutline={isCurrentlySelected} // Shows border if selected
       >
         <Heading>
           <Avatar
@@ -78,6 +80,7 @@ const PreviewTile = ({
       </TileWrapper>
     );
 
+  // If collapseView is true display mobile sized view
   if (partner && collapseView === true)
     return (
       <TileWrapper

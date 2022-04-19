@@ -13,10 +13,15 @@ const ChatSidebar = ({
   return (
     <SidebarWrapper>
       {allUserThreads.map((thread) => {
+        // Maps through all of the user's threads and returns a PreviewTile for each one
         const { _id, messages, users } = thread;
+        // Determines which user is the "other user" in the thread
+        // This is used to determine which username to display in the tile
         const partnerId = users.find((el) => {
           return el !== storedUserId;
         });
+        // Determines which is the newest message in the thread
+        // Used to set the timestamp and message text of the tile
         const mostRecentMessage = messages[messages.length - 1];
         const { sent, message } = mostRecentMessage;
 

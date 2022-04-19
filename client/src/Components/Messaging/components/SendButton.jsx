@@ -3,6 +3,7 @@ import { SendIcon } from "../../../styling/react-icons";
 import { SIZES } from "../../../styling/constants";
 
 const SendButton = () => {
+  // Purely for keeping all this styling in one place
   return (
     <SendButtonWrapper>
       <SendIcon />

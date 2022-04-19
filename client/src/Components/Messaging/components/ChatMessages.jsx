@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Bubble from "./MessageBubble";
-import ScrollToMostRecentMessage from "./ScrollToMostRecentMsg";
+import ScrollToNewest from "./ScrollToNewest";
 import { v4 as uuidv4 } from "uuid";
 
 const ChatMessages = ({ currentMessages }) => {
@@ -10,9 +10,11 @@ const ChatMessages = ({ currentMessages }) => {
   return (
     <ChatMessagesWrapper>
       {currentMessages.map((el) => {
+        // Maps through the currently selected messages and renders them
         return (
           <Bubble
             key={uuidv4()}
+            // If the message userId isn't the same as the logged in user, it's a received message
             recd={el.userId !== locallyStoredUserId}
             author={`@${el.handle}`}
             content={el.message}
@@ -20,7 +22,7 @@ const ChatMessages = ({ currentMessages }) => {
           />
         );
       })}
-      <ScrollToMostRecentMessage />
+      <ScrollToNewest />
     </ChatMessagesWrapper>
   );
 };
