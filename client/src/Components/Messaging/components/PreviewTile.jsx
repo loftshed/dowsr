@@ -30,6 +30,7 @@ const PreviewTile = ({
     (async () => {
       try {
         // Get the partner user's object which will be used to populate the tile with data
+        if (!partnerId) return;
         const { data } = await getUser("id", partnerId);
         setPartner(data); // Set the partner object to the state
       } catch (error) {

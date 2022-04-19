@@ -10,8 +10,7 @@ import { forwardGeocode } from "../Home/Map/helpers";
 
 const SearchContainer = ({ show }) => {
   const [searchResults, setSearchResults] = useState(null);
-  const [clickedResult, setClickedResult] = useState(null);
-  console.log(clickedResult);
+  // const [clickedResult, setClickedResult] = useState(null);
   // const {id: } = useMap();
 
   // EXTREMELY half baked. This was pretty low on the priority list.
@@ -28,7 +27,7 @@ const SearchContainer = ({ show }) => {
   };
 
   const handleResultClick = (ev, result) => {
-    setClickedResult(result);
+    // setClickedResult(result);
     setSearchResults(null);
     // probably stupid way of targeting the input
     ev.nativeEvent.path[3].search.value = result.place_name;
