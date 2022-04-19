@@ -7,7 +7,6 @@ import {
 } from "../../../../../styling/react-icons";
 import PinVotingButton from "./PinVotingButton";
 import { centeredFlexRow } from "../../../../../styling/sharedstyles";
-import { getPin } from "../../helpers";
 
 const PinVoting = ({ isOwnPin }) => {
   const { popupInfo } = useContext(MappingContext);
@@ -16,7 +15,7 @@ const PinVoting = ({ isOwnPin }) => {
     dislikedByIds: popupInfo?.dislikedByIds,
   });
 
-  // useEffect(() => {}), [];
+  useEffect(() => {}, []);
 
   return (
     <PinVotingWrapper>

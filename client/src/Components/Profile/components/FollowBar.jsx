@@ -16,13 +16,13 @@ const FollowBar = ({
   following,
 }) => {
   const [followingState, setFollowingState] = useState(
-    viewedProfile.following.length
+    viewedProfile.following?.length
   );
   const [followerCount, setFollowerCount] = useState(
-    viewedProfile.followers.length
+    viewedProfile.followers?.length
   );
   const [followingCount, setFollowingCount] = useState(
-    viewedProfile.following.length
+    viewedProfile.following?.length
   );
 
   return (

@@ -15,6 +15,8 @@ const PinVotingButton = ({
   const { loggedInUser } = useContext(AppContext);
   const { popupInfo } = useContext(MappingContext);
 
+  // loooool i am sure there is some way to make this dry as all get out but this took me way too  long i'm doone
+
   const handleButtonClick = async (ev) => {
     const response = await togglePinLike(
       popupInfo._id,
@@ -23,7 +25,6 @@ const PinVotingButton = ({
     );
     console.log("response", response);
     const { success, action } = response;
-
     // if the operation is successful, update the pinFeedback state
     if (success) {
       if (action === "liked") {
@@ -31,7 +32,7 @@ const PinVotingButton = ({
           ...pinFeedback, // add user to likedByIds in newPinFeedback
           likedByIds: pinFeedback.likedByIds.concat(loggedInUser._id),
         }); // if user is not in dislikedByIds, return immediately
-        if (!pinFeedback.disLikedByIds.includes(loggedInUser._id)) return;
+        if (!pinFeedback.dislikedByIds.includes(loggedInUser._id)) return;
         // otherwise, continue and remove user from dislikedByIds
         setPinFeedback({
           ...pinFeedback,
@@ -41,6 +42,7 @@ const PinVotingButton = ({
         });
         return;
       }
+
       if (action === "unliked") {
         // no need to toggle opposite action, so just remove user from likedByIds
         setPinFeedback({
@@ -51,6 +53,7 @@ const PinVotingButton = ({
         });
         return;
       }
+
       if (action === "disliked") {
         setPinFeedback({
           ...pinFeedback, // add user to dislikedByIds
@@ -66,6 +69,7 @@ const PinVotingButton = ({
         });
         return;
       }
+
       if (action === "undisliked") {
         setPinFeedback({
           ...pinFeedback, // no need to toggle opposite action, so just remove the user from dislikedByIds
