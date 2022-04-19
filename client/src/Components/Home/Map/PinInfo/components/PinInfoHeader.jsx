@@ -4,8 +4,6 @@ import {
   centeredFlexRow,
   fakeStroke,
 } from "../../../../../styling/sharedstyles";
-import { AppContext } from "../../../../../AppContext";
-import { useContext } from "react";
 import { getIcon } from "../../helpers";
 
 const PinInfoHeader = ({ popupInfo }) => {

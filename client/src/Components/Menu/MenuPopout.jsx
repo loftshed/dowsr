@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
 import { fillSpace, IconNavLink } from "../../styling/sharedstyles";
-import {
-  NotificationIcon,
-  ChatIcon,
-  ProfileIcon,
-  AdminIcon,
-} from "../../styling/react-icons";
+import { NotificationIcon, AdminIcon } from "../../styling/react-icons";
 import LogoutButton from "../Auth/LogoutButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
