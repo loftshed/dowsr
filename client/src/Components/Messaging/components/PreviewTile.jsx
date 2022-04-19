@@ -4,11 +4,12 @@ import { fadeIn, RefreshAnim } from "../../../styling/animations";
 import { SIZES } from "../../../styling/constants";
 
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { /*useContext,*/ useEffect, useState } from "react";
 import { useWindowWidth } from "@react-hook/window-size";
 
 import { getUser } from "../../Auth/helpers";
 import { getOneThread } from "../helpers";
+// import { AppContext } from "../../../AppContext";
 
 const PreviewTile = ({
   partnerId,
@@ -19,12 +20,20 @@ const PreviewTile = ({
   setSelectedThreadId,
   showLoadingAnim,
   setCurrentMessages,
+  currentMessages,
 }) => {
   const [partner, setPartner] = useState(null); // Chat partner user object
   const collapseView = useWindowWidth({ wait: 5 }) <= SIZES.widthMin; // If window is less than 500px wide, collapse view
   const isCurrentlySelected = selectedThreadId === threadId ? true : false; // Used to determine if the tile should be highlighted
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime); // Used to display time in "(x) minutes ago" format
+
+  // // Grabs socket from context
+  // const { socket } = useContext(AppContext);
+  // // Uses socket to create a listener for messages with the current threadId
+  // socket.on(`${threadId}`, (message) => {
+  //   setCurrentMessages([...currentMessages, message]);
+  // });
 
   useEffect(() => {
     (async () => {

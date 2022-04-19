@@ -56,6 +56,7 @@ const MessagingContainer = () => {
           selectedThreadId={selectedThreadId}
           setSelectedThreadId={setSelectedThreadId}
           setCurrentMessages={setCurrentMessages}
+          currentMessages={currentMessages}
           allUserThreads={allUserThreads}
           storedUserId={locallyStoredUserId}
           showLoadingAnim={showLoadingAnim}
