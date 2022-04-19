@@ -1,3 +1,9 @@
+const router = require("express").Router();
+
+/*---------------------------
+| all map-related endpoints |
+---------------------------*/
+
 const {
   submitNewPin, // Submits a new pin to the DB.
   moderatePin, // Moderates a user-submitted pin.
@@ -12,13 +18,15 @@ const {
 } = require("./map.helpers.js");
 
 // mapping endpoints
-app.get("/api/get-submissions", getSubmissionsByUsername); // working
-app.get("/api/get-pending-review", getSubmissionsPendingReview); // working
-app.get("/api/get-pins", getPinsOfType); // working
-app.get("/api/get-pin", getOnePin); // working
-app.get("/api/get-pins/all", getAllPins); // working
-app.patch("/api/submit-pin", submitNewPin); // working
-app.patch("/api/modify-pin", modifyPin); // working
-app.patch("/api/moderate-pin", moderatePin); // working
-app.patch("/api/delete-pin", deletePin); // working
-app.patch("/api/toggle-like", toggleLikePin); // working!!!!!!!!!!!!!!!!!!
+router.get("/api/get-submissions", getSubmissionsByUsername);
+router.get("/api/get-pending-review", getSubmissionsPendingReview);
+router.get("/api/get-pins", getPinsOfType);
+router.get("/api/get-pin", getOnePin);
+router.get("/api/get-pins/all", getAllPins);
+router.patch("/api/submit-pin", submitNewPin);
+router.patch("/api/modify-pin", modifyPin);
+router.patch("/api/moderate-pin", moderatePin);
+router.patch("/api/delete-pin", deletePin);
+router.patch("/api/toggle-like", toggleLikePin);
+
+module.exports = router;

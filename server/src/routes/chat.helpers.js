@@ -13,7 +13,6 @@ const client = new MongoClient(MONGO_URI, {
 });
 
 const db = client.db("final");
-const io = require("../index");
 
 /*-------------------------------------------
 | Endpoints for accessing Messages Database |

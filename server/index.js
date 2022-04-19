@@ -25,9 +25,9 @@ app.use(cors());
 /*--------
 | routes |
 --------*/
-app.use(require("./routes/chat"));
-app.use(require("./routes/map"));
-app.use(require("./routes/user"));
+app.use(require("./src/routes/chat"));
+app.use(require("./src/routes/map"));
+app.use(require("./src/routes/user"));
 
 app.get("*", (req, res) => {
   res.status(404).json({

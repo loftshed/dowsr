@@ -1,6 +1,9 @@
+const router = require("express").Router();
+
 /*----------------------------
 | all chat-related endpoints |
 ----------------------------*/
+
 const {
   getOneThread, // Gets a single thread by its ID.
   newThread, // Creates a new thread between two users if one doesn't already exist.
@@ -12,10 +15,12 @@ const {
 } = require("./chat.helpers.js");
 
 // messaging endpoints
-app.post("/api/new-thread", newThread); // working
-app.patch("/api/modify-thread", modifyThread); // working
-app.get("/api/get-thread", getOneThread); // working
-app.get("/api/get-user-threads", getUserThreads); // working
-app.get("/api/get-all-threads", getAllThreads); // working
-app.patch("/api/delete-thread", deleteThreadForUser); // working
-app.patch("/api/delete-thread-permanently", deleteThreadPermanently); // working
+router.post("/api/new-thread", newThread);
+router.patch("/api/modify-thread", modifyThread);
+router.get("/api/get-thread", getOneThread);
+router.get("/api/get-user-threads", getUserThreads);
+router.get("/api/get-all-threads", getAllThreads);
+router.patch("/api/delete-thread", deleteThreadForUser);
+router.patch("/api/delete-thread-permanently", deleteThreadPermanently);
+
+module.exports = router;
