@@ -5,6 +5,7 @@ import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
 import FollowCountIndicator from "./FollowCountIndicator";
 import { getUser } from "../../Auth/helpers";
+import { SIZES } from "../../../styling/constants";
 
 // STRETCH: To get follower avatars make it so that when you follow someone their avatarUrl and username are saved in your followers arary along with their id.
 
@@ -47,7 +48,7 @@ const FollowBar = ({
           />
         )}
       </ActionBarWrapper>
-      bla bla bla
+      <Container>bla bla bla</Container>
       <ActionBarWrapper>
         <FollowCountIndicator
           type={"following"}
@@ -55,12 +56,19 @@ const FollowBar = ({
           count={followingCount}
         />
       </ActionBarWrapper>
-      so on & so forth
+      <Container>so on & so forth</Container>
     </>
   );
 };
 
 export { FollowBar, buttonStyle };
+
+const Container = styled.div`
+  padding: 0px ${SIZES.universalPadding}px;
+  @media (min-width: 450px) {
+    padding: 0px ${SIZES.expandedPadding}px;
+  }
+`;
 
 const ActionBarWrapper = styled.div`
   justify-content: space-between;

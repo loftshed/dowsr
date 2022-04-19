@@ -100,7 +100,7 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  handleFilter("popo", "Police");
+                  handleFilter("police", "Police");
                 }}
               >
                 <PoliceIcon />

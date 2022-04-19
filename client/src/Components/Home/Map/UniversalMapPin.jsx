@@ -1,14 +1,8 @@
-import { RiMapPin3Line } from "react-icons/ri";
-import { ToiletIcon } from "../../../styling/react-icons";
 import styled from "styled-components";
 import { centeredFlexColumn } from "../../../styling/sharedstyles";
-const UniversalMapPin = ({ scale, resource, onClick, children, color }) => {
+const UniversalMapPin = ({ scale, onClick, children, color }) => {
   return (
-    <UniversalPinWrapper
-      scale={scale}
-      color={(color = "var(--color-pink)")}
-      onClick={onClick}
-    >
+    <UniversalPinWrapper scale={scale} color={color} onClick={onClick}>
       <IconContainer>
         <Icon color={color}>{children}</Icon>
       </IconContainer>
@@ -24,10 +18,16 @@ const Icon = styled.div`
   ${centeredFlexColumn}
   svg {
     margin: 0;
-    padding: 0;
+
     width: 25px;
     height: 25px;
     fill: ${({ color }) => color};
+    padding: ${({ type }) => {
+      if (type === "toilet") return "5px";
+      if (type === "water") return "0";
+      if (type === "hazard") return "0";
+      if (type === "police") return "0";
+    }};
   }
 `;
 

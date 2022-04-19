@@ -9,10 +9,17 @@ import { SendIcon } from "../../styling/react-icons";
 import ChatMessages from "./components/ChatMessages";
 import SendButton from "./components/SendButton";
 import ChatLoading from "./components/ChatLoading";
+import socketio from "socket.io-client";
 
 const ChatInterface = () => {
   const [currentMessages, setCurrentMessages] = useState([]);
   const [userHasNoThreads, setUserHasNoThreads] = useState(false);
+  const socket = socketio.connect("http://localhost:8080");
+  //listens for "newMessage" event from server
+  socket.on("newMessage", (message) => {
+    console.log(message);
+    setCurrentMessages([...currentMessages, message]);
+  });
 
   const {
     setThreads,
@@ -78,6 +85,7 @@ const ChatInterface = () => {
   return (
     <ChatWrapper>
       <ChatMessages
+        displayedThreadId={displayedThreadId}
         currentMessages={currentMessages}
         loggedInUser={loggedInUser}
       />

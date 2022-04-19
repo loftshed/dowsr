@@ -33,6 +33,7 @@ const Profile = () => {
     try {
       if (!username) {
         setViewedProfile(loggedInUser);
+
         return;
       }
       const { data } = await getUserByUsername(username);
@@ -53,24 +54,28 @@ const Profile = () => {
 
   useEffect(() => {
     (async () => {
-      let response;
-      let pending;
-      if (isOwnProfile) {
-        response = await handleGetUserContributions(loggedInUser.username);
-        pending = await handleGetUserPending(loggedInUser._id);
-      } else {
-        response = await handleGetUserContributions(viewedProfile.username);
-        pending = await handleGetUserPending(viewedProfile._id);
+      try {
+        let response;
+        let pending;
+        if (isOwnProfile) {
+          response = await handleGetUserContributions(loggedInUser?.username);
+          pending = await handleGetUserPending(loggedInUser?._id);
+        } else {
+          response = await handleGetUserContributions(viewedProfile.username);
+          pending = await handleGetUserPending(viewedProfile._id);
+        }
+        setViewedProfile({
+          ...viewedProfile,
+          submissionsByType: response.submissionsByType,
+          submissionsPending: pending.pendingReview,
+        });
+      } catch (error) {
+        console.log(error);
       }
-      setViewedProfile({
-        ...viewedProfile,
-        submissionsByType: response.submissionsByType,
-        submissionsPending: pending.pendingReview,
-      });
     })();
   }, [params.username, loggedInUser.username]);
 
-  if (isLoading || viewedProfile.submissionsByType === undefined)
+  if (viewedProfile.submissionsByType === undefined)
     return (
       <ResponsiveContainer>
         <LoadingSpinner size={60} />

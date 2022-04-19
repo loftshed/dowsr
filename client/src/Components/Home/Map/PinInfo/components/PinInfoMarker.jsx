@@ -6,7 +6,6 @@ import { getIcon } from "../../helpers";
 import styled from "styled-components";
 
 const PinInfoMarker = ({ pins, setPopupInfo }) => {
-  const { setPopupIsVisible, popupIsVisible } = useContext(MappingContext);
   // Switch statement to determine which icon to use for the pin.
 
   return (
@@ -26,6 +25,8 @@ const PinInfoMarker = ({ pins, setPopupInfo }) => {
                 ev.stopPropagation();
                 setPopupInfo(pinData);
               }}
+              color={`var(--color-${type})`}
+              type={type}
             >
               {getIcon(type)}
             </UniversalMapPin>

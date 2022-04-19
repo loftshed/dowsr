@@ -144,6 +144,7 @@ const PinVotingButtonWrapper = styled.button`
     border-radius: 4px;
     line-height: 11px;
     padding: 2px;
+    color: #fff;
     -webkit-text-stroke: 1px var(--color-extra-medium-grey);
   }
 `;

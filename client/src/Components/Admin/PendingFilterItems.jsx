@@ -17,7 +17,7 @@ const PendingFilterItems = ({ item, setPendingPins }) => {
           <Icon>
             {item.type === "water" && <WaterIcon />}
             {item.type === "toilet" && <ToiletIcon />}
-            {item.type === "popo" && <PoliceIcon />}
+            {item.type === "police" && <PoliceIcon />}
             {item.type === "hazard" && <HazardIcon />}
           </Icon>
         </FilterTypeHeader>

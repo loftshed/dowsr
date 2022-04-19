@@ -14,6 +14,8 @@ import {
   RefreshAnim,
 } from "../../../styling/animations";
 
+import socketio from "socket.io-client";
+
 const ThreadPreviewTile = ({ threadId, userId, user, time, message }) => {
   const { setDisplayedThreadId, displayedThreadId, showLoadingAnim } =
     useContext(AppContext);
@@ -22,6 +24,14 @@ const ThreadPreviewTile = ({ threadId, userId, user, time, message }) => {
   const collapseToAvatar = useWindowWidth({ wait: 5 }) <= SIZES.widthMin;
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
+
+  const socket = socketio.connect("http://localhost:8080");
+  // listens for a specific event from the server
+  socket.on(`${threadId}`, (message) => {
+    console.log(message);
+    setDisplayedThreadId(threadId);
+    setCurrentMessages([...currentMessages, message]);
+  });
 
   useEffect(() => {
     (async () => {

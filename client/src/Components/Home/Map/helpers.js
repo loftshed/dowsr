@@ -141,7 +141,7 @@ const getIcon = (type) => {
       return <StoreIcon />;
     case "cafes":
       return <CoffeeIcon />;
-    case "popo":
+    case "police":
       return <PoliceIcon />;
     case "hazard":
       return <HazardIcon />;

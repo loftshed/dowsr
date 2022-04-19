@@ -65,6 +65,7 @@ const MenuBar = () => {
                       setMapModalMessage("");
                     }
                     if (showBurgerMenu) setShowBurgerMenu(false);
+                    if (pinCreationSuccessful) setPinCreationSuccessful(null);
                     if (showSearchBar) {
                       setShowSearchBar(false);
                       return;
@@ -83,6 +84,7 @@ const MenuBar = () => {
                     }
                     if (showSearchBar) setShowSearchBar(false);
                     if (showBurgerMenu) setShowBurgerMenu(false);
+                    if (pinCreationSuccessful) setPinCreationSuccessful(null);
                   }}
                 >
                   <MapIcon />
@@ -92,6 +94,7 @@ const MenuBar = () => {
                   onClick={() => {
                     if (showSearchBar) setShowSearchBar(false);
                     if (showBurgerMenu) setShowBurgerMenu(false);
+                    if (pinCreationSuccessful) setPinCreationSuccessful(null);
                     if (creatingNewPin) {
                       setCreatingNewPin(false);
                       setMapModalMessage("");
@@ -110,6 +113,7 @@ const MenuBar = () => {
                     setShowBurgerMenu(!showBurgerMenu);
                     if (showFilterMenu) setShowFilterMenu(false);
                     if (showSearchBar) setShowSearchBar(false);
+                    if (pinCreationSuccessful) setPinCreationSuccessful(null);
                   }}
                 >
                   {/* <BurgerMenuIcon /> */}
