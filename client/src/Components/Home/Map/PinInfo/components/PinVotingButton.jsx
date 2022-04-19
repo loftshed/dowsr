@@ -1,8 +1,5 @@
 import styled, { css } from "styled-components";
-import {
-  fakeStroke,
-  textButtonstyling,
-} from "../../../../../styling/sharedstyles";
+import { textButtonstyling } from "../../../../../styling/sharedstyles";
 import { useContext } from "react";
 import { AppContext } from "../../../../../AppContext";
 import { MappingContext } from "../../MappingContext";
@@ -19,20 +16,65 @@ const PinVotingButton = ({
   const { popupInfo } = useContext(MappingContext);
 
   const handleButtonClick = async (ev) => {
-    const { success, action } = await togglePinLike(
+    const response = await togglePinLike(
       popupInfo._id,
       loggedInUser._id,
-      true
+      value === "like" ? true : ""
     );
+    console.log("response", response);
+    const { success, action } = response;
 
+    // if the operation is successful, update the pinFeedback state
     if (success) {
-      setPinFeedback({
-        ...pinFeedback,
-        numLikes:
-          action === "liked"
-            ? pinFeedback.numLikes + 1
-            : pinFeedback.numLikes - 1,
-      });
+      if (action === "liked") {
+        setPinFeedback({
+          ...pinFeedback, // add user to likedByIds in newPinFeedback
+          likedByIds: pinFeedback.likedByIds.concat(loggedInUser._id),
+        }); // if user is not in dislikedByIds, return immediately
+        if (!pinFeedback.disLikedByIds.includes(loggedInUser._id)) return;
+        // otherwise, continue and remove user from dislikedByIds
+        setPinFeedback({
+          ...pinFeedback,
+          dislikedByIds: pinFeedback.dislikedByIds.filter(
+            (id) => id !== loggedInUser._id
+          ),
+        });
+        return;
+      }
+      if (action === "unliked") {
+        // no need to toggle opposite action, so just remove user from likedByIds
+        setPinFeedback({
+          ...pinFeedback,
+          likedByIds: pinFeedback.likedByIds.filter(
+            (id) => id !== loggedInUser._id
+          ),
+        });
+        return;
+      }
+      if (action === "disliked") {
+        setPinFeedback({
+          ...pinFeedback, // add user to dislikedByIds
+          dislikedByIds: pinFeedback.dislikedByIds.concat(loggedInUser._id),
+        }); // if user is not in likedByIds, return immediately
+        if (!pinFeedback.likedByIds.includes(loggedInUser._id)) return;
+        // otherwise, continue and remove user from likedByIds
+        setPinFeedback({
+          ...pinFeedback,
+          likedByIds: pinFeedback.likedByIds.filter(
+            (id) => id !== loggedInUser._id
+          ),
+        });
+        return;
+      }
+      if (action === "undisliked") {
+        setPinFeedback({
+          ...pinFeedback, // no need to toggle opposite action, so just remove the user from dislikedByIds
+          dislikedByIds: pinFeedback.dislikedByIds.filter(
+            (id) => id !== loggedInUser._id
+          ),
+        });
+        return;
+      }
     }
   };
 
@@ -41,7 +83,6 @@ const PinVotingButton = ({
       isOwnPin={isOwnPin}
       value={value}
       onClick={(ev) => {
-        console.log(ev);
         handleButtonClick();
       }}
     >

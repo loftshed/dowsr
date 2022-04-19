@@ -89,9 +89,7 @@ const getDistanceFromPoint = (pos1, pos2) => {
 
 const getPinsPendingReview = async () => {
   try {
-    const response = await fetch(
-      "http://localhost:9001/api/get-pending-review"
-    );
+    const response = await fetch("/api/get-pending-review");
     return await response.json();
   } catch (error) {
     console.log(error);
@@ -101,7 +99,7 @@ const getPinsPendingReview = async () => {
 const togglePinLike = async (pinId, userId, liked) => {
   try {
     const response = await fetch(
-      `http://localhost:9001/api/toggle-like?pinId=${pinId}&userId=${userId}${
+      `/api/toggle-like?pinId=${pinId}&userId=${userId}${
         liked && `&liked=${liked}`
       }`,
       {
@@ -118,6 +116,15 @@ const togglePinLike = async (pinId, userId, liked) => {
   }
 };
 
+const getPin = async (pinId) => {
+  try {
+    const response = await fetch(`/api/get-pin?pinId=${pinId}`);
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   reverseGeocode,
   forwardGeocode,
@@ -127,5 +134,6 @@ export {
   getDistanceFromPoint,
   getPinsPendingReview,
   togglePinLike,
+  getPin,
   MAPBOX_API_KEY,
 };

@@ -37,6 +37,8 @@ const PinSubmitterWrapper = styled.button`
   background-color: var(--color-less-dark-grey);
   span {
     padding-right: 5px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--color-teal);
+    text-shadow: 0px 0px 3px var(--color-pink);
   }
 `;

@@ -5,20 +5,18 @@ import {
   ThumbsDownIcon,
   ThumbsUpIcon,
 } from "../../../../../styling/react-icons";
-
 import PinVotingButton from "./PinVotingButton";
 import { centeredFlexRow } from "../../../../../styling/sharedstyles";
+import { getPin } from "../../helpers";
 
 const PinVoting = ({ isOwnPin }) => {
-  const [pinFeedback, setPinFeedback] = useState({});
   const { popupInfo } = useContext(MappingContext);
+  const [pinFeedback, setPinFeedback] = useState({
+    likedByIds: popupInfo?.likedByIds,
+    dislikedByIds: popupInfo?.dislikedByIds,
+  });
 
-  useEffect(() => {
-    setPinFeedback({
-      numLikes: popupInfo?.likedByIds.length,
-      numDislikes: popupInfo?.dislikedByIds.length,
-    });
-  }, [pinFeedback.numLikes, pinFeedback.numDislikes]);
+  // useEffect(() => {}), [];
 
   return (
     <PinVotingWrapper>
@@ -29,7 +27,7 @@ const PinVoting = ({ isOwnPin }) => {
         pinFeedback={pinFeedback}
       >
         <ThumbsUpIcon />
-        <span>{pinFeedback?.numLikes}</span>
+        <span>{pinFeedback?.likedByIds.length}</span>
       </PinVotingButton>
       <PinVotingButton
         value={"dislike"}
@@ -38,7 +36,7 @@ const PinVoting = ({ isOwnPin }) => {
         pinFeedback={pinFeedback}
       >
         <ThumbsDownIcon />
-        <span>{pinFeedback?.numDislikes}</span>
+        <span>{pinFeedback?.dislikedByIds.length}</span>
       </PinVotingButton>
     </PinVotingWrapper>
   );
@@ -49,6 +47,7 @@ const PinVotingWrapper = styled.div`
   ${centeredFlexRow}
   padding: 3px 6px;
   gap: 10px;
+  border: 1px solid var(--color-super-dark-grey);
   background-color: var(--color-extra-medium-grey);
   border-radius: 4px;
 `;
