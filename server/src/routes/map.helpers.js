@@ -40,6 +40,7 @@ const getPinsOfType = async ({ query: { filter } }, res) => {
 // Submits a new pin to the database.
 const submitNewPin = async ({ body }, res) => {
   try {
+    await client.connect();
     const currentTime = dayjs().format();
     const pinId = uuidv4();
     const newPin = {
@@ -48,7 +49,7 @@ const submitNewPin = async ({ body }, res) => {
       submitted: currentTime,
       pendingReview: true,
     };
-    await client.connect();
+    console.log(body);
     // Creating the new pin in the database.
     const submissionResult = await thisCollection.updateOne(
       { filter: newPin.type },
@@ -60,12 +61,21 @@ const submitNewPin = async ({ body }, res) => {
       { $push: { pins: newPin } }
     );
     // Pushing the ID of the new pin to the 'contributions' array of the user that submitted it.
-    const updatedUser = await db
-      .collection("users")
-      .updateOne(
-        { username: newPin.submittedBy },
-        { $push: { contributions: pinId } }
-      );
+    const updatedUser = await thisCollection.updateOne(
+      { username: newPin.submittedBy },
+      { $push: { contributions: pinId } }
+    );
+    // Finally... we use the username to target the user in the database, find the object with they key 'contributionsByType', and within, increment the field with a key matching filter by 1.
+    const updatedUserContributionCounts = await thisCollection.updateOne(
+      { username: newPin.submittedBy },
+      {
+        $inc: {
+          contributionsByType: {
+            [newPin.type]: 1,
+          },
+        },
+      }
+    );
 
     res.status(200).json({
       status: 200,
@@ -74,6 +84,7 @@ const submitNewPin = async ({ body }, res) => {
       submissionResult: submissionResult,
       pendingResult: pendingResult,
       updatedUser: updatedUser,
+      updatedUserContributionCounts: updatedUserContributionCounts,
       message: "Pin submission successful. Awaiting review.",
     });
   } catch (err) {
@@ -142,6 +153,7 @@ const moderatePin = async ({ query: { pinId, approved } }, res) => {
         { $set: { "pins.$.pendingReview": false } }
       );
     }
+
     // Whether the pin is approved or disapproved it must now be removed from pins array of the pending filter.
     const updatedPending = await thisCollection.updateOne(
       { filter: "pending" },

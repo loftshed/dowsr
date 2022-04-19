@@ -7,7 +7,7 @@ import Header from "./components/Home/Header";
 import { Home } from "./components/Home";
 import { Menu } from "./components/Menu";
 import { Messaging } from "./components/Messaging";
-import Profile from "./components/Profile/Profile";
+import Profile from "./components/Profile";
 import Notifications from "./components/Notifications";
 
 import Error from "./components/Error";

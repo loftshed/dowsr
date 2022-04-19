@@ -33,6 +33,15 @@ const addUser = async ({ body }, res) => {
     const newUser = await thisCollection.insertOne({
       _id: newId,
       regDate: regDate,
+      contributions: [],
+      contributionsByType: {
+        water: 0,
+        toilet: 0,
+        police: 0,
+        hazard: 0,
+      },
+      followers: [],
+      following: [],
       ...body,
     });
     res.status(201).json({
@@ -40,6 +49,7 @@ const addUser = async ({ body }, res) => {
       success: true,
       message: `New user with email '${body.email}' successfully added to the database.`,
       data: { _id: newId, regDate, ...body },
+      result: newUser,
     });
   } catch (err) {
     err ? console.log(err) : client.close();

@@ -1,4 +1,4 @@
-import Profile from "./NEWProfile";
+import Profile from "./FIXEDProfile";
 
 /*---------
 | Profile |
