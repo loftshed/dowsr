@@ -43,18 +43,43 @@ const PinInfoPopup = () => {
         <PinInfoHeader popupInfo={popupInfo} />
         <Body>
           <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
-          <PinStreetView
-            popupInfo={popupInfo}
-            apiKey={REACT_APP_GOOGLE_API_KEY}
-          />
-          <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
-          <PinVoting isOwnPin={isOwnPin} />
+          <DecorativeContainer>
+            <DecorativeSubContainer>
+              <PinStreetView
+                popupInfo={popupInfo}
+                apiKey={REACT_APP_GOOGLE_API_KEY}
+              />
+            </DecorativeSubContainer>
+            <DecorativeSubContainer>
+              <PinVoting isOwnPin={isOwnPin} />
+              <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
+            </DecorativeSubContainer>
+          </DecorativeContainer>
         </Body>
       </div>
     </PopupContainer>
   );
 };
 export default PinInfoPopup;
+
+const DecorativeSubContainer = styled.div`
+  ${centeredFlexColumn}
+  padding: 3px;
+  background-color: var(--color-medium-grey);
+  border-radius: 5px;
+  gap: 4px;
+  width: 100%;
+`;
+
+const DecorativeContainer = styled.div`
+  ${centeredFlexColumn};
+
+  width: 200px;
+  background-color: #f5f5f5;
+  background-color: var(--color-dark-grey);
+  padding: 6px;
+  border-radius: 10px;
+`;
 
 const PopupContainer = styled(Popup)`
   position: relative;
@@ -73,9 +98,8 @@ const Body = styled.div`
   ${centeredFlexColumn}
   color: var(--color-light-grey);
   background-color: var(--color-darkest-grey);
+
   border-radius: 4px;
-  padding: 3px 5px;
-  gap: 3px;
   font-size: 14px;
   line-height: 18px;
   outline: 1px solid var(--color-super-dark-grey);

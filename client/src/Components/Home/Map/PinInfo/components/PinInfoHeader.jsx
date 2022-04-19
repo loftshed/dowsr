@@ -4,8 +4,11 @@ import {
   centeredFlexRow,
   fakeStroke,
 } from "../../../../../styling/sharedstyles";
+import { AppContext } from "../../../../../AppContext";
+import { useContext } from "react";
 
 const PinInfoHeader = ({ popupInfo }) => {
+  const { loggedInUser } = useContext(AppContext);
   if (popupInfo.site)
     return (
       <PinInfoHeaderWrapper>

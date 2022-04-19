@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { SIZES } from "../../../../../styling/constants";
-import { centeredFlexRow } from "../../../../../styling/sharedstyles";
-import { fadeIn } from "../../../../../styling/animations";
+import { SIZES } from "../../../styling/constants";
+import { centeredFlexRow } from "../../../styling/sharedstyles";
+import { fadeIn } from "../../../styling/animations";
 
-const PinInfoModal = ({ message }) => {
+const MapAlertModal = ({ message }) => {
   let style = null;
   if (message === "Creating a new pin") {
     style = {
@@ -17,7 +17,7 @@ const PinInfoModal = ({ message }) => {
   );
 };
 
-export default PinInfoModal;
+export default MapAlertModal;
 
 const ModalWrapper = styled.div`
   left: 50%;

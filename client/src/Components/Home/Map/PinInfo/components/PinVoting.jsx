@@ -43,10 +43,9 @@ const PinVoting = ({ isOwnPin }) => {
 export default PinVoting;
 
 const PinVotingWrapper = styled.div`
+  width: 100%;
   ${centeredFlexRow}
-  padding: 3px 6px;
   gap: 10px;
-  border: 1px solid var(--color-super-dark-grey);
-  background-color: var(--color-extra-medium-grey);
+
   border-radius: 4px;
 `;

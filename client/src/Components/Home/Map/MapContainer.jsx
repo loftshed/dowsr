@@ -9,7 +9,7 @@ import {
 import { fillSpace } from "../../../styling/sharedstyles";
 import styled, { css } from "styled-components";
 import MapFilters from "./MapFilters";
-import PinInfoModal from "./PinInfo/components/PinInfoModal";
+import MapAlertModal from "./MapAlertModal";
 import PinInfoPopup from "./PinInfo/PinInfoPopup";
 import PinInfoMarker from "./PinInfo/components/PinInfoMarker";
 import { MappingContext } from "./MappingContext";
@@ -125,6 +125,7 @@ const MapContainer = () => {
                 <MapFilters
                   showFilterMenu={showFilterMenu}
                   setShowFilterMenu={setShowFilterMenu}
+                  setStoredFilteredPins={setStoredFilteredPins}
                 />
 
                 <PinInfoPopup
@@ -137,7 +138,9 @@ const MapContainer = () => {
               <NewPinMarker clickedLocation={clickedLocation} />
             )}
           </Map>
-          {mapModalMessage !== "" && <PinInfoModal message={mapModalMessage} />}
+          {mapModalMessage !== "" && (
+            <MapAlertModal message={mapModalMessage} />
+          )}
         </>
       )}
     </MapWrapper>

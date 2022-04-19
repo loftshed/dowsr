@@ -1,5 +1,8 @@
 import styled, { css } from "styled-components";
-import { textButtonstyling } from "../../../../../styling/sharedstyles";
+import {
+  centeredFlexRow,
+  textButtonstyling,
+} from "../../../../../styling/sharedstyles";
 import { useContext } from "react";
 import { AppContext } from "../../../../../AppContext";
 import { MappingContext } from "../../MappingContext";
@@ -99,7 +102,8 @@ export default PinVotingButton;
 
 const PinVotingButtonWrapper = styled.button`
   ${textButtonstyling}
-  display: flex;
+  width: 50%;
+  ${centeredFlexRow}
   gap: 2px;
   // if value is like, set background color to teal
   ${(props) =>
@@ -118,7 +122,7 @@ const PinVotingButtonWrapper = styled.button`
     css`
       pointer-events: none;
     `}        
-  padding: 3px 6px;
+  padding: 3px;
   border-radius: 4px;
   svg {
     stroke: var(--color-extra-medium-grey);

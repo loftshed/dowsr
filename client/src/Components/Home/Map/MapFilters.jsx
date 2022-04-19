@@ -14,10 +14,12 @@ import {
   FilterIcon,
   WaterIcon,
   ToiletIcon,
+  PendingIcon,
 } from "../../../styling/react-icons";
 import { useContext, useEffect } from "react";
 import { MappingContext } from "./MappingContext";
 import { AppContext } from "../../../AppContext";
+import {} from "../../../styling/react-icons";
 
 //TODO: Not important but annoying. Fix method by which modal fades out. currently not ideal.
 
@@ -106,10 +108,18 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               <Option
                 type="button"
                 onClick={() => {
-                  handleFilter("hazards", "Hazards");
+                  handleFilter("hazard", "Hazards");
                 }}
               >
                 <HazardIcon />
+              </Option>
+              <Option
+                type="button"
+                onClick={() => {
+                  handleFilter("pending", "Pending");
+                }}
+              >
+                <PendingIcon />
               </Option>
             </InnerContainerLiner>
           </InnerContainer>

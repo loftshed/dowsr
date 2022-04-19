@@ -29,16 +29,25 @@ export default PinSubmitter;
 
 const PinSubmitterWrapper = styled.button`
   ${textButtonstyling}
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   padding: 5px;
-  margin: 5px;
   border-radius: 5px;
   line-height: 10px;
   background-color: var(--color-less-dark-grey);
+  width: 100%;
+  gap: 5px;
   span {
-    padding-right: 5px;
-    font-size: 0.9rem;
+    pointer-events: none;
+    font-size: 14px;
     color: var(--color-teal);
-    text-shadow: 0px 0px 3px var(--color-pink);
+  }
+  &:hover {
+    span {
+      background-color: var(--color-pink);
+      padding: 3px;
+    }
   }
 `;

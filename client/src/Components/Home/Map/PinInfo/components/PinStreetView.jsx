@@ -9,7 +9,7 @@ const PinStreetView = ({ popupInfo, apiKey }) => {
     >
       <StreetView
         id="street-view"
-        src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${popupInfo?.latitude},${popupInfo?.longitude}&fov=80&heading=70&pitch=0&key=${apiKey}`}
+        src={`https://maps.googleapis.com/maps/api/streetview?size=225x125&location=${popupInfo?.latitude},${popupInfo?.longitude}&fov=80&heading=70&pitch=0&key=${apiKey}`}
       />
     </PinStreetViewWrapper>
   );
@@ -18,10 +18,12 @@ export default PinStreetView;
 
 const PinStreetViewWrapper = styled.a`
   display: flex;
+  align-items: center;
+  justify-content: center;
   ${fillSpace}
 `;
 
 const StreetView = styled.img`
-  border-radius: 10px;
-  border: 2px solid var(--color-pink);
+  border-radius: 5px;
+  outline: 1px solid var(--color-super-dark-grey);
 `;

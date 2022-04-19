@@ -78,7 +78,11 @@ const NewPinModal = ({ show, type }) => {
               autoComplete="off"
               onSubmit={(ev) => {
                 ev.preventDefault();
-                handleSubmitPin(ev, clickedLocation, loggedInUser);
+                if (ev.target.pinType.value !== "default") {
+                  handleSubmitPin(ev, clickedLocation, loggedInUser);
+                } else {
+                  console.log("Please select a pin type");
+                }
               }}
             >
               <InputRow>

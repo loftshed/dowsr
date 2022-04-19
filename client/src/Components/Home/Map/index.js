@@ -3,12 +3,12 @@
 ---------*/
 
 /*
-TODO: DO MORE CONDITIONAL RENDERING INSIDE OF COMPONENTS, NOT PARENT
-for readability!!
-TODO: the point is pushed to an array of datapoints which are used to populate the map with markers.
-STRETCH: when the user submits the map pin, it is pushed into an array for review.
-STRETCH: submitted pins can be screened and pushed to a final array in an admin backoffice
 STRETCH: LOAD MAP POINTS BASED ON DISTANCE RANGE IN VIEWPORT
+
+KNOWN BUGS:
+- When clicking dislike on a liked pin, likes are decremented, but dislikes are not incremented.
+- When clicking like on a disliked pin, dislikes are decremented, but likes are not incremented.
+- Map pins do not render immediately upon creation.
 
 USEFUL:
 https://visgl.github.io/react-map-gl/docs/api-reference/map

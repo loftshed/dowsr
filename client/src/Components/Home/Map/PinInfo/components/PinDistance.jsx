@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { centeredFlexRow } from "../../../../../styling/sharedstyles";
 import { getDistanceFromPoint } from "../../helpers";
 
 const PinDistance = ({ popupInfo, userLocation }) => {
@@ -12,4 +13,6 @@ const PinDistance = ({ popupInfo, userLocation }) => {
 };
 export default PinDistance;
 
-const PinDistanceWrapper = styled.div``;
+const PinDistanceWrapper = styled.div`
+  ${centeredFlexRow}
+`;
