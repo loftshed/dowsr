@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 const getUserThreads = async (userId) => {
   try {
     const response = await fetch(`/api/get-user-threads?userId=${userId}`);
@@ -70,10 +72,26 @@ const startThreadWithUser = async (idA, idB, message, senderUsername) => {
   }
 };
 
+const getLatestThread = async (retrievedThreads) => {
+  // If no thread is selected on chat load, this will select the latest thread by mapping through retrievedThreads and processing lastMsg with dayjs(lastMsg).unix().
+  // Then setSelectedThreadId to the whichever thread has the latest lastMsg.
+  let latestTimestamp = null;
+  let latestThread = null;
+  retrievedThreads.forEach((thread) => {
+    const timestamp = dayjs(thread.lastMsg).unix();
+    if (timestamp > latestTimestamp) {
+      latestTimestamp = timestamp;
+      latestThread = thread;
+    }
+  });
+  return latestThread;
+};
+
 export {
   getUserThreads,
   getOneThread,
   newThread,
   replyThread,
   startThreadWithUser,
+  getLatestThread,
 };

@@ -7,7 +7,7 @@ import Sidebar from "./components/Sidebar";
 
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { getUserThreads } from "./helpers";
+import { getUserThreads, getLatestThread } from "./helpers";
 import ChatMessages from "./components/ChatMessages";
 import ChatInput from "./components/ChatInput";
 
@@ -22,22 +22,12 @@ const MessagingContainer = () => {
     (async () => {
       try {
         const retrievedThreads = await getUserThreads(locallyStoredUserId);
+        const latestThread = await getLatestThread(retrievedThreads);
         setAllUserThreads(retrievedThreads);
         if (!selectedThreadId) {
-          // if no thread is selected, select the latest thread by mapping through retrievedThreads and processing lastMsg with dayjs(lastMsg).unix(). Then setSelectedThreadId to the whichever thread has the latest lastMsg.
-          let latestTimestamp = null;
-          let latestThread = null;
-          retrievedThreads.forEach((thread) => {
-            const timestamp = dayjs(thread.lastMsg).unix();
-            if (timestamp > latestTimestamp) {
-              latestTimestamp = timestamp;
-              latestThread = thread;
-            }
-          });
           setSelectedThreadId(latestThread._id);
           setCurrentMessages(latestThread.messages);
         }
-
         console.log(retrievedThreads);
       } catch (error) {
         console.log(error);
