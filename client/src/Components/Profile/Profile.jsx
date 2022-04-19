@@ -25,11 +25,12 @@ const Profile = () => {
 
   const handleGetProfile = async (username) => {
     try {
+      console.log("username", username);
       if (!username) {
         setViewedProfile(loggedInUser);
-
         return;
-      }
+      } // exits if no username
+
       const { data } = await getUserByUsername(username);
       setViewedProfile(data);
     } catch (err) {
@@ -38,13 +39,21 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    if (!params.username) {
-      handleGetProfile(loggedInUser.username);
-      return;
-    } else {
-      handleGetProfile(params.username);
-    }
-  }, [params.username, loggedInUser.username]);
+    (async () => {
+      try {
+        if (!params.username) {
+          // if there's no username in the params, loggedinUser is the username to use
+          await handleGetProfile(loggedInUser.username);
+        } else {
+          // otherwise get hte rpofile of the username in the params
+          console.log(params.username);
+          await handleGetProfile(params.username);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [params.username]);
 
   useEffect(() => {
     (async () => {
@@ -53,10 +62,10 @@ const Profile = () => {
         let pending;
         if (isOwnProfile) {
           response = await handleGetUserContributions(loggedInUser?.username);
-          pending = await handleGetUserPending(loggedInUser?._id);
+          pending = await handleGetUserPending(loggedInUser?._id); //
         } else {
           response = await handleGetUserContributions(viewedProfile.username);
-          pending = await handleGetUserPending(viewedProfile._id);
+          pending = await handleGetUserPending(viewedProfile._id); //
         }
         setViewedProfile({
           ...viewedProfile,
@@ -67,7 +76,7 @@ const Profile = () => {
         console.log(error);
       }
     })();
-  }, [params.username, loggedInUser.username]);
+  }, []);
 
   if (viewedProfile.submissionsByType === undefined)
     return (
