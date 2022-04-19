@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import ThreadPreviewTile from "./ThreadPreviewTile";
+import PreviewTile from "./PreviewTile";
 import { SIZES } from "../../../styling/constants";
-import { useState } from "react";
 
-const Sidebar = ({
+const ChatSidebar = ({
   allUserThreads,
   storedUserId,
   showLoadingAnim,
@@ -22,7 +21,7 @@ const Sidebar = ({
         const { sent, message } = mostRecentMessage;
 
         return (
-          <ThreadPreviewTile
+          <PreviewTile
             key={_id}
             threadId={_id}
             partnerId={partnerId}
@@ -39,7 +38,7 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default ChatSidebar;
 
 const SidebarWrapper = styled.div`
   display: flex;

@@ -10,7 +10,7 @@ import { useWindowWidth } from "@react-hook/window-size";
 import { getUser } from "../../Auth/helpers";
 import { getOneThread } from "../helpers";
 
-const ThreadPreviewTile = ({
+const PreviewTile = ({
   partnerId,
   threadId,
   message,
@@ -25,6 +25,8 @@ const ThreadPreviewTile = ({
   const isCurrentlySelected = selectedThreadId === threadId ? true : false;
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime);
+
+  // Each thread preview tile should listen for a socket event to update the thread tile when a new message is received
 
   useEffect(() => {
     (async () => {
@@ -90,7 +92,7 @@ const ThreadPreviewTile = ({
     );
 };
 
-export default ThreadPreviewTile;
+export default PreviewTile;
 
 const Text = styled.div`
   display: flex;

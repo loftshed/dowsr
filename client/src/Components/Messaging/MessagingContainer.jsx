@@ -3,13 +3,14 @@ import { fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
 
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import Sidebar from "./components/Sidebar";
+import ChatSidebar from "./components/ChatSidebar";
 
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { getUserThreads, getLatestThread } from "./helpers";
 import ChatMessages from "./components/ChatMessages";
 import ChatInput from "./components/ChatInput";
+
+// Now that this is all sorted, I should move some stuff into a MessagingContext Provider
 
 const MessagingContainer = () => {
   const locallyStoredUserId = localStorage.getItem("userId");
@@ -17,18 +18,31 @@ const MessagingContainer = () => {
   const [selectedThreadId, setSelectedThreadId] = useState(null);
   const [currentMessages, setCurrentMessages] = useState([]);
   const [showLoadingAnim, setShowLoadingAnim] = useState(false);
+  const [noThreads, setNoThreads] = useState(false);
+
+  // On load, retrieve all threads for the locally stored userId
 
   useEffect(() => {
     (async () => {
       try {
-        const retrievedThreads = await getUserThreads(locallyStoredUserId);
-        const latestThread = await getLatestThread(retrievedThreads);
-        setAllUserThreads(retrievedThreads);
-        if (!selectedThreadId) {
-          setSelectedThreadId(latestThread._id);
-          setCurrentMessages(latestThread.messages);
+        // If we have previously found that there are no threads, don't bother trying to get them again
+        if (!noThreads) {
+          const retrievedThreads = await getUserThreads(locallyStoredUserId);
+          if (!retrievedThreads.length) {
+            // If this is the first run of the sesion and there are no threads, set userHasNoThreads to true and return
+            setNoThreads(true);
+            return;
+          }
+          // If we have threads, set them to the state.
+          setAllUserThreads(retrievedThreads);
+
+          // If no thread id has been selected, load the most recent thread.
+          if (!selectedThreadId) {
+            const latestThread = await getLatestThread(retrievedThreads);
+            setSelectedThreadId(latestThread._id);
+            setCurrentMessages(latestThread.messages);
+          }
         }
-        console.log(retrievedThreads);
       } catch (error) {
         console.log(error);
       }
@@ -38,7 +52,7 @@ const MessagingContainer = () => {
   return (
     <ResponsiveContainer heading={"Messages"}>
       <LayoutContainer>
-        <Sidebar
+        <ChatSidebar
           selectedThreadId={selectedThreadId}
           setSelectedThreadId={setSelectedThreadId}
           setCurrentMessages={setCurrentMessages}
