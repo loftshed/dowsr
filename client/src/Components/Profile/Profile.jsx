@@ -1,17 +1,12 @@
 import styled from "styled-components";
-import {
-  centeredFlexColumn,
-  centeredFlexRow,
-  fillSpace,
-} from "../../styling/sharedstyles";
+import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import { useEffect, useContext, useState } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useContext } from "react";
 import { AppContext } from "../../AppContext";
 import { getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { handleGetUserContributions, handleGetUserPending } from "./helpers";
 import ContributionsBar from "./components/ContributionsBar";
 import RegDate from "./components/RegDate";
@@ -25,7 +20,6 @@ import Avatar from "./components/Avatar";
 const Profile = () => {
   const { loggedInUser, viewedProfile, setViewedProfile } =
     useContext(AppContext);
-  const { isLoading } = useAuth0();
   const params = useParams();
   const isOwnProfile = loggedInUser.username === params.username;
 
