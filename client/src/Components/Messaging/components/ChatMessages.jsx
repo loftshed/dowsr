@@ -16,7 +16,7 @@ const ChatMessages = ({ currentMessages }) => {
             key={uuidv4()}
             // If the message userId isn't the same as the logged in user, it's a received message
             recd={el.userId !== locallyStoredUserId}
-            author={`@${el.handle}`}
+            author={el.handle}
             content={el.message}
             timestamp={el.sent}
           />

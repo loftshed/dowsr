@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 const Bubble = ({ recd, author, content, timestamp }) => {
   // This still feels a bit messy. ....way she goes.
+  const navigate = useNavigate();
 
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime); // Used to display time in "(x) minutes ago" format
@@ -13,11 +15,11 @@ const Bubble = ({ recd, author, content, timestamp }) => {
         <Heading recd={recd}>
           {recd && (
             <ProfileLink
-            // onClick={(ev) => {
-            //   navigate(`/profile/${popupInfo.submittedBy}`);
-            // }}
+              onClick={(ev) => {
+                navigate(`/profile/${author}`);
+              }}
             >
-              {author}
+              @{author}
             </ProfileLink>
           )}
         </Heading>

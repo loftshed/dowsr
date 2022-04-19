@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { MappingContext } from "../../MappingContext";
 import {
   ThumbsDownIcon,
@@ -14,8 +14,6 @@ const PinVoting = ({ isOwnPin }) => {
     likedByIds: popupInfo?.likedByIds,
     dislikedByIds: popupInfo?.dislikedByIds,
   });
-
-  useEffect(() => {}, []);
 
   return (
     <PinVotingWrapper>
