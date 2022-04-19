@@ -20,7 +20,7 @@ const IconRow = () => {
     setMapModalMessage,
     setCreatingNewPin,
     creatingNewPin,
-    showPinCreationModal,
+    // showPinCreationModal,
     pinCreationSuccessful,
     setPinCreationSuccessful,
   } = useContext(MappingContext);

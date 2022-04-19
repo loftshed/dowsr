@@ -6,17 +6,20 @@ import { ProfileButton } from "../sharedstyles";
 
 // STRETCH: get this to send the user to the chat page but don't start a thread with the user until they actually send them a message.
 
-const MessageButton = ({ loggedInUser, _id }) => {
+const MessageButton = ({ _id }) => {
+  const locallyStoredUserId = localStorage.getItem("userId");
+  const locallyStoredUsername = localStorage.getItem("username");
   const navigate = useNavigate();
+
   return (
     <MessageButtonWrapper
       onClick={async () => {
         try {
-          const result = await startThreadWithUser(
-            loggedInUser._id,
+          await startThreadWithUser(
+            locallyStoredUserId,
             _id,
             "👋",
-            loggedInUser.username
+            locallyStoredUsername
           );
           navigate("/messages", { replace: true });
         } catch (error) {

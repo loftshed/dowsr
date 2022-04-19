@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
 import { fakeStroke } from "../../../styling/sharedstyles";
-import { sharedDetailStyle } from "../sharedstyles";
-import MessageButton from "./MessageButton";
 
 const FollowCountIndicator = ({ count, type, color }) => {
   return (
@@ -24,9 +22,6 @@ const FollowCountsWrapper = styled.div`
     gap: 10px;
   }
 `;
-
-// Weird 3AM styling experiment because -webkit-text-stroke- doesn't work like I want it to
-const N = 1;
 
 const sharedFollowStyling = css`
   display: flex;

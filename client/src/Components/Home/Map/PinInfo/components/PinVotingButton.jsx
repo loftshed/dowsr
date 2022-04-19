@@ -1,8 +1,5 @@
 import styled, { css } from "styled-components";
-import {
-  centeredFlexRow,
-  textButtonstyling,
-} from "../../../../../styling/sharedstyles";
+import { centeredFlexRow } from "../../../../../styling/sharedstyles";
 import { useContext } from "react";
 import { AppContext } from "../../../../../AppContext";
 import { MappingContext } from "../../MappingContext";

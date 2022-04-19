@@ -14,9 +14,9 @@ const NewPinPopup = () => {
     clickedLocation,
     setShowPinCreationModal,
     showPinCreationModal,
-    setMapModalMessage,
     setClickedLocation,
-    setPopupIsVisible,
+    // setMapModalMessage,
+    // setPopupIsVisible,
   } = useContext(MappingContext);
 
   const { current: map } = useMap();
@@ -25,7 +25,7 @@ const NewPinPopup = () => {
     return () => {
       setClickedLocation(null);
     };
-  }, []);
+  }, [setClickedLocation]);
 
   return (
     <Popup

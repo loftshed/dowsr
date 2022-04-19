@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useMap } from "react-map-gl";
+// import { useMap } from "react-map-gl";
 import styled from "styled-components";
 import {
   centeredFlexColumn,
@@ -11,6 +11,7 @@ import { forwardGeocode } from "../Home/Map/helpers";
 const SearchContainer = ({ show }) => {
   const [searchResults, setSearchResults] = useState(null);
   const [clickedResult, setClickedResult] = useState(null);
+  console.log(clickedResult);
   // const {id: } = useMap();
 
   // EXTREMELY half baked. This was pretty low on the priority list.

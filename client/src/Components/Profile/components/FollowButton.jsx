@@ -6,7 +6,6 @@ import {
   RiUserUnfollowLine as UnfollowIcon,
 } from "react-icons/ri";
 import { BsFillCheckCircleFill as CheckIcon } from "react-icons/bs";
-import { TextButton } from "../../../styling/sharedstyles";
 import { ProfileButton } from "../sharedstyles";
 
 // FollowButton is a child of ActionBar.

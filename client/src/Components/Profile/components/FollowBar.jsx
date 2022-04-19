@@ -4,18 +4,11 @@ import { sharedDetailStyle } from "../sharedstyles";
 import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
 import FollowCountIndicator from "./FollowCountIndicator";
-import { getUser } from "../../Auth/helpers";
 import { SIZES } from "../../../styling/constants";
 
 // STRETCH: To get follower avatars make it so that when you follow someone their avatarUrl and username are saved in your followers arary along with their id.
 
-const FollowBar = ({
-  loggedInUser,
-  _id,
-  viewedProfile,
-  isOwnProfile,
-  following,
-}) => {
+const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
   const [followingState, setFollowingState] = useState(
     viewedProfile.following?.length
   );
@@ -61,6 +54,12 @@ const FollowBar = ({
   );
 };
 
+const buttonStyle = css`
+  ${textButtonstyling}
+  border-radius: 3px;
+  cursor: pointer;
+`;
+
 export { FollowBar, buttonStyle };
 
 const Container = styled.div`
@@ -73,10 +72,4 @@ const Container = styled.div`
 const ActionBarWrapper = styled.div`
   justify-content: space-between;
   ${sharedDetailStyle};
-`;
-
-const buttonStyle = css`
-  ${textButtonstyling}
-  border-radius: 3px;
-  cursor: pointer;
 `;
