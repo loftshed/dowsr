@@ -1,13 +1,20 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { iconstyling } from "../../styling/sharedstyles";
-import { SIZES } from "../../styling/constants";
 import { LogoutIcon } from "../../styling/react-icons";
 
 const LogoutButton = () => {
   const { logout } = useAuth0();
+
   return (
-    <Button onClick={() => logout({ returnTo: window.location.origin })}>
+    <Button
+      onClick={() => {
+        localStorage.removeItem("username");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("avatarUrl");
+        logout({ returnTo: window.location.origin });
+      }}
+    >
       <LogoutIcon />
     </Button>
   );

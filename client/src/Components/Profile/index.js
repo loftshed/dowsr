@@ -4,11 +4,9 @@ import Profile from "./Profile";
 | Profile |
 ---------*/
 
-//TODO: button to edit profile!
-//TODO: embed ig feed in profile??
-//TODO: add bio to profile
-
-//STRETCH: // const handleFollowUser = (userId) => {}; (nothing in backend for this yet)
-//TODO: change this so you can also get profile by username..
+//STRETCH: Embed IG feed in profile
+//STRETCH: Add about me / an option to edit that field
+//STRETCH: Add a way to edit the profile picture
+//STRETCH: Add a way to edit the cover photo
 
 export default Profile;

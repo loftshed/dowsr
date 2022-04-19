@@ -51,7 +51,7 @@ const iconstyling = css`
   }
 `;
 
-const inputstyling = css`
+const inputStyling = css`
   border-radius: 4px;
   background-color: var(--color-dark-grey);
   box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
@@ -61,6 +61,15 @@ const inputstyling = css`
   line-height: 20px;
   padding: 5px 6px;
   border: 1px solid var(--color-extra-medium-grey);
+`;
+
+const boxShadow = css`
+  box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+    6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+    12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    100px 100px 80px rgba(0, 0, 0, 0.07);
 `;
 
 const textButtonstyling = css`
@@ -76,6 +85,7 @@ const textButtonstyling = css`
   background-color: var(--color-darkest-grey);
   outline: 1px var(--color-less-dark-grey) solid;
   ${buttonAnim}
+  ${boxShadow}
 `;
 
 const ContentGrid = styled.div`
@@ -92,13 +102,14 @@ const TextButton = styled.button`
 // vestigial
 const IconNavLink = styled(NavLink)`
   ${iconstyling}
+  ${boxShadow}
 `;
 
 const BurgerNavLink = styled(IconNavLink)``;
 
 // vestigial
 const Input = styled.input`
-  ${inputstyling}
+  ${inputStyling}
 `;
 
 const Select = styled.select`
@@ -111,6 +122,18 @@ const Select = styled.select`
 
 const Option = styled.option`
   width: 100%;
+`;
+
+const N = 1;
+const fakeStroke = css`
+  text-shadow: ${N}px ${N}px var(--color-super-dark-grey),
+    -${N}px -${N}px var(--color-super-dark-grey),
+    ${N}px -${N}px var(--color-super-dark-grey),
+    -${N}px ${N}px var(--color-super-dark-grey),
+    -${N}px 0px var(--color-super-dark-grey),
+    ${N}px 0px var(--color-super-dark-grey),
+    0px -${N}px var(--color-super-dark-grey),
+    0px ${N}px var(--color-super-dark-grey);
 `;
 
 const pageWidth = document.documentElement.clientWidth;
@@ -128,7 +151,9 @@ export {
   centeredFlexColumn,
   centeredFlexRow,
   iconstyling,
-  inputstyling,
+  inputStyling,
   textButtonstyling,
   BurgerNavLink,
+  boxShadow,
+  fakeStroke,
 };

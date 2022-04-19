@@ -1,62 +1,111 @@
 import styled from "styled-components";
-import { Popup } from "react-map-gl";
-import { fillSpace, centeredFlexColumn } from "../../../../styling/sharedstyles";
-import { useContext, useEffect } from "react";
-import { MappingContext } from "../MappingContext";
-import { getDistanceFromPoint } from "../helpers";
+import { Popup, useMap } from "react-map-gl";
+import {
+  fillSpace,
+  centeredFlexColumn,
+} from "../../../../styling/sharedstyles";
 
-const InfoPopup = ({ popupInfo, setPopupInfo }) => {
-  const { userLocation } = useContext(MappingContext);
+import { MappingContext } from "../MappingContext";
+import { useContext, useEffect } from "react";
+import PinVoting from "./components/PinVoting";
+import PinStreetView from "./components/PinStreetView";
+import PinSubmitter from "./components/PinSubmitter";
+import PinInfoHeader from "./components/PinInfoHeader";
+import PinDistance from "./components/PinDistance";
+
+const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
+
+const PinInfoPopup = () => {
+  const { popupInfo, setPopupInfo, userLocation, setClickedLocation } =
+    useContext(MappingContext);
+  const { current: map } = useMap();
+
+  const isOwnPin = localStorage.getItem("username") === popupInfo?.submittedBy;
+
+  useEffect(() => {
+    return () => {
+      setClickedLocation(null);
+    };
+  }, []);
 
   if (!popupInfo) return null;
 
-  const distanceFromUser = getDistanceFromPoint(
-    { lat: +popupInfo.latitude, lng: +popupInfo.longitude },
-    { lat: userLocation.lat, lng: userLocation.lng }
-  );
-  const kmFromUser = (distanceFromUser * 100).toFixed(2);
-
   return (
-    <Popup
-      anchor="top"
-      longitude={popupInfo.longitude}
+    <PopupContainer
+      anchor="bottom"
       latitude={popupInfo.latitude}
-      closeOnClick={true}
+      longitude={popupInfo.longitude}
       onClose={() => setPopupInfo(null)}
-      maxWidth={"350px"}
+      closeOnClick={true}
+      closeButton={false}
     >
-      <PopupContainer>
-        <Heading>
-          <h3>{popupInfo.name}</h3>
-        </Heading>
+      <PinInfo>
+        <TopPanel>
+          <PinInfoHeader popupInfo={popupInfo} />
+          <ImageContainer>
+            <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
+            <PinStreetView
+              popupInfo={popupInfo}
+              apiKey={REACT_APP_GOOGLE_API_KEY}
+            />
+          </ImageContainer>
+        </TopPanel>
         <Body>
-          <span>({kmFromUser}km away)</span>
-          <a target="_new" href={popupInfo.site}>
-            Website
-          </a>
+          <ActionContainer>
+            <PinVoting isOwnPin={isOwnPin} />
+            <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
+          </ActionContainer>
         </Body>
-      </PopupContainer>
-    </Popup>
+      </PinInfo>
+    </PopupContainer>
   );
 };
-export default InfoPopup;
+export default PinInfoPopup;
 
-const PopupContainer = styled.div`
-  user-select: none;
+const TopPanel = styled.div``;
+
+const PinInfo = styled.div`
   ${centeredFlexColumn}
-  a {
-    color: var(--color-super-dark-grey);
-  }
+  gap: 6px;
 `;
 
-const Heading = styled.div`
-  h3 {
+const ImageContainer = styled.div`
+  ${centeredFlexColumn}
+  position: relative;
+  background-color: var(--color-medium-grey);
+  border-radius: 5px;
+  gap: 4px;
+  width: 100%;
+`;
+
+const ActionContainer = styled.div`
+  position: relative;
+  ${centeredFlexColumn}
+  padding: 2px;
+  border-radius: 5px;
+  gap: 2px;
+  width: 100%;
+`;
+
+const PopupContainer = styled(Popup)`
+  position: relative;
+  z-index: 1;
+  padding: 0;
+  transition: all ease 0.2s;
+  user-select: none;
+  p,
+  span {
     color: var(--color-super-dark-grey);
-    font-size: 18px;
   }
 `;
 
 const Body = styled.div`
   ${fillSpace}
   ${centeredFlexColumn}
+  color: var(--color-light-grey);
+  background-color: var(--color-darkest-grey);
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 18px;
+  outline: 1px solid var(--color-super-dark-grey);
 `;

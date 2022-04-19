@@ -3,9 +3,9 @@ const { get } = require("express/lib/response");
 const { MongoClient } = require("mongodb");
 
 const { v4: uuidv4 } = require("uuid");
-const { shops } = require("./mockdata/data/shop_data"); // require data file
-const { deps } = require("./mockdata/data/dep_data"); // require data file
-const { cafes } = require("./mockdata/data/cafe_data"); // require data file
+const { shops } = require("./data/mockShopData"); // require data file
+const { deps } = require("./data/mockDepData"); // require data file
+const { cafes } = require(".//data/mockCafeData"); // require data file
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
@@ -16,14 +16,15 @@ const client = new MongoClient(MONGO_URI, {
 
 let pins = [];
 
-const rearrangeData = () => {
-  cafes.forEach(
+const filter = "deps";
+
+const rearrangeData = (filter) => {
+  deps.forEach(
     ({
       name,
       site,
       type,
       phone,
-      street,
       full_address,
       latitude,
       longitude,
@@ -31,16 +32,18 @@ const rearrangeData = () => {
     }) => {
       const pinObj = {
         _id: uuidv4(),
-        latitude,
-        longitude,
-        name,
+        latitude: +latitude,
+        longitude: +longitude,
+        desc: name,
         phone,
         site,
-        type,
-        street,
-        full_address,
-        description,
+        type: "deps",
+        submittedBy: "dowsr",
+        pendingReview: false,
+        address: full_address,
         users_vouched: [],
+        likedByIds: [],
+        dislikedByIds: [],
       };
       pins.push(pinObj);
     }
@@ -50,7 +53,7 @@ const rearrangeData = () => {
 
 rearrangeData();
 
-const mapPins = { _id: uuidv4(), filter: "cafes", pins: pins };
+const mapPins = { _id: uuidv4(), filter: "deps", pins: pins };
 
 const batchImport = async () => {
   try {

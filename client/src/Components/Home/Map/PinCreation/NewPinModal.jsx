@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { MappingContext } from "../MappingContext";
 import { SIZES } from "../../../../styling/constants";
@@ -8,18 +8,51 @@ import {
   centeredFlexRow,
   fillSpace,
   Input,
-  inputstyling,
+  inputStyling,
   textButtonstyling,
 } from "../../../../styling/sharedstyles";
-import { handleSubmitPin } from "../helpers";
+import { handleGetPinsOfType, submitPin } from "../helpers";
+import { AppContext } from "../../../../AppContext";
 
-//TODO: figure out why address modal no longer updates on the fly..
+// Called from the Menu component
+// DON'T FORGET TO VALIDATE THE FRIGGIN DATA BRUH
 
-const NewPinModal = ({ show }) => {
-  const { setClickedLocation, clickedLocation, setShowPinCreationModal } =
-    useContext(MappingContext);
+const NewPinModal = ({ show, type }) => {
+  const {
+    setClickedLocation,
+    clickedLocation,
+    setShowPinCreationModal,
+    setCreatingNewPin,
+    setMapModalMessage,
+    pinCreationSuccessful,
+    setStoredFilteredPins,
+    setPinCreationSuccessful,
+    newPinData,
+    setNewPinData,
+  } = useContext(MappingContext);
+  const { loggedInUser } = useContext(AppContext);
 
-  if (show)
+  const handleSubmitPin = async (ev, clickedLocation, loggedInUser) => {
+    try {
+      const result = await submitPin(ev, clickedLocation, loggedInUser);
+      // clean up this goddamn mess of state!
+      if (result.success) {
+        setNewPinData(result.submission);
+        console.log(result.submission.type);
+        setCreatingNewPin(false);
+        setShowPinCreationModal(false);
+        setPinCreationSuccessful(true);
+        // setStoredFilteredPins(
+        //   handleGetPinsOfType(await result.submission.type)
+        // );
+        setMapModalMessage(`Thank you, @${loggedInUser.username}!`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (show && type === "creation")
     return (
       <NewPinModalWrapper>
         <InnerContainer>
@@ -29,6 +62,8 @@ const NewPinModal = ({ show }) => {
               style={{ all: "unset" }}
               onClick={(ev) => {
                 setShowPinCreationModal(false);
+                setCreatingNewPin(false);
+                setMapModalMessage("");
               }}
             >
               <CloseIcon />
@@ -40,15 +75,20 @@ const NewPinModal = ({ show }) => {
           </Subheading>
           <InnerContainerLiner>
             <ModalForm
+              autoComplete="off"
               onSubmit={(ev) => {
                 ev.preventDefault();
-                handleSubmitPin(ev, clickedLocation);
+                if (ev.target.pinType.value !== "default") {
+                  handleSubmitPin(ev, clickedLocation, loggedInUser);
+                } else {
+                  console.log("Please select a pin type");
+                }
               }}
             >
               <InputRow>
                 <InputColumn>
                   <InputHeading>Type</InputHeading>
-                  <ModalSelect>
+                  <ModalSelect key="pinType" id="pinType">
                     <Option value="default">Select one:</Option>
                     <Option value="toilet">Toilets</Option>
                     <Option value="water">Water</Option>
@@ -56,11 +96,17 @@ const NewPinModal = ({ show }) => {
                     <Option value="hazard">Hazard</Option>
                   </ModalSelect>
                 </InputColumn>
+                <InputColumn>
+                  <InputHeading>Hours</InputHeading>
+                  <ModalInput id="hours" key="hours" type="text" />
+                </InputColumn>
               </InputRow>
               <InputColumn>
                 <InputHeading>Verify the approximate address</InputHeading>
                 <ModalInput
                   type="text"
+                  key="address"
+                  id="address"
                   value={clickedLocation?.addressFull}
                   // Using onChange, it is possible to edit a field with a value that was assigned using state.
                   onChange={(ev) => {
@@ -72,11 +118,40 @@ const NewPinModal = ({ show }) => {
                 />
               </InputColumn>
               <InputColumn>
-                <InputHeading>Opening hours (if not 24/7)</InputHeading>
-                <ModalInput type="text" />
+                <InputHeading>Brief Description</InputHeading>
+                <ModalInput id="desc" key="desc" type="text" />
               </InputColumn>
-              <ModalSubmit type="submit" />
+              <ModalSubmit id="submit" key="submit" type="submit" />
             </ModalForm>
+          </InnerContainerLiner>
+        </InnerContainer>
+      </NewPinModalWrapper>
+    );
+
+  if (show && type === "success")
+    return (
+      <NewPinModalWrapper>
+        <InnerContainer>
+          <Heading>
+            Pin created successfully :){" "}
+            <button
+              style={{ all: "unset" }}
+              onClick={(ev) => {
+                setPinCreationSuccessful(null);
+                setNewPinData(null);
+                setMapModalMessage("");
+              }}
+            >
+              <CloseIcon />
+            </button>
+          </Heading>
+          <Subheading>
+            Latitude {newPinData.latitude.toFixed(4)}, Longitude{" "}
+            {newPinData.longitude.toFixed(4)}
+          </Subheading>
+          <InnerContainerLiner>
+            Awesome! Your submission has been entered into the queue for review
+            and will be added to the map shortly.
           </InnerContainerLiner>
         </InnerContainer>
       </NewPinModalWrapper>
@@ -153,6 +228,7 @@ const InnerContainerLiner = styled.div`
   border-radius: 4px;
   gap: 5px;
   padding: 10px 20px;
+  text-align: center;
 `;
 
 const InputRow = styled.div`
@@ -179,7 +255,7 @@ const ModalInput = styled(Input)`
 `;
 
 const ModalSelect = styled.select`
-  ${inputstyling}
+  ${inputStyling}
   background-color: var(--color-super-dark-grey);
 `;
 

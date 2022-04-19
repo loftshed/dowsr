@@ -1,44 +1,77 @@
 import styled from "styled-components";
-import { centeredFlexColumn } from "../../styling/sharedstyles";
+import { fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
 
-import { useContext } from "react";
-import { AppContext } from "../../AppContext";
-
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import ThreadPreviewTile from "./ThreadPreviewTile";
-import ChatInterface from "./ChatInterface";
+import ChatSidebar from "./components/ChatSidebar";
+
+import { useEffect, useState } from "react";
+import { getUserThreads, getLatestThread } from "./helpers";
+import ChatMessages from "./components/ChatMessages";
+import ChatInput from "./components/ChatInput";
+
+// Now that this is all sorted, I should move some stuff into a MessagingContext Provider
 
 const MessagingContainer = () => {
-  const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);
+  const locallyStoredUserId = localStorage.getItem("userId");
+  const [allUserThreads, setAllUserThreads] = useState([]);
+  const [selectedThreadId, setSelectedThreadId] = useState(null);
+  const [currentMessages, setCurrentMessages] = useState([]);
+  const [showLoadingAnim, setShowLoadingAnim] = useState(false);
+  const [noThreads, setNoThreads] = useState(false);
+
+  // On load, retrieve all threads for the locally stored userId
+
+  useEffect(() => {
+    (async () => {
+      try {
+        // If we have previously found that there are no threads, don't bother trying to get them again
+        if (!noThreads) {
+          const retrievedThreads = await getUserThreads(locallyStoredUserId);
+          if (!retrievedThreads.length) {
+            // If this is the first run of the sesion and there are no threads, set userHasNoThreads to true and return
+            setNoThreads(true);
+            return;
+          }
+          // If we have threads, set them to the state.
+          setAllUserThreads(retrievedThreads);
+
+          // If no thread id has been selected, load the most recent thread.
+          if (!selectedThreadId) {
+            const latestThread = await getLatestThread(retrievedThreads);
+            setSelectedThreadId(latestThread._id);
+            setCurrentMessages(latestThread.messages);
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [currentMessages]);
 
   return (
     <ResponsiveContainer heading={"Messages"}>
       <LayoutContainer>
-        <Sidebar>
-          <>
-            {threads.map((el) => {
-              const { _id, messages, users } = el;
-              const partnerId = users.find((el) => {
-                return el !== loggedInUser._id;
-              });
-              const mostRecentMessage = messages[messages.length - 1];
-              const { sent, message } = mostRecentMessage;
-              return (
-                <ThreadPreviewTile
-                  key={_id}
-                  threadId={_id}
-                  message={`${message}`}
-                  time={sent}
-                  userId={partnerId}
-                />
-              );
-            })}
-          </>
-        </Sidebar>
-        <MessagesContainer>
-          <ChatInterface thread={displayedThreadId} />
-        </MessagesContainer>
+        <ChatSidebar
+          selectedThreadId={selectedThreadId}
+          setSelectedThreadId={setSelectedThreadId}
+          setCurrentMessages={setCurrentMessages}
+          allUserThreads={allUserThreads}
+          storedUserId={locallyStoredUserId}
+          showLoadingAnim={showLoadingAnim}
+        />
+        <ChatArea>
+          <ChatMessages
+            currentMessages={currentMessages}
+            setCurrentMessages={setCurrentMessages}
+          />
+          <ChatInput
+            selectedThreadId={selectedThreadId}
+            setShowLoadingAnim={setShowLoadingAnim}
+            setCurrentMessages={setCurrentMessages}
+            currentMessages={currentMessages}
+          />
+        </ChatArea>
       </LayoutContainer>
     </ResponsiveContainer>
   );
@@ -57,37 +90,14 @@ const LayoutContainer = styled.div`
   overflow: hidden;
 `;
 
-const MessagesContainer = styled.div`
-  ${centeredFlexColumn}
+const ChatArea = styled.div`
+  ${fillSpace}
+  flex-direction: column;
+  background-color: var(--color-super-dark-grey);
+  border-top-right-radius: 5px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
+  padding: 3px;
+  gap: 4px;
   width: 100%;
   height: 100%;
-  gap: 15px;
-`;
-
-const Sidebar = styled.div`
-  display: flex;
-  align-self: flex-start;
-  flex-direction: column;
-  width: 45%;
-  height: 100%;
-  padding: 5px 2px 5px 5px;
-  row-gap: 6px;
-  background-color: var(--color-super-dark-grey);
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: ${SIZES.borderRadius}px;
-  @media (max-width: 425px) {
-    width: 70px;
-    row-gap: 10px;
-  }
-  overflow-y: auto;
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #282828;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-pink);
-  }
 `;

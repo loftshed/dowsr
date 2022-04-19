@@ -14,13 +14,24 @@ import FirstLogin from "../Auth/FirstLogin";
 const Home = () => {
   const { firstLogin, setFirstLogin } = useContext(AppContext);
   const { user, isAuthenticated /*, isLoading*/ } = useAuth0();
+  const storedUsername = localStorage.getItem("username");
+  const storedUserId = localStorage.getItem("userId");
+  const storedAvatarUrl = localStorage.getItem("avatarUrl");
 
   useEffect(() => {
     (async () => {
       try {
         if (user) {
-          const { userFound } = await getUser("email", user.email);
-          if (!userFound) setFirstLogin(true);
+          const response = await getUser("email", user.email);
+          const {
+            data: { username, _id },
+          } = response;
+          if (!username) {
+            setFirstLogin(true);
+            return;
+          }
+          localStorage.setItem("username", username);
+          localStorage.setItem("userId", _id);
         }
       } catch (error) {
         console.log(error);
@@ -33,7 +44,7 @@ const Home = () => {
   return (
     <Wrapper>
       <>
-        {isAuthenticated ? (
+        {isAuthenticated || storedUsername ? (
           <Content>
             <Map />
           </Content>

@@ -33,6 +33,11 @@ const GlobalStyle = createGlobalStyle`
       --color-light-grey: #e7e5df;
       --color-teal: #44bba4;
       --color-gold: #e7bb41;
+
+      --color-water: #48cae4;
+      --color-toilet: #b2967d;
+      --color-hazard: #e76f51;
+      --color-police: #118ab2;
     }
 
     /*-----------------|
@@ -44,6 +49,10 @@ const GlobalStyle = createGlobalStyle`
       color: var(--color-light-grey);
       /* font-family: 'Lato', sans-serif; */
       font-family: "Karla";
+    }
+    
+    .react-icons {
+       vertical-align: middle;
     }
     
     p {
@@ -97,6 +106,7 @@ const GlobalStyle = createGlobalStyle`
     }
     input, button, textarea, select {
       font: inherit;
+      text-overflow: ellipsis;
     }
     p, h1, h2, h3, h4, h5, h6 {
       overflow-wrap: break-word;
@@ -107,10 +117,7 @@ const GlobalStyle = createGlobalStyle`
     #root {
       height: 100%;
     }
-    .mapboxgl-popup {
-
-    }
-    
+        
     .mapboxgl-popup-content {
       background-color: var(--color-less-dark-grey);
       padding: 5px;

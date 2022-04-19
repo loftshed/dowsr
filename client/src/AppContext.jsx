@@ -12,7 +12,8 @@ export const AppProvider = ({ children }) => {
   const [displayedThreadId, setDisplayedThreadId] = useState("");
   const [showLoadingAnim, setShowLoadingAnim] = useState(false);
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
-  // const socket = socketio.connect("http://localhost:8080");
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [viewedProfile, setViewedProfile] = useState({});
 
   return (
     <AppContext.Provider
@@ -33,6 +34,10 @@ export const AppProvider = ({ children }) => {
         setDisplayedThreadId,
         showBurgerMenu,
         setShowBurgerMenu,
+        showSearchBar,
+        setShowSearchBar,
+        viewedProfile,
+        setViewedProfile,
         // socket,
       }}
     >

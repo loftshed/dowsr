@@ -11,6 +11,17 @@ const getUser = async (by, value) => {
   }
 };
 
+// this is redundant with the above function, but I'm leaving it here for now
+const getUserByUsername = async (username) => {
+  try {
+    const response = await fetch(`/api/get-user/${username}`);
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //TODO: turn add/modify user into a single function that switches purpose with an argument..
 const addNewUser = async ({ target }, user) => {
   try {
@@ -32,7 +43,9 @@ const addNewUser = async ({ target }, user) => {
         country: target.country.value,
         region: target.region.value,
         avatarUrl: user.picture,
-        contributions: 0,
+        contributions: [],
+        followers: [],
+        following: [],
       }),
     });
     const result = await response.json();
@@ -69,4 +82,4 @@ const modifyUser = async ({ target }) => {
   }
 };
 
-export { getUser, addNewUser, modifyUser };
+export { getUser, getUserByUsername, addNewUser, modifyUser };

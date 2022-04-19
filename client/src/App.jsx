@@ -16,6 +16,7 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "./AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./components/Auth/helpers";
+import { Admin } from "./components/Admin";
 
 //TODO: ULTRA MEGA TODO: Redo signin flow!!
 
@@ -42,11 +43,12 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/new" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/profile/:username" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/messages" element={<Messaging />} />
             <Route path="/search" element={<Home search={true} />} />
             <Route path="/error" element={<Error />} />
+            <Route path="/admin" element={<Admin />} />
           </Routes>
         </Content>
         <Menu />

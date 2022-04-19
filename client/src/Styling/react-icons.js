@@ -9,16 +9,22 @@ import {
   BsSearch,
   BsMapFill,
   BsFillSaveFill,
+  BsFillHandThumbsUpFill,
+  BsFillHandThumbsDownFill,
+  BsConeStriped,
 } from "react-icons/bs";
 import { TiThMenu } from "react-icons/ti";
 import { IoLogOut, IoSend } from "react-icons/io5";
 import { IoIosWater } from "react-icons/io";
-import { FaToilet } from "react-icons/fa";
+import { FaToilet, FaPoop } from "react-icons/fa";
 import {
   MdPedalBike,
   MdCoffee,
   MdLocalGroceryStore,
   MdFilterAlt,
+  MdAdminPanelSettings,
+  MdLocalPolice,
+  MdPendingActions,
 } from "react-icons/md";
 import { BiTrafficCone } from "react-icons/bi";
 import {
@@ -26,6 +32,7 @@ import {
   RiMapPinAddFill,
   RiCloseCircleFill,
 } from "react-icons/ri";
+import { GiPoliceBadge } from "react-icons/gi";
 
 const CircledArrowRight = styled(BsArrowRightCircleFill)``;
 const SearchIcon = styled(BsSearch)``;
@@ -41,20 +48,21 @@ const SendIcon = styled(IoSend)``;
 const FilterIcon = styled(MdFilterAlt)``;
 const BikeIcon = styled(MdPedalBike)``;
 const CoffeeIcon = styled(MdCoffee)``;
-const HazardIcon = styled(BiTrafficCone)``;
-const PoliceIcon = styled(RiPoliceCarFill)``;
+const HazardIcon = styled(BsConeStriped)``;
+const PoliceIcon = styled(GiPoliceBadge)``;
 const StoreIcon = styled(MdLocalGroceryStore)``;
 const CreatePinIcon = styled(RiMapPinAddFill)``;
 const CloseIcon = styled(RiCloseCircleFill)``;
 const WaterIcon = styled(IoIosWater)``;
-const ToiletIcon = styled(FaToilet)``;
-const BurgerMenuIcon = styled(TiThMenu)`
-  filter: drop-shadow(1px 1px 1px var(--color-pink));
-  width: 30px;
-  height: 30px;
-`;
+const ToiletIcon = styled(FaPoop)``;
+const AdminIcon = styled(MdAdminPanelSettings)``;
+const BurgerMenuIcon = styled(TiThMenu)``;
+const ThumbsUpIcon = styled(BsFillHandThumbsUpFill)``;
+const ThumbsDownIcon = styled(BsFillHandThumbsDownFill)``;
+const PendingIcon = styled(MdPendingActions)``;
 
 export {
+  PendingIcon,
   CircledArrowRight,
   SearchIcon,
   InboxIcon,
@@ -77,4 +85,7 @@ export {
   CloseIcon,
   WaterIcon,
   ToiletIcon,
+  AdminIcon,
+  ThumbsUpIcon,
+  ThumbsDownIcon,
 };

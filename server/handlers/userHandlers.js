@@ -20,8 +20,9 @@ const db = client.db("final");
 const thisCollection = db.collection("users");
 /*--------------------------------------*/
 
-// Adds a new user to MongoDB.
-// In the body, expects a user object to be sent in JSON format.
+// Adds a new users to the DB.
+//
+// In req.body, expects a user object to be sent in JSON format.
 // An ID and a registration date will be inserted into the object by the backend upon new user creation.
 
 const addUser = async ({ body }, res) => {
@@ -49,22 +50,25 @@ const addUser = async ({ body }, res) => {
 };
 
 // Returns users stored in MongoDB.
-// Takes one of two parameters in query, depending on your request.
-// If you wish to return a single user, query key should be "email", and the value should be the user's email address.
-// If you wish to return all users, query key should be "all," with bool value "true".
+// If you wish to return a single user valid queries are:
+//
+// Through URL query (?id=, ?email=) ---
+// "email" - value should be the user's email address.
+// "id" - value should be the user's UUID.
+// Or, through URL params (:username) ---
+// "username" - value should be the user's username.
 
-const getUser = async ({ query: { id, email, all } }, res) => {
+const getUser = async ({ query: { id, email }, params: { username } }, res) => {
   try {
     await client.connect();
-    let returnedUsers;
-    const searchBy = email ? { email: email } : { _id: id };
-    all
-      ? (returnedUsers = await thisCollection.find().toArray())
-      : (returnedUsers = await thisCollection.findOne(searchBy));
-    returnedUsers
-      ? res
-          .status(200)
-          .json({ status: 200, userFound: true, data: returnedUsers })
+    let users;
+    if (id) users = await thisCollection.findOne({ _id: id });
+    if (email) users = await thisCollection.findOne({ email: email });
+    if (username) users = await thisCollection.findOne({ username: username });
+    if (!id && !email && !username)
+      users = await thisCollection.find().toArray();
+    users
+      ? res.status(200).json({ status: 200, userFound: true, data: users })
       : res.status(500).json({
           status: 500,
           userFound: false,
@@ -98,7 +102,7 @@ const modifyUser = async ({ query: { email }, body }, res) => {
   }
 };
 
-const removeUser = async ({ query: { email } }, res) => {
+const removeUser = async ({ query: { id, email } }, res) => {
   try {
     await client.connect();
     const { acknowledged, deletedCount } = await thisCollection.deleteOne({
@@ -117,9 +121,114 @@ const removeUser = async ({ query: { email } }, res) => {
   }
 };
 
+// Push a pin ID to the user's contributions array.
+// Takes a username and a pin ID as parameters.
+const addPinToUserContributions = async (
+  { params: { username }, query: { pinId } },
+  res
+) => {
+  try {
+    await client.connect();
+    const user = await thisCollection.findOne({ username: username });
+    if (user) {
+      const updatedUser = await db
+        .collection("users")
+        .updateOne({ username: username }, { $push: { contributions: pinId } });
+      updatedUser
+        ? res
+            .status(200)
+            .json({ status: 200, userFound: true, data: updatedUser })
+        : res.status(500).json({
+            status: 500,
+            userFound: false,
+            message: "Something went wrong.",
+          });
+    }
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
+// Follows or unfollows another user. Requires userId and targetUserId in the query.
+// If the optional third parameter "follow" is included, userId will follow targetUserId.
+// If the optional third parameter "follow" is not included, userId will unfollow targetUserId.
+// When a user follows another user, their userId is pushed into the target user's followers array, and the target user's userId is pushed into the initiating user's following array, and vice versa. If a user makes a redundant request it is ignored.
+// Try to make this way more DRY!!!
+// Maybe take userIds in the query and then assign them to variables dynamically in the function based on whether or not the "follow" parameter is included.
+const toggleFollowUser = async (
+  { query: { userId, targetUserId, follow } },
+  res
+) => {
+  try {
+    await client.connect();
+    const user = await thisCollection.findOne({ _id: userId });
+    const targetUser = await thisCollection.findOne({ _id: targetUserId });
+    // If the user already follows the target user that they are requesting to follow, ignore the request.
+    if (user.following.includes(targetUserId) && follow) {
+      res.status(200).json({
+        status: 200,
+        unmodified: true,
+        message: "You are already following this user.",
+      });
+    } else if (user && targetUser) {
+      if (follow) {
+        const updatedFollowedUser = await db
+          .collection("users")
+          .updateOne({ _id: targetUserId }, { $push: { followers: userId } });
+        const updatedFollowingUser = await db
+          .collection("users")
+          .updateOne({ _id: userId }, { $push: { following: targetUserId } });
+        updatedFollowingUser
+          ? res.status(200).json({
+              status: 200,
+              userFound: true,
+              data: [updatedFollowingUser, updatedFollowedUser],
+              message: `You are now following userId ${targetUserId}.`,
+            })
+          : res.status(500).json({
+              status: 500,
+              userFound: false,
+              message: "Something went wrong.",
+            });
+      } else {
+        if (!user.following.includes(targetUserId) && !follow) {
+          res.status(200).json({
+            status: 200,
+            unmodified: true,
+            message: "You cannot unfollow a user that you are not following.",
+          });
+        } else {
+          const updatedFollowedUser = await db
+            .collection("users")
+            .updateOne({ _id: targetUserId }, { $pull: { followers: userId } });
+          const updatedFollowingUser = await db
+            .collection("users")
+            .updateOne({ _id: userId }, { $pull: { following: targetUserId } });
+          updatedFollowingUser
+            ? res.status(200).json({
+                status: 200,
+                userFound: true,
+                data: [updatedFollowingUser, updatedFollowedUser],
+                message: `You are no longer following userId ${targetUserId}.`,
+              })
+            : res.status(500).json({
+                status: 500,
+                userFound: false,
+                message: "Something went wrong.",
+              });
+        }
+      }
+    }
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
 module.exports = {
   addUser,
   getUser,
   modifyUser,
   removeUser,
+  addPinToUserContributions,
+  toggleFollowUser,
 };

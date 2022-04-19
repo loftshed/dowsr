@@ -1,17 +1,9 @@
 import {
+  boxShadow,
   centeredFlexColumn,
   centeredFlexRow,
   fillSpace,
-  IconNavLink,
-  TextButton,
 } from "../../styling/sharedstyles";
-import {
-  SearchIcon,
-  MapIcon,
-  BurgerMenuIcon,
-  CreatePinIcon,
-} from "../../styling/react-icons";
-
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
@@ -19,23 +11,26 @@ import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 import { MappingContext } from "../Home/Map/MappingContext";
-import BurgerMenuPopout from "./BurgerMenuPopout";
+import { TiThMenu as BurgerMenuIcon } from "react-icons/ti";
+import MenuPopout from "./MenuPopout";
 import NewPinModal from "../Home/Map/PinCreation/NewPinModal";
+import SearchContainer from "./SearchContainer";
+import IconRow from "./IconRow";
 
 const MenuBar = () => {
-  const { loggedInUser, showBurgerMenu, setShowBurgerMenu } =
+  const { showBurgerMenu, setShowBurgerMenu, showSearchBar, setShowSearchBar } =
     useContext(AppContext);
   const {
     setShowFilterMenu,
     showFilterMenu,
-    setMapModalMessage,
-    setCreatingNewPin,
-    creatingNewPin,
     showPinCreationModal,
-    setShowPinCreationModal,
+    pinCreationSuccessful,
+    setPinCreationSuccessful,
+    // newPinData,
+    // setNewPinData,
   } = useContext(MappingContext);
 
-  const { user, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <Boundary>
@@ -43,58 +38,31 @@ const MenuBar = () => {
         <Content>
           {isAuthenticated ? (
             <>
-              <IconRow>
-                <IconNavLink
-                  to="/search"
-                  onClick={() => {
-                    if (creatingNewPin) {
-                      setCreatingNewPin(false);
-                      setMapModalMessage("");
-                    }
-                  }}
-                >
-                  <SearchIcon />
-                </IconNavLink>
-                <IconNavLink
-                  to="/"
-                  onClick={() => {
-                    if (creatingNewPin) {
-                      setCreatingNewPin(false);
-                      setMapModalMessage("");
-                    }
-                  }}
-                >
-                  <MapIcon />
-                </IconNavLink>
-                <IconNavLink
-                  to="/new"
-                  onClick={() => {
-                    console.log("initiating pin creation");
-                    setMapModalMessage("Creating a new pin");
-                    setCreatingNewPin(true);
-                  }}
-                >
-                  <CreatePinIcon />
-                </IconNavLink>
-              </IconRow>
-              <IconRow>
+              <IconRow />
+              <BurgerZone>
                 <BurgerButton
                   onClick={() => {
                     setShowBurgerMenu(!showBurgerMenu);
                     if (showFilterMenu) setShowFilterMenu(false);
+                    if (showSearchBar) setShowSearchBar(false);
+                    if (pinCreationSuccessful) setPinCreationSuccessful(null);
                   }}
                 >
                   <BurgerMenuIcon />
                 </BurgerButton>
-              </IconRow>
+              </BurgerZone>
             </>
           ) : (
             <LoginContainer>
               <LoginButton />
             </LoginContainer>
           )}
-          <BurgerMenuPopout show={showBurgerMenu} />
-          <NewPinModal show={showPinCreationModal} />
+          <MenuPopout show={showBurgerMenu} />
+          <NewPinModal
+            show={showPinCreationModal || pinCreationSuccessful}
+            type={!pinCreationSuccessful ? "creation" : "success"}
+          />
+          <SearchContainer show={showSearchBar} />
         </Content>
       </Wrapper>
     </Boundary>
@@ -122,14 +90,47 @@ const Boundary = styled.div`
   }
 `;
 
-const BurgerButton = styled(TextButton)`
-  box-sizing: border-box;
-  background-color: var(--color-button-bg);
-  padding: 7.5px;
+const BurgerButton = styled.button`
+  padding: unset;
+  padding: 2px;
+  margin-right: 3px;
+  border-radius: 3px;
+  height: fit-content;
+  width: fit-content;
+  border: none;
+  background: none;
+  outline: 1px solid var(--color-super-dark-grey);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--color-pink);
+  }
+  ${boxShadow}
+`;
+
+const BurgerZone = styled.div`
+  ${centeredFlexRow}
+  width: fit-content;
+  svg {
+    width: 35px;
+    height: 35px;
+    background-color: var(--color-dark-grey);
+    fill: var(--color-medium-grey);
+    border-radius: 3px;
+
+    outline: 1px solid var(--color-less-dark-grey);
+    &:active {
+      background-color: var(--color-teal);
+      transform: scale(0.95);
+      outline: 2px solid var(--color-less-dark-grey);
+    }
+  }
+
+  padding: 0px 10px;
 `;
 
 const Wrapper = styled.div`
   background-color: var(--color-darkest-grey);
+  border-radius: 10px;
   ${centeredFlexRow}
   width: 100%;
   z-index: 100;
@@ -151,20 +152,6 @@ const Content = styled.div`
     inset 0px 0px 2px var(--color-super-dark-grey);
   outline: 1px solid var(--color-super-dark-grey);
   justify-content: flex-end;
-`;
-
-const IconRow = styled.div`
-  ${centeredFlexRow}
-  width: fit-content;
-  gap: 50px;
-  @media (max-width: ${SIZES.widthMin}px) {
-    gap: 3.5vw;
-  }
-  svg {
-    width: ${SIZES.iconSize}px;
-    height: ${SIZES.iconSize}px;
-  }
-  padding: 0px 10px;
 `;
 
 const LoginContainer = styled.div`

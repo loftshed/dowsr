@@ -8,6 +8,7 @@ export const SIZES = {
   menuHeightCompact: 55,
   menuHeightExpanded: 50,
   universalPadding: 20,
+  expandedPadding: 20,
   topBottomPadding: 10,
   smallPadding: 10,
   leftPaddingLrg: 30,

@@ -1,33 +1,24 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { GeolocateControl } from "react-map-gl";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   getUserLocation,
   handleGetPinsOfType,
   handleSubmitPin,
 } from "./helpers";
 import { fillSpace } from "../../../styling/sharedstyles";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import MapFilters from "./MapFilters";
-import InfoModal from "./PinInfo/PinInfoModal";
-import InfoPopup from "./PinInfo/PinInfoPopup";
-import DisplayedPinsMarker from "./PinInfo/PinInfoMarker";
+import MapAlertModal from "./MapAlertModal";
+import PinInfoPopup from "./PinInfo/PinInfoPopup";
+import PinInfoMarker from "./PinInfo/components/PinInfoMarker";
 import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 
-/*
-TODO: the point is pushed to an array of datapoints which are used to populate the map with markers.
-STRETCH: when the user submits the map pin, it is pushed into an array for review.
-STRETCH: submitted pins can be screened and pushed to a final array in an admin backoffice
-STRETCH: LOAD MAP POINTS BASED ON DISTANCE RANGE IN VIEWPORT
-
-USEFUL:
-https://visgl.github.io/react-map-gl/docs/api-reference/map
-https://docs.mapbox.com/mapbox-gl-js/guides/
-*/
-
 const MapContainer = () => {
+  // TODO: Figure out why you must double click to create a pin
+
   const {
     userLocation,
     setUserLocation,
@@ -35,21 +26,21 @@ const MapContainer = () => {
     setShowFilterMenu,
     selectedMapFilter,
     mapModalMessage,
-    setShowPinCreationModal,
-    showPinCreationModal,
-    // popupInfo,
-    // setPopupInfo,
+    popupInfo,
+    setPopupInfo,
     clickedLocation,
     setClickedLocation,
-    setCreatingNewPin,
     creatingNewPin,
     setPopupIsVisible,
     popupIsVisible,
+    pinCreationSuccessful,
+    storedFilteredPins,
+    setStoredFilteredPins,
   } = useContext(MappingContext);
 
-  const [popupInfo, setPopupInfo] = useState(null);
-  const [storedFilteredPins, setStoredFilteredPins] = useState(null);
+  const mapRef = useRef();
 
+  // Begins the process of creating a new pin. First grabs the street address of the clicked location, then records that location in state as clickedLocation.
   const handleBeginPinCreation = async (ev) => {
     try {
       const locationObj = await reverseGeocode(ev);
@@ -59,6 +50,8 @@ const MapContainer = () => {
     }
   };
 
+  //TODO: Try to get this out of the component. So messsy.
+  // Uses built in browser geolocation to get the user's current location, then records that location in state as userLocation.
   const handleGeolocateUser = () => {
     return navigator.geolocation.getCurrentPosition((pos) => {
       const {
@@ -68,34 +61,47 @@ const MapContainer = () => {
     });
   };
 
+  // In useEffect ... If creating a new pin, do nothing.
+  // If the user has not yet been geolocated, geolocate the user.
+  // If no map filter is selected, show water pins by default, otherwise show the selected map filter's pins.
+  // If not an admin, store only the pins that are not pending approval.
+
   useEffect(() => {
     (async () => {
-      if (creatingNewPin) return;
-      handleGeolocateUser();
-      if (!selectedMapFilter) {
-        setStoredFilteredPins(await handleGetPinsOfType("bike-shops"));
-        return;
-      } // for now, just load bike shops if no filter selected
-      setStoredFilteredPins(await handleGetPinsOfType(selectedMapFilter));
+      try {
+        if (creatingNewPin) return;
+        if (!userLocation) handleGeolocateUser();
+        let filter;
+        !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
+        const retrieved = await handleGetPinsOfType(filter);
+        const filteredPins = retrieved.pins.filter((pin) => !pin.pendingReview);
+        setStoredFilteredPins(filteredPins);
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, [setUserLocation, selectedMapFilter]);
 
+  // Halts execution until storedFilteredPins are present in state.
   if (!storedFilteredPins) return null;
-  const { pins } = storedFilteredPins;
 
   return (
-    <MapWrapper>
+    <MapWrapper cursorType={creatingNewPin ? "pointer" : ""}>
       {userLocation && (
         <>
           {creatingNewPin && <Overlay />}
           <Map
             mapboxAccessToken={MAPBOX_API_KEY}
+            id="map"
+            container="map"
+            ref={mapRef}
             initialViewState={{
               longitude: userLocation.lng,
               latitude: userLocation.lat,
               zoom: 12,
             }}
-            mapStyle="mapbox://styles/mapbox/dark-v10"
+            // mapStyle="mapbox://styles/mapbox/dark-v10"
+            mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
             logoPosition={"top-right"}
             onClick={(ev) => {
               if (creatingNewPin) {
@@ -103,10 +109,14 @@ const MapContainer = () => {
                 setPopupIsVisible(!popupIsVisible);
               }
             }}
+            cursorModifier={creatingNewPin}
           >
-            {!creatingNewPin && (
+            {!creatingNewPin && !pinCreationSuccessful && (
               <>
-                <DisplayedPinsMarker pins={pins} setPopupInfo={setPopupInfo} />
+                <PinInfoMarker
+                  pins={storedFilteredPins}
+                  setPopupInfo={setPopupInfo}
+                />
                 <GeolocateControl
                   position="top-left"
                   trackUserLocation="true"
@@ -115,17 +125,22 @@ const MapContainer = () => {
                 <MapFilters
                   showFilterMenu={showFilterMenu}
                   setShowFilterMenu={setShowFilterMenu}
+                  setStoredFilteredPins={setStoredFilteredPins}
                 />
 
-                <InfoPopup popupInfo={popupInfo} setPopupInfo={setPopupInfo} />
+                <PinInfoPopup
+                  popupInfo={popupInfo}
+                  setPopupInfo={setPopupInfo}
+                />
               </>
             )}
-
             {clickedLocation && creatingNewPin && popupIsVisible && (
               <NewPinMarker clickedLocation={clickedLocation} />
             )}
           </Map>
-          {mapModalMessage !== "" && <InfoModal message={mapModalMessage} />}
+          {mapModalMessage !== "" && (
+            <MapAlertModal message={mapModalMessage} />
+          )}
         </>
       )}
     </MapWrapper>
@@ -138,6 +153,9 @@ const MapWrapper = styled.div`
   position: relative;
   ${fillSpace}
   overflow: hidden;
+  #map canvas {
+    cursor: ${(props) => props.cursorType};
+  }
 `;
 
 const Overlay = styled.div`
