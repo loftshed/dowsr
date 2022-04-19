@@ -12,29 +12,36 @@ import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 import { MappingContext } from "../Home/Map/MappingContext";
 
-const BurgerMenuPopout = ({ show }) => {
+const MenuPopout = ({ show }) => {
   const { setShowBurgerMenu, loggedInUser } = useContext(AppContext);
   const { creatingNewPin, setCreatingNewPin, setMapModalMessage } =
     useContext(MappingContext);
+
+  // STRETCH: Add pending pins to this popuout.
+
   return (
     <BurgerWrapper show={show}>
       <Content>
-        {loggedInUser.isAdmin && (
-          <AdminContainer>
-            <IconNavLink
-              to="/admin"
-              onClick={() => {
-                setShowBurgerMenu(false);
-                if (creatingNewPin) {
-                  setCreatingNewPin(false);
-                  setMapModalMessage("");
-                }
-              }}
-            >
-              <AdminIcon />
-            </IconNavLink>
-          </AdminContainer>
-        )}
+        {
+          // Probably not very secure, but...
+          // If the current user has the isAdmin flag on their account, display link to backoffice.
+          loggedInUser.isAdmin && (
+            <AdminContainer>
+              <IconNavLink
+                to="/admin"
+                onClick={() => {
+                  setShowBurgerMenu(false);
+                  if (creatingNewPin) {
+                    setCreatingNewPin(false);
+                    setMapModalMessage("");
+                  }
+                }}
+              >
+                <AdminIcon />
+              </IconNavLink>
+            </AdminContainer>
+          )
+        }
         <InnerContainer>
           <LogoutButton
             onClick={() => {
@@ -55,37 +62,13 @@ const BurgerMenuPopout = ({ show }) => {
           >
             <NotificationIcon />
           </IconNavLink>
-          <IconNavLink
-            to="/messages"
-            onClick={() => {
-              setShowBurgerMenu(false);
-              if (creatingNewPin) {
-                setCreatingNewPin(false);
-                setMapModalMessage("");
-              }
-            }}
-          >
-            <ChatIcon />
-          </IconNavLink>
-          <IconNavLink
-            to={`/profile/${loggedInUser.username}`}
-            onClick={() => {
-              setShowBurgerMenu(false);
-              if (creatingNewPin) {
-                setCreatingNewPin(false);
-                setMapModalMessage("");
-              }
-            }}
-          >
-            <ProfileIcon />
-          </IconNavLink>
         </InnerContainer>
       </Content>
     </BurgerWrapper>
   );
 };
 
-export default BurgerMenuPopout;
+export default MenuPopout;
 
 const BurgerWrapper = styled.div`
   position: absolute;

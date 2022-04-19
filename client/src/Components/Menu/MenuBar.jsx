@@ -3,17 +3,7 @@ import {
   centeredFlexColumn,
   centeredFlexRow,
   fillSpace,
-  IconNavLink,
-  TextButton,
 } from "../../styling/sharedstyles";
-import {
-  SearchIcon,
-  MapIcon,
-  BurgerMenuIcon,
-  CreatePinIcon,
-} from "../../styling/react-icons";
-import { TiThMenu } from "react-icons/ti";
-
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
@@ -21,9 +11,11 @@ import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 import { MappingContext } from "../Home/Map/MappingContext";
-import BurgerMenuPopout from "./BurgerMenuPopout";
+import { TiThMenu as BurgerMenuIcon } from "react-icons/ti";
+import MenuPopout from "./MenuPopout";
 import NewPinModal from "../Home/Map/PinCreation/NewPinModal";
 import SearchContainer from "./SearchContainer";
+import IconRow from "./IconRow";
 
 const MenuBar = () => {
   const { showBurgerMenu, setShowBurgerMenu, showSearchBar, setShowSearchBar } =
@@ -31,9 +23,6 @@ const MenuBar = () => {
   const {
     setShowFilterMenu,
     showFilterMenu,
-    setMapModalMessage,
-    setCreatingNewPin,
-    creatingNewPin,
     showPinCreationModal,
     pinCreationSuccessful,
     setPinCreationSuccessful,
@@ -49,57 +38,7 @@ const MenuBar = () => {
         <Content>
           {isAuthenticated ? (
             <>
-              <IconRow>
-                <IconNavLink
-                  to="/search"
-                  onClick={(ev) => {
-                    if (creatingNewPin) {
-                      setCreatingNewPin(false);
-                      setMapModalMessage("");
-                    }
-                    if (showBurgerMenu) setShowBurgerMenu(false);
-                    if (pinCreationSuccessful) setPinCreationSuccessful(null);
-                    if (showSearchBar) {
-                      setShowSearchBar(false);
-                      return;
-                    }
-                    setShowSearchBar(true);
-                  }}
-                >
-                  <SearchIcon />
-                </IconNavLink>
-                <IconNavLink
-                  to="/"
-                  onClick={() => {
-                    if (creatingNewPin) {
-                      setCreatingNewPin(false);
-                      setMapModalMessage("");
-                    }
-                    if (showSearchBar) setShowSearchBar(false);
-                    if (showBurgerMenu) setShowBurgerMenu(false);
-                    if (pinCreationSuccessful) setPinCreationSuccessful(null);
-                  }}
-                >
-                  <MapIcon />
-                </IconNavLink>
-                <IconNavLink
-                  to="/new"
-                  onClick={() => {
-                    if (showSearchBar) setShowSearchBar(false);
-                    if (showBurgerMenu) setShowBurgerMenu(false);
-                    if (pinCreationSuccessful) setPinCreationSuccessful(null);
-                    if (creatingNewPin) {
-                      setCreatingNewPin(false);
-                      setMapModalMessage("");
-                      return;
-                    }
-                    setMapModalMessage("Creating a new pin");
-                    setCreatingNewPin(true);
-                  }}
-                >
-                  <CreatePinIcon />
-                </IconNavLink>
-              </IconRow>
+              <IconRow />
               <BurgerZone>
                 <BurgerButton
                   onClick={() => {
@@ -109,7 +48,7 @@ const MenuBar = () => {
                     if (pinCreationSuccessful) setPinCreationSuccessful(null);
                   }}
                 >
-                  <TiThMenu />
+                  <BurgerMenuIcon />
                 </BurgerButton>
               </BurgerZone>
             </>
@@ -118,7 +57,7 @@ const MenuBar = () => {
               <LoginButton />
             </LoginContainer>
           )}
-          <BurgerMenuPopout show={showBurgerMenu} />
+          <MenuPopout show={showBurgerMenu} />
           <NewPinModal
             show={showPinCreationModal || pinCreationSuccessful}
             type={!pinCreationSuccessful ? "creation" : "success"}
@@ -213,20 +152,6 @@ const Content = styled.div`
     inset 0px 0px 2px var(--color-super-dark-grey);
   outline: 1px solid var(--color-super-dark-grey);
   justify-content: flex-end;
-`;
-
-const IconRow = styled.div`
-  ${centeredFlexRow}
-  width: fit-content;
-  gap: 50px;
-  @media (max-width: ${SIZES.widthMin}px) {
-    gap: 3.5vw;
-  }
-  svg {
-    width: ${SIZES.iconSize}px;
-    height: ${SIZES.iconSize}px;
-  }
-  padding: 0px 10px;
 `;
 
 const LoginContainer = styled.div`

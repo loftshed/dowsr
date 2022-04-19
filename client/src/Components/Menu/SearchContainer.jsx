@@ -13,6 +13,8 @@ const SearchContainer = ({ show }) => {
   const [clickedResult, setClickedResult] = useState(null);
   // const {id: } = useMap();
 
+  // EXTREMELY half baked. This was pretty low on the priority list.
+
   const handleSearch = async (ev) => {
     try {
       const results = await forwardGeocode(ev.target.search.value);
