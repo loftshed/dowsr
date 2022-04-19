@@ -16,6 +16,7 @@ const Home = () => {
   const { user, isAuthenticated /*, isLoading*/ } = useAuth0();
   const storedUsername = localStorage.getItem("username");
   const storedUserId = localStorage.getItem("userId");
+  const storedAvatarUrl = localStorage.getItem("avatarUrl");
 
   useEffect(() => {
     (async () => {

@@ -3,15 +3,17 @@ import Bubble from "./MessageBubble";
 import ScrollToMostRecentMessage from "./ScrollToMostRecentMsg";
 import { v4 as uuidv4 } from "uuid";
 
-const ChatMessages = ({ currentMessages, loggedInUser }) => {
+const ChatMessages = ({ currentMessages }) => {
+  const locallyStoredUserId = localStorage.getItem("userId");
   if (!currentMessages) return null;
+
   return (
     <ChatMessagesWrapper>
       {currentMessages.map((el) => {
         return (
           <Bubble
             key={uuidv4()}
-            recd={el.userId !== loggedInUser._id}
+            recd={el.userId !== locallyStoredUserId}
             author={`@${el.handle}`}
             content={el.message}
             timestamp={el.sent}

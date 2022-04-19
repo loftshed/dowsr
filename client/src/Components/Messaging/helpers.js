@@ -70,30 +70,10 @@ const startThreadWithUser = async (idA, idB, message, senderUsername) => {
   }
 };
 
-// const sendMessage = async (message) => {
-//   try {
-//     if (message === "") return;
-//     const returnMessage = await replyThread(
-//       displayedThreadId,
-//       message,
-//       loggedInUser._id,
-//       loggedInUser.username
-//     );
-//     // setShowLoadingAnim(true);
-//     // setCurrentMessages([...currentMessages, returnMessage]);
-//     // const { threads } = await getUserThreads(loggedInUser?._id);
-//     // setThreads(threads);
-//     // setShowLoadingAnim(false);
-//   } catch (error) {
-//     if (error) console.log(error);
-//   }
-// };
-
 export {
   getUserThreads,
   getOneThread,
   newThread,
   replyThread,
   startThreadWithUser,
-  // sendMessage,
 };

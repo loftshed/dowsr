@@ -1,48 +1,72 @@
 import styled from "styled-components";
-import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
+import { fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
 
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import Sidebar from "./components/Sidebar";
 
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { getUserThreads } from "./helpers";
-import ChatMessages from "./components/NEWChatMessages";
+import ChatMessages from "./components/ChatMessages";
 import ChatInput from "./components/ChatInput";
-import SendButton from "./components/SendButton";
 
 const MessagingContainer = () => {
-  const locallyStoredUsername = localStorage.getItem("username");
   const locallyStoredUserId = localStorage.getItem("userId");
   const [allUserThreads, setAllUserThreads] = useState([]);
-  const [selectedThread, setSelectedThread] = useState({});
+  const [selectedThreadId, setSelectedThreadId] = useState(null);
   const [currentMessages, setCurrentMessages] = useState([]);
+  const [showLoadingAnim, setShowLoadingAnim] = useState(false);
 
-  // On mount, get all threads for storedUserId.
   useEffect(() => {
     (async () => {
       try {
-        setAllUserThreads(await getUserThreads(locallyStoredUserId));
+        const retrievedThreads = await getUserThreads(locallyStoredUserId);
+        setAllUserThreads(retrievedThreads);
+        if (!selectedThreadId) {
+          // if no thread is selected, select the latest thread by mapping through retrievedThreads and processing lastMsg with dayjs(lastMsg).unix(). Then setSelectedThreadId to the whichever thread has the latest lastMsg.
+          let latestTimestamp = null;
+          let latestThread = null;
+          retrievedThreads.forEach((thread) => {
+            const timestamp = dayjs(thread.lastMsg).unix();
+            if (timestamp > latestTimestamp) {
+              latestTimestamp = timestamp;
+              latestThread = thread;
+            }
+          });
+          setSelectedThreadId(latestThread._id);
+          setCurrentMessages(latestThread.messages);
+        }
+
+        console.log(retrievedThreads);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
+  }, [currentMessages]);
 
   return (
     <ResponsiveContainer heading={"Messages"}>
       <LayoutContainer>
         <Sidebar
-          setSelectedThread={setSelectedThread}
+          selectedThreadId={selectedThreadId}
+          setSelectedThreadId={setSelectedThreadId}
+          setCurrentMessages={setCurrentMessages}
           allUserThreads={allUserThreads}
           storedUserId={locallyStoredUserId}
+          showLoadingAnim={showLoadingAnim}
         />
         <ChatArea>
           <ChatMessages
             currentMessages={currentMessages}
             setCurrentMessages={setCurrentMessages}
           />
-          <ChatInput />
+          <ChatInput
+            selectedThreadId={selectedThreadId}
+            setShowLoadingAnim={setShowLoadingAnim}
+            setCurrentMessages={setCurrentMessages}
+            currentMessages={currentMessages}
+          />
         </ChatArea>
       </LayoutContainer>
     </ResponsiveContainer>

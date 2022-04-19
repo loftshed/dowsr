@@ -1,9 +1,43 @@
 import styled from "styled-components";
 import SendButton from "./SendButton";
+import { replyThread, getOneThread } from "../helpers";
 
-const ChatInput = ({}) => {
+const ChatInput = ({
+  selectedThreadId,
+  setShowLoadingAnim,
+  setCurrentMessages,
+  currentMessages,
+}) => {
+  const locallyStoredUsername = localStorage.getItem("username");
+  const locallyStoredUserId = localStorage.getItem("userId");
+
+  const handleSendMessage = async (message) => {
+    try {
+      setShowLoadingAnim(true);
+      const response = await replyThread(
+        selectedThreadId,
+        message,
+        locallyStoredUserId,
+        locallyStoredUsername
+      );
+      setCurrentMessages([...currentMessages, response]);
+      setShowLoadingAnim(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <ChatInputWrapper>
+    <ChatInputWrapper
+      onSubmit={(ev) => {
+        ev.preventDefault();
+        const message = ev.target.message.value;
+        if (message !== "") {
+          handleSendMessage(message);
+          ev.target.message.value = "";
+        }
+      }}
+    >
       <MessageInput id="message" type="text" autoComplete="off" />
       <SendButton />
     </ChatInputWrapper>

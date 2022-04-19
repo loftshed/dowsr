@@ -1,24 +1,37 @@
 import styled from "styled-components";
-import ThreadPreviewTile from "./NEWThreadPreviewTile";
+import ThreadPreviewTile from "./ThreadPreviewTile";
 import { SIZES } from "../../../styling/constants";
+import { useState } from "react";
 
-const Sidebar = ({ allUserThreads, storedUserId }) => {
+const Sidebar = ({
+  allUserThreads,
+  storedUserId,
+  showLoadingAnim,
+  setCurrentMessages,
+  selectedThreadId,
+  setSelectedThreadId,
+}) => {
   return (
     <SidebarWrapper>
-      {allUserThreads.map((el) => {
-        const { _id, messages, users } = el;
+      {allUserThreads.map((thread) => {
+        const { _id, messages, users } = thread;
         const partnerId = users.find((el) => {
           return el !== storedUserId;
         });
         const mostRecentMessage = messages[messages.length - 1];
         const { sent, message } = mostRecentMessage;
+
         return (
           <ThreadPreviewTile
             key={_id}
             threadId={_id}
+            partnerId={partnerId}
             message={`${message}`}
             time={sent}
-            userId={partnerId}
+            setCurrentMessages={setCurrentMessages}
+            setSelectedThreadId={setSelectedThreadId}
+            selectedThreadId={selectedThreadId}
+            showLoadingAnim={showLoadingAnim}
           />
         );
       })}
