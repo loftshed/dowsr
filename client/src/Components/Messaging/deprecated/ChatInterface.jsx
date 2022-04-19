@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { fillSpace } from "../../styling/sharedstyles";
+import { fillSpace } from "../../../styling/sharedstyles";
 import { useState, useEffect, useContext } from "react";
-import { AppContext } from "../../AppContext";
-import { SIZES } from "../../styling/constants";
-import { replyThread, getOneThread, getUserThreads } from "./helpers";
-import LoadingSpinner from "../../styling/LoadingSpinner";
-import { SendIcon } from "../../styling/react-icons";
-import ChatMessages from "./components/ChatMessages";
-import SendButton from "./components/SendButton";
-import ChatLoading from "./components/ChatLoading";
+import { AppContext } from "../../../AppContext";
+import { SIZES } from "../../../styling/constants";
+import { replyThread, getOneThread, getUserThreads } from "../helpers";
+import LoadingSpinner from "../../../styling/LoadingSpinner";
+import { SendIcon } from "../../../styling/react-icons";
+import ChatMessages from "../components/ChatMessages";
+import SendButton from "../components/SendButton";
+import ChatLoading from "../components/ChatLoading";
 import socketio from "socket.io-client";
 
 const ChatInterface = () => {

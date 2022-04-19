@@ -11,6 +11,7 @@ const LogoutButton = () => {
     <Button
       onClick={() => {
         localStorage.removeItem("username");
+        localStorage.removeItem("userId");
         logout({ returnTo: window.location.origin });
       }}
     >

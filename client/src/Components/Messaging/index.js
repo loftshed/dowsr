@@ -15,4 +15,4 @@
 //STRETCH: Make threads sort properly by latest. Determine latest thread by message timestamps, or update the thread timestamp with every new message.
 //STRETCH: Allow users to delete their copy of a thread by removing their user ID from the thread's users array. If the users array ends up empty, the thread is "deleted".
 
-export { default as Messaging } from "./MessagingContainer";
+export { default as Messaging } from "./NEWMessagingContainer";

@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { centeredFlexColumn } from "../../styling/sharedstyles";
-import { SIZES } from "../../styling/constants";
+import { centeredFlexColumn } from "../../../styling/sharedstyles";
+import { SIZES } from "../../../styling/constants";
 
 import { useContext } from "react";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../../../AppContext";
 
-import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import ThreadPreviewTile from "./components/ThreadPreviewTile";
-import ChatInterface from "./ChatInterface";
+import ResponsiveContainer from "../../../styling/ResponsiveContainer";
+import ThreadPreviewTile from "../components/ThreadPreviewTile";
+import ChatInterface from "../ChatInterface";
 
 const MessagingContainer = () => {
   const { loggedInUser, threads, displayedThreadId } = useContext(AppContext);

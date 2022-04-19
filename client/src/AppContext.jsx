@@ -14,8 +14,6 @@ export const AppProvider = ({ children }) => {
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [viewedProfile, setViewedProfile] = useState({});
-  const [currentMessages, setCurrentMessages] = useState([]);
-  // const socket = socketio.connect("http://localhost:8080");
 
   return (
     <AppContext.Provider

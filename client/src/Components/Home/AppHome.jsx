@@ -15,6 +15,7 @@ const Home = () => {
   const { firstLogin, setFirstLogin } = useContext(AppContext);
   const { user, isAuthenticated /*, isLoading*/ } = useAuth0();
   const storedUsername = localStorage.getItem("username");
+  const storedUserId = localStorage.getItem("userId");
 
   useEffect(() => {
     (async () => {
@@ -22,13 +23,14 @@ const Home = () => {
         if (user) {
           const response = await getUser("email", user.email);
           const {
-            data: { username },
+            data: { username, _id },
           } = response;
           if (!username) {
             setFirstLogin(true);
             return;
           }
           localStorage.setItem("username", username);
+          localStorage.setItem("userId", _id);
         }
       } catch (error) {
         console.log(error);
