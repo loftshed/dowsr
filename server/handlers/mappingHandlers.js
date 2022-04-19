@@ -54,6 +54,11 @@ const submitNewPin = async ({ body }, res) => {
       { filter: newPin.type },
       { $push: { pins: newPin } }
     );
+    // Adds the pin to a pending array.
+    const pendingResult = await thisCollection.updateOne(
+      { filter: "pending" },
+      { $push: { pins: newPin } }
+    );
     // Pushing the ID of the new pin to the 'contributions' array of the user that submitted it.
     const updatedUser = await db
       .collection("users")
@@ -61,11 +66,13 @@ const submitNewPin = async ({ body }, res) => {
         { username: newPin.submittedBy },
         { $push: { contributions: pinId } }
       );
+
     res.status(200).json({
       status: 200,
       submission: newPin,
       success: true,
       submissionResult: submissionResult,
+      pendingResult: pendingResult,
       updatedUser: updatedUser,
       message: "Pin submission successful. Awaiting review.",
     });
@@ -135,9 +142,16 @@ const moderatePin = async ({ query: { pinId, approved } }, res) => {
         { $set: { "pins.$.pendingReview": false } }
       );
     }
+    // Whether the pin is approved or disapproved it must now be removed from pins array of the pending filter.
+    const updatedPending = await thisCollection.updateOne(
+      { filter: "pending" },
+      { $pull: { pins: { _id: pinId } } }
+    );
+
     res.status(200).json({
       status: 200,
       updatedPin: updatedPin,
+      updatedPending: updatedPending,
       message: !approved
         ? `Pin with id '${pinId}' rejected. Pin has been removed from the database.`
         : `Pin with id '${pinId}' approved. Pin is now visible to the public.`,
@@ -183,34 +197,19 @@ const deletePin = async ({ query: { pinId } }, res) => {
   }
 };
 
-// Retrieves all pins that are pending review. This is used to display the pins to the admin. Optionally, accepts a userId in query to return only that user's pending pins.
+// Get pins pending review from the database.
+// Optionally, will accept a userId in the query to filter the results by.
 const getSubmissionsPendingReview = async ({ query: { userId } }, res) => {
   try {
     await client.connect();
-    let returnedSubmissions;
-    const pendingReview = await thisCollection
-      .find({
-        "pins.pendingReview": true,
-      })
-      .toArray();
-
-    const foundPendingSubmissions = pendingReview.map((submission) =>
-      submission.pins.filter((pin) => pin.pendingReview === true)
-    );
-
-    // Have to flattens the array cause it's a mess like all of this :(
-    returnedSubmissions = foundPendingSubmissions.flat();
-
-    // If a userId is provided, only return the submissions by that user.
-    if (userId) {
-      returnedSubmissions = returnedSubmissions.filter(
-        (submission) => submission.submittedById === userId
-      );
-    }
+    const { pins } = await thisCollection.findOne({ filter: "pending" });
+    const filteredPins = userId
+      ? pins.filter((pin) => pin.submittedById === userId)
+      : pins;
     res.status(200).json({
       status: 200,
-      pendingReview: returnedSubmissions,
-      message: "Successfully retrieved submissions pending review.",
+      pendingReview: filteredPins,
+      message: "Successfully retrieved pending submissions.",
     });
   } catch (err) {
     err ? console.log(err) : client.close();

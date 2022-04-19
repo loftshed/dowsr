@@ -13,6 +13,7 @@ const client = new MongoClient(MONGO_URI, {
 });
 
 const db = client.db("final");
+const io = require("../index");
 
 /*-------------------------------------------
 | Endpoints for accessing Messages Database |
@@ -110,19 +111,6 @@ const modifyThread = async ({ query: { threadId }, body }, res) => {
       { _id: threadId },
       { $set: { lastMsg: currentTime } }
     );
-
-    /* EXPERIMENTAL SOCKETIO STUFF */
-    /*
-    
-    const userSocket = global.io.sockets.connected[userId];
-    
-    userSocket.emit("newMessage", {
-      threadId,
-      message,
-    });
-    
-    */
-
     res.status(200).json({
       status: 200,
       data: [newMsgResult, lastMsgResult],

@@ -23,7 +23,7 @@ const pinTypes = [
   { _id: uuidv4(), filter: "cafes", pins: [] },
   { _id: uuidv4(), filter: "water", pins: [] },
   { _id: uuidv4(), filter: "toilet", pins: [] },
-  { _id: uuidv4(), filter: "popo", pins: [] },
+  { _id: uuidv4(), filter: "police", pins: [] },
   { _id: uuidv4(), filter: "hazard", pins: [] },
 ];
 console.log(pinTypes);

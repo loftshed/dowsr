@@ -12,17 +12,6 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, { cors: { origin: "*" } });
 
-// Opens a socket connection to the client.
-io.on("connection", (socket) => {
-  console.log(`a user connected ${socket.id}`);
-  socket.emit("connection", "null");
-});
-
-// Emits a message to the client.
-io.on("message", (message) => {
-  console.log(message);
-});
-
 http.listen(8080, () => console.log("listening on http://localhost:8080"));
 
 /*----------
@@ -115,3 +104,5 @@ app.get("*", (req, res) => {
 
 // Sets server to listen with power level over 9000.
 app.listen(9001, () => console.log(`Listening on port 9001`));
+
+module.exports = { io };
