@@ -27,11 +27,11 @@ const ThreadPreviewTile = ({ threadId, userId, user, time, message }) => {
 
   const socket = socketio.connect("http://localhost:8080");
   // listens for a specific event from the server
-  socket.on(`${threadId}`, (message) => {
-    console.log(message);
-    setDisplayedThreadId(threadId);
-    setCurrentMessages([...currentMessages, message]);
-  });
+  // socket.on(`${threadId}`, (message) => {
+  //   console.log(message);
+  //   setDisplayedThreadId(threadId);
+  //   setCurrentMessages([...currentMessages, message]);
+  // });
 
   useEffect(() => {
     (async () => {
