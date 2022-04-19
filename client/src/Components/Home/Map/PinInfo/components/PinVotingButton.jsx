@@ -103,8 +103,9 @@ export default PinVotingButton;
 const PinVotingButtonWrapper = styled.button`
   width: 50%;
   ${centeredFlexRow}
-  gap: 2px;
-  border: none;
+  gap: 1px;
+  border: 1px solid var(--color-super-dark-grey);
+  cursor: pointer;
   // if value is like, set background color to teal
   ${(props) =>
     props.value === "like"
@@ -124,6 +125,8 @@ const PinVotingButtonWrapper = styled.button`
     props.isOwnPin &&
     css`
       pointer-events: none;
+      background-color: var(--color-darkest-blue);
+      border: 1px dotted var(--color-dark-grey);
     `}        
   padding: 3px;
   border-radius: 4px;

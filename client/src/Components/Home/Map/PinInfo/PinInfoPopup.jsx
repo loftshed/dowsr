@@ -39,28 +39,35 @@ const PinInfoPopup = () => {
       closeOnClick={true}
       closeButton={false}
     >
-      <div>
-        <PinInfoHeader popupInfo={popupInfo} />
+      <PinInfo>
+        <TopPanel>
+          <PinInfoHeader popupInfo={popupInfo} />
+          <ImageContainer>
+            <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
+            <PinStreetView
+              popupInfo={popupInfo}
+              apiKey={REACT_APP_GOOGLE_API_KEY}
+            />
+          </ImageContainer>
+        </TopPanel>
         <Body>
-          <DecorativeContainer>
-            <ImageContainer>
-              <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
-              <PinStreetView
-                popupInfo={popupInfo}
-                apiKey={REACT_APP_GOOGLE_API_KEY}
-              />
-            </ImageContainer>
-            <ActionContainer>
-              <PinVoting isOwnPin={isOwnPin} />
-              <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
-            </ActionContainer>
-          </DecorativeContainer>
+          <ActionContainer>
+            <PinVoting isOwnPin={isOwnPin} />
+            <PinSubmitter popupInfo={popupInfo} isOwnPin={isOwnPin} />
+          </ActionContainer>
         </Body>
-      </div>
+      </PinInfo>
     </PopupContainer>
   );
 };
 export default PinInfoPopup;
+
+const TopPanel = styled.div``;
+
+const PinInfo = styled.div`
+  ${centeredFlexColumn}
+  gap: 6px;
+`;
 
 const ImageContainer = styled.div`
   ${centeredFlexColumn}
@@ -74,19 +81,10 @@ const ImageContainer = styled.div`
 const ActionContainer = styled.div`
   position: relative;
   ${centeredFlexColumn}
-  padding: 3px;
-
+  padding: 2px;
   border-radius: 5px;
-  gap: 4px;
+  gap: 2px;
   width: 100%;
-`;
-
-const DecorativeContainer = styled.div`
-  ${centeredFlexColumn};
-  width: 100%;
-  background-color: var(--color-dark-grey);
-  border-radius: 10px;
-  gap: 5px;
 `;
 
 const PopupContainer = styled(Popup)`
@@ -106,7 +104,6 @@ const Body = styled.div`
   ${centeredFlexColumn}
   color: var(--color-light-grey);
   background-color: var(--color-darkest-grey);
-
   border-radius: 4px;
   font-size: 14px;
   line-height: 18px;

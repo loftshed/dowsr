@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { textButtonstyling } from "../../../../../styling/sharedstyles";
+import {
+  fakeStroke,
+  textButtonstyling,
+} from "../../../../../styling/sharedstyles";
 
 const PinSubmitter = ({ popupInfo, isOwnPin }) => {
   const navigate = useNavigate();
@@ -33,13 +36,15 @@ const PinSubmitterWrapper = styled.button`
   justify-content: center;
   position: relative;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 4px;
   border: none;
   line-height: 10px;
   background-color: var(--color-less-dark-grey);
   width: 100%;
   gap: 5px;
   transition: all ease 0.1s;
+  border: 1px solid var(--color-super-dark-grey);
+
   span {
     pointer-events: none;
     font-size: 14px;

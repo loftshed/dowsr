@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { fillSpace } from "../../../../../styling/sharedstyles";
+import {
+  centeredFlexColumn,
+  fillSpace,
+} from "../../../../../styling/sharedstyles";
 
 const PinStreetView = ({ popupInfo, apiKey }) => {
   return (
@@ -19,7 +22,9 @@ const PinStreetView = ({ popupInfo, apiKey }) => {
 export default PinStreetView;
 
 const PinStreetViewWrapper = styled.div`
+  ${centeredFlexColumn}
   ${fillSpace}
+  padding:3px;
 `;
 
 const LinkToView = styled.a``;
