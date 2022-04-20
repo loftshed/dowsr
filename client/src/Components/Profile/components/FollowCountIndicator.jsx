@@ -6,7 +6,7 @@ const FollowCountIndicator = ({ count, type, color }) => {
     <FollowCountsWrapper>
       <CountContainer color={color}>
         <span>{type}</span>
-        <Number>{count}</Number>
+        <Number>{count ? <>{count}</> : 0}</Number>
       </CountContainer>
     </FollowCountsWrapper>
   );
