@@ -7,7 +7,7 @@ import { AppContext } from "../../AppContext";
 import { getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useParams } from "react-router-dom";
-import { handleGetUserContributions, handleGetUserPending } from "./helpers";
+import { handleGetUserPending } from "./helpers";
 import ContributionsBar from "./components/ContributionsBar";
 import RegDate from "./components/RegDate";
 import { FollowBar } from "./components/FollowBar";
@@ -21,8 +21,6 @@ const Profile = () => {
   const { loggedInUser } = useContext(AppContext);
   const [viewedProfile, setViewedProfile] = useState();
   const params = useParams();
-  // On load, get the profile of the username in the params.
-  // If there are no params, setViewedProfile to the the locallyStoredUser
   const isOwnProfile =
     loggedInUser.username === params.username || !params.username;
 
