@@ -2,20 +2,24 @@ import styled from "styled-components";
 import Bubble from "./MessageBubble";
 import ScrollToNewest from "./ScrollToNewest";
 import { v4 as uuidv4 } from "uuid";
+import { useContext } from "react";
+import { AppContext } from "../../../AppContext";
 
 const ChatMessages = ({ currentMessages }) => {
-  const locallyStoredUserId = localStorage.getItem("userId");
+  const { loggedInUser } = useContext(AppContext);
+
   if (!currentMessages) return null;
 
   return (
     <ChatMessagesWrapper>
       {currentMessages.map((el) => {
         // Maps through the currently selected messages and renders them
+        console.log(el);
+
         return (
           <Bubble
             key={uuidv4()}
-            // If the message userId isn't the same as the logged in user, it's a received message
-            recd={el.userId !== locallyStoredUserId}
+            recd={el.userId !== loggedInUser._id}
             author={el.handle}
             content={el.message}
             timestamp={el.sent}

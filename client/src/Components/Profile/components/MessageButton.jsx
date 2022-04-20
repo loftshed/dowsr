@@ -3,12 +3,14 @@ import styled from "styled-components";
 import { startThreadWithUser } from "../../Messaging/helpers";
 import { SendIcon } from "../../../styling/react-icons";
 import { ProfileButton } from "../sharedstyles";
+import { AppContext } from "../../../AppContext";
+import { useContext } from "react";
 
 // STRETCH: get this to send the user to the chat page but don't start a thread with the user until they actually send them a message.
 
 const MessageButton = ({ _id }) => {
-  const locallyStoredUserId = localStorage.getItem("userId");
-  const locallyStoredUsername = localStorage.getItem("username");
+  const { loggedInUser } = useContext(AppContext);
+
   const navigate = useNavigate();
 
   return (
@@ -16,10 +18,10 @@ const MessageButton = ({ _id }) => {
       onClick={async () => {
         try {
           await startThreadWithUser(
-            locallyStoredUserId,
+            loggedInUser._id,
             _id,
             "👋",
-            locallyStoredUsername
+            loggedInUser.username
           );
           navigate("/messages", { replace: true });
         } catch (error) {
