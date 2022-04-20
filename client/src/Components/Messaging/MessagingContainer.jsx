@@ -28,8 +28,8 @@ const MessagingContainer = () => {
         // If we have previously found that there are no threads, don't bother trying to get them again
         if (!noThreads) {
           const retrievedThreads = await getUserThreads(locallyStoredUserId);
-          if (!retrievedThreads.length) {
-            // If this is the first run of the sesion and there are no threads, set userHasNoThreads to true and return
+          if (!retrievedThreads || retrievedThreads.length === 0) {
+            // If this is the first run of the session and there are no threads, set noThreads to true and return
             setNoThreads(true);
             return;
           }
