@@ -12,14 +12,17 @@
 
 > ### _Current features include_:
 
-- Authentication with [Auth0](https://auth0.com/), a free, open-source identity and authentication service.
-- An admin console for managing user-submitted pins.
-- User profile creation.
+- Mobile-responsive design and layout
+- Authentication with [Auth0](https://auth0.com/)
+- An admin console for moderating user-submitted pins.
+- User profile creation with follwing & unfollowing of other users.
 - Pin creation and sharing.
+- Filtering between different map pin types.
+- Chat feature with multiple threads and responsive layout.
 - Search that displays results but doesn't actually do anything :)
-- Following & unfollowing of users.
 - Upvoting & downvoting pins.
-- Custom mapbox theme.
+- Custom mapbox theme
+- Other stuff
 
 <br>
 

@@ -52,10 +52,6 @@ const Wrapper = styled.div`
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
   }
-  p {
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-  }
 `;
 
 const Content = styled.div`
