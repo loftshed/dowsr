@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../AppContext";
 import { getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useParams } from "react-router-dom";
-import { handleGetUserContributions, handleGetUserPending } from "./helpers";
+import { handleGetUserPending } from "./helpers";
 import ContributionsBar from "./components/ContributionsBar";
 import RegDate from "./components/RegDate";
 import { FollowBar } from "./components/FollowBar";
@@ -18,76 +18,53 @@ import Avatar from "./components/Avatar";
 // TODO: Make this state less shitty
 
 const Profile = () => {
-  const { loggedInUser, viewedProfile, setViewedProfile } =
-    useContext(AppContext);
+  const { loggedInUser } = useContext(AppContext);
+  const [viewedProfile, setViewedProfile] = useState();
   const params = useParams();
-  const isOwnProfile = loggedInUser.username === params.username;
-
-  const handleGetProfile = async (username) => {
-    try {
-      if (!username) {
-        setViewedProfile(loggedInUser);
-
-        return;
-      }
-      const { data } = await getUserByUsername(username);
-      setViewedProfile(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    if (!params.username) {
-      handleGetProfile(loggedInUser.username);
-      return;
-    } else {
-      handleGetProfile(params.username);
-    }
-  }, [params.username, loggedInUser.username]);
+  const isOwnProfile =
+    loggedInUser.username === params.username || !params.username;
 
   useEffect(() => {
     (async () => {
       try {
-        let response;
-        let pending;
-        if (isOwnProfile) {
-          response = await handleGetUserContributions(loggedInUser?.username);
-          pending = await handleGetUserPending(loggedInUser?._id);
-        } else {
-          response = await handleGetUserContributions(viewedProfile.username);
-          pending = await handleGetUserPending(viewedProfile._id);
+        let amendedData;
+        if (!params.username && loggedInUser) {
+          const { pendingReview } = await handleGetUserPending(
+            loggedInUser._id
+          );
+          amendedData = { ...loggedInUser, pendingReview: pendingReview };
+          setViewedProfile(amendedData);
+          return;
         }
-        setViewedProfile({
-          ...viewedProfile,
-          submissionsByType: response.submissionsByType,
-          submissionsPending: pending.pendingReview,
-        });
+        const { data } = await getUserByUsername(params.username);
+        const { pendingReview } = await handleGetUserPending(data._id);
+        amendedData = { ...data, pendingReview: pendingReview };
+        setViewedProfile(amendedData);
       } catch (error) {
         console.log(error);
       }
     })();
-  }, [params.username, loggedInUser.username]);
+  }, [params.username, loggedInUser]);
 
-  if (viewedProfile.submissionsByType === undefined)
+  if (!viewedProfile) {
     return (
       <ResponsiveContainer>
         <LoadingSpinner size={60} />
       </ResponsiveContainer>
     );
+  }
 
-  if (!viewedProfile) return null;
   const {
+    _id,
+    regDate,
+    contributions,
+    contributionsByType,
+    pendingReview,
     username,
     city,
     country,
     region,
     avatarUrl,
-    contributions,
-    regDate,
-    _id,
-    submissionsByType,
-    submissionsPending,
   } = viewedProfile;
 
   return (
@@ -114,9 +91,9 @@ const Profile = () => {
               <div>
                 <RegDate regDate={regDate} />
                 <ContributionsBar
-                  submissionsByType={submissionsByType}
-                  submissionsPending={submissionsPending}
+                  contributionsByType={contributionsByType}
                   contributions={contributions}
+                  pendingReview={pendingReview}
                 />
                 <MessageBar
                   loggedInUser={loggedInUser}

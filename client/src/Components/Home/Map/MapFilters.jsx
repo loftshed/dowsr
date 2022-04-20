@@ -80,7 +80,6 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               >
                 <CoffeeIcon />
               </Option>
-
               <Option
                 type="button"
                 onClick={() => {

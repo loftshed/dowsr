@@ -9,9 +9,7 @@ const LogoutButton = () => {
   return (
     <Button
       onClick={() => {
-        localStorage.removeItem("username");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("avatarUrl");
+        localStorage.clear();
         logout({ returnTo: window.location.origin });
       }}
     >

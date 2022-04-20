@@ -12,7 +12,7 @@ const MenuPopout = ({ show }) => {
   const { creatingNewPin, setCreatingNewPin, setMapModalMessage } =
     useContext(MappingContext);
 
-  // STRETCH: Add pending pins to this popuout.
+  // STRETCH: Add pending pins to this popout.
 
   return (
     <BurgerWrapper show={show}>
@@ -20,7 +20,7 @@ const MenuPopout = ({ show }) => {
         {
           // Probably not very secure, but...
           // If the current user has the isAdmin flag on their account, display link to backoffice.
-          loggedInUser.isAdmin && (
+          loggedInUser?.isAdmin && (
             <AdminContainer>
               <IconNavLink
                 to="/admin"

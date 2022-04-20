@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import PreviewTile from "./PreviewTile";
 import { SIZES } from "../../../styling/constants";
+import { AppContext } from "../../../AppContext";
+import { useContext } from "react";
 
 const ChatSidebar = ({
   allUserThreads,
-  storedUserId,
   showLoadingAnim,
   setCurrentMessages,
   selectedThreadId,
   setSelectedThreadId,
 }) => {
+  const { loggedInUser } = useContext(AppContext);
   return (
     <SidebarWrapper>
       {allUserThreads.map((thread) => {
@@ -18,7 +20,7 @@ const ChatSidebar = ({
         // Determines which user is the "other user" in the thread
         // This is used to determine which username to display in the tile
         const partnerId = users.find((el) => {
-          return el !== storedUserId;
+          return el !== loggedInUser._id;
         });
         // Determines which is the newest message in the thread
         // Used to set the timestamp and message text of the tile

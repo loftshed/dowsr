@@ -9,17 +9,17 @@ import ContributionsHeader from "./ContributionsHeader";
 import ContributionType from "./ContributionType";
 
 const ContributionsBar = ({
-  submissionsByType,
-  submissionsPending,
+  contributionsByType,
+  pendingReview,
   contributions,
 }) => {
-  if (!submissionsByType) return null;
-  const { water, toilet, hazard, police } = submissionsByType;
+  if (!contributionsByType) return null;
+  const { water, toilet, hazard, police } = contributionsByType;
 
   return (
     <>
       <ContributionsHeader
-        submissionsPending={submissionsPending}
+        pendingReview={pendingReview}
         contributions={contributions}
       />
       <ContributionsWrapper>

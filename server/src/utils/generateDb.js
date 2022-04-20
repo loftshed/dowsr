@@ -8,6 +8,10 @@ const { v4: uuidv4 } = require("uuid");
 // const { cafes } = require("./mockdata/data/cafe_data"); // require data file
 // const userData = require("./mockdata/data/user_data");
 
+///////////////////////////////////////////////////////////////////////////////
+//
+//  BIG FYI:  This doesn't work at all right now so don't bother
+
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 const client = new MongoClient(MONGO_URI, {

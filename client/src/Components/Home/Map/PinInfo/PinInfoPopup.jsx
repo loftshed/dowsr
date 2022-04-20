@@ -12,6 +12,7 @@ import PinStreetView from "./components/PinStreetView";
 import PinSubmitter from "./components/PinSubmitter";
 import PinInfoHeader from "./components/PinInfoHeader";
 import PinDistance from "./components/PinDistance";
+import { AppContext } from "../../../../AppContext";
 
 const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
@@ -19,8 +20,9 @@ const PinInfoPopup = () => {
   const { popupInfo, setPopupInfo, userLocation, setClickedLocation } =
     useContext(MappingContext);
   const { current: map } = useMap();
+  const { loggedInUser } = useContext(AppContext);
 
-  const isOwnPin = localStorage.getItem("username") === popupInfo?.submittedBy;
+  const isOwnPin = loggedInUser.username === popupInfo?.submittedBy;
 
   useEffect(() => {
     return () => {

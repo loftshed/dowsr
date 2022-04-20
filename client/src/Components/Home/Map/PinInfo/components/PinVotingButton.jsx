@@ -26,6 +26,11 @@ const PinVotingButton = ({
     console.log("response", response);
     const { success, action } = response;
     // if the operation is successful, update the pinFeedback state
+    // const isAlreadyDisliked = pinFeedback.dislikedByIds.includes(
+    //   loggedInUser._id
+    // );
+    // const isAlreadyLiked = pinFeedback.likedByIds.includes(loggedInUser._id);
+
     if (success) {
       if (action === "liked") {
         setPinFeedback({

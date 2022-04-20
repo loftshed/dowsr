@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import SendButton from "./SendButton";
 import { replyThread } from "../helpers";
+import { useContext } from "react";
+import { AppContext } from "../../../AppContext";
 
 const ChatInput = ({
   selectedThreadId,
@@ -8,10 +10,7 @@ const ChatInput = ({
   setCurrentMessages,
   currentMessages,
 }) => {
-  // Username and userId are grabbed from localStorage
-  const locallyStoredUsername = localStorage.getItem("username");
-  const locallyStoredUserId = localStorage.getItem("userId");
-
+  const { loggedInUser } = useContext(AppContext);
   const handleSendMessage = async (message) => {
     try {
       // When sending a message, arbitrarily display my fun animation
@@ -21,8 +20,8 @@ const ChatInput = ({
       const response = await replyThread(
         selectedThreadId,
         message,
-        locallyStoredUserId,
-        locallyStoredUsername
+        loggedInUser._id,
+        loggedInUser.username
       );
 
       // Add the response to the current messages

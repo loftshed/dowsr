@@ -5,15 +5,16 @@ import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import ChatSidebar from "./components/ChatSidebar";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getUserThreads, getLatestThread } from "./helpers";
 import ChatMessages from "./components/ChatMessages";
 import ChatInput from "./components/ChatInput";
+import { AppContext } from "../../AppContext";
 
 // Now that this is all sorted, I should move some stuff into a MessagingContext Provider
 
 const MessagingContainer = () => {
-  const locallyStoredUserId = localStorage.getItem("userId");
+  const { loggedInUser } = useContext(AppContext);
   const [allUserThreads, setAllUserThreads] = useState([]);
   const [selectedThreadId, setSelectedThreadId] = useState(null);
   const [currentMessages, setCurrentMessages] = useState([]);
@@ -26,10 +27,10 @@ const MessagingContainer = () => {
     (async () => {
       try {
         // If we have previously found that there are no threads, don't bother trying to get them again
-        if (!noThreads) {
-          const retrievedThreads = await getUserThreads(locallyStoredUserId);
-          if (!retrievedThreads.length) {
-            // If this is the first run of the sesion and there are no threads, set userHasNoThreads to true and return
+        if (!noThreads && loggedInUser) {
+          const retrievedThreads = await getUserThreads(loggedInUser._id);
+          if (retrievedThreads.length === 0) {
+            // If this is the first run of the session and there are no threads, set noThreads to true and return
             setNoThreads(true);
             return;
           }
@@ -47,7 +48,7 @@ const MessagingContainer = () => {
         console.log(error);
       }
     })();
-  }, [currentMessages]);
+  }, [currentMessages, noThreads, selectedThreadId, loggedInUser._id]);
 
   return (
     <ResponsiveContainer heading={"Messages"}>
@@ -58,7 +59,6 @@ const MessagingContainer = () => {
           setCurrentMessages={setCurrentMessages}
           currentMessages={currentMessages}
           allUserThreads={allUserThreads}
-          storedUserId={locallyStoredUserId}
           showLoadingAnim={showLoadingAnim}
         />
         <ChatArea>

@@ -6,7 +6,6 @@ export const AppContext = createContext(null);
 export const AppProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [userAddedToDb, setUserAddedToDb] = useState(null);
-  const [firstLogin, setFirstLogin] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState("");
   const [threads, setThreads] = useState([]);
   const [displayedThreadId, setDisplayedThreadId] = useState("");
@@ -14,6 +13,7 @@ export const AppProvider = ({ children }) => {
   const [showBurgerMenu, setShowBurgerMenu] = useState(false);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [viewedProfile, setViewedProfile] = useState({});
+  const [firstLogin, setFirstLogin] = useState(null);
 
   return (
     <AppContext.Provider
@@ -38,6 +38,8 @@ export const AppProvider = ({ children }) => {
         setShowSearchBar,
         viewedProfile,
         setViewedProfile,
+        firstLogin,
+        setFirstLogin,
         // socket,
       }}
     >

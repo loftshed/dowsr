@@ -3,62 +3,41 @@ import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
 
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { AppContext } from "../../AppContext";
 import { getUser } from "../Auth/helpers";
 import { Map } from "./Map";
 import FirstLogin from "../Auth/FirstLogin";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const { firstLogin, setFirstLogin } = useContext(AppContext);
-  const { user, isAuthenticated /*, isLoading*/ } = useAuth0();
-  const storedUsername = localStorage.getItem("username");
-  const storedUserId = localStorage.getItem("userId");
-  const storedAvatarUrl = localStorage.getItem("avatarUrl");
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { loggedInUser, firstLogin } = useContext(AppContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        if (user) {
-          const response = await getUser("email", user.email);
-          const {
-            data: { username, _id },
-          } = response;
-          if (!username) {
-            setFirstLogin(true);
-            return;
-          }
-          localStorage.setItem("username", username);
-          localStorage.setItem("userId", _id);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [user]);
+  if (firstLogin) navigate("/firstlogin");
 
-  if (firstLogin) return <FirstLogin />;
+  if (!isAuthenticated)
+    return (
+      <Wrapper>
+        <ResponsiveContainer>
+          <Content>
+            <Welcome>
+              <h1>Welcome to Dowsr!</h1>
+              <p>Please log in to continue.</p>
+            </Welcome>
+          </Content>
+        </ResponsiveContainer>
+      </Wrapper>
+    );
 
   return (
     <Wrapper>
-      <>
-        {isAuthenticated || storedUsername ? (
-          <Content>
-            <Map />
-          </Content>
-        ) : (
-          <ResponsiveContainer>
-            <Content>
-              <Welcome>
-                <h1>Welcome to Dowsr!</h1>
-                <p>Please log in to continue.</p>
-              </Welcome>
-            </Content>
-          </ResponsiveContainer>
-        )}
-      </>
+      <Content>
+        <Map />
+      </Content>
     </Wrapper>
   );
 };

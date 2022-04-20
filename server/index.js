@@ -13,7 +13,7 @@ app.use(morgan("tiny"));
 app.use(express.json());
 app.use(express.static("public"));
 app.use(helmet());
-app.use(cors());
+app.use(cors()); // CORS is a security feature that allows you to restrict access to your API from different domains.
 
 /*----------------------------------------
 | socket.io stuff i understand even less |

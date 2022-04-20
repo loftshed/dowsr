@@ -37,9 +37,51 @@ const getPinsOfType = async ({ query: { filter } }, res) => {
   }
 };
 
+// potential clue to what is happening here
+// {
+// 	"status": 200,
+// 	"allPins": [
+// 		{
+// 			"_id": "dd1c6b4d-5b61-4c31-8fdf-7e52c11ae3ac",
+// 			"filter": "water",
+// 			"pins": [
+// 				{
+// 					"_id": "239beea0-1527-4871-9579-db251b8a5725",
+// 					"type": "water",
+// 					"latitude": 45.540136863757084,
+// 					"longitude": -73.60024044865756,
+// 					"hours": "123",
+// 					"address": "6526 Rue Chambord, Montréal, Quebec H2G 3B9, Canada",
+// 					"desc": "123",
+// 					"submittedBy": "dendytrewolla",
+// 					"submittedById": "9379e50c-856d-4049-a0cf-a91d38d7b1a3",
+// 					"likedByIds": [],
+// 					"dislikedByIds": [],
+// 					"submitted": "2022-04-20T00:26:04-04:00",
+// 					"pendingReview": false
+// 				}
+// 			],
+// 			"contributions": [
+// 				"35fdbc87-eb8b-4b39-8274-861005656175",
+// 				"8db1573c-7ad4-4c55-8fa8-be032950be58",
+// 				"8db1573c-7ad4-4c55-8fa8-be032950be58",
+// 				"76671b88-46bd-4e6a-922a-191469491c9c",
+// 				"76671b88-46bd-4e6a-922a-191469491c9c",
+// 				"76671b88-46bd-4e6a-922a-191469491c9c",
+// 				"ebec1042-130f-44e4-bbb4-a3e23a45d831",
+// 				"49b5e980-3595-4283-9ba1-d6a8c187d1e1",
+// 				"8db1573c-7ad4-4c55-8fa8-be032950be58",
+// 				"35fdbc87-eb8b-4b39-8274-861005656175"
+// 			],
+// 			"contributionsByType": {
+// 				"undefined": 6
+// 			}
+// 		},
+
 // Submits a new pin to the database.
 const submitNewPin = async ({ body }, res) => {
   try {
+    await client.connect();
     const currentTime = dayjs().format();
     const pinId = uuidv4();
     const newPin = {
@@ -48,7 +90,7 @@ const submitNewPin = async ({ body }, res) => {
       submitted: currentTime,
       pendingReview: true,
     };
-    await client.connect();
+    console.log(body);
     // Creating the new pin in the database.
     const submissionResult = await thisCollection.updateOne(
       { filter: newPin.type },
@@ -59,7 +101,7 @@ const submitNewPin = async ({ body }, res) => {
       { filter: "pending" },
       { $push: { pins: newPin } }
     );
-    // Pushing the ID of the new pin to the 'contributions' array of the user that submitted it.
+    // Adds the pin to the user's contributions array.
     const updatedUser = await db
       .collection("users")
       .updateOne(
@@ -74,6 +116,7 @@ const submitNewPin = async ({ body }, res) => {
       submissionResult: submissionResult,
       pendingResult: pendingResult,
       updatedUser: updatedUser,
+      // updatedUserContributionCounts: updatedUserContributionCounts,
       message: "Pin submission successful. Awaiting review.",
     });
   } catch (err) {
@@ -131,17 +174,30 @@ const moderatePin = async ({ query: { pinId, approved } }, res) => {
   try {
     await client.connect();
     let updatedPin;
+    let updatedUser;
+    let updatedUserContributionCounts;
     if (!approved)
       updatedPin = await thisCollection.updateOne(
         { "pins._id": pinId },
         { $pull: { pins: { _id: pinId } } }
       );
     if (approved) {
+      // Set pendingReview to false
       updatedPin = await thisCollection.updateOne(
         { "pins._id": pinId },
         { $set: { "pins.$.pendingReview": false } }
       );
+      // // Push the pinId to the contributions array of the user that submitted it.
+      // updatedUser = await thisCollection.updateOne(
+      //   { username: newPin.submittedBy },
+      //   { $push: { contributions: pinId } }
+      // );
+      // updatedUserContributionCounts = await thisCollection.updateOne(
+      //   { username: newPin.submittedBy },
+      //   { $inc: { [`contributionsByType.${newPin.type}`]: 1 } }
+      // );
     }
+
     // Whether the pin is approved or disapproved it must now be removed from pins array of the pending filter.
     const updatedPending = await thisCollection.updateOne(
       { filter: "pending" },
