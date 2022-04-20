@@ -10,7 +10,7 @@ import ContributionType from "./ContributionType";
 
 const ContributionsBar = ({
   contributionsByType,
-  contributionsPending,
+  pendingReview,
   contributions,
 }) => {
   if (!contributionsByType) return null;
@@ -19,7 +19,7 @@ const ContributionsBar = ({
   return (
     <>
       <ContributionsHeader
-        contributionsPending={contributionsPending}
+        pendingReview={pendingReview}
         contributions={contributions}
       />
       <ContributionsWrapper>

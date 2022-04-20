@@ -29,12 +29,17 @@ const Profile = () => {
   useEffect(() => {
     (async () => {
       try {
+        let amendedData;
         if (!params.username) {
-          setViewedProfile(loggedInUser);
+          const { pendingReview } = handleGetUserPending(loggedInUser._id);
+          amendedData = { ...loggedInUser, pendingReview: pendingReview };
+          setViewedProfile(amendedData);
           return;
         }
         const { data } = await getUserByUsername(params.username);
-        setViewedProfile(data);
+        const { pendingReview } = await handleGetUserPending(data._id);
+        amendedData = { ...data, pendingReview: pendingReview };
+        setViewedProfile(amendedData);
       } catch (error) {
         console.log(error);
       }
@@ -54,6 +59,7 @@ const Profile = () => {
     regDate,
     contributions,
     contributionsByType,
+    pendingReview,
     username,
     city,
     country,
@@ -86,8 +92,8 @@ const Profile = () => {
                 <RegDate regDate={regDate} />
                 <ContributionsBar
                   contributionsByType={contributionsByType}
-                  // contributionsPending={contributionsPending}
                   contributions={contributions}
+                  pendingReview={pendingReview}
                 />
                 <MessageBar
                   loggedInUser={loggedInUser}

@@ -60,16 +60,13 @@ const submitNewPin = async ({ body }, res) => {
       { filter: "pending" },
       { $push: { pins: newPin } }
     );
-    // // Pushing the ID of the new pin to the 'contributions' array of the user that submitted it.
-    // const updatedUser = await thisCollection.updateOne(
-    //   { username: newPin.submittedBy },
-    //   { $push: { contributions: pinId } }
-    // );
-    // Finally... we use the username to target the user in the database, find the object with the key 'contributionsByType', and within, increment the field with a key matching filter by 1.
-    // const updatedUserContributionCounts = await thisCollection.updateOne(
-    //   { username: newPin.submittedBy },
-    //   { $inc: { [`contributionsByType.${newPin.type}`]: 1 } }
-    // );
+    // Adds the pin to the user's contributions array.
+    const updatedUser = await db
+      .collection("users")
+      .updateOne(
+        { username: newPin.submittedBy },
+        { $push: { contributions: pinId } }
+      );
 
     res.status(200).json({
       status: 200,
@@ -78,7 +75,7 @@ const submitNewPin = async ({ body }, res) => {
       submissionResult: submissionResult,
       pendingResult: pendingResult,
       updatedUser: updatedUser,
-      updatedUserContributionCounts: updatedUserContributionCounts,
+      // updatedUserContributionCounts: updatedUserContributionCounts,
       message: "Pin submission successful. Awaiting review.",
     });
   } catch (err) {
@@ -149,15 +146,15 @@ const moderatePin = async ({ query: { pinId, approved } }, res) => {
         { "pins._id": pinId },
         { $set: { "pins.$.pendingReview": false } }
       );
-      // Push the pinId to the contributions array of the user that submitted it.
-      updatedUser = await thisCollection.updateOne(
-        { username: newPin.submittedBy },
-        { $push: { contributions: pinId } }
-      );
-      updatedUserContributionCounts = await thisCollection.updateOne(
-        { username: newPin.submittedBy },
-        { $inc: { [`contributionsByType.${newPin.type}`]: 1 } }
-      );
+      // // Push the pinId to the contributions array of the user that submitted it.
+      // updatedUser = await thisCollection.updateOne(
+      //   { username: newPin.submittedBy },
+      //   { $push: { contributions: pinId } }
+      // );
+      // updatedUserContributionCounts = await thisCollection.updateOne(
+      //   { username: newPin.submittedBy },
+      //   { $inc: { [`contributionsByType.${newPin.type}`]: 1 } }
+      // );
     }
 
     // Whether the pin is approved or disapproved it must now be removed from pins array of the pending filter.

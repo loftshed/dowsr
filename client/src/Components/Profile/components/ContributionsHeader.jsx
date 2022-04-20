@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { sharedDetailStyle } from "../sharedstyles";
 
-const ContributionsHeader = ({ submissionsPending, contributions }) => {
-  if (!submissionsPending && !contributions)
-    return <ContributionsHeaderWrapper />;
+const ContributionsHeader = ({ pendingReview, contributions }) => {
+  if (!pendingReview && !contributions) return <ContributionsHeaderWrapper />;
 
   if (contributions?.length === 1)
     return (
@@ -17,11 +16,11 @@ const ContributionsHeader = ({ submissionsPending, contributions }) => {
       </ContributionsHeaderWrapper>
     );
 
-  if (contributions?.length > 0 && submissionsPending?.length > 0)
+  if (contributions?.length > 0 && pendingReview?.length > 0)
     return (
       <ContributionsHeaderWrapper>
-        {contributions?.length - submissionsPending?.length} contributions (
-        {submissionsPending?.length} pending)
+        {contributions?.length - pendingReview?.length} contributions (
+        {pendingReview?.length} pending)
       </ContributionsHeaderWrapper>
     );
 
