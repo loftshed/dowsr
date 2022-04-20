@@ -25,8 +25,8 @@ const Home = () => {
         <ResponsiveContainer>
           <Content>
             <Welcome>
-              <h1>Welcome to Dowsr!</h1>
-              <p>Please log in to continue.</p>
+              <h1>welcome to dowsr!</h1>
+              <p>please log in to continue.</p>
             </Welcome>
           </Content>
         </ResponsiveContainer>
@@ -48,6 +48,14 @@ const Wrapper = styled.div`
   ${fillSpace}
   background-color: var(--color-dark-grey);
   width: 100%;
+  h1 {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+  }
+  p {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+  }
 `;
 
 const Content = styled.div`

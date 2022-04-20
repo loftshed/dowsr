@@ -41,7 +41,7 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
           />
         )}
       </ActionBarWrapper>
-      <Container>bla bla bla</Container>
+      <Container></Container>
       <ActionBarWrapper>
         <FollowCountIndicator
           type={"following"}
@@ -49,7 +49,7 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
           count={followingCount}
         />
       </ActionBarWrapper>
-      <Container>so on & so forth</Container>
+      <Container></Container>
     </>
   );
 };

@@ -10,6 +10,7 @@ const PinSubmitter = ({ popupInfo, isOwnPin }) => {
       onClick={(ev) => {
         navigate(`/profile/${popupInfo.submittedBy}`);
       }}
+      isOwnPin={isOwnPin}
     >
       {isOwnPin ? (
         <>
@@ -40,6 +41,7 @@ const PinSubmitterWrapper = styled.button`
   gap: 5px;
   transition: all ease 0.1s;
   border: 1px solid var(--color-super-dark-grey);
+  cursor: pointer;
 
   span {
     pointer-events: none;
