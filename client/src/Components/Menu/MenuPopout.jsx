@@ -20,22 +20,22 @@ const MenuPopout = ({ show }) => {
         {
           // Probably not very secure, but...
           // If the current user has the isAdmin flag on their account, display link to backoffice.
-          // loggedInUser?.isAdmin && (
-          //   <AdminContainer>
-          //     <IconNavLink
-          //       to="/admin"
-          //       onClick={() => {
-          //         setShowBurgerMenu(false);
-          //         if (creatingNewPin) {
-          //           setCreatingNewPin(false);
-          //           setMapModalMessage("");
-          //         }
-          //       }}
-          //     >
-          //       <AdminIcon />
-          //     </IconNavLink>
-          //   </AdminContainer>
-          // )
+          loggedInUser?.isAdmin && (
+            <AdminContainer>
+              <IconNavLink
+                to="/admin"
+                onClick={() => {
+                  setShowBurgerMenu(false);
+                  if (creatingNewPin) {
+                    setCreatingNewPin(false);
+                    setMapModalMessage("");
+                  }
+                }}
+              >
+                <AdminIcon />
+              </IconNavLink>
+            </AdminContainer>
+          )
         }
         <InnerContainer>
           <LogoutButton
