@@ -20,14 +20,46 @@ import Avatar from "./components/Avatar";
 const Profile = () => {
   const { loggedInUser } = useContext(AppContext);
   const [viewedProfile, setViewedProfile] = useState();
-
-  // On load, get the profile of the username in the params. If there's no params, retrieve the profile of locallyStoredUserId
-
   const params = useParams();
+  // On load, get the profile of the username in the params.
+  // If there are no params, setViewedProfile to the the locallyStoredUser
+  const isOwnProfile =
+    loggedInUser.username === params.username || !params.username;
 
-  const isOwnProfile = locallyStoredUserId === params.username;
+  useEffect(() => {
+    (async () => {
+      try {
+        if (!params.username) {
+          setViewedProfile(loggedInUser);
+          return;
+        }
+        const { data } = await getUserByUsername(params.username);
+        setViewedProfile(data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [params.username]);
 
-  useEffect(() => {}, []);
+  if (!viewedProfile) {
+    return (
+      <ResponsiveContainer>
+        <LoadingSpinner size={60} />
+      </ResponsiveContainer>
+    );
+  }
+
+  const {
+    _id,
+    regDate,
+    contributions,
+    contributionsByType,
+    username,
+    city,
+    country,
+    region,
+    avatarUrl,
+  } = viewedProfile;
 
   return (
     <ResponsiveContainer>
@@ -53,8 +85,8 @@ const Profile = () => {
               <div>
                 <RegDate regDate={regDate} />
                 <ContributionsBar
-                  submissionsByType={submissionsByType}
-                  submissionsPending={submissionsPending}
+                  contributionsByType={contributionsByType}
+                  // contributionsPending={contributionsPending}
                   contributions={contributions}
                 />
                 <MessageBar

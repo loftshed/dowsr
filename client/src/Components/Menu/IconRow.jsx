@@ -13,9 +13,13 @@ import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 
 const IconRow = () => {
-  const locallyStoredUsername = localStorage.getItem("username");
-  const { showBurgerMenu, setShowBurgerMenu, showSearchBar, setShowSearchBar } =
-    useContext(AppContext);
+  const {
+    showBurgerMenu,
+    setShowBurgerMenu,
+    showSearchBar,
+    setShowSearchBar,
+    loggedInUser,
+  } = useContext(AppContext);
   const {
     setMapModalMessage,
     setCreatingNewPin,
@@ -91,7 +95,7 @@ const IconRow = () => {
         <ChatIcon />
       </IconNavLink>
       <IconNavLink
-        to={`/profile/${locallyStoredUsername}`}
+        to={`/profile/${loggedInUser.username}`}
         onClick={() => {
           if (creatingNewPin) {
             setCreatingNewPin(false);
