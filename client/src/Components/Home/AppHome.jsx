@@ -14,8 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const { loggedInUser, setLoggedInUser, firstLogin, setFirstLogin } =
-    useContext(AppContext);
+  const { loggedInUser, firstLogin } = useContext(AppContext);
   const navigate = useNavigate();
 
   if (firstLogin) navigate("/firstlogin");

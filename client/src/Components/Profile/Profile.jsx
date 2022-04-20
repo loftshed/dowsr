@@ -30,8 +30,10 @@ const Profile = () => {
     (async () => {
       try {
         let amendedData;
-        if (!params.username) {
-          const { pendingReview } = handleGetUserPending(loggedInUser._id);
+        if (!params.username && loggedInUser) {
+          const { pendingReview } = await handleGetUserPending(
+            loggedInUser._id
+          );
           amendedData = { ...loggedInUser, pendingReview: pendingReview };
           setViewedProfile(amendedData);
           return;
@@ -44,7 +46,7 @@ const Profile = () => {
         console.log(error);
       }
     })();
-  }, [params.username]);
+  }, [params.username, loggedInUser]);
 
   if (!viewedProfile) {
     return (
