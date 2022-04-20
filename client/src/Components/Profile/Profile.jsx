@@ -69,7 +69,7 @@ const Profile = () => {
         }
         setViewedProfile({
           ...viewedProfile,
-          submissionsByType: response.submissionsByType,
+          submissionsByType: response.contributionByType,
           submissionsPending: pending.pendingReview,
         });
       } catch (error) {
