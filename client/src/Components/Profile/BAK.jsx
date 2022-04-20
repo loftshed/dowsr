@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext } from "react";
 import { AppContext } from "../../AppContext";
 import { getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
@@ -18,16 +18,86 @@ import Avatar from "./components/Avatar";
 // TODO: Make this state less shitty
 
 const Profile = () => {
-  const locallyStoredUserId = localStorage.getItem("userId");
-  const [viewedProfile, setViewedProfile] = useState();
-
-  // On load, get the profile of the username in the params. If there's no params, retrieve the profile of locallyStoredUserId
-
+  const { loggedInUser, viewedProfile, setViewedProfile } =
+    useContext(AppContext);
   const params = useParams();
+  const isOwnProfile = loggedInUser.username === params.username;
 
-  const isOwnProfile = locallyStoredUserId === params.username;
+  const handleGetProfile = async (username) => {
+    try {
+      console.log("username", username);
+      if (!username) {
+        setViewedProfile(loggedInUser);
+        return;
+      } // exits if no username
 
-  useEffect(() => {}, []);
+      const { data } = await getUserByUsername(username);
+      setViewedProfile(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (!params.username) {
+          // if there's no username in the params, loggedinUser is the username to use
+          await handleGetProfile(loggedInUser.username);
+        } else {
+          // otherwise get hte rpofile of the username in the params
+          console.log(params.username);
+          await handleGetProfile(params.username);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [params.username]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let response;
+        let pending;
+        if (isOwnProfile) {
+          response = await handleGetUserContributions(loggedInUser?.username);
+          pending = await handleGetUserPending(loggedInUser?._id); //
+        } else {
+          response = await handleGetUserContributions(viewedProfile.username);
+          pending = await handleGetUserPending(viewedProfile._id); //
+        }
+        setViewedProfile({
+          ...viewedProfile,
+          submissionsByType: response.contributionByType,
+          submissionsPending: pending.pendingReview,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  if (viewedProfile.submissionsByType === undefined)
+    return (
+      <ResponsiveContainer>
+        <LoadingSpinner size={60} />
+      </ResponsiveContainer>
+    );
+
+  if (!viewedProfile) return null;
+  const {
+    username,
+    city,
+    country,
+    region,
+    avatarUrl,
+    contributions,
+    regDate,
+    _id,
+    submissionsByType,
+    submissionsPending,
+  } = viewedProfile;
 
   return (
     <ResponsiveContainer>
