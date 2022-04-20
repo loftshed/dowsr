@@ -12,7 +12,7 @@ const MenuPopout = ({ show }) => {
   const { creatingNewPin, setCreatingNewPin, setMapModalMessage } =
     useContext(MappingContext);
 
-  // STRETCH: Add pending pins to this popuout.
+  // STRETCH: Add pending pins to this popout.
 
   return (
     <BurgerWrapper show={show}>

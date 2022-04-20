@@ -14,8 +14,6 @@ const ChatMessages = ({ currentMessages }) => {
     <ChatMessagesWrapper>
       {currentMessages.map((el) => {
         // Maps through the currently selected messages and renders them
-        console.log(el);
-
         return (
           <Bubble
             key={uuidv4()}

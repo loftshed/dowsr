@@ -27,9 +27,9 @@ const MessagingContainer = () => {
     (async () => {
       try {
         // If we have previously found that there are no threads, don't bother trying to get them again
-        if (!noThreads) {
+        if (!noThreads && loggedInUser) {
           const retrievedThreads = await getUserThreads(loggedInUser._id);
-          if (!retrievedThreads || retrievedThreads.length === 0) {
+          if (retrievedThreads.length === 0) {
             // If this is the first run of the session and there are no threads, set noThreads to true and return
             setNoThreads(true);
             return;
@@ -48,7 +48,7 @@ const MessagingContainer = () => {
         console.log(error);
       }
     })();
-  }, [currentMessages]);
+  }, [currentMessages, noThreads, selectedThreadId, loggedInUser._id]);
 
   return (
     <ResponsiveContainer heading={"Messages"}>
