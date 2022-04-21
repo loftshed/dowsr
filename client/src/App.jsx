@@ -6,7 +6,7 @@ import { centeredFlexColumn } from "./styling/sharedstyles";
 import { SIZES } from "./styling/constants";
 import { getUser } from "./components/Auth/helpers";
 
-import { AppContext } from "./AppContext";
+import { AppContext } from "./components/AppContext";
 import { Admin } from "./components/Admin";
 import Error from "./components/Error";
 import FirstLogin from "./components/Auth/FirstLogin";

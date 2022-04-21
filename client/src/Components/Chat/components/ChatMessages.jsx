@@ -3,7 +3,7 @@ import Bubble from "./MessageBubble";
 import ScrollToNewest from "./ScrollToNewest";
 import { v4 as uuidv4 } from "uuid";
 import { useContext } from "react";
-import { AppContext } from "../../../AppContext";
+import { AppContext } from "../../AppContext";
 
 const ChatMessages = ({ currentMessages }) => {
   const { loggedInUser } = useContext(AppContext);

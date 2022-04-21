@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PreviewTile from "./PreviewTile";
 import { SIZES } from "../../../styling/constants";
-import { AppContext } from "../../../AppContext";
+import { AppContext } from "../../AppContext";
 import { useContext } from "react";
 
 const ChatSidebar = ({

@@ -4,7 +4,7 @@ import { fillSpace, IconNavLink } from "../../styling/sharedstyles";
 import { NotificationIcon, AdminIcon } from "../../styling/react-icons";
 import LogoutButton from "../Auth/LogoutButton";
 import { useContext } from "react";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../AppContext";
 import { MappingContext } from "../Map/MappingContext";
 
 const MenuPopout = ({ show }) => {

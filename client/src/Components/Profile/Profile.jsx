@@ -3,7 +3,7 @@ import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { useEffect, useContext, useState } from "react";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../AppContext";
 import { getUserByUsername } from "../Auth/helpers";
 import LoadingSpinner from "../../styling/LoadingSpinner";
 import { useParams } from "react-router-dom";

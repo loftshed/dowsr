@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import { getUserThreads, getLatestThread } from "./helpers";
 import ChatMessages from "./components/ChatMessages";
 import ChatInput from "./components/ChatInput";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../AppContext";
 
 // Now that this is all sorted, I should move some stuff into a MessagingContext Provider
 

@@ -11,7 +11,7 @@ import PinInfoMarker from "./PinInfo/components/PinInfoMarker";
 import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
 
 const MapContainer = () => {

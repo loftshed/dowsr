@@ -9,7 +9,7 @@ import PinStreetView from "./components/PinStreetView";
 import PinSubmitter from "./components/PinSubmitter";
 import PinInfoHeader from "./components/PinInfoHeader";
 import PinDistance from "./components/PinDistance";
-import { AppContext } from "../../../AppContext";
+import { AppContext } from "../../AppContext";
 
 const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 

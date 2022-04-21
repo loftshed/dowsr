@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../AppContext";
 import { MappingContext } from "../Map/MappingContext";
 import { TiThMenu as BurgerMenuIcon } from "react-icons/ti";
 import MenuPopout from "./MenuPopout";

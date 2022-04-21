@@ -12,7 +12,7 @@ import {
   textButtonstyling,
 } from "../../../styling/sharedstyles";
 import { submitPin } from "../helpers";
-import { AppContext } from "../../../AppContext";
+import { AppContext } from "../../AppContext";
 
 // Called from the Menu component
 // DON'T FORGET TO VALIDATE THE FRIGGIN DATA BRUH
