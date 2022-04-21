@@ -15,4 +15,4 @@ https://visgl.github.io/react-map-gl/docs/api-reference/map
 https://docs.mapbox.com/mapbox-gl-js/guides/
 */
 
-export { default as Map } from "./MapContainer";
+export { default as Map } from "./Map";

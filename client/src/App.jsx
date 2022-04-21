@@ -14,7 +14,7 @@ import GlobalStyle from "./styling/GlobalStyles";
 import Header from "./components/Header";
 import { Map } from "./components/Map";
 import { Menu } from "./components/Menu";
-import { Messaging } from "./components/Messaging";
+import Chat from "./components/Chat";
 import Notifications from "./components/Notifications";
 import Profile from "./components/Profile";
 
@@ -76,7 +76,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
-            <Route path="/messages" element={<Messaging />} />
+            <Route path="/messages" element={<Chat />} />
             <Route path="/search" element={<Map search={true} />} />
             <Route path="/error" element={<Error />} />
             <Route path="/admin" element={<Admin />} />

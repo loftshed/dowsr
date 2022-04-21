@@ -13,7 +13,7 @@ import { AppContext } from "../../AppContext";
 
 // Now that this is all sorted, I should move some stuff into a MessagingContext Provider
 
-const MessagingContainer = () => {
+const Messaging = () => {
   const { loggedInUser } = useContext(AppContext);
   const [allUserThreads, setAllUserThreads] = useState([]);
   const [selectedThreadId, setSelectedThreadId] = useState(null);
@@ -48,7 +48,13 @@ const MessagingContainer = () => {
         console.log(error);
       }
     })();
-  }, [currentMessages, noThreads, selectedThreadId, loggedInUser._id]);
+  }, [
+    currentMessages,
+    noThreads,
+    selectedThreadId,
+    loggedInUser,
+    loggedInUser._id,
+  ]);
 
   return (
     <ResponsiveContainer heading={"Messages"}>
@@ -78,7 +84,7 @@ const MessagingContainer = () => {
   );
 };
 
-export default MessagingContainer;
+export default Messaging;
 
 const LayoutContainer = styled.div`
   display: flex;
