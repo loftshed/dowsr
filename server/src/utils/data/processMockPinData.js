@@ -12,7 +12,7 @@ const db = client.db("final");
 const pins = db.collection("map-pins");
 
 // require pindata.json
-const data = require("./mockdata/pindata.json");
+const data = require("../mockdata/pindata.json");
 
 // Retrieve the document with _id 736f2a25-ba15-4975-97fb-9af90cfc176f from the collection
 // Then, map through the pins array contained in the document
