@@ -1,9 +1,6 @@
-import { useContext } from "react";
-import { MappingContext } from "../../MappingContext";
 import { Marker } from "react-map-gl";
 import UniversalMapPin from "../../UniversalMapPin";
 import { getIcon } from "../../helpers";
-import styled from "styled-components";
 
 const PinInfoMarker = ({ pins, setPopupInfo }) => {
   // Switch statement to determine which icon to use for the pin.
@@ -38,5 +35,3 @@ const PinInfoMarker = ({ pins, setPopupInfo }) => {
 };
 
 export default PinInfoMarker;
-
-const MapMarker = styled(Marker)``;

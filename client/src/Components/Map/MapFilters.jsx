@@ -16,7 +16,7 @@ import {
   ToiletIcon,
   PendingIcon,
 } from "../../styling/react-icons";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { MappingContext } from "./MappingContext";
 import { AppContext } from "../../AppContext";
 import {} from "../../styling/react-icons";
@@ -24,7 +24,7 @@ import {} from "../../styling/react-icons";
 //TODO: Not important but annoying. Fix method by which modal fades out. currently not ideal.
 
 const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
-  const { selectedMapFilter, setSelectedMapFilter, setMapModalMessage } =
+  const { setSelectedMapFilter, setMapModalMessage } =
     useContext(MappingContext);
   const { setShowBurgerMenu, showBurgerMenu } = useContext(AppContext);
 

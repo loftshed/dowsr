@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { MappingContext } from "../MappingContext";
 import { SIZES } from "../../../styling/constants";
@@ -11,7 +11,7 @@ import {
   inputStyling,
   textButtonstyling,
 } from "../../../styling/sharedstyles";
-import { handleGetPinsOfType, submitPin } from "../helpers";
+import { submitPin } from "../helpers";
 import { AppContext } from "../../../AppContext";
 
 // Called from the Menu component
@@ -24,8 +24,6 @@ const NewPinModal = ({ show, type }) => {
     setShowPinCreationModal,
     setCreatingNewPin,
     setMapModalMessage,
-    pinCreationSuccessful,
-    setStoredFilteredPins,
     setPinCreationSuccessful,
     newPinData,
     setNewPinData,

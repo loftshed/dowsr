@@ -1,5 +1,3 @@
-import styled from "styled-components";
-import NewPinIcon from "./NewPinIcon";
 import { Marker } from "react-map-gl";
 import { useContext } from "react";
 import { MappingContext } from "../MappingContext";

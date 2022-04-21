@@ -1,13 +1,9 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import Map, { GeolocateControl } from "react-map-gl";
-import { useContext, useEffect, useRef, useState } from "react";
-import {
-  getUserLocation,
-  handleGetPinsOfType,
-  handleSubmitPin,
-} from "./helpers";
+import { useContext, useEffect, useRef } from "react";
+import { handleGetPinsOfType } from "./helpers";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import MapFilters from "./MapFilters";
 import MapAlertModal from "./MapAlertModal";
 import PinInfoPopup from "./PinInfo/PinInfoPopup";
@@ -19,7 +15,7 @@ import { AppContext } from "../../AppContext";
 import { useNavigate } from "react-router-dom";
 
 const MapContainer = () => {
-  const { loggedInUser, firstLogin } = useContext(AppContext);
+  const { firstLogin } = useContext(AppContext);
   const navigate = useNavigate();
 
   if (firstLogin) navigate("/firstlogin");

@@ -9,7 +9,7 @@ import { Messaging } from "./components/Messaging";
 import Profile from "./components/Profile";
 import Notifications from "./components/Notifications";
 import Error from "./components/Error";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "./AppContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./components/Auth/helpers";
@@ -58,7 +58,7 @@ const App = () => {
         console.log(err);
       }
     })();
-  }, [user, loggedInUser]); // Re-render if the user changes.
+  }, [user, loggedInUser, setLoggedInUser, setFirstLogin]); // Re-render if the user changes.
 
   return (
     <BrowserRouter id="root">

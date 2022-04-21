@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { centeredFlexRow } from "../../styling/sharedstyles";
 import { moderatePendingPin } from "./helpers";
-import { getPinsPendingReview } from "../Map/helpers";
+// import { getPinsPendingReview } from "../Map/helpers";
 import { MappingContext } from "../Map/MappingContext";
 import { useContext } from "react";
 
