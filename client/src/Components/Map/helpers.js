@@ -6,7 +6,7 @@ import {
   BikeIcon,
   WaterIcon,
   ToiletIcon,
-} from "../../../styling/react-icons";
+} from "../../styling/react-icons";
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
 

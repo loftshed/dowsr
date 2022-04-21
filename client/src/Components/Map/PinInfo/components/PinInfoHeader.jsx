@@ -1,9 +1,6 @@
 import { RiLinkM as LinkIcon } from "react-icons/ri";
 import styled from "styled-components";
-import {
-  centeredFlexRow,
-  fakeStroke,
-} from "../../../../../styling/sharedstyles";
+import { centeredFlexRow, fakeStroke } from "../../../../styling/sharedstyles";
 import { getIcon } from "../../helpers";
 
 const PinInfoHeader = ({ popupInfo }) => {

@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { Popup, useMap } from "react-map-gl";
-import {
-  fillSpace,
-  centeredFlexColumn,
-} from "../../../../styling/sharedstyles";
+import { fillSpace, centeredFlexColumn } from "../../../styling/sharedstyles";
 
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
@@ -12,7 +9,7 @@ import PinStreetView from "./components/PinStreetView";
 import PinSubmitter from "./components/PinSubmitter";
 import PinInfoHeader from "./components/PinInfoHeader";
 import PinDistance from "./components/PinDistance";
-import { AppContext } from "../../../../AppContext";
+import { AppContext } from "../../../AppContext";
 
 const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 

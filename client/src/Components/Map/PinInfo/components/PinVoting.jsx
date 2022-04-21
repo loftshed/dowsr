@@ -1,12 +1,9 @@
 import styled from "styled-components";
 import { useContext, useState } from "react";
 import { MappingContext } from "../../MappingContext";
-import {
-  ThumbsDownIcon,
-  ThumbsUpIcon,
-} from "../../../../../styling/react-icons";
+import { ThumbsDownIcon, ThumbsUpIcon } from "../../../../styling/react-icons";
 import PinVotingButton from "./PinVotingButton";
-import { centeredFlexRow } from "../../../../../styling/sharedstyles";
+import { centeredFlexRow } from "../../../../styling/sharedstyles";
 
 const PinVoting = ({ isOwnPin }) => {
   const { popupInfo } = useContext(MappingContext);

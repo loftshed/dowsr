@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { centeredFlexRow } from "../../styling/sharedstyles";
 import { moderatePendingPin } from "./helpers";
-import { getPinsPendingReview } from "../Home/Map/helpers";
-import { MappingContext } from "../Home/Map/MappingContext";
+import { getPinsPendingReview } from "../Map/helpers";
+import { MappingContext } from "../Map/MappingContext";
 import { useContext } from "react";
 
 const PendingPin = ({ pin, setPendingPins }) => {

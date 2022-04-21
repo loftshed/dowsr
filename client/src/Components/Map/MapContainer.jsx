@@ -6,7 +6,7 @@ import {
   handleGetPinsOfType,
   handleSubmitPin,
 } from "./helpers";
-import { fillSpace } from "../../../styling/sharedstyles";
+import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import styled, { css } from "styled-components";
 import MapFilters from "./MapFilters";
 import MapAlertModal from "./MapAlertModal";
@@ -15,8 +15,15 @@ import PinInfoMarker from "./PinInfo/components/PinInfoMarker";
 import { MappingContext } from "./MappingContext";
 import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
+import { AppContext } from "../../AppContext";
+import { useNavigate } from "react-router-dom";
 
 const MapContainer = () => {
+  const { loggedInUser, firstLogin } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  if (firstLogin) navigate("/firstlogin");
+
   // TODO: Figure out why you must double click to create a pin
 
   const {
@@ -90,60 +97,62 @@ const MapContainer = () => {
   return (
     <MapWrapper cursorType={creatingNewPin ? "pointer" : ""}>
       {userLocation && (
-        <>
-          {creatingNewPin && <Overlay />}
-          <Map
-            mapboxAccessToken={MAPBOX_API_KEY}
-            id="map"
-            container="map"
-            ref={mapRef}
-            initialViewState={{
-              longitude: userLocation.lng,
-              latitude: userLocation.lat,
-              zoom: 12,
-            }}
-            // mapStyle="mapbox://styles/mapbox/dark-v10"
-            mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
-            logoPosition={"top-right"}
-            onClick={(ev) => {
-              if (creatingNewPin) {
-                handleBeginPinCreation(ev);
-                setPopupIsVisible(!popupIsVisible);
-              }
-            }}
-            cursorModifier={creatingNewPin}
-          >
-            {!creatingNewPin && !pinCreationSuccessful && (
-              <>
-                <PinInfoMarker
-                  pins={storedFilteredPins}
-                  setPopupInfo={setPopupInfo}
-                />
-                <GeolocateControl
-                  position="top-left"
-                  trackUserLocation="true"
-                  showUserHeading="true"
-                />
-                <MapFilters
-                  showFilterMenu={showFilterMenu}
-                  setShowFilterMenu={setShowFilterMenu}
-                  setStoredFilteredPins={setStoredFilteredPins}
-                />
+        <Wrapper>
+          <Content>
+            {creatingNewPin && <Overlay />}
+            <Map
+              mapboxAccessToken={MAPBOX_API_KEY}
+              id="map"
+              container="map"
+              ref={mapRef}
+              initialViewState={{
+                longitude: userLocation.lng,
+                latitude: userLocation.lat,
+                zoom: 12,
+              }}
+              // mapStyle="mapbox://styles/mapbox/dark-v10"
+              mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
+              logoPosition={"top-right"}
+              onClick={(ev) => {
+                if (creatingNewPin) {
+                  handleBeginPinCreation(ev);
+                  setPopupIsVisible(!popupIsVisible);
+                }
+              }}
+              cursorModifier={creatingNewPin}
+            >
+              {!creatingNewPin && !pinCreationSuccessful && (
+                <>
+                  <PinInfoMarker
+                    pins={storedFilteredPins}
+                    setPopupInfo={setPopupInfo}
+                  />
+                  <GeolocateControl
+                    position="top-left"
+                    trackUserLocation="true"
+                    showUserHeading="true"
+                  />
+                  <MapFilters
+                    showFilterMenu={showFilterMenu}
+                    setShowFilterMenu={setShowFilterMenu}
+                    setStoredFilteredPins={setStoredFilteredPins}
+                  />
 
-                <PinInfoPopup
-                  popupInfo={popupInfo}
-                  setPopupInfo={setPopupInfo}
-                />
-              </>
+                  <PinInfoPopup
+                    popupInfo={popupInfo}
+                    setPopupInfo={setPopupInfo}
+                  />
+                </>
+              )}
+              {clickedLocation && creatingNewPin && popupIsVisible && (
+                <NewPinMarker clickedLocation={clickedLocation} />
+              )}
+            </Map>
+            {mapModalMessage !== "" && (
+              <MapAlertModal message={mapModalMessage} />
             )}
-            {clickedLocation && creatingNewPin && popupIsVisible && (
-              <NewPinMarker clickedLocation={clickedLocation} />
-            )}
-          </Map>
-          {mapModalMessage !== "" && (
-            <MapAlertModal message={mapModalMessage} />
-          )}
-        </>
+          </Content>
+        </Wrapper>
       )}
     </MapWrapper>
   );
@@ -168,4 +177,21 @@ const Overlay = styled.div`
   opacity: 15%;
   box-shadow: inset 0px 0px 1000px var(--color-teal);
   pointer-events: none;
+`;
+
+// from home.jsx
+const Wrapper = styled.div`
+  ${fillSpace}
+  background-color: var(--color-dark-grey);
+  width: 100%;
+  h1 {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+  }
+`;
+
+const Content = styled.div`
+  ${centeredFlexColumn}
+  width: 100%;
+  height: 100%;
 `;

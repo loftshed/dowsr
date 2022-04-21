@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import { getPinsPendingReview } from "../Home/Map/helpers";
+import { getPinsPendingReview } from "../Map/helpers";
 import { SIZES } from "../../styling/constants";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import PendingFilterItems from "./PendingFilterItems";
-import { MappingContext } from "../Home/Map/MappingContext";
+import { MappingContext } from "../Map/MappingContext";
 
 const AdminPanel = () => {
   const { moderationResult } = useContext(MappingContext);

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { centeredFlexColumn } from "../../../styling/sharedstyles";
+import { centeredFlexColumn } from "../../styling/sharedstyles";
 const UniversalMapPin = ({ scale, onClick, children, color }) => {
   return (
     <UniversalPinWrapper scale={scale} color={color} onClick={onClick}>

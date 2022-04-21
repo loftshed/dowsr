@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { centeredFlexRow } from "../../../../../styling/sharedstyles";
+import { centeredFlexRow } from "../../../../styling/sharedstyles";
 import { useContext } from "react";
-import { AppContext } from "../../../../../AppContext";
+import { AppContext } from "../../../../AppContext";
 import { MappingContext } from "../../MappingContext";
 import { togglePinLike } from "../../helpers";
 

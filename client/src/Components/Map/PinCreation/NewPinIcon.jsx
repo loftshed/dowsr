@@ -1,6 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { CreatePinIcon } from "../../../../styling/react-icons";
+import { CreatePinIcon } from "../../../styling/react-icons";
 
 const NewPinIcon = ({ onClick }) => {
   return (

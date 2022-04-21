@@ -8,7 +8,7 @@ import {
 } from "../../styling/react-icons";
 import { SIZES } from "../../styling/constants";
 import styled from "styled-components";
-import { MappingContext } from "../Home/Map/MappingContext";
+import { MappingContext } from "../Map/MappingContext";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 

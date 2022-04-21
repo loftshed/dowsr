@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {
   centeredFlexColumn,
   fillSpace,
-} from "../../../../../styling/sharedstyles";
+} from "../../../../styling/sharedstyles";
 
 const PinStreetView = ({ popupInfo, apiKey }) => {
   return (

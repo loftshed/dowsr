@@ -10,10 +10,10 @@ import { SIZES } from "../../styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
-import { MappingContext } from "../Home/Map/MappingContext";
+import { MappingContext } from "../Map/MappingContext";
 import { TiThMenu as BurgerMenuIcon } from "react-icons/ti";
 import MenuPopout from "./MenuPopout";
-import NewPinModal from "../Home/Map/PinCreation/NewPinModal";
+import NewPinModal from "../Map/PinCreation/NewPinModal";
 import SearchContainer from "./SearchContainer";
 import IconRow from "./IconRow";
 

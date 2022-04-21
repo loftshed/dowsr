@@ -18,11 +18,11 @@ import Avatar from "./components/Avatar";
 // TODO: Make this state less shitty
 
 const Profile = () => {
-  const { loggedInUser } = useContext(AppContext);
+  const { loggedInUser } = useContext(AppContext); // Get loggedInUser from AppContext
   const [viewedProfile, setViewedProfile] = useState();
   const params = useParams();
-  const isOwnProfile =
-    loggedInUser.username === params.username || !params.username;
+  const isOwnProfile = // If the loggedInUser's username is the same as the username in params, or params are empty,
+    loggedInUser.username === params.username || !params.username; // we are viewing our own profile.
 
   useEffect(() => {
     (async () => {

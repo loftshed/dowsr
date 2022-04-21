@@ -6,7 +6,7 @@ import {
   centeredFlexRow,
   inputStyling,
 } from "../../styling/sharedstyles";
-import { forwardGeocode } from "../Home/Map/helpers";
+import { forwardGeocode } from "../Map/helpers";
 
 const SearchContainer = ({ show }) => {
   const [searchResults, setSearchResults] = useState(null);

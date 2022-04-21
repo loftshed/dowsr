@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { centeredFlexRow } from "../../../../../styling/sharedstyles";
+import { centeredFlexRow } from "../../../../styling/sharedstyles";
 import { getDistanceFromPoint } from "../../helpers";
 
 const PinDistance = ({ popupInfo, userLocation }) => {

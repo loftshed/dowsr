@@ -3,8 +3,7 @@ import { centeredFlexColumn } from "./styling/sharedstyles";
 import { SIZES } from "./styling/constants";
 import GlobalStyle from "./styling/GlobalStyles";
 import styled from "styled-components";
-import Header from "./components/Home/Header";
-import { Home } from "./components/Home";
+import Header from "./components/Header";
 import { Menu } from "./components/Menu";
 import { Messaging } from "./components/Messaging";
 import Profile from "./components/Profile";
@@ -16,6 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./components/Auth/helpers";
 import { Admin } from "./components/Admin";
 import FirstLogin from "./components/Auth/FirstLogin";
+import { Map } from "./components/Map";
 
 //TODO: ULTRA MEGA TODO: Redo signin flow!!
 
@@ -67,13 +67,14 @@ const App = () => {
       <Main>
         <Content>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/new" element={<Home />} />
+            <Route path="/" element={<Map />} />
+            <Route path="/new" element={<Map />} />
+            {/* would be better to not send this to /new since it just initiates pin creation process via state anyways */}
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/messages" element={<Messaging />} />
-            <Route path="/search" element={<Home search={true} />} />
+            <Route path="/search" element={<Map search={true} />} />
             <Route path="/error" element={<Error />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/firstlogin" element={<FirstLogin />} />

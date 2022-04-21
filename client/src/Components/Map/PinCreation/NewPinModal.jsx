@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { MappingContext } from "../MappingContext";
-import { SIZES } from "../../../../styling/constants";
-import { CloseIcon } from "../../../../styling/react-icons";
+import { SIZES } from "../../../styling/constants";
+import { CloseIcon } from "../../../styling/react-icons";
 import {
   centeredFlexColumn,
   centeredFlexRow,
@@ -10,9 +10,9 @@ import {
   Input,
   inputStyling,
   textButtonstyling,
-} from "../../../../styling/sharedstyles";
+} from "../../../styling/sharedstyles";
 import { handleGetPinsOfType, submitPin } from "../helpers";
-import { AppContext } from "../../../../AppContext";
+import { AppContext } from "../../../AppContext";
 
 // Called from the Menu component
 // DON'T FORGET TO VALIDATE THE FRIGGIN DATA BRUH

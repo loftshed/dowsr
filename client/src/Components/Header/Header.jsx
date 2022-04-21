@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
+import { fillSpace } from "../../styling/sharedstyles";
 
 const Header = () => {
   return (
