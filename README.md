@@ -10,6 +10,12 @@
 
 <br>
 
+> ## **Is that actually useful?**
+
+Funny you should ask! Not really, but it's been a great way to get to know the Mapbox API and get some more practice with MongoDB.
+
+<br>
+
 > ### _Current features include_:
 
 - Mobile-responsive design and layout

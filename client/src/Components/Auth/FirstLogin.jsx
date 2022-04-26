@@ -14,7 +14,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { countryData } from "./data/states-provinces";
 import { SIZES } from "../../styling/constants";
 import { addNewUser } from "./helpers";
-import { AppContext } from "../../AppContext";
+import { AppContext } from "../AppContext";
 
 const FirstLogin = () => {
   //TODO: make this responsive

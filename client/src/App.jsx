@@ -1,21 +1,24 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import styled from "styled-components";
+
 import { centeredFlexColumn } from "./styling/sharedstyles";
 import { SIZES } from "./styling/constants";
-import GlobalStyle from "./styling/GlobalStyles";
-import styled from "styled-components";
-import Header from "./components/Home/Header";
-import { Home } from "./components/Home";
-import { Menu } from "./components/Menu";
-import { Messaging } from "./components/Messaging";
-import Profile from "./components/Profile";
-import Notifications from "./components/Notifications";
-import Error from "./components/Error";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "./AppContext";
-import { useAuth0 } from "@auth0/auth0-react";
 import { getUser } from "./components/Auth/helpers";
+
+import { AppContext } from "./components/AppContext";
 import { Admin } from "./components/Admin";
+import Error from "./components/Error";
 import FirstLogin from "./components/Auth/FirstLogin";
+import GlobalStyle from "./styling/GlobalStyles";
+import Header from "./components/Header";
+import { Map } from "./components/Map";
+import { Menu } from "./components/Menu";
+import Chat from "./components/Chat";
+import Notifications from "./components/Notifications";
+import Profile from "./components/Profile";
+
+import { useAuth0 } from "@auth0/auth0-react";
 
 //TODO: ULTRA MEGA TODO: Redo signin flow!!
 
@@ -58,7 +61,7 @@ const App = () => {
         console.log(err);
       }
     })();
-  }, [user, loggedInUser]); // Re-render if the user changes.
+  }, [user, loggedInUser, setLoggedInUser, setFirstLogin]); // Re-render if the user changes.
 
   return (
     <BrowserRouter id="root">
@@ -67,13 +70,14 @@ const App = () => {
       <Main>
         <Content>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/new" element={<Home />} />
+            <Route path="/" element={<Map />} />
+            <Route path="/new" element={<Map />} />
+            {/* would be better to not send this to /new since it just initiates pin creation process via state anyways */}
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/notifications" element={<Notifications />} />
-            <Route path="/messages" element={<Messaging />} />
-            <Route path="/search" element={<Home search={true} />} />
+            <Route path="/messages" element={<Chat />} />
+            <Route path="/search" element={<Map search={true} />} />
             <Route path="/error" element={<Error />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/firstlogin" element={<FirstLogin />} />

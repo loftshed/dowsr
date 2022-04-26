@@ -7,7 +7,7 @@ import {
 } from "react-icons/ri";
 import { BsFillCheckCircleFill as CheckIcon } from "react-icons/bs";
 import { ProfileButton } from "../sharedstyles";
-import { AppContext } from "../../../AppContext";
+import { AppContext } from "../../AppContext";
 
 // FollowButton is a child of ActionBar.
 // TODO: After follow, first show "following!" confirmation and disable button until hover is false.

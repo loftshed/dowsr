@@ -2,8 +2,8 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { MapProvider } from "react-map-gl"; // for react-map-gl
-import { MappingProvider } from "./components/Home/Map/MappingContext";
-import { AppProvider } from "./AppContext";
+import { MappingProvider } from "./components/Map/MappingContext";
+import { AppProvider } from "./components/AppContext";
 import App from "./App";
 import { IconContext } from "react-icons/lib";
 

@@ -1,6 +1,5 @@
 import {
   boxShadow,
-  centeredFlexColumn,
   centeredFlexRow,
   fillSpace,
 } from "../../styling/sharedstyles";
@@ -9,11 +8,11 @@ import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
-import { AppContext } from "../../AppContext";
-import { MappingContext } from "../Home/Map/MappingContext";
+import { AppContext } from "../AppContext";
+import { MappingContext } from "../Map/MappingContext";
 import { TiThMenu as BurgerMenuIcon } from "react-icons/ti";
 import MenuPopout from "./MenuPopout";
-import NewPinModal from "../Home/Map/PinCreation/NewPinModal";
+import NewPinModal from "../Map/PinCreation/NewPinModal";
 import SearchContainer from "./SearchContainer";
 import IconRow from "./IconRow";
 
@@ -157,16 +156,4 @@ const Content = styled.div`
 const LoginContainer = styled.div`
   ${centeredFlexRow}
   width: 100%;
-`;
-
-const ButtonsDisabled = styled.div`
-  ${centeredFlexColumn}
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  border-radius: ${SIZES.borderRadius}px;
-  backdrop-filter: blur(2px);
-  padding: 5px 10px;
 `;

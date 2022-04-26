@@ -1,6 +1,6 @@
 {
-  "name": "final-project",
-  "version": "0.1.0",
+  "name": "dowsr",
+  "version": "0.0.1",
   "proxy": "http://localhost:9001",
   "private": true,
   "dependencies": {
