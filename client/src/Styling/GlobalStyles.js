@@ -6,15 +6,6 @@ const GlobalStyle = createGlobalStyle`
     | Some values to be made available globally. |
     --------------------------------------------*/
     :root {
-      --sml-header-height: 50px;
-      --header-height: 100px;
-      --content-inner-padding-h: 20px;
-      --sidebar-width: 500px;
-      --width-max: 1280px;
-      --width-med: 820px;
-      --width-sml: 450px;
-
-
       --color-pink: #ef476f;
       --color-yellow: #ffd166;
       --color-green: #06d6a0;
