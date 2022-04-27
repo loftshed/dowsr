@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import { useMap } from "react-map-gl";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import {
   centeredFlexColumn,
   centeredFlexRow,

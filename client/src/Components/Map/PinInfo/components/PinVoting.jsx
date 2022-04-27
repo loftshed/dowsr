@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { useContext, useState } from "react";
 import { MappingContext } from "../../MappingContext";
 import { ThumbsDownIcon, ThumbsUpIcon } from "../../../../styling/react-icons";

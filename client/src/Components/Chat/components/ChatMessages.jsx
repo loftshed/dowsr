@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import Bubble from "./MessageBubble";
 import ScrollToNewest from "./ScrollToNewest";
 import { v4 as uuidv4 } from "uuid";

@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { iconstyling } from "../../styling/sharedstyles";
 import { LogoutIcon } from "../../styling/react-icons";

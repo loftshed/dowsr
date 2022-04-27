@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 

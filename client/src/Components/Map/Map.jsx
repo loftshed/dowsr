@@ -3,7 +3,7 @@ import Map, { GeolocateControl } from "react-map-gl";
 import { useContext, useEffect, useRef } from "react";
 import { handleGetPinsOfType } from "./helpers";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import MapFilters from "./MapFilters";
 import MapAlertModal from "./MapAlertModal";
 import PinInfoPopup from "./PinInfo/PinInfoPopup";

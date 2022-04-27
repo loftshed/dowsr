@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
 import { fillSpace, IconNavLink } from "../../styling/sharedstyles";
 import { NotificationIcon, AdminIcon } from "../../styling/react-icons";

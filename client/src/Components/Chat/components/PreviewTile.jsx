@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { centeredFlexColumn } from "../../../styling/sharedstyles";
 import { fadeIn, RefreshAnim } from "../../../styling/animations";
 import { SIZES } from "../../../styling/constants";

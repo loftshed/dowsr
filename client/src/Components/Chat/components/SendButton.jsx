@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { SendIcon } from "../../../styling/react-icons";
 import { SIZES } from "../../../styling/constants";
 

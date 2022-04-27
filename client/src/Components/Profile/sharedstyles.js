@@ -1,5 +1,5 @@
 import { SIZES } from "../../styling/constants";
-import styled, { css } from "styled-components/macro";
+import styled, { css } from "styled-components";
 import { textButtonstyling } from "../../styling/sharedstyles";
 
 const BAR_HEIGHT = {

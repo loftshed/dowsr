@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";

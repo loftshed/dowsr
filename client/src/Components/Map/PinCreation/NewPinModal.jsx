@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { MappingContext } from "../MappingContext";
 import { SIZES } from "../../../styling/constants";
 import { CloseIcon } from "../../../styling/react-icons";

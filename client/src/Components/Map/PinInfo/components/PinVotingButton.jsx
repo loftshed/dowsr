@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components/macro";
+import styled, { css } from "styled-components";
 import { centeredFlexRow } from "../../../../styling/sharedstyles";
 import { useContext } from "react";
 import { AppContext } from "../../../AppContext";

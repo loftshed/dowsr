@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { SIZES } from "../../styling/constants";
 import { centeredFlexColumn, iconstyling } from "../../styling/sharedstyles";
 import PendingPin from "./PendingPin";

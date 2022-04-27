@@ -1,5 +1,5 @@
 import FollowButton from "./FollowButton";
-import styled, { css } from "styled-components/macro";
+import styled, { css } from "styled-components";
 import { sharedDetailStyle } from "../sharedstyles";
 import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
