@@ -68,8 +68,8 @@ const InnerContainer = styled.div`
 const InnerContainerLiner = styled.div`
   flex-direction: column;
   align-items: center;
-  border: 1px solid var(--color-super-dark-grey);
-  background-color: var(--color-darkest-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: ${SIZES.borderRadius}px;
   ${fillSpace}
   padding: 10px;

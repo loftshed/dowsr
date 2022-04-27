@@ -15,10 +15,10 @@ export default PinDistance;
 
 const PinDistanceWrapper = styled.div`
   top: 5px;
-  background-color: var(--color-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
   padding: 0 5px;
   border-radius: 5px;
-  border: 1px solid var(--color-super-dark-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   position: absolute;
   ${centeredFlexRow}
 `;

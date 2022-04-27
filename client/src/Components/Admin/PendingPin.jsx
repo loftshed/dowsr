@@ -67,7 +67,9 @@ const PendingPin = ({ pin, setPendingPins }) => {
               href={`http://localhost:3000/users/${submittedBy}`}
               target="_new"
             >
-              <span style={{ color: "var(--color-teal)" }}>@</span>
+              <span style={{ color: "${(props) => props.theme.colors.teal}" }}>
+                @
+              </span>
               {submittedBy}
             </a>
           </li>
@@ -110,7 +112,7 @@ const Divider = styled.div`
   height: 10px;
   margin-top: 5px;
   width: 100%;
-  background-color: var(--color-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
 `;
 
 const ButtonRow = styled.div`
@@ -120,13 +122,13 @@ const ButtonRow = styled.div`
 `;
 
 const Heading = styled.div`
-  background-color: var(--color-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
   padding: 5px;
   margin-bottom: 3px;
 `;
 
 const PendingPinWrapper = styled.div`
-  outline: 3px solid var(--color-dark-grey);
+  outline: 3px solid ${(props) => props.theme.colors.darkGrey};
   border-radius: 3px;
   ul {
     all: unset;
@@ -138,22 +140,22 @@ const PendingPinWrapper = styled.div`
   span {
     font-family: inherit;
     font-weight: 600;
-    color: var(--color-pink);
+    color: ${(props) => props.theme.colors.pink};
   }
   button {
     font-weight: 600;
     border-radius: 2px;
     border: unset;
     text-align: center;
-    background-color: var(--color-pink);
+    background-color: ${(props) => props.theme.colors.pink};
     width: 130px;
     &:hover {
       cursor: pointer;
-      background-color: var(--color-medium-grey);
-      color: var(--color-pink);
+      background-color: ${(props) => props.theme.colors.mediumGrey};
+      color: ${(props) => props.theme.colors.pink};
     }
     &:active {
-      background-color: var(--color-teal);
+      background-color: ${(props) => props.theme.colors.teal};
       transform: scale(0.95);
     }
   }

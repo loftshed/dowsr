@@ -106,21 +106,21 @@ const PinVotingButtonWrapper = styled.button`
   width: 50%;
   ${centeredFlexRow}
   gap: 1px;
-  border: 1px solid var(--color-super-dark-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   cursor: pointer;
   // if value is like, set background color to teal
   ${(props) =>
     props.value === "like"
       ? css`
-          background-color: var(--color-teal);
+          background-color: ${(props) => props.theme.colors.teal};
           &:hover {
-            background-color: var(--color-pink);
+            background-color: ${(props) => props.theme.colors.pink};
           }
         `
       : css`
-          background-color: var(--color-pink);
+          background-color: ${(props) => props.theme.colors.pink};
           &:hover {
-            background-color: var(--color-teal);
+            background-color: ${(props) => props.theme.colors.teal};
           }
         `}
   ${(props) =>
@@ -128,15 +128,17 @@ const PinVotingButtonWrapper = styled.button`
     css`
       pointer-events: none;
       span {
-        color: var(--color-light-grey);
+        color: ${(props) => props.theme.colors.lightGrey};
       }
     `}        
   padding: 3px;
   border-radius: 4px;
   svg {
-    stroke: var(--color-extra-medium-grey);
+    stroke: ${(props) => props.theme.colors.extraMediumGrey};
     stroke-width: 1px;
-    filter: drop-shadow(1px 1px 0px var(--color-super-dark-grey));
+    filter: drop-shadow(
+      1px 1px 0px ${(props) => props.theme.colors.superDarkGrey}
+    );
   }
   svg,
   span {

@@ -31,5 +31,5 @@ const LinkToView = styled.a``;
 
 const StreetView = styled.img`
   border-radius: 5px;
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;

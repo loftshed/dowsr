@@ -71,7 +71,7 @@ const PinInfo = styled.div`
 const ImageContainer = styled.div`
   ${centeredFlexColumn}
   position: relative;
-  background-color: var(--color-medium-grey);
+  background-color: ${(props) => props.theme.colors.mediumGrey};
   border-radius: 5px;
   gap: 4px;
   width: 100%;
@@ -94,17 +94,17 @@ const PopupContainer = styled(Popup)`
   user-select: none;
   p,
   span {
-    color: var(--color-super-dark-grey);
+    color: ${(props) => props.theme.colors.superDarkGrey};
   }
 `;
 
 const Body = styled.div`
   ${fillSpace}
   ${centeredFlexColumn}
-  color: var(--color-light-grey);
-  background-color: var(--color-darkest-grey);
+  color: ${(props) => props.theme.colors.lightGrey};
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: 4px;
   font-size: 14px;
   line-height: 18px;
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;

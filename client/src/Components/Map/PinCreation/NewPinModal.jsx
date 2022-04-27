@@ -175,13 +175,13 @@ const Heading = styled.div`
   width: 100%;
   height: fit-content;
   border-radius: ${SIZES.borderRadius}px;
-  background-color: var(--color-pink);
-  outline: 1px solid var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.pink};
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   user-select: none;
   margin: 2px 0px;
   svg {
-    fill: var(--color-less-dark-grey);
-    background-color: var(--color-light-grey);
+    fill: ${(props) => props.theme.colors.lessDarkGrey};
+    background-color: ${(props) => props.theme.colors.lightGrey};
     border-radius: 50%;
     position: absolute;
     right: 2.5px;
@@ -190,11 +190,11 @@ const Heading = styled.div`
     width: 20px;
 
     &:hover {
-      fill: var(--color-teal);
+      fill: ${(props) => props.theme.colors.teal};
       cursor: pointer;
     }
     &:active {
-      fill: var(--color-super-dark-grey);
+      fill: ${(props) => props.theme.colors.superDarkGrey};
       cursor: pointer;
     }
   }
@@ -212,8 +212,8 @@ const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   ${fillSpace}
-  outline: 1px solid var(--color-super-dark-grey);
-  background-color: var(--color-darkest-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: ${SIZES.borderRadius}px;
   padding: 5px;
 `;
@@ -221,8 +221,8 @@ const InnerContainer = styled.div`
 const InnerContainerLiner = styled.div`
   ${centeredFlexColumn}
   ${fillSpace}
-  background-color: var(--color-dark-grey);
-  outline: 1px solid var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   border-radius: 4px;
   gap: 5px;
   padding: 10px 20px;
@@ -249,17 +249,17 @@ const InputHeading = styled(Subheading)`
 const ModalInput = styled(Input)`
   padding-left: 7.5px;
   letter-spacing: 1px;
-  background-color: var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 const ModalSelect = styled.select`
   ${inputStyling}
-  background-color: var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 const ModalSubmit = styled(Input)`
   all: unset;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   ${textButtonstyling}
   padding: 5px 20px;
 `;

@@ -165,18 +165,18 @@ const MapWrapper = styled.div`
 
 const Overlay = styled.div`
   position: absolute;
-  background-color: var(--color-pink);
+  background-color: ${(props) => props.theme.colors.pink};
   ${fillSpace}
   z-index: 1;
   opacity: 15%;
-  box-shadow: inset 0px 0px 1000px var(--color-teal);
+  box-shadow: inset 0px 0px 1000px ${(props) => props.theme.colors.teal};
   pointer-events: none;
 `;
 
 // from home.jsx
 const Wrapper = styled.div`
   ${fillSpace}
-  background-color: var(--color-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
   width: 100%;
   h1 {
     -webkit-text-stroke-width: 1px;

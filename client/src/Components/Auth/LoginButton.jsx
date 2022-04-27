@@ -17,6 +17,6 @@ const Button = styled(TextButton)`
   height: 100%;
   width: 100%;
   &:hover {
-    background-color: var(--color-teal);
+    background-color: ${(props) => props.theme.colors.teal};
   }
 `;

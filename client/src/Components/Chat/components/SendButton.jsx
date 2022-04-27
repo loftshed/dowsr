@@ -16,7 +16,7 @@ const SendButtonWrapper = styled.button`
   font-weight: 600;
   cursor: pointer;
   color: white;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   width: fit-content;
   border-radius: 5px;
   border: none;
@@ -30,18 +30,18 @@ const SendButtonWrapper = styled.button`
     height: 30px;
   }
   &:hover {
-    background-color: var(--color-teal);
+    background-color: ${(props) => props.theme.colors.teal};
     svg {
-      fill: var(--color-pink);
-      stroke: var(--color-super-dark-grey);
+      fill: ${(props) => props.theme.colors.pink};
+      stroke: ${(props) => props.theme.colors.superDarkGrey};
     }
   }
   &:active {
-    background-color: var(--color-pink);
+    background-color: ${(props) => props.theme.colors.pink};
     /* transform: scale(0.95); */
     svg {
       transition: all 0.5s ease;
-      fill: var(--color-teal);
+      fill: ${(props) => props.theme.colors.teal};
       transform: translateX(40px);
     }
   }

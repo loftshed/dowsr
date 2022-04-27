@@ -39,14 +39,14 @@ const Icon = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: var(--color-pink);
-  border: 2px solid var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.pink};
+  border: 2px solid ${(props) => props.theme.colors.superDarkGrey};
   ${centeredFlexColumn}
   margin: -10px 0px;
 `;
 
 const PinContainer = styled.div`
-  background-color: var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.superDarkGrey};
   border-radius: 10px;
   padding: 10px;
   height: fit-content;
@@ -55,7 +55,7 @@ const PinContainer = styled.div`
 const PendingItemWrapper = styled.div`
   width: 100%;
   height: fit-content;
-  background-color: var(--color-teal);
+  background-color: ${(props) => props.theme.colors.teal};
   border-radius: ${SIZES.borderRadius}px;
   font-size: 14px;
 `;

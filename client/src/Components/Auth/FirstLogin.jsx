@@ -172,7 +172,7 @@ export default FirstLogin;
 
 const Wrapper = styled.div`
   ${fillSpace}
-  background-color: var(--color-dark-blue);
+  background-color: ${(props) => props.theme.colors.darkBlue};
   width: 100%;
 `;
 

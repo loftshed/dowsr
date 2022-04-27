@@ -62,12 +62,12 @@ const ChatInputWrapper = styled.form`
   input {
     width: 100%;
     padding: 5px;
-    background-color: var(--color-less-dark-grey);
-    border: 1px solid var(--color-darkest-grey);
+    background-color: ${(props) => props.theme.colors.lessDarkGrey};
+    border: 1px solid ${(props) => props.theme.colors.darkestGrey};
     line-height: 30px;
     border-radius: 5px;
     &:focus {
-      outline: 1px solid var(--color-teal);
+      outline: 1px solid ${(props) => props.theme.colors.teal};
       //TODO: change transparency on this
       box-shadow: inset 0px 0px 50px rgba(68, 187, 164, 0.2);
     }
@@ -76,12 +76,12 @@ const ChatInputWrapper = styled.form`
 const MessageInput = styled.input`
   width: 100%;
   padding: 5px;
-  background-color: var(--color-less-dark-grey);
-  border: 1px solid var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.lessDarkGrey};
+  border: 1px solid ${(props) => props.theme.colors.darkestGrey};
   line-height: 30px;
   border-radius: 5px;
   &:focus {
-    outline: 1px solid var(--color-teal);
+    outline: 1px solid ${(props) => props.theme.colors.teal};
     //TODO: change transparency on this
     box-shadow: inset 0px 0px 50px rgba(68, 187, 164, 0.2);
   }

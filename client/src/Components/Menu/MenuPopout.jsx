@@ -73,9 +73,9 @@ const BurgerWrapper = styled.div`
   width: fit-content;
   bottom: ${(props) => (props.show ? "35px" : "-500px")};
   right: 1px;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: ${SIZES.borderRadius}px;
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   transition: 0.2s all ease;
   opacity: ${(props) => (props.show ? "100%" : "0%")};
   z-index: -1;
@@ -99,14 +99,14 @@ const InnerContainer = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   border-radius: 100px;
-  background-color: var(--color-darkest-blue);
-  outline: 1px solid var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkestBlue};
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   padding: 5px;
   gap: 10px;
   box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2);
   ${IconNavLink},
   button {
-    outline: 1px solid var(--color-pink);
+    outline: 1px solid ${(props) => props.theme.colors.pink};
   }
   overflow: hidden;
 `;

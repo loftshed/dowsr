@@ -7,7 +7,7 @@ const MapAlertModal = ({ message }) => {
   let style = null;
   if (message === "Creating a new pin") {
     style = {
-      outline: "2px solid var(--color-pink)",
+      outline: "2px solid ${(props) => props.theme.colors.pink}",
     };
   }
   return (
@@ -26,8 +26,8 @@ const ModalWrapper = styled.div`
   position: absolute;
   width: fit-content;
   height: fit-content;
-  background-color: var(--color-dark-grey);
-  outline: 1px solid var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   border-radius: ${SIZES.borderRadius}px;
   padding: 1px 10px;
   pointer-events: none;
@@ -38,5 +38,5 @@ const InnerContainer = styled.div`
   ${centeredFlexRow}
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-medium-grey);
+  color: ${(props) => props.theme.colors.mediumGrey};
 `;

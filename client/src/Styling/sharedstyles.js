@@ -6,11 +6,11 @@ const buttonAnim = css`
   transition: all ease 0.1s;
   cursor: pointer;
   &:hover {
-    background-color: var(--color-teal);
+    background-color: ${(props) => props.theme.colors.teal};
     transform: scale(1.05);
   }
   &:active {
-    background-color: var(--color-teal);
+    background-color: ${(props) => props.theme.colors.teal};
     transform: scale(0.95);
   }
 `;
@@ -37,30 +37,30 @@ const centeredFlexColumn = css`
 const iconstyling = css`
   padding: 8px;
   background-color: #1e2021;
-  border: 1px solid var(--color-super-dark-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   border-radius: 50%;
   transition: all ease 0.1s;
   cursor: pointer;
   &:hover {
-    background-color: var(--color-pink);
+    background-color: ${(props) => props.theme.colors.pink};
     transform: scale(1.05);
   }
   &:active {
-    background-color: var(--color-pink);
+    background-color: ${(props) => props.theme.colors.pink};
     transform: scale(0.95);
   }
 `;
 
 const inputStyling = css`
   border-radius: 4px;
-  background-color: var(--color-dark-grey);
-  box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
+  box-shadow: inset 0px 0px 10px ${(props) => props.theme.colors.darkestGrey};
   width: 100%;
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
   padding: 5px 6px;
-  border: 1px solid var(--color-extra-medium-grey);
+  border: 1px solid ${(props) => props.theme.colors.extraMediumGrey};
 `;
 
 const boxShadow = css`
@@ -82,8 +82,8 @@ const textButtonstyling = css`
   margin: 0;
   padding: 0;
   transition: all ease 0.1s;
-  background-color: var(--color-darkest-grey);
-  outline: 1px var(--color-less-dark-grey) solid;
+  background-color: ${(props) => props.theme.colors.darkestGrey};
+  outline: 1px ${(props) => props.theme.colors.lessDarkGrey} solid;
   ${buttonAnim}
   ${boxShadow}
 `;
@@ -114,8 +114,8 @@ const Input = styled.input`
 
 const Select = styled.select`
   border-radius: 4px;
-  background-color: var(--color-dark-grey);
-  box-shadow: inset 0px 0px 10px var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
+  box-shadow: inset 0px 0px 10px ${(props) => props.theme.colors.darkestGrey};
   padding: 5px 6px;
   width: 100%;
 `;
@@ -126,14 +126,14 @@ const Option = styled.option`
 
 const N = 1;
 const fakeStroke = css`
-  text-shadow: ${N}px ${N}px var(--color-super-dark-grey),
-    -${N}px -${N}px var(--color-super-dark-grey),
-    ${N}px -${N}px var(--color-super-dark-grey),
-    -${N}px ${N}px var(--color-super-dark-grey),
-    -${N}px 0px var(--color-super-dark-grey),
-    ${N}px 0px var(--color-super-dark-grey),
-    0px -${N}px var(--color-super-dark-grey),
-    0px ${N}px var(--color-super-dark-grey);
+  text-shadow: ${N}px ${N}px ${(props) => props.theme.colors.superDarkGrey},
+    -${N}px -${N}px ${(props) => props.theme.colors.superDarkGrey},
+    ${N}px -${N}px ${(props) => props.theme.colors.superDarkGrey},
+    -${N}px ${N}px ${(props) => props.theme.colors.superDarkGrey},
+    -${N}px 0px ${(props) => props.theme.colors.superDarkGrey},
+    ${N}px 0px ${(props) => props.theme.colors.superDarkGrey},
+    0px -${N}px ${(props) => props.theme.colors.superDarkGrey},
+    0px ${N}px ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 const pageWidth = document.documentElement.clientWidth;

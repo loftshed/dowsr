@@ -98,10 +98,10 @@ const BurgerButton = styled.button`
   width: fit-content;
   border: none;
   background: none;
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   cursor: pointer;
   &:hover {
-    background-color: var(--color-pink);
+    background-color: ${(props) => props.theme.colors.pink};
   }
   ${boxShadow}
 `;
@@ -112,15 +112,15 @@ const BurgerZone = styled.div`
   svg {
     width: 35px;
     height: 35px;
-    background-color: var(--color-dark-grey);
-    fill: var(--color-medium-grey);
+    background-color: ${(props) => props.theme.colors.darkGrey};
+    fill: ${(props) => props.theme.colors.mediumGrey};
     border-radius: 3px;
 
-    outline: 1px solid var(--color-less-dark-grey);
+    outline: 1px solid ${(props) => props.theme.colors.lessDarkGrey};
     &:active {
-      background-color: var(--color-teal);
+      background-color: ${(props) => props.theme.colors.teal};
       transform: scale(0.95);
-      outline: 2px solid var(--color-less-dark-grey);
+      outline: 2px solid ${(props) => props.theme.colors.lessDarkGrey};
     }
   }
 
@@ -128,7 +128,7 @@ const BurgerZone = styled.div`
 `;
 
 const Wrapper = styled.div`
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: 10px;
   ${centeredFlexRow}
   width: 100%;
@@ -140,7 +140,7 @@ const Content = styled.div`
   ${fillSpace}
   width: 525px;
   height: ${SIZES.menuHeightCompact}px;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
     6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
@@ -148,8 +148,8 @@ const Content = styled.div`
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
     100px 100px 80px rgba(0, 0, 0, 0.07),
-    inset 0px 0px 2px var(--color-super-dark-grey);
-  outline: 1px solid var(--color-super-dark-grey);
+    inset 0px 0px 2px ${(props) => props.theme.colors.superDarkGrey};
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   justify-content: flex-end;
 `;
 

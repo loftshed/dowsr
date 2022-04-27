@@ -23,5 +23,5 @@ export default LogoutButton;
 const Button = styled.button`
   ${iconstyling}
   outline: unset;
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;

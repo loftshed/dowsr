@@ -66,8 +66,8 @@ const App = () => {
 
   return (
     <BrowserRouter id="root">
-      <GlobalStyle />
       <Theme>
+        <GlobalStyle />
         <Header />
         <Main>
           <Content>

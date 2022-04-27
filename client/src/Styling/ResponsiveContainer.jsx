@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: var(--color-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
 `;
 
 const Content = styled.div`
@@ -47,7 +47,7 @@ const Content = styled.div`
 const OuterContainer = styled.div`
   ${centeredFlexColumn}
   border-radius: ${SIZES.borderRadius}px;
-  background-color: var(--color-less-dark-grey);
+  background-color: ${(props) => props.theme.colors.lessDarkGrey};
   width: 100%;
   height: 100%;
   @media (min-width: ${SIZES.widthMin}px) {
@@ -64,7 +64,7 @@ const OuterContainer = styled.div`
     14.5px 12.7px 32.4px rgba(0, 0, 0, 0.042),
     27.2px 23.8px 60.6px rgba(0, 0, 0, 0.05),
     65px 57px 145px rgba(0, 0, 0, 0.07);
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   overflow: hidden;
 `;
 
@@ -82,9 +82,9 @@ const Heading = styled.div`
   width: 100%;
   height: fit-content;
   padding: 3px 0px;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-top-left-radius: ${SIZES.borderRadius}px;
   border-top-right-radius: ${SIZES.borderRadius}px;
   border-bottom: 1.5px solid var (--color-super-dark-grey);
-  box-shadow: inset 0px 0px 3px var(--color-super-dark-grey);
+  box-shadow: inset 0px 0px 3px ${(props) => props.theme.colors.superDarkGrey};
 `;

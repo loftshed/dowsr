@@ -35,10 +35,10 @@ const IconContainer = styled.div`
   ${centeredFlexColumn}
   position: relative;
   border-radius: 50%;
-  filter: drop-shadow(0px 0px 1px var(--color-teal));
+  filter: drop-shadow(0px 0px 1px ${(props) => props.theme.colors.teal});
   padding: 17.5px;
   z-index: 2;
-  background-color: var(--color-medium-grey);
+  background-color: ${(props) => props.theme.colors.mediumGrey};
   margin-bottom: -10px;
 `;
 
@@ -47,10 +47,10 @@ const Point = styled.div`
   height: 0;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  border-top: 20px solid var(--color-light-grey);
+  border-top: 20px solid ${(props) => props.theme.colors.lightGrey};
   transform: scaleX(0.3);
   z-index: 1;
-  filter: drop-shadow(0px 0px 1px var(--color-teal));
+  filter: drop-shadow(0px 0px 1px ${(props) => props.theme.colors.teal});
 `;
 
 const UniversalPinWrapper = styled.div`
@@ -63,5 +63,5 @@ const UniversalPinWrapper = styled.div`
   * {
     pointer-events: none;
   }
-  filter: drop-shadow(0px 0px 1px var(--color-teal));
+  filter: drop-shadow(0px 0px 1px ${(props) => props.theme.colors.teal});
 `;

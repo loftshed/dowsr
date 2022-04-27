@@ -28,7 +28,7 @@ const Icon = styled.div`
   width: fit-content;
   height: fit-content;
   padding: 8px;
-  background-color: var(--color-less-dark-grey);
+  background-color: ${(props) => props.theme.colors.lessDarkGrey};
   border-radius: 50%;
   border: 2px solid ${(props) => props.color};
   svg {

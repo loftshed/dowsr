@@ -83,7 +83,7 @@ export default NewPinPopup;
 
 const StreetView = styled.img`
   border-radius: 10px;
-  border: 2px solid var(--color-pink);
+  border: 2px solid ${(props) => props.theme.colors.pink};
 `;
 
 const LoadingFiller = styled.div`
@@ -97,7 +97,7 @@ const LoadingFiller = styled.div`
 const PopupContainer = styled.div`
   ${centeredFlexColumn}
   p, span {
-    color: var(--color-super-dark-grey);
+    color: ${(props) => props.theme.colors.superDarkGrey};
   }
   padding: none;
 `;
@@ -105,20 +105,20 @@ const PopupContainer = styled.div`
 const Body = styled.div`
   ${fillSpace}
   ${centeredFlexColumn}
-  color: var(--color-light-grey);
+  color: ${(props) => props.theme.colors.lightGrey};
   gap: 5px;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
   line-height: 18px;
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 const CreateButton = styled(TextButton)`
   font-size: 12px;
   padding: 0px 8px;
   line-height: 15px;
-  background-color: var(--color-extra-medium-grey);
+  background-color: ${(props) => props.theme.colors.extraMediumGrey};
   margin: 0px 0px 5px 0px;
 `;

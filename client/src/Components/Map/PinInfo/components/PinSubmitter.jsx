@@ -36,16 +36,16 @@ const PinSubmitterWrapper = styled.button`
   border-radius: 4px;
   border: none;
   line-height: 10px;
-  background-color: var(--color-less-dark-grey);
+  background-color: ${(props) => props.theme.colors.lessDarkGrey};
   width: 100%;
   gap: 5px;
   transition: all ease 0.1s;
-  border: 1px solid var(--color-super-dark-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   cursor: pointer;
 
   span {
     pointer-events: none;
     font-size: 14px;
-    color: var(--color-teal);
+    color: ${(props) => props.theme.colors.teal};
   }
 `;

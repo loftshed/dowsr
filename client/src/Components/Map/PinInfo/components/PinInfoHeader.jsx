@@ -28,7 +28,7 @@ const PinInfoHeaderWrapper = styled.div`
   ${centeredFlexRow}
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-light-grey);
+  color: ${(props) => props.theme.colors.lightGrey};
   padding: 3px;
   text-align: center;
   ${fakeStroke}
@@ -38,7 +38,7 @@ const PinInfoHeaderWrapper = styled.div`
     align-items: center;
     gap: 4px;
     &:hover {
-      color: var(--color-teal);
+      color: ${(props) => props.theme.colors.teal};
     }
   }
 `;

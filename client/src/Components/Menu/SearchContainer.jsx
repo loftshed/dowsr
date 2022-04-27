@@ -86,7 +86,7 @@ const ResultsContainer = styled.div`
   padding: 5px 10px;
   border-radius: 5px;
   background-color: unset;
-  background-color: var(--color-medium-grey);
+  background-color: ${(props) => props.theme.colors.mediumGrey};
   bottom: 60px;
   ul {
     all: unset;
@@ -101,7 +101,7 @@ const ResultsContainer = styled.div`
       text-overflow: ellipsis;
       &:hover {
         cursor: pointer;
-        background-color: var(--color-teal);
+        background-color: ${(props) => props.theme.colors.teal};
       }
     }
   }
@@ -123,7 +123,7 @@ const SearchBar = styled.div`
   background-color: grey;
   padding: 5px;
   border-radius: 50px;
-  border: 1px solid var(--color-super-dark-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 const Input = styled.input`
@@ -131,7 +131,7 @@ const Input = styled.input`
   border-radius: 50px;
   text-align: center;
   height: 40px;
-  border: 1px solid var(--color-super-dark-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   &:focus {
     outline: none;
     box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2);

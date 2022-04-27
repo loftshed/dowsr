@@ -127,25 +127,25 @@ const TileWrapper = styled.div`
   transition: 0.08s all linear;
   width: 100%;
   height: fit-content;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: ${(props) => (props.small ? "50px" : "5px")};
   border: ${(props) =>
     props.small
-      ? "1.5px solid var(--color-less-dark-grey)"
-      : "1px solid var(--color-super-dark-grey)"};
+      ? "1.5px solid ${(props) => props.theme.colors.lessDarkGrey}"
+      : "1px solid ${(props) => props.theme.colors.superDarkGrey}"};
   box-shadow: ${(props) =>
     props.showOutline
-      ? "inset 0px 0px 2px var(--color-super-dark-grey), 0px 2px 1px var(--color-pink)"
-      : "inset 0px 0px 2px var(--color-super-dark-grey)"};
+      ? "inset 0px 0px 2px ${(props) => props.theme.colors.superDarkGrey}, 0px 2px 1px ${(props) => props.theme.colors.pink}"
+      : "inset 0px 0px 2px ${(props) => props.theme.colors.superDarkGrey}"};
   &:hover {
-    outline: solid 2px var(--color-teal);
+    outline: solid 2px ${(props) => props.theme.colors.teal};
   }
   &:active {
-    outline: solid 2px var(--color-pink);
+    outline: solid 2px ${(props) => props.theme.colors.pink};
   }
   cursor: pointer;
   outline: ${(props) =>
-    props.showOutline ? "2px solid var(--color-teal)" : ""};
+    props.showOutline ? "2px solid ${(props) => props.theme.colors.teal}" : ""};
   animation: ${fadeIn} 0.3s forwards ease;
 `;
 
@@ -157,7 +157,7 @@ const Heading = styled.div`
   gap: 4px;
   width: 100%;
   padding: 3px 5px;
-  background-color: var(--color-almost-darkest-blue);
+  background-color: ${(props) => props.theme.colors.almostDarkestBlue};
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 `;

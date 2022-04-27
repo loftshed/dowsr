@@ -6,25 +6,6 @@ const GlobalStyle = createGlobalStyle`
     | Some values to be made available globally. |
     --------------------------------------------*/
     :root {
-      --color-pink: #ef476f;
-      --color-yellow: #ffd166;
-      --color-green: #06d6a0;
-      --color-med-blue: #118ab2;
-      --color-dark-blue: #073b4c;
-      --color-darkest-blue: #05161c;
-      --color-almost-darkest-blue: #05181e;
-      --color-button-bg: #1e2021;
-
-      --color-dark-grey: #393e41;
-      --color-less-dark-grey: #444948;
-      --color-darkest-grey: #353535;
-      --color-extra-medium-grey: #8d8d92;
-      --color-super-dark-grey: #1e1e1e;
-      --color-medium-grey: #d3d0cb;
-      --color-light-grey: #e7e5df;
-      --color-teal: #44bba4;
-      --color-gold: #e7bb41;
-
       --color-water: #48cae4;
       --color-toilet: #b2967d;
       --color-hazard: #e76f51;
@@ -37,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
     * {
       font-weight: 500;
-      color: var(--color-light-grey);
+      color: ${(props) => props.theme.colors.lightGrey};
       /* font-family: 'Lato', sans-serif; */
       font-family: "Karla";
     }
@@ -53,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     h1, h2, h3 {
       font-weight: 800;
       font-family: 'M PLUS Rounded 1c', sans-serif;
-      text-shadow: 2px 1px 1px var(--color-pink);
+      text-shadow: 2px 1px 1px ${(props) => props.theme.colors.pink};
     }
     h1 {
       font-size: 60px;
@@ -110,12 +91,12 @@ const GlobalStyle = createGlobalStyle`
     }
         
     .mapboxgl-popup-content {
-      background-color: var(--color-less-dark-grey);
+      background-color: ${(props) => props.theme.colors.lessDarkGrey};
       padding: 5px;
-      outline: 1px solid var(--color-super-dark-grey);
+      outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
     }
     .mapboxgl-popup-anchor-bottom > .mapboxgl-popup-tip {
-      border-top-color: var(--color-less-dark-grey);
+      border-top-color: ${(props) => props.theme.colors.lessDarkGrey};
     }
 
     /*--------------------------------------------------|

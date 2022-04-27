@@ -30,7 +30,7 @@ const sharedFollowStyling = css`
   border-radius: 5px;
   line-height: 20px;
   padding: 2px 8px;
-  border: 1px solid var(--color-super-dark-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   font-size: 20px;
   @media (max-width: 450px) {
     font-size: 16px;
@@ -45,10 +45,10 @@ const CountContainer = styled.div`
 `;
 
 const Number = styled.div`
-  background-color: var(--color-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
   padding: 0px 7px;
   border-radius: 4px;
-  border: solid 1px var(--color-super-dark-grey);
+  border: solid 1px ${(props) => props.theme.colors.superDarkGrey};
   @media (max-width: 450px) {
     line-height: 13px;
     padding: 0px 3px;

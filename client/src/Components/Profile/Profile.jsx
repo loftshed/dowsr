@@ -174,7 +174,7 @@ const Details = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.superDarkGrey};
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
   height: 100%;

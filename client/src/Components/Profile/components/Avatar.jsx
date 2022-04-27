@@ -13,7 +13,7 @@ const AvatarWrapper = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 4px solid var(--color-darkest-grey);
+  border: 4px solid ${(props) => props.theme.colors.darkestGrey};
   @media (min-width: 450px) {
     width: 150px;
     height: 150px;
@@ -26,6 +26,6 @@ const AvatarWrapper = styled.img`
     14.5px 12.7px 32.4px rgba(0, 0, 0, 0.042),
     27.2px 23.8px 60.6px rgba(0, 0, 0, 0.05),
     65px 57px 145px rgba(0, 0, 0, 0.07);
-  outline: 1px solid var(--color-super-dark-grey);
-  background-color: var(--color-pink);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  background-color: ${(props) => props.theme.colors.pink};
 `;

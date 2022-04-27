@@ -24,7 +24,7 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
       <ActionBarWrapper>
         <FollowCountIndicator
           type={"followers"}
-          color={"var(--color-teal)"}
+          color={"${(props) => props.theme.colors.teal}"}
           count={followerCount}
         />
 
@@ -45,7 +45,7 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
       <ActionBarWrapper>
         <FollowCountIndicator
           type={"following"}
-          color={"var(--color-pink)"}
+          color={"${(props) => props.theme.colors.pink}"}
           count={followingCount}
         />
       </ActionBarWrapper>

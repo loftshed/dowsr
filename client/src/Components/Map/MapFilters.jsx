@@ -135,9 +135,9 @@ const menuWrapperstyling = css`
   flex-direction: column;
   width: fit-content;
   height: fit-content;
-  background-color: var(--color-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
   border-radius: ${SIZES.borderRadius}px;
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   padding: 5px;
   pointer-events: auto;
 `;
@@ -167,8 +167,8 @@ const FilterMenuWrapper = styled.div`
 const InnerContainer = styled.div`
   ${fillSpace}
   border-radius: ${SIZES.borderRadius}px;
-  background-color: var(--color-darkest-grey);
-  outline: 1px solid var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   padding: 5px;
 `;
 
@@ -185,7 +185,7 @@ const ToggleWrapper = styled.div`
   position: relative;
   z-index: 10;
   ${menuWrapperstyling}
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 const FilterToggle = styled(InnerContainer)`

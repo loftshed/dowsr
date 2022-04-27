@@ -93,14 +93,14 @@ const LayoutContainer = styled.div`
   padding: 3px;
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   overflow: hidden;
 `;
 
 const ChatArea = styled.div`
   ${fillSpace}
   flex-direction: column;
-  background-color: var(--color-super-dark-grey);
+  background-color: ${(props) => props.theme.colors.superDarkGrey};
   border-top-right-radius: 5px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
   padding: 3px;

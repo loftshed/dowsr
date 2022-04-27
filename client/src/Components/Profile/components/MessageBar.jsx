@@ -20,6 +20,6 @@ const MessageBarWrapper = styled.div`
   height: 40px;
   border-bottom-left-radius: ${SIZES.borderRadius}px;
   border-bottom-right-radius: ${SIZES.borderRadius}px;
-  background-color: var(--color-less-dark-grey);
+  background-color: ${(props) => props.theme.colors.lessDarkGrey};
   padding: 0 ${SIZES.universalPadding}px;
 `;

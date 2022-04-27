@@ -39,17 +39,17 @@ const ChatMessagesWrapper = styled.ul`
   padding: 6px 2px;
   width: 100%;
   height: 100%;
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   overflow-y: scroll;
   ::-webkit-scrollbar {
     width: 6px;
   }
   ::-webkit-scrollbar-track {
     background: #282828;
-    box-shadow: 0px 0px 1px inset var(--color-super-dark-grey);
+    box-shadow: 0px 0px 1px inset ${(props) => props.theme.colors.superDarkGrey};
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: var(--color-pink);
+    background: ${(props) => props.theme.colors.pink};
   }
 `;

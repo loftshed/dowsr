@@ -43,7 +43,7 @@ const ProfileLink = styled.div`
   user-select: none;
   &:hover {
     text-decoration: underline;
-    text-decoration-color: var(--color-pink);
+    text-decoration-color: ${(props) => props.theme.colors.pink};
   }
 `;
 
@@ -76,7 +76,7 @@ const Heading = styled.div`
 
 ///
 /* background-color: ${(props) =>
-    props.recd ? "var(--color-dark-blue)" : "var(--color-med-blue)"}; */
+    props.recd ? "${(props) => props.theme.colors.darkBlue}" : "${(props) => props.theme.colors.medBlue}"}; */
 const Body = styled.div`
   display: flex;
   word-wrap: break-word;
@@ -89,12 +89,12 @@ const Body = styled.div`
   padding: 3px 7px;
   border-radius: 3px;
   background-color: ${(props) => (props.recd ? "#46494c" : "#343a40")};
-  outline: 1px solid var(--color-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.darkGrey};
 `;
 
 ////
 //  /* background-color: ${(props) =>
-//  props.recd ? "var(--color-med-blue)" : "var(--color-dark-grey)"};
+//  props.recd ? "${(props) => props.theme.colors.medBlue}" : "${(props) => props.theme.colors.darkGrey}"};
 const MessageContainer = styled.div`
   display: flex;
   position: relative;
@@ -104,7 +104,7 @@ const MessageContainer = styled.div`
   padding: 3px;
 
   background-color: ${(props) =>
-    props.recd ? "var(--color-teal)" : "#cfdbd5"};
+    props.recd ? "${(props) => props.theme.colors.teal}" : "#cfdbd5"};
   border-radius: 3px;
   align-self: ${(props) => (props.recd ? "flex-start" : "flex-end")};
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
@@ -113,12 +113,12 @@ const MessageContainer = styled.div`
     22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
     41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
     100px 100px 80px rgba(0, 0, 0, 0.07);
-  /* outline: 1px solid var(--color-super-dark-grey); */
+  /* outline: 1px solid ${(props) => props.theme.colors.superDarkGrey}; */
 `;
 
 const Timestamp = styled.div`
   display: flex;
   font-size: 10px;
   align-self: flex-end;
-  color: var(--color-extra-medium-grey);
+  color: ${(props) => props.theme.colors.extraMediumGrey};
 `;

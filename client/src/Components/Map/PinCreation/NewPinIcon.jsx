@@ -17,6 +17,6 @@ const Wrapper = styled.div`
   svg {
     width: 30px;
     height: 30px;
-    fill: var(--color-pink);
+    fill: ${(props) => props.theme.colors.pink};
   }
 `;

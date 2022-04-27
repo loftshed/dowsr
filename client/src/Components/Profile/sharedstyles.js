@@ -15,9 +15,9 @@ const sharedDetailStyle = css`
   height: ${BAR_HEIGHT.small}px;
   gap: 3px;
   padding: 0 ${SIZES.universalPadding}px;
-  border-top: 1px solid var(--color-super-dark-grey);
-  border-bottom: 1px solid var(--color-super-dark-grey);
-  background-color: var(--color-less-dark-grey);
+  border-top: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  border-bottom: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  background-color: ${(props) => props.theme.colors.lessDarkGrey};
   @media (min-width: 450px) {
     padding: 5px 40px;
     height: ${BAR_HEIGHT.large}px;
@@ -41,7 +41,7 @@ const ProfileButton = styled.button`
   @media (max-width: 450px) {
     font-size: 16px;
   }
-  border: 1px solid var(--color-super-dark-grey);
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 export { sharedDetailStyle, ProfileButton, BAR_HEIGHT };
