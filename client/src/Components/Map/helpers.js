@@ -51,7 +51,7 @@ const submitPin = async (ev, locationObj, loggedInUser, hours) => {
 
     // clunky implementation for now so I can get back to fixing the frontend and applying for jobs 😬
 
-    if (ev.target.water.checked && ev.target.toilet.checked) {
+    if (ev.target.water?.checked && ev.target.toilet?.checked) {
       const toiletSubmissionObj = { ...submissionObj, type: "toilet" };
       const responseToilet = await fetch(
         "http://localhost:9001/api/submit-pin",
@@ -77,12 +77,14 @@ const submitPin = async (ev, locationObj, loggedInUser, hours) => {
       return await response.json();
     } else {
       let type;
-      if (ev.target.water.checked) {
+      if (ev.target.water?.checked) {
         type = "water";
-      } else if (ev.target.toilet.checked) {
+      } else if (ev.target.toilet?.checked) {
         type = "toilet";
-      } else {
-        type = ev.target.pinType.value;
+      } else if (ev.target.police?.checked) {
+        type = "police";
+      } else if (ev.target.hazard?.checked) {
+        type = "hazard";
       }
 
       const amendedSubmissionObj = {

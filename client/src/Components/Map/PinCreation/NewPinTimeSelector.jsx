@@ -9,8 +9,6 @@ import dayjs from "dayjs";
 import { StyledEngineProvider } from "@mui/styled-engine";
 
 const TimeSelector = ({ labelValue, value, setValue, warning }) => {
-  // const [value, setValue] = useState(dayjs().format());
-
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <StyledTimePicker

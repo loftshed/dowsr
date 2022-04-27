@@ -25,12 +25,13 @@ const NewWarningPinForm = ({ handleSubmitPin }) => {
         autoComplete="off"
         onSubmit={(ev) => {
           ev.preventDefault();
-          if (ev.target.water.checked || ev.target.toilet.checked) {
+          if (ev.target.desc !== "") {
             handleSubmitPin(
               ev,
               clickedLocation,
               loggedInUser,
-              dayjs(timeSeen).format("HH:mm")
+              timeSeen,
+              ev.target.desc.value
             );
           } else {
             console.log("Please select a pin type");
@@ -45,7 +46,6 @@ const NewWarningPinForm = ({ handleSubmitPin }) => {
                 <CheckItem>
                   <Checkbox
                     type="radio"
-                    name="type"
                     value="hazard"
                     key="hazard"
                     id="hazard"
@@ -58,7 +58,6 @@ const NewWarningPinForm = ({ handleSubmitPin }) => {
                 <CheckItem>
                   <Checkbox
                     type="radio"
-                    name="type"
                     value="police"
                     key="police"
                     id="police"
