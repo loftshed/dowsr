@@ -10,6 +10,7 @@ import {
 import { submitPin } from "../helpers";
 import NewResourcePinForm from "./NewResourcePinForm";
 import ChoosePinFormType from "./ChoosePinFormType";
+import NewWarningPinForm from "./NewWarningPinForm";
 
 // Called from the Menu component
 // DON'T FORGET TO VALIDATE THE FRIGGIN DATA BRUH
@@ -67,8 +68,8 @@ const NewPinModal = ({ show, type }) => {
             {clickedLocation?.lng.toFixed(4)}
           </Subheading>
 
-          {/* <ChoosePinFormType /> */}
-          <NewResourcePinForm handleSubmitPin={handleSubmitPin} />
+          <NewWarningPinForm handleSubmitPin={handleSubmitPin} />
+          {/* <NewResourcePinForm handleSubmitPin={handleSubmitPin} /> */}
         </InnerContainer>
       </NewPinModalWrapper>
     );

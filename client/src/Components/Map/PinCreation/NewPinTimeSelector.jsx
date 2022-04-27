@@ -8,7 +8,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import { StyledEngineProvider } from "@mui/styled-engine";
 
-const TimeSelector = ({ labelValue, value, setValue }) => {
+const TimeSelector = ({ labelValue, value, setValue, warning }) => {
   // const [value, setValue] = useState(dayjs().format());
 
   return (
@@ -22,6 +22,7 @@ const TimeSelector = ({ labelValue, value, setValue }) => {
         }}
         renderInput={(params) => <StyledTextField {...params} />}
         ampm={false}
+        warning={warning}
       />
     </LocalizationProvider>
   );

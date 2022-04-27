@@ -177,7 +177,6 @@ const Checkboxes = styled.div`
   display: flex;
   width: 100%;
   font-size: 25px;
-  padding: 0px 15px;
   gap: 10px;
 `;
 
