@@ -127,8 +127,9 @@ const PinVotingButtonWrapper = styled.button`
     props.isOwnPin &&
     css`
       pointer-events: none;
-      background-color: var(--color-darkest-blue);
-      border: 1px dotted var(--color-dark-grey);
+      span {
+        color: var(--color-light-grey);
+      }
     `}        
   padding: 3px;
   border-radius: 4px;

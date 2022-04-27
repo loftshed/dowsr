@@ -125,7 +125,7 @@ const InnerContainerLiner = styled.div`
   height: 100%;
   width: 100%;
   flex-direction: column;
-  outline: 1px solid var(--color-super-dark-grey);
+  outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   border-radius: ${SIZES.borderRadius}px;
 `;
 
@@ -148,11 +148,11 @@ const UserDetails = styled.div`
   width: 100%;
   height: 100%;
   border-radius: ${SIZES.borderRadius}px;
-  border-top: 1px solid var(--color-super-dark-grey);
+  border-top: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 const DetailsHeading = styled.div`
-  background-color: var(--color-darkest-grey);
+  background-color: ${(props) => props.theme.colors.darkestGrey};
   padding: 0 ${SIZES.universalPadding}px;
   width: 100%;
   @media (min-width: 450px) {

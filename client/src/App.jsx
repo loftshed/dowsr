@@ -17,6 +17,7 @@ import { Menu } from "./components/Menu";
 import Chat from "./components/Chat";
 import Notifications from "./components/Notifications";
 import Profile from "./components/Profile";
+import Theme from "./AppTheme";
 
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -66,25 +67,27 @@ const App = () => {
   return (
     <BrowserRouter id="root">
       <GlobalStyle />
-      <Header />
-      <Main>
-        <Content>
-          <Routes>
-            <Route path="/" element={<Map />} />
-            <Route path="/new" element={<Map />} />
-            {/* would be better to not send this to /new since it just initiates pin creation process via state anyways */}
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/:username" element={<Profile />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/messages" element={<Chat />} />
-            <Route path="/search" element={<Map search={true} />} />
-            <Route path="/error" element={<Error />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/firstlogin" element={<FirstLogin />} />
-          </Routes>
-        </Content>
-        <Menu />
-      </Main>
+      <Theme>
+        <Header />
+        <Main>
+          <Content>
+            <Routes>
+              <Route path="/" element={<Map />} />
+              <Route path="/new" element={<Map />} />
+              {/* would be better to not send this to /new since it just initiates pin creation process via state anyways */}
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:username" element={<Profile />} />
+              <Route path="/notifications" element={<Notifications />} />
+              <Route path="/messages" element={<Chat />} />
+              <Route path="/search" element={<Map search={true} />} />
+              <Route path="/error" element={<Error />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/firstlogin" element={<FirstLogin />} />
+            </Routes>
+          </Content>
+          <Menu />
+        </Main>
+      </Theme>
     </BrowserRouter>
   );
 };
@@ -93,7 +96,7 @@ export default App;
 
 const Main = styled.div`
   ${centeredFlexColumn}
-  background-color: var(--color-dark-grey);
+  background-color: ${(props) => props.theme.colors.darkGrey};
   height: calc(100% - ${SIZES.lrgHeader}px);
   @media (max-width: ${SIZES.widthMin}px) {
     height: calc(100% - ${SIZES.smlHeader}px);
@@ -103,8 +106,8 @@ const Main = styled.div`
 
 const Content = styled.div`
   position: relative;
-  border-left: 2px solid var(--color-green);
-  border-right: 2px solid var(--color-green);
+  border-left: 2px solid ${(props) => props.theme.colors.green};
+  border-right: 2px solid ${(props) => props.theme.colors.green};
   height: 100%;
   width: 100%;
   @media (min-width: ${SIZES.widthMax}px) {
