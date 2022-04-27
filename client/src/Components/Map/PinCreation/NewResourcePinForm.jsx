@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components/macro";
+import { ToiletIcon, WaterIcon } from "../../../styling/react-icons";
 import {
   centeredFlexColumn,
   textButtonstyling,
@@ -21,7 +22,7 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
         autoComplete="off"
         onSubmit={(ev) => {
           ev.preventDefault();
-          if (ev.target.pinType.value !== "default") {
+          if (ev.target.water.checked || ev.target.toilet.checked) {
             handleSubmitPin(ev, clickedLocation, loggedInUser);
           } else {
             console.log("Please select a pin type");
@@ -30,18 +31,31 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
       >
         <InputRow>
           <InputColumn>
-            <InputHeading>Type</InputHeading>
-            <ModalSelect key="pinType" id="pinType">
-              <Option value="default">Select one:</Option>
-              <Option value="toilet">Toilets</Option>
-              <Option value="water">Water</Option>
-              <Option value="police">Police</Option>
-              <Option value="hazard">Hazard</Option>
-            </ModalSelect>
+            <InputHeading>What's here?</InputHeading>
+            <Checkboxes>
+              <CheckItem>
+                <Checkbox
+                  type="checkbox"
+                  value="water"
+                  key="water"
+                  id="water"
+                />
+                <span>💧</span>
+              </CheckItem>
+              <CheckItem>
+                <Checkbox
+                  type="checkbox"
+                  value="toilet"
+                  key="toilet"
+                  id="toilet"
+                />
+                <span>🚽</span>
+              </CheckItem>
+            </Checkboxes>
           </InputColumn>
           <InputColumn>
             <InputHeading>Hours</InputHeading>
-            <ModalInput id="hours" key="hours" type="text" />
+            <ModalInput id="hours" key="hours" type="text" autoComplete="off" />
           </InputColumn>
         </InputRow>
         <InputColumn>
@@ -61,7 +75,7 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
           />
         </InputColumn>
         <InputColumn>
-          <InputHeading>Brief Description</InputHeading>
+          <InputHeading>Name or Brief Description</InputHeading>
           <ModalInput id="desc" key="desc" type="text" />
         </InputColumn>
         <ModalSubmit />
@@ -136,3 +150,54 @@ const ModalForm = styled.form`
 `;
 
 const Option = styled.option``;
+
+const Checkboxes = styled.div`
+  display: flex;
+  width: 100%;
+  font-size: 25px;
+  padding: 0px 15px;
+  gap: 10px;
+`;
+
+const Checkbox = styled.input`
+  position: relative;
+  all: unset;
+  transition: all 0.1s ease;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  background-color: ${(props) => props.theme.colors.darkestGrey};
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  border-radius: 5px;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.teal};
+  }
+  cursor: pointer;
+  &:checked {
+    background-color: ${(props) => props.theme.colors.teal};
+    ::after {
+      position: absolute;
+      content: "✔";
+      transform: translate(-50%);
+      font-size: 15px;
+      font-weight: 500;
+      color: ${(props) => props.theme.colors.lightGrey};
+      text-shadow: 1px 1px 1px ${(props) => props.theme.colors.pink};
+      transition: all 0.1s ease;
+    }
+  }
+`;
+
+const CheckItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.darkestGrey};
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  border-radius: 5px;
+  padding: 0px 0px 0px 5px;
+  span {
+    font-size: 20px;
+  }
+`;

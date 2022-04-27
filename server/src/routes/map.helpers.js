@@ -166,7 +166,7 @@ const getSubmissionsByUsername = async ({ query: { username } }, res) => {
   }
 };
 
-// In query, expects a pinId, and approved
+// In query, expects a pinId, and 'approved'
 // To accept, approved=true. To reject, leave "approved" out completely.
 // After a pin has been approved, pendingReview will be set to false, making the pin visible to the public.
 // If a pin is rejected, it will be removed from the database.

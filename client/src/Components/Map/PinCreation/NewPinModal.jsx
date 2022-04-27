@@ -8,8 +8,8 @@ import {
   fillSpace,
 } from "../../../styling/sharedstyles";
 import { submitPin } from "../helpers";
-import { AppContext } from "../../AppContext";
 import NewResourcePinForm from "./NewResourcePinForm";
+import ChoosePinFormType from "./ChoosePinFormType";
 
 // Called from the Menu component
 // DON'T FORGET TO VALIDATE THE FRIGGIN DATA BRUH
@@ -66,6 +66,8 @@ const NewPinModal = ({ show, type }) => {
             Latitude {clickedLocation?.lat.toFixed(4)}, Longitude{" "}
             {clickedLocation?.lng.toFixed(4)}
           </Subheading>
+
+          {/* <ChoosePinFormType /> */}
           <NewResourcePinForm handleSubmitPin={handleSubmitPin} />
         </InnerContainer>
       </NewPinModalWrapper>

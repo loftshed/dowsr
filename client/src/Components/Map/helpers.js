@@ -32,8 +32,10 @@ const handleGetPinsOfType = async (filter) => {
 
 const submitPin = async (ev, locationObj, loggedInUser) => {
   try {
+    let response;
+
     const submissionObj = {
-      type: ev.target.pinType.value,
+      // type: ev.target.pinType.value,
       latitude: locationObj.lat,
       longitude: locationObj.lng,
       hours: ev.target.hours.value,
@@ -44,15 +46,45 @@ const submitPin = async (ev, locationObj, loggedInUser) => {
       likedByIds: [],
       dislikedByIds: [],
     };
-    console.log(submissionObj);
-    const response = await fetch("http://localhost:9001/api/submit-pin", {
-      method: "PATCH",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(submissionObj),
-    });
+
+    // clunky implementation for now so I can get back to fixing the frontend and applying for jobs 😬
+
+    if (ev.target.water.checked && ev.target.toilet.checked) {
+      const waterSubmissionObj = { ...submissionObj, type: "water" };
+      response = await fetch("http://localhost:9001/api/submit-pin", {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(waterSubmissionObj),
+      });
+      const toiletSubmissionObj = { ...submissionObj, type: "toilet" };
+      const responseB = await fetch("http://localhost:9001/api/submit-pin", {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(toiletSubmissionObj),
+      });
+      return await response.json();
+    } else {
+      const amendedSubmissionObj = {
+        ...submissionObj,
+        type: ev.target.pinType.value,
+      };
+      response = await fetch("http://localhost:9001/api/submit-pin", {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(amendedSubmissionObj),
+      });
+    }
+
+    // TODO: make it so the backend receives the type of pin as an array element so I don't have to add different cases here..
 
     return await response.json();
   } catch (error) {
