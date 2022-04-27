@@ -173,10 +173,12 @@ const getSubmissionsByUsername = async ({ query: { username } }, res) => {
 const moderatePin = async ({ query: { pinId, approved } }, res) => {
   try {
     await client.connect();
+    console.log("pinId = " + pinId);
+    console.log("approved = " + approved);
     let updatedPin;
     let updatedUser;
     let updatedUserContributionCounts;
-    if (!approved)
+    if (!approved || approved === "false")
       updatedPin = await thisCollection.updateOne(
         { "pins._id": pinId },
         { $pull: { pins: { _id: pinId } } }

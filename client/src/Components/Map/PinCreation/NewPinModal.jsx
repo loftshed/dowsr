@@ -32,7 +32,6 @@ const NewPinModal = ({ show, type }) => {
       console.log(result);
       if (result.success) {
         setNewPinData(result.submission);
-        console.log(result.submission.type);
         setCreatingNewPin(false);
         setShowPinCreationModal(false);
         setPinCreationSuccessful(true);
