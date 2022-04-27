@@ -1,14 +1,15 @@
 import styled from "styled-components/macro";
+import { TimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DayJsUtils from "@date-io/dayjs";
 
-const NewPinTimeSelector = () => {
+const TimeSelector = () => {
   return (
-    <NewPinTimeSelectorWrapper>
-      {/* <Option value="police">Police</Option>
-              <Option value="hazard">Hazard</Option> */}
-    </NewPinTimeSelectorWrapper>
+    <MuiPickersUtilsProvider utils={DayJsUtils}>
+      <TimePicker />
+    </MuiPickersUtilsProvider>
   );
 };
 
-export default NewPinTimeSelector;
+export default TimeSelector;
 
-const NewPinTimeSelectorWrapper = styled.div``;
+const TimeSelectorWrapper = styled.div``;

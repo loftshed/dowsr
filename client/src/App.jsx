@@ -19,8 +19,6 @@ import Profile from "./components/Profile";
 import Theme from "./AppTheme";
 import ThemeMUI from "./AppTheme.mui";
 import { useAuth0 } from "@auth0/auth0-react";
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import DayJsUtils from "@date-io/dayjs";
 
 //TODO: ULTRA MEGA TODO: Redo signin flow!!
 
@@ -67,32 +65,30 @@ const App = () => {
 
   return (
     <BrowserRouter id="root">
-      <MuiPickersUtilsProvider utils={DayJsUtils}>
-        <ThemeMUI>
-          <Theme>
-            <GlobalStyle />
-            <Header />
-            <Main>
-              <Content>
-                <Routes>
-                  <Route path="/" element={<Map />} />
-                  <Route path="/new" element={<Map />} />
-                  {/* would be better to not send this to /new since it just initiates pin creation process via state anyways */}
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/profile/:username" element={<Profile />} />
-                  <Route path="/notifications" element={<Notifications />} />
-                  <Route path="/messages" element={<Chat />} />
-                  <Route path="/search" element={<Map search={true} />} />
-                  <Route path="/error" element={<Error />} />
-                  <Route path="/admin" element={<Admin />} />
-                  <Route path="/firstlogin" element={<FirstLogin />} />
-                </Routes>
-              </Content>
-              <Menu />
-            </Main>
-          </Theme>
-        </ThemeMUI>
-      </MuiPickersUtilsProvider>
+      <ThemeMUI>
+        <Theme>
+          <GlobalStyle />
+          <Header />
+          <Main>
+            <Content>
+              <Routes>
+                <Route path="/" element={<Map />} />
+                <Route path="/new" element={<Map />} />
+                {/* would be better to not send this to /new since it just initiates pin creation process via state anyways */}
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile/:username" element={<Profile />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="/messages" element={<Chat />} />
+                <Route path="/search" element={<Map search={true} />} />
+                <Route path="/error" element={<Error />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/firstlogin" element={<FirstLogin />} />
+              </Routes>
+            </Content>
+            <Menu />
+          </Main>
+        </Theme>
+      </ThemeMUI>
     </BrowserRouter>
   );
 };

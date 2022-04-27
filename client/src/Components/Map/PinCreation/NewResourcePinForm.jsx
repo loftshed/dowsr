@@ -10,7 +10,7 @@ import {
 } from "../../../styling/sharedstyles";
 import { AppContext } from "../../AppContext";
 import { MappingContext } from "../MappingContext";
-import TimePicker from "./NewPinTimeSelector";
+import TimeSelector from "./NewPinTimeSelector";
 
 const NewResourcePinForm = ({ handleSubmitPin }) => {
   const { setClickedLocation, clickedLocation } = useContext(MappingContext);
@@ -56,7 +56,7 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
           <InputColumn>
             <InputHeading>Hours</InputHeading>
             {/* <ModalInput id="hours" key="hours" type="text" autoComplete="off" /> */}
-            {/* <TimePicker /> */}
+            <TimeSelector />
           </InputColumn>
         </InputRow>
         <InputColumn>
