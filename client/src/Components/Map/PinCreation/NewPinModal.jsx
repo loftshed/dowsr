@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components/macro";
 import { MappingContext } from "../MappingContext";
 import { CloseIcon } from "../../../styling/react-icons";
@@ -25,6 +25,8 @@ const NewPinModal = ({ show, type }) => {
     newPinData,
     setNewPinData,
   } = useContext(MappingContext);
+
+  const [formType, setFormType] = useState(null);
 
   const handleSubmitPin = async (ev, clickedLocation, loggedInUser, hours) => {
     try {
@@ -56,6 +58,7 @@ const NewPinModal = ({ show, type }) => {
               style={{ all: "unset" }}
               onClick={(ev) => {
                 setShowPinCreationModal(false);
+                setFormType(null);
                 setCreatingNewPin(false);
                 setMapModalMessage("");
               }}
@@ -67,9 +70,15 @@ const NewPinModal = ({ show, type }) => {
             Latitude {clickedLocation?.lat.toFixed(4)}, Longitude{" "}
             {clickedLocation?.lng.toFixed(4)}
           </Subheading>
-
-          <NewWarningPinForm handleSubmitPin={handleSubmitPin} />
-          {/* <NewResourcePinForm handleSubmitPin={handleSubmitPin} /> */}
+          {formType === null && (
+            <ChoosePinFormType formType={formType} setFormType={setFormType} />
+          )}
+          {formType === "resource" && (
+            <NewResourcePinForm handleSubmitPin={handleSubmitPin} />
+          )}
+          {formType === "warning" && (
+            <NewWarningPinForm handleSubmitPin={handleSubmitPin} />
+          )}
         </InnerContainer>
       </NewPinModalWrapper>
     );

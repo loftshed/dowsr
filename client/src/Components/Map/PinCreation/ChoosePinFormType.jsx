@@ -4,18 +4,33 @@ import {
   fillSpace,
   textButtonstyling,
 } from "../../../styling/sharedstyles";
+import { IoIosHelpBuoy as HelpIcon } from "react-icons/io";
+import { RiAlarmWarningFill as WarningIcon } from "react-icons/ri";
 
-const ChoosePinFormType = () => {
+const ChoosePinFormType = ({ setFormType }) => {
   return (
     <ChoosePinFormTypeWrapper>
-      pin form type choosin thing
-      <Toggle>
-        <Switch
+      <Heading>What kind of pin are you creating?</Heading>
+      <TwoButtons>
+        <Button
           onClick={(ev) => {
-            ev.target.offsetLeft = "100px";
+            ev.preventDefault();
+            setFormType("resource");
           }}
-        />
-      </Toggle>
+        >
+          <HelpIcon />
+          Resource
+        </Button>
+        <Button
+          onClick={(ev) => {
+            ev.preventDefault();
+            setFormType("warning");
+          }}
+        >
+          <WarningIcon />
+          Warning
+        </Button>
+      </TwoButtons>
     </ChoosePinFormTypeWrapper>
   );
 };
@@ -33,28 +48,27 @@ const ChoosePinFormTypeWrapper = styled.div`
   text-align: center;
 `;
 
-const Toggle = styled.div`
-  position: relative;
+const Heading = styled.div``;
+
+const Button = styled.button`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 120px;
-  height: 60px;
-  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
-  background-color: ${(props) => props.theme.colors.lessDarkGrey};
-  border-radius: 100px;
-  padding: 0px 2.5px;
+  justify-content: center;
+  font-size: 14px;
+  width: 100px !important;
+  height: 100px !important;
+  ${textButtonstyling};
+  svg {
+    width: 70px;
+    height: 70px;
+  }
 `;
 
-const Switch = styled.div`
-  transition: all 0.1s ease;
-  position: absolute;
-  width: 55px;
-  height: 55px;
-  border-radius: inherit;
-  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
-  background-color: ${(props) => props.theme.colors.darkestGrey};
-  &:hover {
-    cursor: pointer;
-    background-color: ${(props) => props.theme.colors.teal};
-  }
+const TwoButtons = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10px;
+  width: 100%;
 `;
