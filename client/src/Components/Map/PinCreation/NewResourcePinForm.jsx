@@ -10,7 +10,7 @@ import {
 } from "../../../styling/sharedstyles";
 import { AppContext } from "../../AppContext";
 import { MappingContext } from "../MappingContext";
-import TimePicker from "./TimePicker";
+import TimePicker from "./NewPinTimeSelector";
 
 const NewResourcePinForm = ({ handleSubmitPin }) => {
   const { setClickedLocation, clickedLocation } = useContext(MappingContext);

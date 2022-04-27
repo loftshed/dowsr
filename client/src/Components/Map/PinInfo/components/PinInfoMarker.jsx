@@ -14,7 +14,6 @@ const PinInfoMarker = ({ pins, setPopupInfo }) => {
             key={`marker-${pinData._id}`}
             longitude={pinData?.longitude}
             latitude={pinData?.latitude}
-            color={"${(props) => props.theme.colors.pink}"}
             style={{ cursor: "pointer" }}
           >
             <UniversalMapPin

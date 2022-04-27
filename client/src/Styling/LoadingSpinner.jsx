@@ -10,7 +10,7 @@ const LoadingSpinner = ({ size, color }) => {
         style={{
           width: `${size}px`,
           height: `${size}px`,
-          color: color ? color : "${(props) => props.theme.colors.mediumGrey}",
+          color: color ? color : "#d3d0cb",
         }}
       />
     </SpinnerContainer>

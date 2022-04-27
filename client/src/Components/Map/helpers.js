@@ -60,7 +60,7 @@ const submitPin = async (ev, locationObj, loggedInUser) => {
         body: JSON.stringify(waterSubmissionObj),
       });
       const toiletSubmissionObj = { ...submissionObj, type: "toilet" };
-      const responseB = await fetch("http://localhost:9001/api/submit-pin", {
+      await fetch("http://localhost:9001/api/submit-pin", {
         method: "PATCH",
         headers: {
           Accept: "application/json",

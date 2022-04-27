@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled, { useTheme } from "styled-components/macro";
 import { centeredFlexRow } from "../../styling/sharedstyles";
 import { moderatePendingPin } from "./helpers";
 // import { getPinsPendingReview } from "../Map/helpers";
@@ -6,6 +6,7 @@ import { MappingContext } from "../Map/MappingContext";
 import { useContext } from "react";
 
 const PendingPin = ({ pin, setPendingPins }) => {
+  const theme = useTheme();
   const { setModerationResult } = useContext(MappingContext);
   const {
     _id,
@@ -67,9 +68,7 @@ const PendingPin = ({ pin, setPendingPins }) => {
               href={`http://localhost:3000/users/${submittedBy}`}
               target="_new"
             >
-              <span style={{ color: "${(props) => props.theme.colors.teal}" }}>
-                @
-              </span>
+              <span style={{ color: `${theme.colors.teal}` }}>@</span>
               {submittedBy}
             </a>
           </li>
