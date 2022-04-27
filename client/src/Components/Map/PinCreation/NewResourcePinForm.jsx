@@ -53,11 +53,15 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
               </CheckItem>
             </Checkboxes>
           </InputColumn>
-          <InputColumn>
+
+          <HourPickers>
             <InputHeading>Hours</InputHeading>
             {/* <ModalInput id="hours" key="hours" type="text" autoComplete="off" /> */}
-            <TimeSelector />
-          </InputColumn>
+            <InputRow>
+              <TimeSelector labelValue={"From"} />
+              <TimeSelector labelValue={"To"} />
+            </InputRow>
+          </HourPickers>
         </InputRow>
         <InputColumn>
           <InputHeading>Verify the approximate address</InputHeading>
@@ -198,7 +202,10 @@ const CheckItem = styled.div`
   border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   border-radius: 5px;
   padding: 0px 0px 0px 5px;
+  width: 60px;
   span {
     font-size: 20px;
   }
 `;
+
+const HourPickers = styled(InputColumn)``;
