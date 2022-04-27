@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import styled from "styled-components/macro";
-import { ToiletIcon, WaterIcon } from "../../../styling/react-icons";
 import {
   centeredFlexColumn,
   textButtonstyling,
@@ -11,6 +10,7 @@ import {
 } from "../../../styling/sharedstyles";
 import { AppContext } from "../../AppContext";
 import { MappingContext } from "../MappingContext";
+import TimePicker from "./TimePicker";
 
 const NewResourcePinForm = ({ handleSubmitPin }) => {
   const { setClickedLocation, clickedLocation } = useContext(MappingContext);
@@ -55,7 +55,8 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
           </InputColumn>
           <InputColumn>
             <InputHeading>Hours</InputHeading>
-            <ModalInput id="hours" key="hours" type="text" autoComplete="off" />
+            {/* <ModalInput id="hours" key="hours" type="text" autoComplete="off" /> */}
+            {/* <TimePicker /> */}
           </InputColumn>
         </InputRow>
         <InputColumn>
