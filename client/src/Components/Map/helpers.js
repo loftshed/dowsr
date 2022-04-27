@@ -30,15 +30,17 @@ const handleGetPinsOfType = async (filter) => {
   }
 };
 
-const submitPin = async (ev, locationObj, loggedInUser) => {
+const submitPin = async (ev, locationObj, loggedInUser, hours) => {
+  console.log(ev);
+  console.log(locationObj);
+  console.log(loggedInUser);
+  console.log(hours);
   try {
-    let response;
-
     const submissionObj = {
       // type: ev.target.pinType.value,
       latitude: locationObj.lat,
       longitude: locationObj.lng,
-      hours: ev.target.hours.value,
+      hours: hours,
       address: ev.target.address.value,
       desc: ev.target.desc.value,
       submittedBy: loggedInUser.username,
@@ -50,8 +52,21 @@ const submitPin = async (ev, locationObj, loggedInUser) => {
     // clunky implementation for now so I can get back to fixing the frontend and applying for jobs 😬
 
     if (ev.target.water.checked && ev.target.toilet.checked) {
+      const toiletSubmissionObj = { ...submissionObj, type: "toilet" };
+      const responseToilet = await fetch(
+        "http://localhost:9001/api/submit-pin",
+        {
+          method: "PATCH",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(toiletSubmissionObj),
+        }
+      );
+      // console.log(responseToilet.json());
       const waterSubmissionObj = { ...submissionObj, type: "water" };
-      response = await fetch("http://localhost:9001/api/submit-pin", {
+      const response = await fetch("http://localhost:9001/api/submit-pin", {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -59,22 +74,23 @@ const submitPin = async (ev, locationObj, loggedInUser) => {
         },
         body: JSON.stringify(waterSubmissionObj),
       });
-      const toiletSubmissionObj = { ...submissionObj, type: "toilet" };
-      await fetch("http://localhost:9001/api/submit-pin", {
-        method: "PATCH",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(toiletSubmissionObj),
-      });
       return await response.json();
     } else {
+      let type;
+      if (ev.target.water.checked) {
+        type = "water";
+      } else if (ev.target.toilet.checked) {
+        type = "toilet";
+      } else {
+        type = ev.target.pinType.value;
+      }
+
       const amendedSubmissionObj = {
         ...submissionObj,
-        type: ev.target.pinType.value,
+        type: type,
       };
-      response = await fetch("http://localhost:9001/api/submit-pin", {
+
+      const response = await fetch("http://localhost:9001/api/submit-pin", {
         method: "PATCH",
         headers: {
           Accept: "application/json",
@@ -82,11 +98,12 @@ const submitPin = async (ev, locationObj, loggedInUser) => {
         },
         body: JSON.stringify(amendedSubmissionObj),
       });
+      return await response.json();
     }
 
     // TODO: make it so the backend receives the type of pin as an array element so I don't have to add different cases here..
 
-    return await response.json();
+    // return await response.json();
   } catch (error) {
     console.log(error);
   }

@@ -25,10 +25,11 @@ const NewPinModal = ({ show, type }) => {
     setNewPinData,
   } = useContext(MappingContext);
 
-  const handleSubmitPin = async (ev, clickedLocation, loggedInUser) => {
+  const handleSubmitPin = async (ev, clickedLocation, loggedInUser, hours) => {
     try {
-      const result = await submitPin(ev, clickedLocation, loggedInUser);
+      const result = await submitPin(ev, clickedLocation, loggedInUser, hours);
       // clean up this goddamn mess of state!
+      console.log(result);
       if (result.success) {
         setNewPinData(result.submission);
         console.log(result.submission.type);

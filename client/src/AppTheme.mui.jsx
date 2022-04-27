@@ -1,5 +1,5 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { green, cyan, pink } from "@mui/material/colors";
+import { green, cyan, pink, yellow } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
@@ -12,6 +12,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "Karla",
+  },
+  components: {
+    MuiDialog: {},
   },
 });
 

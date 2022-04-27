@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components/macro";
 import {
   centeredFlexColumn,
@@ -11,10 +11,18 @@ import {
 import { AppContext } from "../../AppContext";
 import { MappingContext } from "../MappingContext";
 import TimeSelector from "./NewPinTimeSelector";
+import dayjs from "dayjs";
 
 const NewResourcePinForm = ({ handleSubmitPin }) => {
+  const [openValue, setOpenValue] = useState(dayjs().format());
+  const [closeValue, setCloseValue] = useState(dayjs().format());
   const { setClickedLocation, clickedLocation } = useContext(MappingContext);
   const { loggedInUser } = useContext(AppContext);
+  const hours =
+    dayjs(openValue).format("HH:mm") +
+    " - " +
+    dayjs(closeValue).format("HH:mm");
+
   return (
     <NewResourcePinWrapper>
       {" "}
@@ -23,7 +31,8 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
         onSubmit={(ev) => {
           ev.preventDefault();
           if (ev.target.water.checked || ev.target.toilet.checked) {
-            handleSubmitPin(ev, clickedLocation, loggedInUser);
+            console.log(hours);
+            handleSubmitPin(ev, clickedLocation, loggedInUser, hours);
           } else {
             console.log("Please select a pin type");
           }
@@ -58,8 +67,16 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
             <InputHeading>Hours</InputHeading>
             {/* <ModalInput id="hours" key="hours" type="text" autoComplete="off" /> */}
             <InputRow>
-              <TimeSelector labelValue={"From"} />
-              <TimeSelector labelValue={"To"} />
+              <TimeSelector
+                labelValue={"From"}
+                value={openValue}
+                setValue={setOpenValue}
+              />
+              <TimeSelector
+                labelValue={"To"}
+                value={closeValue}
+                setValue={setCloseValue}
+              />
             </InputRow>
           </HourPickers>
         </InputRow>
