@@ -1,4 +1,4 @@
-import styled, { useTheme } from "styled-components";
+import styled, { useTheme } from "styled-components/macro";
 import { centeredFlexColumn } from "../../../styling/sharedstyles";
 import { fadeIn, RefreshAnim } from "../../../styling/animations";
 

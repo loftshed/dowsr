@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { useEffect, useContext, useState } from "react";

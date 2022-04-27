@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import {
   Input,
@@ -158,7 +158,7 @@ const FirstLogin = () => {
               </InputRow>
             </InputColumn>
             <InputRow>
-              <Submit type="submit" id="submit" value="Submit" />
+              <Submit />
             </InputRow>
           </Signup>
         </Content>
@@ -214,7 +214,11 @@ const InputRow = styled.div`
 
 const DefaultOption = styled(Option)``;
 
-const Submit = styled(Input)`
+const Submit = styled(Input).attrs({
+  type: "submit",
+  id: "submit",
+  value: "Submit",
+})`
   margin-top: 15px;
   font-size: 18px;
   padding: 10px;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { FaSpinner } from "react-icons/fa";
 import { centeredFlexColumn } from "./sharedstyles";
 import { rotate360 } from "./animations";

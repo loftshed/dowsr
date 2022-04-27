@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { centeredFlexColumn, centeredFlexRow } from "./sharedstyles";
 
 const ResponsiveContainer = ({ children, heading }) => {

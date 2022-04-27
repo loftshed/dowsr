@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { centeredFlexColumn } from "../../../styling/sharedstyles";
 
 const ContributionType = ({ numSubmissions, filterName, children }) => {

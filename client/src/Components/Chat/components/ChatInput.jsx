@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import SendButton from "./SendButton";
 import { replyThread } from "../helpers";
 import { useContext } from "react";

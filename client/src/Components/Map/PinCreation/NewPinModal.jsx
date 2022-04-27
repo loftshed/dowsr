@@ -1,24 +1,21 @@
 import { useContext } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { MappingContext } from "../MappingContext";
 import { CloseIcon } from "../../../styling/react-icons";
 import {
   centeredFlexColumn,
   centeredFlexRow,
   fillSpace,
-  Input,
-  inputStyling,
-  textButtonstyling,
 } from "../../../styling/sharedstyles";
 import { submitPin } from "../helpers";
 import { AppContext } from "../../AppContext";
+import NewResourcePinForm from "./NewResourcePinForm";
 
 // Called from the Menu component
 // DON'T FORGET TO VALIDATE THE FRIGGIN DATA BRUH
 
 const NewPinModal = ({ show, type }) => {
   const {
-    setClickedLocation,
     clickedLocation,
     setShowPinCreationModal,
     setCreatingNewPin,
@@ -27,7 +24,6 @@ const NewPinModal = ({ show, type }) => {
     newPinData,
     setNewPinData,
   } = useContext(MappingContext);
-  const { loggedInUser } = useContext(AppContext);
 
   const handleSubmitPin = async (ev, clickedLocation, loggedInUser) => {
     try {
@@ -70,57 +66,7 @@ const NewPinModal = ({ show, type }) => {
             Latitude {clickedLocation?.lat.toFixed(4)}, Longitude{" "}
             {clickedLocation?.lng.toFixed(4)}
           </Subheading>
-          <InnerContainerLiner>
-            <ModalForm
-              autoComplete="off"
-              onSubmit={(ev) => {
-                ev.preventDefault();
-                if (ev.target.pinType.value !== "default") {
-                  handleSubmitPin(ev, clickedLocation, loggedInUser);
-                } else {
-                  console.log("Please select a pin type");
-                }
-              }}
-            >
-              <InputRow>
-                <InputColumn>
-                  <InputHeading>Type</InputHeading>
-                  <ModalSelect key="pinType" id="pinType">
-                    <Option value="default">Select one:</Option>
-                    <Option value="toilet">Toilets</Option>
-                    <Option value="water">Water</Option>
-                    <Option value="police">Police</Option>
-                    <Option value="hazard">Hazard</Option>
-                  </ModalSelect>
-                </InputColumn>
-                <InputColumn>
-                  <InputHeading>Hours</InputHeading>
-                  <ModalInput id="hours" key="hours" type="text" />
-                </InputColumn>
-              </InputRow>
-              <InputColumn>
-                <InputHeading>Verify the approximate address</InputHeading>
-                <ModalInput
-                  type="text"
-                  key="address"
-                  id="address"
-                  value={clickedLocation?.addressFull}
-                  // Using onChange, it is possible to edit a field with a value that was assigned using state.
-                  onChange={(ev) => {
-                    setClickedLocation({
-                      ...clickedLocation,
-                      addressFull: ev.currentTarget.value,
-                    });
-                  }}
-                />
-              </InputColumn>
-              <InputColumn>
-                <InputHeading>Brief Description</InputHeading>
-                <ModalInput id="desc" key="desc" type="text" />
-              </InputColumn>
-              <ModalSubmit />
-            </ModalForm>
-          </InnerContainerLiner>
+          <NewResourcePinForm handleSubmitPin={handleSubmitPin} />
         </InnerContainer>
       </NewPinModalWrapper>
     );
@@ -159,13 +105,16 @@ export default NewPinModal;
 
 const NewPinModalWrapper = styled.div`
   position: absolute;
-  width: 98%;
+  width: fit-content;
   height: fit-content;
   bottom: 70px;
   padding-left: 2px;
   left: 50%;
   transform: translateX(-50%);
   transition: all 0.3s ease;
+  @media (max-width: 450px) {
+    width: 98%;
+  }
 `;
 
 const Heading = styled.div`
@@ -227,49 +176,3 @@ const InnerContainerLiner = styled.div`
   padding: 10px 20px;
   text-align: center;
 `;
-
-const InputRow = styled.div`
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  gap: 7.5px;
-`;
-
-const InputColumn = styled.div`
-  ${centeredFlexColumn}
-  width: 100%;
-`;
-
-const InputHeading = styled(Subheading)`
-  padding: 0px 5px;
-  user-select: none;
-`;
-
-const ModalInput = styled(Input)`
-  padding-left: 7.5px;
-  letter-spacing: 1px;
-  background-color: ${(props) => props.theme.colors.superDarkGrey};
-`;
-
-const ModalSelect = styled.select`
-  ${inputStyling}
-  background-color: ${(props) => props.theme.colors.superDarkGrey};
-`;
-
-const ModalSubmit = styled(Input).attrs({
-  type: "submit",
-  key: "submit",
-  id: "submit",
-})`
-  all: unset;
-  background-color: ${(props) => props.theme.colors.darkestGrey};
-  ${textButtonstyling}
-  padding: 5px 20px;
-`;
-
-const ModalForm = styled.form`
-  ${centeredFlexColumn}
-  gap: 7.5px;
-`;
-
-const Option = styled.option``;

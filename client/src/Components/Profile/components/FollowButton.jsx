@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { handleToggleFollow } from "../helpers";
 import {
   RiUserFollowLine as FollowIcon,

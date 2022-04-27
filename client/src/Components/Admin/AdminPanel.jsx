@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { getPinsPendingReview } from "../Map/helpers";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";

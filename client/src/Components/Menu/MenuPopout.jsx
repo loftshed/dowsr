@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { fillSpace, IconNavLink } from "../../styling/sharedstyles";
 import { NotificationIcon, AdminIcon } from "../../styling/react-icons";
 import LogoutButton from "../Auth/LogoutButton";

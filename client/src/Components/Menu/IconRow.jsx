@@ -6,7 +6,7 @@ import {
   CreatePinIcon,
   ProfileIcon,
 } from "../../styling/react-icons";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { MappingContext } from "../Map/MappingContext";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";

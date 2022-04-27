@@ -4,7 +4,7 @@ import {
   fillSpace,
 } from "../../styling/sharedstyles";
 import { useAuth0 } from "@auth0/auth0-react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import PreviewTile from "./PreviewTile";
 import { AppContext } from "../../AppContext";
 import { useContext } from "react";
