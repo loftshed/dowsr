@@ -4,6 +4,7 @@ import { sharedDetailStyle } from "../sharedstyles";
 import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
 import FollowCountIndicator from "./FollowCountIndicator";
+import { useTheme } from "styled-components";
 
 // STRETCH: To get follower avatars make it so that when you follow someone their avatarUrl and username are saved in your followers arary along with their id.
 
@@ -17,13 +18,14 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
   const [followingCount, setFollowingCount] = useState(
     viewedProfile.following?.length
   );
+  const theme = useTheme();
 
   return (
     <>
       <ActionBarWrapper>
         <FollowCountIndicator
           type={"followers"}
-          color={"${(props) => props.theme.colors.teal}"}
+          color={theme.colors.teal}
           count={followerCount}
         />
 
@@ -44,7 +46,7 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
       <ActionBarWrapper>
         <FollowCountIndicator
           type={"following"}
-          color={"${(props) => props.theme.colors.pink}"}
+          color={theme.colors.pink}
           count={followingCount}
         />
       </ActionBarWrapper>

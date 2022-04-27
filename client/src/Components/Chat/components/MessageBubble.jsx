@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
 const Bubble = ({ recd, author, content, timestamp }) => {
   // This still feels a bit messy. ....way she goes.
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime); // Used to display time in "(x) minutes ago" format
@@ -104,7 +105,7 @@ const MessageContainer = styled.div`
   padding: 3px;
 
   background-color: ${(props) =>
-    props.recd ? "${(props) => props.theme.colors.teal}" : "#cfdbd5"};
+    props.recd ? props.theme.colors.teal : "#cfdbd5"};
   border-radius: 3px;
   align-self: ${(props) => (props.recd ? "flex-start" : "flex-end")};
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),

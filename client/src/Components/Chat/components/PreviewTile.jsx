@@ -132,12 +132,12 @@ const TileWrapper = styled.div`
   border-radius: ${(props) => (props.small ? "50px" : "5px")};
   border: ${(props) =>
     props.small
-      ? "1.5px solid ${(props) => props.theme.colors.lessDarkGrey}"
-      : "1px solid ${(props) => props.theme.colors.superDarkGrey}"};
+      ? `1.5px solid ${props.theme.colors.lessDarkGrey}`
+      : `1px solid ${props.theme.colors.superDarkGrey}`};
   box-shadow: ${(props) =>
     props.showOutline
-      ? "inset 0px 0px 2px ${(props) => props.theme.colors.superDarkGrey}, 0px 2px 1px ${(props) => props.theme.colors.pink}"
-      : "inset 0px 0px 2px ${(props) => props.theme.colors.superDarkGrey}"};
+      ? `inset 0px 0px 2px ${props.theme.colors.superDarkGrey}, 0px 2px 1px ${props.theme.colors.pink}`
+      : `inset 0px 0px 2px ${props.theme.colors.superDarkGrey}`};
   &:hover {
     outline: solid 2px ${(props) => props.theme.colors.teal};
   }
@@ -146,7 +146,7 @@ const TileWrapper = styled.div`
   }
   cursor: pointer;
   outline: ${(props) =>
-    props.showOutline ? "2px solid ${(props) => props.theme.colors.teal}" : ""};
+    props.showOutline ? `2px solid ${props.theme.colors.teal}` : ""};
   animation: ${fadeIn} 0.3s forwards ease;
 `;
 

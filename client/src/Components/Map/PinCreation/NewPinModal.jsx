@@ -118,7 +118,7 @@ const NewPinModal = ({ show, type }) => {
                 <InputHeading>Brief Description</InputHeading>
                 <ModalInput id="desc" key="desc" type="text" />
               </InputColumn>
-              <ModalSubmit id="submit" key="submit" type="submit" />
+              <ModalSubmit />
             </ModalForm>
           </InnerContainerLiner>
         </InnerContainer>
@@ -256,7 +256,11 @@ const ModalSelect = styled.select`
   background-color: ${(props) => props.theme.colors.superDarkGrey};
 `;
 
-const ModalSubmit = styled(Input)`
+const ModalSubmit = styled(Input).attrs({
+  type: "submit",
+  key: "submit",
+  id: "submit",
+})`
   all: unset;
   background-color: ${(props) => props.theme.colors.darkestGrey};
   ${textButtonstyling}

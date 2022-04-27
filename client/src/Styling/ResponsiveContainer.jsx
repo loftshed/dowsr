@@ -86,6 +86,6 @@ const Heading = styled.div`
   background-color: ${(props) => props.theme.colors.darkestGrey};
   border-top-left-radius: ${(props) => props.theme.sizes.borderRadius}px;
   border-top-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
-  border-bottom: 1.5px solid var (--color-super-dark-grey);
+  border-bottom: 1.5px solid ${(props) => props.theme.colors.superDarkGrey};
   box-shadow: inset 0px 0px 3px ${(props) => props.theme.colors.superDarkGrey};
 `;
