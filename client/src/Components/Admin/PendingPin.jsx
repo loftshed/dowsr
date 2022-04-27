@@ -4,6 +4,7 @@ import { moderatePendingPin } from "./helpers";
 // import { getPinsPendingReview } from "../Map/helpers";
 import { MappingContext } from "../Map/MappingContext";
 import { useContext } from "react";
+import { AppContext } from "../AppContext";
 
 const PendingPin = ({ pin, setPendingPins }) => {
   const theme = useTheme();
@@ -21,9 +22,9 @@ const PendingPin = ({ pin, setPendingPins }) => {
     submitted,
   } = pin;
 
-  const handleModeratePendingPin = async (pinId, approved) => {
+  const handleModeratePendingPin = async (pinId, approved, username) => {
     try {
-      const { message } = await moderatePendingPin(pinId, approved);
+      const { message } = await moderatePendingPin(pinId, approved, username);
       setModerationResult(message);
     } catch (error) {
       console.log(error);
@@ -83,14 +84,14 @@ const PendingPin = ({ pin, setPendingPins }) => {
       <ButtonRow>
         <button
           onClick={() => {
-            handleModeratePendingPin(_id, true);
+            handleModeratePendingPin(_id, true, submittedBy);
           }}
         >
           Approve
         </button>
         <button
           onClick={() => {
-            handleModeratePendingPin(_id, false);
+            handleModeratePendingPin(_id, false, submittedBy);
           }}
         >
           Reject
