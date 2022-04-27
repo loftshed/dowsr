@@ -27,6 +27,7 @@ const Icon = styled.div`
       if (type === "water") return "0";
       if (type === "hazard") return "0";
       if (type === "police") return "0";
+      if (type === "pending") return "0";
     }};
   }
 `;
@@ -56,7 +57,6 @@ const Point = styled.div`
 const UniversalPinWrapper = styled.div`
   position: relative;
   ${centeredFlexColumn}
-  /* background-color: yellow; */
   width: 30px;
   height: 40px;
   transform: scale(${(props) => props.scale});

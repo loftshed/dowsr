@@ -1,6 +1,8 @@
 import { Marker } from "react-map-gl";
 import UniversalMapPin from "../../UniversalMapPin";
 import { getIcon } from "../../helpers";
+import { PendingIcon } from "../../../../styling/react-icons";
+import styled from "styled-components/macro";
 
 const PinInfoMarker = ({ pins, setPopupInfo }) => {
   // Switch statement to determine which icon to use for the pin.
@@ -8,6 +10,7 @@ const PinInfoMarker = ({ pins, setPopupInfo }) => {
   return (
     <>
       {pins.map((pinData) => {
+        // console.log(pinData);
         const type = pinData.type;
         return (
           <Marker
@@ -25,6 +28,11 @@ const PinInfoMarker = ({ pins, setPopupInfo }) => {
               type={type}
             >
               {getIcon(type)}
+              {pinData.pendingReview && (
+                <Pending>
+                  <PendingIcon />
+                </Pending>
+              )}
             </UniversalMapPin>
           </Marker>
         );
@@ -34,3 +42,14 @@ const PinInfoMarker = ({ pins, setPopupInfo }) => {
 };
 
 export default PinInfoMarker;
+
+const Pending = styled.div`
+  svg {
+    padding: 3px;
+    background-color: ${(props) => props.theme.colors.darkGrey};
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    fill: ${(props) => props.theme.colors.mediumGrey};
+  }
+`;

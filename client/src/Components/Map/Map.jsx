@@ -77,7 +77,10 @@ const MapContainer = () => {
         let filter;
         !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
         const retrieved = await handleGetPinsOfType(filter);
-        const filteredPins = retrieved.pins.filter((pin) => !pin.pendingReview);
+        const filteredPins =
+          filter !== "pending"
+            ? retrieved.pins.filter((pin) => !pin.pendingReview)
+            : retrieved.pins;
         setStoredFilteredPins(filteredPins);
       } catch (error) {
         console.log(error);

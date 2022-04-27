@@ -101,13 +101,6 @@ const submitNewPin = async ({ body }, res) => {
       { filter: "pending" },
       { $push: { pins: newPin } }
     );
-    // // Adds the pin to the user's contributions array.
-    // const updatedUser = await db
-    //   .collection("users")
-    //   .updateOne(
-    //     { username: newPin.submittedBy },
-    //     { $push: { contributions: pinId } }
-    //   );
 
     res.status(200).json({
       status: 200,
@@ -115,8 +108,6 @@ const submitNewPin = async ({ body }, res) => {
       success: true,
       submissionResult: submissionResult,
       pendingResult: pendingResult,
-      // updatedUser: updatedUser,
-      // updatedUserContributionCounts: updatedUserContributionCounts,
       message: "Pin submission successful. Awaiting review.",
     });
   } catch (err) {
