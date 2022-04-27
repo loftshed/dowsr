@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { centeredFlexColumn, centeredFlexRow } from "./sharedstyles";
-import { SIZES } from "./constants";
 
 const ResponsiveContainer = ({ children, heading }) => {
   return (
@@ -36,21 +35,23 @@ const Content = styled.div`
   ${centeredFlexColumn}
   width: 100%;
   height: calc(
-    100% - ${SIZES.menuHeightCompact}px - ${SIZES.topBottomPadding}px
+    100% - ${(props) => props.theme.sizes.menuHeightCompact}px -
+      ${(props) => props.theme.sizes.topBottomPadding}px
   );
-  padding: ${SIZES.topBottomPadding}px ${SIZES.smallPadding}px;
+  padding: ${(props) => props.theme.sizes.topBottomPadding}px
+    ${(props) => props.theme.sizes.smallPadding}px;
 `;
 
 // MIN AMOUNT OF SPACE BETWEEN OUTER CONTAINER AND RESPONSIVECONTAINER
-/* padding: ${SIZES.universalPadding}px; */
+/* padding: ${(props) => props.theme.sizes.universalPadding}px; */
 
 const OuterContainer = styled.div`
   ${centeredFlexColumn}
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   background-color: ${(props) => props.theme.colors.lessDarkGrey};
   width: 100%;
   height: 100%;
-  @media (min-width: ${SIZES.widthMin}px) {
+  @media (min-width: ${(props) => props.theme.sizes.widthMin}px) {
     width: 80%;
   }
   @media (min-width: 525px) {
@@ -70,7 +71,7 @@ const OuterContainer = styled.div`
 
 const InnerContainer = styled.div`
   ${centeredFlexColumn}
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   justify-content: flex-start;
   width: 100%;
   height: 100%;
@@ -83,8 +84,8 @@ const Heading = styled.div`
   height: fit-content;
   padding: 3px 0px;
   background-color: ${(props) => props.theme.colors.darkestGrey};
-  border-top-left-radius: ${SIZES.borderRadius}px;
-  border-top-right-radius: ${SIZES.borderRadius}px;
+  border-top-left-radius: ${(props) => props.theme.sizes.borderRadius}px;
+  border-top-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
   border-bottom: 1.5px solid var (--color-super-dark-grey);
   box-shadow: inset 0px 0px 3px ${(props) => props.theme.colors.superDarkGrey};
 `;

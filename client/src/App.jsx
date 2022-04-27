@@ -3,7 +3,6 @@ import { useContext, useEffect } from "react";
 import styled from "styled-components";
 
 import { centeredFlexColumn } from "./styling/sharedstyles";
-import { SIZES } from "./styling/constants";
 import { getUser } from "./components/Auth/helpers";
 
 import { AppContext } from "./components/AppContext";
@@ -97,9 +96,9 @@ export default App;
 const Main = styled.div`
   ${centeredFlexColumn}
   background-color: ${(props) => props.theme.colors.darkGrey};
-  height: calc(100% - ${SIZES.lrgHeader}px);
-  @media (max-width: ${SIZES.widthMin}px) {
-    height: calc(100% - ${SIZES.smlHeader}px);
+  height: calc(100% - ${(props) => props.theme.sizes.lrgHeader}px);
+  @media (max-width: ${(props) => props.theme.sizes.widthMin}px) {
+    height: calc(100% - ${(props) => props.theme.sizes.smlHeader}px);
   }
   width: 100%;
 `;
@@ -110,7 +109,7 @@ const Content = styled.div`
   border-right: 2px solid ${(props) => props.theme.colors.green};
   height: 100%;
   width: 100%;
-  @media (min-width: ${SIZES.widthMax}px) {
-    width: ${SIZES.widthMax}px;
+  @media (min-width: ${(props) => props.theme.sizes.widthMax}px) {
+    width: ${(props) => props.theme.sizes.widthMax}px;
   }
 `;

@@ -1,7 +1,6 @@
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { centeredFlexColumn } from "../../../styling/sharedstyles";
 import { fadeIn, RefreshAnim } from "../../../styling/animations";
-import { SIZES } from "../../../styling/constants";
 
 import dayjs from "dayjs";
 import { /*useContext,*/ useEffect, useState } from "react";
@@ -22,8 +21,10 @@ const PreviewTile = ({
   setCurrentMessages,
   currentMessages,
 }) => {
+  const theme = useTheme();
   const [partner, setPartner] = useState(null); // Chat partner user object
-  const collapseView = useWindowWidth({ wait: 5 }) <= SIZES.widthMin; // If window is less than 500px wide, collapse view
+  const collapseView = useWindowWidth({ wait: 5 }) <= theme.sizes.widthMin; // If window is less than
+  // useWindowWidth({ wait: 5 }) <= 500; // If window is less than 500px wide, collapse view
   const isCurrentlySelected = selectedThreadId === threadId ? true : false; // Used to determine if the tile should be highlighted
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime); // Used to display time in "(x) minutes ago" format

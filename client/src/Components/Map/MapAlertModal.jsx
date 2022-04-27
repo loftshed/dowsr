@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { SIZES } from "../../styling/constants";
 import { centeredFlexRow } from "../../styling/sharedstyles";
 import { fadeIn } from "../../styling/animations";
 
@@ -28,7 +27,7 @@ const ModalWrapper = styled.div`
   height: fit-content;
   background-color: ${(props) => props.theme.colors.darkGrey};
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   padding: 1px 10px;
   pointer-events: none;
   animation: ${fadeIn} 0.3s forwards ease;

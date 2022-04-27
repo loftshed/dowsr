@@ -5,7 +5,6 @@ import {
 } from "../../styling/sharedstyles";
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
-import { SIZES } from "../../styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
@@ -76,9 +75,9 @@ const Boundary = styled.div`
   position: absolute;
   align-items: flex-end;
   height: 100%;
-  bottom: ${SIZES.topBottomPadding}px;
-  @media (max-width: ${SIZES.widthMin}px) {
-    width: calc(100% - ${SIZES.smallPadding}px*2);
+  bottom: ${(props) => props.theme.sizes.topBottomPadding}px;
+  @media (max-width: ${(props) => props.theme.sizes.widthMin}px) {
+    width: calc(100% - ${(props) => props.theme.sizes.smallPadding}px*2);
   }
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -139,7 +138,7 @@ const Content = styled.div`
   position: relative;
   ${fillSpace}
   width: 525px;
-  height: ${SIZES.menuHeightCompact}px;
+  height: ${(props) => props.theme.sizes.menuHeightCompact}px;
   background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: 10px;
   box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),

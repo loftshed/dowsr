@@ -6,7 +6,6 @@ import {
   CreatePinIcon,
   ProfileIcon,
 } from "../../styling/react-icons";
-import { SIZES } from "../../styling/constants";
 import styled from "styled-components";
 import { MappingContext } from "../Map/MappingContext";
 import { useContext } from "react";
@@ -118,12 +117,12 @@ const IconRowWrapper = styled.div`
   ${centeredFlexRow}
   width: fit-content;
   gap: 50px;
-  @media (max-width: ${SIZES.widthMin}px) {
+  @media (max-width: ${(props) => props.theme.sizes.widthMin}px) {
     gap: 3.5vw;
   }
   svg {
-    width: ${SIZES.iconSize}px;
-    height: ${SIZES.iconSize}px;
+    width: ${(props) => props.theme.sizes.iconSize}px;
+    height: ${(props) => props.theme.sizes.iconSize}px;
   }
   padding: 0px 10px;
 `;

@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { MappingContext } from "../MappingContext";
-import { SIZES } from "../../../styling/constants";
 import { CloseIcon } from "../../../styling/react-icons";
 import {
   centeredFlexColumn,
@@ -174,7 +173,7 @@ const Heading = styled.div`
   ${centeredFlexRow}
   width: 100%;
   height: fit-content;
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   background-color: ${(props) => props.theme.colors.pink};
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   user-select: none;
@@ -214,7 +213,7 @@ const InnerContainer = styled.div`
   ${fillSpace}
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   background-color: ${(props) => props.theme.colors.darkestGrey};
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   padding: 5px;
 `;
 

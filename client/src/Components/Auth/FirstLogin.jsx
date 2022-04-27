@@ -12,7 +12,6 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { countryData } from "./data/states-provinces";
-import { SIZES } from "../../styling/constants";
 import { addNewUser } from "./helpers";
 import { AppContext } from "../AppContext";
 
@@ -180,7 +179,7 @@ const Content = styled.div`
   ${centeredFlexColumn}
   width: 100%;
   height: 100%;
-  padding: ${SIZES.universalPadding}px;
+  padding: ${(props) => props.theme.sizes.universalPadding}px;
 `;
 
 const Signup = styled.form`
@@ -191,7 +190,7 @@ const Signup = styled.form`
   height: 100%;
   width: 100%;
   gap: 10px;
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
 `;
 
 const Label = styled.label`

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { SendIcon } from "../../../styling/react-icons";
-import { SIZES } from "../../../styling/constants";
 
 const SendButton = () => {
   // Purely for keeping all this styling in one place
@@ -24,7 +23,7 @@ const SendButtonWrapper = styled.button`
   padding: 2px 10px;
   margin: 0px 6px;
   transition: all 0.1s ease;
-  border-bottom-right-radius: ${SIZES.borderRadius}px;
+  border-bottom-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
   svg {
     width: 30px;
     height: 30px;

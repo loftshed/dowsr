@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
-import { SIZES } from "./constants";
 
 const buttonAnim = css`
   transition: all ease 0.1s;
@@ -73,7 +72,7 @@ const boxShadow = css`
 `;
 
 const textButtonstyling = css`
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   background-color: transparent;
   height: fit-content;
   width: fit-content;

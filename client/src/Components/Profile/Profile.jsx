@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
-import { SIZES } from "../../styling/constants";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { useEffect, useContext, useState } from "react";
 import { AppContext } from "../AppContext";
@@ -126,7 +125,7 @@ const InnerContainerLiner = styled.div`
   width: 100%;
   flex-direction: column;
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
 `;
 
 const ProfileSplash = styled.div`
@@ -135,8 +134,8 @@ const ProfileSplash = styled.div`
   width: 100%;
   height: 150px;
   background-image: url("/bg.jpg");
-  border-top-left-radius: ${SIZES.borderRadius}px;
-  border-top-right-radius: ${SIZES.borderRadius}px;
+  border-top-left-radius: ${(props) => props.theme.sizes.borderRadius}px;
+  border-top-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
   background-size: cover;
   @media (min-width: 450px) {
     height: 250px;
@@ -147,13 +146,13 @@ const UserDetails = styled.div`
   ${centeredFlexColumn}
   width: 100%;
   height: 100%;
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   border-top: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;
 
 const DetailsHeading = styled.div`
   background-color: ${(props) => props.theme.colors.darkestGrey};
-  padding: 0 ${SIZES.universalPadding}px;
+  padding: 0 ${(props) => props.theme.sizes.universalPadding}px;
   width: 100%;
   @media (min-width: 450px) {
     padding: 0px 40px;
@@ -175,8 +174,8 @@ const Details = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: ${(props) => props.theme.colors.superDarkGrey};
-  border-bottom-left-radius: ${SIZES.borderRadius}px;
-  border-bottom-right-radius: ${SIZES.borderRadius}px;
+  border-bottom-left-radius: ${(props) => props.theme.sizes.borderRadius}px;
+  border-bottom-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
   height: 100%;
   width: 100%;
   @media (min-width: 450px) {

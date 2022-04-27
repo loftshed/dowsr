@@ -1,4 +1,3 @@
-import { SIZES } from "../../styling/constants";
 import styled, { css } from "styled-components";
 import { textButtonstyling } from "../../styling/sharedstyles";
 
@@ -14,7 +13,7 @@ const sharedDetailStyle = css`
   width: 100%;
   height: ${BAR_HEIGHT.small}px;
   gap: 3px;
-  padding: 0 ${SIZES.universalPadding}px;
+  padding: 0 ${(props) => props.theme.sizes.universalPadding}px;
   border-top: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   border-bottom: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   background-color: ${(props) => props.theme.colors.lessDarkGrey};

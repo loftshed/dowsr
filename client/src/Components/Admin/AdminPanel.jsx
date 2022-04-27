@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import { getPinsPendingReview } from "../Map/helpers";
-import { SIZES } from "../../styling/constants";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
 import PendingFilterItems from "./PendingFilterItems";
 import { MappingContext } from "../Map/MappingContext";
@@ -70,7 +69,7 @@ const InnerContainerLiner = styled.div`
   align-items: center;
   border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   background-color: ${(props) => props.theme.colors.darkestGrey};
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   ${fillSpace}
   padding: 10px;
   gap: 20px;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { SIZES } from "../../styling/constants";
 import { fillSpace, IconNavLink } from "../../styling/sharedstyles";
 import { NotificationIcon, AdminIcon } from "../../styling/react-icons";
 import LogoutButton from "../Auth/LogoutButton";
@@ -74,7 +73,7 @@ const BurgerWrapper = styled.div`
   bottom: ${(props) => (props.show ? "35px" : "-500px")};
   right: 1px;
   background-color: ${(props) => props.theme.colors.darkestGrey};
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   transition: 0.2s all ease;
   opacity: ${(props) => (props.show ? "100%" : "0%")};

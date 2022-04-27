@@ -4,7 +4,6 @@ import { sharedDetailStyle } from "../sharedstyles";
 import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
 import FollowCountIndicator from "./FollowCountIndicator";
-import { SIZES } from "../../../styling/constants";
 
 // STRETCH: To get follower avatars make it so that when you follow someone their avatarUrl and username are saved in your followers arary along with their id.
 
@@ -63,9 +62,9 @@ const buttonStyle = css`
 export { FollowBar, buttonStyle };
 
 const Container = styled.div`
-  padding: 0px ${SIZES.universalPadding}px;
+  padding: 0px ${(props) => props.theme.sizes.universalPadding}px;
   @media (min-width: 450px) {
-    padding: 0px ${SIZES.expandedPadding}px;
+    padding: 0px ${(props) => props.theme.sizes.universalPadding}px;
   }
 `;
 

@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { SIZES } from "../../styling/constants";
 import {
   centeredFlexColumn,
   fillSpace,
@@ -136,7 +135,7 @@ const menuWrapperstyling = css`
   width: fit-content;
   height: fit-content;
   background-color: ${(props) => props.theme.colors.darkGrey};
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   padding: 5px;
   pointer-events: auto;
@@ -154,7 +153,7 @@ const Boundary = styled.div`
   height: calc(100% - 40px);
   right: 10px;
   top: 40px;
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   pointer-events: none;
   padding: 1px;
   overflow: hidden;
@@ -166,7 +165,7 @@ const FilterMenuWrapper = styled.div`
 
 const InnerContainer = styled.div`
   ${fillSpace}
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   background-color: ${(props) => props.theme.colors.darkestGrey};
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   padding: 5px;

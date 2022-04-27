@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import PreviewTile from "./PreviewTile";
-import { SIZES } from "../../../styling/constants";
 import { AppContext } from "../../AppContext";
 import { useContext } from "react";
 
@@ -57,7 +56,7 @@ const SidebarWrapper = styled.div`
   row-gap: 6px;
   background-color: ${(props) => props.theme.colors.superDarkGrey};
   border-top-left-radius: 3px;
-  border-bottom-left-radius: ${SIZES.borderRadius}px;
+  border-bottom-left-radius: ${(props) => props.theme.sizes.borderRadius}px;
   @media (max-width: 425px) {
     width: 70px;
     row-gap: 10px;

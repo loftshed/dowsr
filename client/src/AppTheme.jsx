@@ -25,6 +25,19 @@ const theme = {
     hazard: "#e76f51",
     police: "#118ab2",
   },
+  sizes: {
+    widthMax: 1280,
+    widthMed: 820,
+    widthMin: 450,
+    smlHeader: 50,
+    lrgHeader: 85,
+    menuHeightCompact: 55,
+    universalPadding: 20,
+    topBottomPadding: 10,
+    smallPadding: 10,
+    borderRadius: 10,
+    iconSize: 25,
+  },
 };
 
 const Theme = ({ children }) => (

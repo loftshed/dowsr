@@ -2,7 +2,6 @@ import styled from "styled-components";
 import LoadingSpinner from "../../../styling/LoadingSpinner";
 import SendButton from "./SendButton";
 import { fillSpace } from "../../../styling/sharedstyles";
-import { SIZES } from "../../../styling/constants";
 
 const ChatLoading = () => {
   // If everything is loading just show this
@@ -26,7 +25,7 @@ const ChatLoadingWrapper = styled.div`
   flex-direction: column;
   background-color: ${(props) => props.theme.colors.superDarkGrey};
   border-top-right-radius: 5px;
-  border-bottom-right-radius: ${SIZES.borderRadius}px;
+  border-bottom-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
   padding: 3px;
   gap: 4px;
   width: 100%;

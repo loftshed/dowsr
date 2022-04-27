@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { SIZES } from "../../styling/constants";
 import { centeredFlexColumn, iconstyling } from "../../styling/sharedstyles";
 import PendingPin from "./PendingPin";
 import {
@@ -56,7 +55,7 @@ const PendingItemWrapper = styled.div`
   width: 100%;
   height: fit-content;
   background-color: ${(props) => props.theme.colors.teal};
-  border-radius: ${SIZES.borderRadius}px;
+  border-radius: ${(props) => props.theme.sizes.borderRadius}px;
   font-size: 14px;
 `;
 

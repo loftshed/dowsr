@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { fillSpace } from "../../styling/sharedstyles";
-import { SIZES } from "../../styling/constants";
 
 import ResponsiveContainer from "../../styling/ResponsiveContainer";
 import ChatSidebar from "./components/ChatSidebar";
@@ -91,8 +90,8 @@ const LayoutContainer = styled.div`
   width: 100%;
   height: 100%;
   padding: 3px;
-  border-bottom-left-radius: ${SIZES.borderRadius}px;
-  border-bottom-right-radius: ${SIZES.borderRadius}px;
+  border-bottom-left-radius: ${(props) => props.theme.sizes.borderRadius}px;
+  border-bottom-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
   background-color: ${(props) => props.theme.colors.darkestGrey};
   overflow: hidden;
 `;
@@ -102,7 +101,7 @@ const ChatArea = styled.div`
   flex-direction: column;
   background-color: ${(props) => props.theme.colors.superDarkGrey};
   border-top-right-radius: 5px;
-  border-bottom-right-radius: ${SIZES.borderRadius}px;
+  border-bottom-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
   padding: 3px;
   gap: 4px;
   width: 100%;
