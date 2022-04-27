@@ -46,6 +46,7 @@ const NewWarningPinForm = ({ handleSubmitPin }) => {
                 <CheckItem>
                   <Checkbox
                     type="radio"
+                    name="warningType"
                     value="hazard"
                     key="hazard"
                     id="hazard"
@@ -58,6 +59,7 @@ const NewWarningPinForm = ({ handleSubmitPin }) => {
                 <CheckItem>
                   <Checkbox
                     type="radio"
+                    name="warningType"
                     value="police"
                     key="police"
                     id="police"
