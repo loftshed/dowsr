@@ -38,7 +38,6 @@ const submitPin = async (ev, locationObj, loggedInUser, hours) => {
   console.log(hours);
   try {
     const submissionObj = {
-      // type: ev.target.pinType.value,
       latitude: locationObj.lat,
       longitude: locationObj.lng,
       hours: hours,
