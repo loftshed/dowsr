@@ -33,20 +33,20 @@ app.use(cors());
 /*----------------------------------------
 | socket.io stuff i understand even less |
 ----------------------------------------*/
-const http = require("http").createServer(app);
-const io = require("socket.io")(http, {
-  cors: { origin: "*" },
-  methods: ["GET", "POST"],
-});
-http.listen(8080, () => console.log("listening on http://localhost:8080"));
+// const http = require("http").createServer(app);
+// const io = require("socket.io")(http, {
+//   cors: { origin: "*" },
+//   methods: ["GET", "POST"],
+// });
+// http.listen(8080, () => console.log("listening on http://localhost:8080"));
 
-io.on("connection", (socket) => {
-  // any code here will run upon the "connection" event
-});
+// io.on("connection", (socket) => {
+//   // any code here will run upon the "connection" event
+// });
 
-io.on("connection", (socket) => {
-  console.log(socket.handshake.query); // prints { x: "42", EIO: "4", transport: "polling" }
-});
+// io.on("connection", (socket) => {
+//   console.log(socket.handshake.query); // prints { x: "42", EIO: "4", transport: "polling" }
+// });
 
 /*--------
 | routes |

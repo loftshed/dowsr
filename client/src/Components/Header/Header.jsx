@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { SIZES } from "../../styling/constants";
 import { fillSpace } from "../../styling/sharedstyles";
 

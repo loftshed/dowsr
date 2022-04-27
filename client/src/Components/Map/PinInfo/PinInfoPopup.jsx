@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { Popup /*useMap*/ } from "react-map-gl";
 import { fillSpace, centeredFlexColumn } from "../../../styling/sharedstyles";
 

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const PinSubmitter = ({ popupInfo, isOwnPin }) => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import LoadingSpinner from "../../../styling/LoadingSpinner";
 import SendButton from "./SendButton";
 import { fillSpace } from "../../../styling/sharedstyles";

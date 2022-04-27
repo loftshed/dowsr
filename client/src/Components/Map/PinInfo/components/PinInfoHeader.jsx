@@ -1,5 +1,5 @@
 import { RiLinkM as LinkIcon } from "react-icons/ri";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { centeredFlexRow, fakeStroke } from "../../../../styling/sharedstyles";
 import { getIcon } from "../../helpers";
 

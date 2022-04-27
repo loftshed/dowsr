@@ -4,7 +4,7 @@ import {
   fillSpace,
 } from "../../styling/sharedstyles";
 import { useAuth0 } from "@auth0/auth0-react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { SIZES } from "../../styling/constants";
 import LoginButton from "../Auth/LoginButton";
 import { useContext } from "react";
@@ -156,4 +156,6 @@ const Content = styled.div`
 const LoginContainer = styled.div`
   ${centeredFlexRow}
   width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
 `;

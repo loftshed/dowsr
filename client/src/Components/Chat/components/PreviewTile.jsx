@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { centeredFlexColumn } from "../../../styling/sharedstyles";
 import { fadeIn, RefreshAnim } from "../../../styling/animations";
 import { SIZES } from "../../../styling/constants";
@@ -27,13 +27,6 @@ const PreviewTile = ({
   const isCurrentlySelected = selectedThreadId === threadId ? true : false; // Used to determine if the tile should be highlighted
   const relativeTime = require("dayjs/plugin/relativeTime");
   dayjs.extend(relativeTime); // Used to display time in "(x) minutes ago" format
-
-  // // Grabs socket from context
-  // const { socket } = useContext(AppContext);
-  // // Uses socket to create a listener for messages with the current threadId
-  // socket.on(`${threadId}`, (message) => {
-  //   setCurrentMessages([...currentMessages, message]);
-  // });
 
   useEffect(() => {
     (async () => {

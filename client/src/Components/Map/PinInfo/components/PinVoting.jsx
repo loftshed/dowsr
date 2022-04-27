@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { useContext, useState } from "react";
 import { MappingContext } from "../../MappingContext";
 import { ThumbsDownIcon, ThumbsUpIcon } from "../../../../styling/react-icons";
@@ -21,7 +21,7 @@ const PinVoting = ({ isOwnPin }) => {
         pinFeedback={pinFeedback}
       >
         <ThumbsUpIcon />
-        <span>{pinFeedback?.likedByIds.length}</span>
+        <VoteAmount>{pinFeedback?.likedByIds.length}</VoteAmount>
       </PinVotingButton>
       <PinVotingButton
         value={"dislike"}
@@ -30,7 +30,7 @@ const PinVoting = ({ isOwnPin }) => {
         pinFeedback={pinFeedback}
       >
         <ThumbsDownIcon />
-        <span>{pinFeedback?.dislikedByIds.length}</span>
+        <VoteAmount>{pinFeedback?.dislikedByIds.length}</VoteAmount>
       </PinVotingButton>
     </PinVotingWrapper>
   );
@@ -43,4 +43,12 @@ const PinVotingWrapper = styled.div`
   gap: 5px;
 
   border-radius: 4px;
+`;
+
+const VoteAmount = styled.span`
+  font-weight: 800;
+  border-radius: 4px;
+  line-height: 11px;
+  padding: 2px;
+  color: #fff;
 `;

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 import { fakeStroke } from "../../../styling/sharedstyles";
 
 const FollowCountIndicator = ({ count, type, color }) => {

@@ -1,5 +1,4 @@
 import { useState, createContext } from "react";
-import socketio from "socket.io-client";
 
 export const AppContext = createContext(null);
 
@@ -26,7 +25,6 @@ export const AppProvider = ({ children }) => {
         setShowSearchBar,
         viewedProfile,
         setViewedProfile,
-        // socket,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components/macro";
 import { centeredFlexRow } from "../../../../styling/sharedstyles";
 import { useContext } from "react";
 import { AppContext } from "../../../AppContext";
@@ -135,18 +135,10 @@ const PinVotingButtonWrapper = styled.button`
   svg {
     stroke: var(--color-extra-medium-grey);
     stroke-width: 1px;
+    filter: drop-shadow(1px 1px 0px var(--color-super-dark-grey));
   }
   svg,
   span {
     pointer-events: none;
-    filter: drop-shadow(1px 1px 0px var(--color-super-dark-grey));
-  }
-  span {
-    font-weight: 800;
-    border-radius: 4px;
-    line-height: 11px;
-    padding: 2px;
-    color: #fff;
-    -webkit-text-stroke: 1px var(--color-extra-medium-grey);
   }
 `;

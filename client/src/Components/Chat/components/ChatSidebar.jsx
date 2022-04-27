@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import PreviewTile from "./PreviewTile";
 import { SIZES } from "../../../styling/constants";
 import { AppContext } from "../../AppContext";

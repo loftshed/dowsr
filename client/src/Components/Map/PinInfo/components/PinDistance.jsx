@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { centeredFlexRow } from "../../../../styling/sharedstyles";
 import { getDistanceFromPoint } from "../../helpers";
 

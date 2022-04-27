@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { centeredFlexColumn } from "../../styling/sharedstyles";
 const UniversalMapPin = ({ scale, onClick, children, color }) => {
   return (

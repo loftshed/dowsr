@@ -1,9 +1,8 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import SendButton from "./SendButton";
 import { replyThread } from "../helpers";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
-import { io } from "socket.io-client";
 
 const ChatInput = ({
   selectedThreadId,
@@ -11,12 +10,6 @@ const ChatInput = ({
   setCurrentMessages,
   currentMessages,
 }) => {
-  const socket = io({
-    query: {
-      x: 42,
-    },
-  });
-
   const { loggedInUser } = useContext(AppContext);
   const handleSendMessage = async (message) => {
     try {
