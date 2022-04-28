@@ -10,10 +10,13 @@ import PinSubmitter from "./components/PinSubmitter";
 import PinInfoHeader from "./components/PinInfoHeader";
 import PinDistance from "./components/PinDistance";
 import { AppContext } from "../../AppContext";
+import dayjs from "dayjs";
 
 const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const PinInfoPopup = () => {
+  const relativeTime = require("dayjs/plugin/relativeTime");
+  dayjs.extend(relativeTime);
   const { popupInfo, setPopupInfo, userLocation, setClickedLocation } =
     useContext(MappingContext);
   // const { current: map } = useMap();
@@ -29,6 +32,8 @@ const PinInfoPopup = () => {
 
   if (!popupInfo) return null;
 
+  console.log(popupInfo.type);
+
   return (
     <PopupContainer
       anchor="bottom"
@@ -41,7 +46,12 @@ const PinInfoPopup = () => {
       <PinInfo>
         <TopPanel>
           <PinInfoHeader popupInfo={popupInfo} />
-          <Hours>{popupInfo.hours}</Hours>
+          {(popupInfo.type === "water" || popupInfo.type === "toilet") && (
+            <Hours>Open {popupInfo.hours}</Hours>
+          )}
+          {(popupInfo.type === "police" || popupInfo.type === "hazard") && (
+            <Hours>{dayjs(popupInfo.hours).fromNow()}</Hours>
+          )}
           <ImageContainer>
             <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
             <PinStreetView
