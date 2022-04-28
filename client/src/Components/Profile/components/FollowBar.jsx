@@ -48,7 +48,18 @@ const FollowBar = ({
           />
         )}
       </ActionBarWrapper>
-      <Container></Container>
+      <Container>
+        {viewedProfile?.followers?.map((user) => {
+          console.log(user);
+          return (
+            <FollowAvatar
+              key={user.userId}
+              src={user.avatarUrl}
+              alt={`${user.username}`}
+            />
+          );
+        })}
+      </Container>
       <ActionBarWrapper>
         <FollowCountIndicator
           type={"following"}
@@ -60,7 +71,17 @@ const FollowBar = ({
           }
         />
       </ActionBarWrapper>
-      <Container></Container>
+      <Container>
+        {viewedProfile.following?.map((user) => {
+          return (
+            <FollowAvatar
+              key={user.userId}
+              src={user.avatarUrl}
+              alt={`${user.username}`}
+            />
+          );
+        })}
+      </Container>
     </>
   );
 };
@@ -74,13 +95,19 @@ const buttonStyle = css`
 export { FollowBar, buttonStyle };
 
 const Container = styled.div`
-  padding: 0px ${(props) => props.theme.sizes.universalPadding}px;
-  @media (min-width: 450px) {
-    padding: 0px ${(props) => props.theme.sizes.universalPadding}px;
-  }
+  display: flex;
+  gap: 5px;
+  padding: 10px;
 `;
 
 const ActionBarWrapper = styled.div`
   justify-content: space-between;
   ${sharedDetailStyle};
+`;
+
+const FollowAvatar = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid ${(props) => props.theme.colors.darkestGrey};
 `;

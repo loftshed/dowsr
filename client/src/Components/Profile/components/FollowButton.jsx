@@ -41,7 +41,14 @@ const FollowButton = ({
           if (!result.unmodified) {
             setViewedProfile({
               ...viewedProfile,
-              followers: [...viewedProfile.followers, loggedInUser._id],
+              followers: [
+                ...viewedProfile.followers,
+                {
+                  userId: loggedInUser._id,
+                  username: loggedInUser.username,
+                  avatarUrl: loggedInUser.avatarUrl,
+                },
+              ],
             });
           }
           return;
@@ -54,7 +61,7 @@ const FollowButton = ({
             setViewedProfile({
               ...viewedProfile,
               followers: viewedProfile.followers.filter(
-                (follower) => follower !== loggedInUser._id
+                (follower) => follower.userId !== loggedInUser._id
               ),
             });
 
