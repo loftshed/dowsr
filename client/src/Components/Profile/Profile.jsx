@@ -182,6 +182,7 @@ const Username = styled.h3`
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
   padding: 5px 0px;
+  font-size: 23px;
   @media (min-width: 450px) {
     padding: 10px 0px;
     font-size: 40px;
