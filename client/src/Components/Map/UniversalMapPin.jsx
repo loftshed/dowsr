@@ -1,10 +1,12 @@
 import styled from "styled-components/macro";
 import { centeredFlexColumn } from "../../styling/sharedstyles";
-const UniversalMapPin = ({ scale, onClick, children, color }) => {
+const UniversalMapPin = ({ scale, onClick, children, color, type }) => {
   return (
     <UniversalPinWrapper scale={scale} color={color} onClick={onClick}>
       <IconContainer>
-        <Icon color={color}>{children}</Icon>
+        <Icon color={color} type={type}>
+          {children}
+        </Icon>
       </IconContainer>
       <Point />
     </UniversalPinWrapper>
@@ -17,17 +19,19 @@ const Icon = styled.div`
   position: absolute;
   ${centeredFlexColumn}
   svg {
+    position: relative;
     margin: 0;
-
+    top: ${({ type }) => {
+      if (type === "toilet") return "-2px";
+      if (type === "water") return "-1px";
+    }};
+    left: 0;
     width: 25px;
     height: 25px;
     fill: ${({ color }) => color};
     padding: ${({ type }) => {
-      if (type === "toilet") return "5px";
-      if (type === "water") return "0";
-      if (type === "hazard") return "0";
-      if (type === "police") return "0";
-      if (type === "pending") return "0";
+      if (type === "toilet") return "2px";
+      if (type === "police") return "1px";
     }};
   }
 `;
