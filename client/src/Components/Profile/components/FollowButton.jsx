@@ -92,6 +92,11 @@ export default FollowButton;
 
 const FollowButtonWrapper = styled(ProfileButton)`
   border-radius: 5px;
-  line-height: 22px;
+  @media (min-width: 450px) {
+    width: 150px;
+  }
+  @media (max-width: 450px) {
+    line-height: 22px;
+  }
 `;
 const Text = styled.div``;
