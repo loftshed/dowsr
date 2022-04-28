@@ -13,6 +13,7 @@ import { FollowBar } from "./components/FollowBar";
 import LocationBar from "./components/LocationBar";
 import MessageBar from "./components/MessageBar";
 import Avatar from "./components/Avatar";
+import { fadeIn } from "../../styling/animations";
 
 // TODO: Make this state less shitty
 
@@ -130,7 +131,7 @@ export default Profile;
 
 const InnerContainer = styled.div`
   ${fillSpace}
-
+  animation: ${fadeIn} 0.1s ease;
   user-select: none;
   padding: 5px;
   flex-direction: column;

@@ -13,7 +13,7 @@ import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
-import { overlayFadeIn } from "../../styling/animations";
+import { fadeIn, overlayFadeIn } from "../../styling/animations";
 
 const MapContainer = () => {
   const { firstLogin, loggedInUser } = useContext(AppContext);
@@ -183,6 +183,7 @@ const MapWrapper = styled.div`
   overflow: hidden;
   #map canvas {
     cursor: ${(props) => props.cursorType};
+    animation: ${fadeIn} 0.5s ease;
   }
 `;
 
