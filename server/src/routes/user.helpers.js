@@ -165,6 +165,7 @@ const addPinToUserContributions = async (
 // When a user follows another user, their userId is pushed into the target user's followers array, and the target user's userId is pushed into the initiating user's following array, and vice versa. If a user makes a redundant request it is ignored.
 // Try to make this way more DRY!!!
 // Maybe take userIds in the query and then assign them to variables dynamically in the function based on whether or not the "follow" parameter is included.
+
 const toggleFollowUser = async (
   { query: { userId, targetUserId, follow } },
   res
@@ -173,8 +174,14 @@ const toggleFollowUser = async (
     await client.connect();
     const user = await thisCollection.findOne({ _id: userId });
     const targetUser = await thisCollection.findOne({ _id: targetUserId });
+
     // If the user already follows the target user that they are requesting to follow, ignore the request.
-    if (user.following.includes(targetUserId) && follow) {
+    if (
+      user.following.some(
+        (followingUser) => followingUser.userId === targetUserId
+      ) &&
+      follow
+    ) {
       res.status(200).json({
         status: 200,
         unmodified: true,
@@ -182,12 +189,30 @@ const toggleFollowUser = async (
       });
     } else if (user && targetUser) {
       if (follow) {
-        const updatedFollowedUser = await db
-          .collection("users")
-          .updateOne({ _id: targetUserId }, { $push: { followers: userId } });
-        const updatedFollowingUser = await db
-          .collection("users")
-          .updateOne({ _id: userId }, { $push: { following: targetUserId } });
+        const updatedFollowedUser = await db.collection("users").updateOne(
+          { _id: targetUserId },
+          {
+            $push: {
+              followers: {
+                userId: userId,
+                username: user.username,
+                avatarUrl: user.avatarUrl,
+              },
+            },
+          }
+        );
+        const updatedFollowingUser = await db.collection("users").updateOne(
+          { _id: userId },
+          {
+            $push: {
+              following: {
+                userId: targetUserId,
+                username: targetUser.username,
+                avatarUrl: targetUser.avatarUrl,
+              },
+            },
+          }
+        );
         updatedFollowingUser
           ? res.status(200).json({
               status: 200,
@@ -201,19 +226,31 @@ const toggleFollowUser = async (
               message: "Something went wrong.",
             });
       } else {
-        if (!user.following.includes(targetUserId) && !follow) {
+        if (
+          !user.following.some(
+            (followingUser) => followingUser.userId === targetUserId
+          ) &&
+          !follow
+        ) {
           res.status(200).json({
             status: 200,
             unmodified: true,
             message: "You cannot unfollow a user that you are not following.",
           });
         } else {
+          // Search through the target user's followers array for an object with a userId that matches that of the user that is requesting to unfollow, then remove that object from the target user's followers array using the $pull operator.
           const updatedFollowedUser = await db
             .collection("users")
-            .updateOne({ _id: targetUserId }, { $pull: { followers: userId } });
+            .updateOne(
+              { _id: targetUserId },
+              { $pull: { followers: { userId: userId } } }
+            );
           const updatedFollowingUser = await db
             .collection("users")
-            .updateOne({ _id: userId }, { $pull: { following: targetUserId } });
+            .updateOne(
+              { _id: userId },
+              { $pull: { following: { userId: targetUserId } } }
+            );
           updatedFollowingUser
             ? res.status(200).json({
                 status: 200,
@@ -230,9 +267,80 @@ const toggleFollowUser = async (
       }
     }
   } catch (err) {
-    err ? console.log(err) : client.close();
+    console.log(err);
+  } finally {
+    client.close();
   }
 };
+
+// const toggleFollowUser = async (
+//   { query: { userId, targetUserId, follow } },
+//   res
+// ) => {
+//   try {
+//     await client.connect();
+//     const user = await thisCollection.findOne({ _id: userId });
+//     const targetUser = await thisCollection.findOne({ _id: targetUserId });
+//     // If the user already follows the target user that they are requesting to follow, ignore the request.
+//     if (user.following.includes(targetUserId) && follow) {
+//       res.status(200).json({
+//         status: 200,
+//         unmodified: true,
+//         message: "You are already following this user.",
+//       });
+//     } else if (user && targetUser) {
+//       if (follow) {
+//         const updatedFollowedUser = await db
+//           .collection("users")
+//           .updateOne({ _id: targetUserId }, { $push: { followers: userId } });
+//         const updatedFollowingUser = await db
+//           .collection("users")
+//           .updateOne({ _id: userId }, { $push: { following: targetUserId } });
+//         updatedFollowingUser
+//           ? res.status(200).json({
+//               status: 200,
+//               userFound: true,
+//               data: [updatedFollowingUser, updatedFollowedUser],
+//               message: `You are now following userId ${targetUserId}.`,
+//             })
+//           : res.status(500).json({
+//               status: 500,
+//               userFound: false,
+//               message: "Something went wrong.",
+//             });
+//       } else {
+//         if (!user.following.includes(targetUserId) && !follow) {
+//           res.status(200).json({
+//             status: 200,
+//             unmodified: true,
+//             message: "You cannot unfollow a user that you are not following.",
+//           });
+//         } else {
+//           const updatedFollowedUser = await db
+//             .collection("users")
+//             .updateOne({ _id: targetUserId }, { $pull: { followers: userId } });
+//           const updatedFollowingUser = await db
+//             .collection("users")
+//             .updateOne({ _id: userId }, { $pull: { following: targetUserId } });
+//           updatedFollowingUser
+//             ? res.status(200).json({
+//                 status: 200,
+//                 userFound: true,
+//                 data: [updatedFollowingUser, updatedFollowedUser],
+//                 message: `You are no longer following userId ${targetUserId}.`,
+//               })
+//             : res.status(500).json({
+//                 status: 500,
+//                 userFound: false,
+//                 message: "Something went wrong.",
+//               });
+//         }
+//       }
+//     }
+//   } catch (err) {
+//     err ? console.log(err) : client.close();
+//   }
+// };
 
 module.exports = {
   addUser,

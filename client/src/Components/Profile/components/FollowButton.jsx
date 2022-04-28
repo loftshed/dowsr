@@ -26,11 +26,9 @@ const FollowButton = ({
   // Follows or unfollows user.
   // setFollowerCount(followerCount += 1);
   useEffect(() => {
-    console.log(loggedInUser);
     if (viewedProfile.followers?.includes(loggedInUser?._id)) {
       setFollowingState(true);
     }
-    console.log(viewedProfile);
   }, [followingState, viewedProfile]);
 
   return (
