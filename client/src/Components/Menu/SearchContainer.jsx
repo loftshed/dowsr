@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { useMap } from "react-map-gl";
 import styled from "styled-components/macro";
 import {
   centeredFlexColumn,
@@ -7,11 +6,12 @@ import {
   inputStyling,
 } from "../../styling/sharedstyles";
 import { forwardGeocode } from "../Map/helpers";
+import { useMap } from "react-map-gl";
 
 const SearchContainer = ({ show }) => {
   const [searchResults, setSearchResults] = useState(null);
   // const [clickedResult, setClickedResult] = useState(null);
-  // const {id: } = useMap();
+  const { map } = useMap();
 
   // EXTREMELY half baked. This was pretty low on the priority list.
 
@@ -34,9 +34,9 @@ const SearchContainer = ({ show }) => {
     // make viewport fly to result
     // display "add a pin here? marker"
 
-    // const { center } = result;
+    const { center } = result;
     // console.log(center);
-    // mainMap.flyTo({ center: [0, 0], zoom: 9 });
+    map.flyTo({ center: center, zoom: 10 });
   };
 
   if (show)
