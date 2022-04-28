@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 import { sharedDetailStyle } from "../sharedstyles";
 
 const ContributionsHeader = ({ pendingReview, contributions }) => {
-  if (!pendingReview && !contributions) return <ContributionsHeaderWrapper />;
+  if (!contributions) return <ContributionsHeaderWrapper />;
 
   if (contributions?.length === 1)
     return (
@@ -13,14 +13,6 @@ const ContributionsHeader = ({ pendingReview, contributions }) => {
     return (
       <ContributionsHeaderWrapper>
         No contributions yet!
-      </ContributionsHeaderWrapper>
-    );
-
-  if (contributions?.length > 0 && pendingReview?.length > 0)
-    return (
-      <ContributionsHeaderWrapper>
-        {contributions?.length - pendingReview?.length} contributions (
-        {pendingReview?.length} pending)
       </ContributionsHeaderWrapper>
     );
 

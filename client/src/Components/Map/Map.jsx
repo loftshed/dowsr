@@ -16,7 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { fadeIn, overlayFadeIn } from "../../styling/animations";
 
 const MapContainer = () => {
-  const { firstLogin, loggedInUser } = useContext(AppContext);
+  const { firstLogin, loggedInUser, showSearchBar, setShowSearchBar } =
+    useContext(AppContext);
   const navigate = useNavigate();
 
   if (firstLogin) navigate("/firstlogin");
@@ -79,6 +80,7 @@ const MapContainer = () => {
         // let filteredPins;
         !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
         const retrieved = await handleGetPinsOfType(filter);
+        console.log(retrieved);
         const filteredPins =
           filter !== "pending"
             ? retrieved.pins.filter((pin) => !pin.pendingReview)
@@ -131,10 +133,12 @@ const MapContainer = () => {
               mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
               logoPosition={"top-right"}
               onClick={(ev) => {
+                console.log(ev);
                 if (creatingNewPin) {
                   handleBeginPinCreation(ev);
                   setPopupIsVisible(!popupIsVisible);
                 }
+                setShowSearchBar(false);
               }}
               cursorModifier={creatingNewPin}
             >

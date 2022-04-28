@@ -3,8 +3,11 @@ import UniversalMapPin from "../../UniversalMapPin";
 import { getIcon } from "../../helpers";
 import { PendingIcon } from "../../../../styling/react-icons";
 import styled from "styled-components/macro";
+import { useContext } from "react";
+import { AppContext } from "../../../AppContext";
 
 const PinInfoMarker = ({ pins, setPopupInfo }) => {
+  const { setShowSearchBar } = useContext(AppContext);
   // Switch statement to determine which icon to use for the pin.
 
   return (
@@ -23,6 +26,7 @@ const PinInfoMarker = ({ pins, setPopupInfo }) => {
               onClick={(ev) => {
                 ev.stopPropagation();
                 setPopupInfo(pinData);
+                setShowSearchBar(false);
               }}
               color={`var(--color-${type})`}
               type={type}

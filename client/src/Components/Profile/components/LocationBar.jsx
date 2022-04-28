@@ -8,7 +8,8 @@ const LocationBar = ({ country, city, region }) => {
     <LocationBarWrapper>
       <Flag code={country} height={16} />
       <GlobeIcon />
-      {`${city}, ${region}`}
+      {region !== null && <>{`${city}, ${region}`}</>}
+      {!region && <>{city}</>}
     </LocationBarWrapper>
   );
 };
