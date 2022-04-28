@@ -76,7 +76,8 @@ const Messaging = () => {
   ]);
 
   return (
-    <ResponsiveContainer heading={"Messages"}>
+    <ResponsiveContainer>
+      <Forehead />
       <LayoutContainer>
         <ChatSidebar
           selectedThreadId={selectedThreadId}
@@ -104,6 +105,12 @@ const Messaging = () => {
 };
 
 export default Messaging;
+
+const Forehead = styled.div`
+  width: 100%;
+  height: 10px;
+  background-color: ${(props) => props.theme.colors.darkestGrey}; ;
+`;
 
 const LayoutContainer = styled.div`
   display: flex;

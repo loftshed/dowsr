@@ -25,7 +25,8 @@ import {} from "../../styling/react-icons";
 const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
   const { setSelectedMapFilter, setMapModalMessage } =
     useContext(MappingContext);
-  const { setShowBurgerMenu, showBurgerMenu } = useContext(AppContext);
+  const { setShowBurgerMenu, showBurgerMenu, loggedInUser } =
+    useContext(AppContext);
 
   const handleFilter = (type, friendlyName) => {
     setSelectedMapFilter(type);
@@ -111,14 +112,16 @@ const MapFilters = ({ showFilterMenu, setShowFilterMenu }) => {
               >
                 <HazardIcon />
               </Option>
-              <Option
-                type="button"
-                onClick={() => {
-                  handleFilter("pending", "Pending");
-                }}
-              >
-                <PendingIcon />
-              </Option>
+              {loggedInUser && loggedInUser?.isAdmin && (
+                <Option
+                  type="button"
+                  onClick={() => {
+                    handleFilter("pending", "Pending");
+                  }}
+                >
+                  <PendingIcon />
+                </Option>
+              )}
             </InnerContainerLiner>
           </InnerContainer>
         </FilterMenuWrapper>
