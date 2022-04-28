@@ -62,16 +62,20 @@ const NewPinPopup = () => {
 
         <Body>
           {clickedLocation.addressShort && (
-            <a
-              href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
-              target="_new"
-            >
-              <LoadingFiller />
-              <StreetView
-                id="street-view"
-                src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
-              />
-            </a>
+            <>
+              {clickedLocation.addressShort}
+              <a
+                href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
+                target="_new"
+              >
+                <LoadingFiller />
+
+                <StreetView
+                  id="street-view"
+                  src={`https://maps.googleapis.com/maps/api/streetview?size=225x125&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
+                />
+              </a>
+            </>
           )}
         </Body>
       </PopupContainer>
@@ -85,16 +89,16 @@ const StreetView = styled.img`
   top: 0;
   border-radius: 10px;
   border: 2px solid ${(props) => props.theme.colors.pink};
-  width: 200px;
-  height: 75px;
+  width: 225px;
+  height: 125px;
   animation: ${fadeIn} 0.5s ease;
 `;
 
 const LoadingFiller = styled.div`
   display: flex;
   position: relative;
-  min-height: 75px;
-  width: 200px;
+  min-height: 125px;
+  width: 225px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.colors.darkGrey};
 `;
@@ -114,7 +118,7 @@ const Body = styled.div`
   gap: 5px;
   background-color: ${(props) => props.theme.colors.darkestGrey};
   border-radius: 4px;
-  padding: 10px;
+  padding: 5px;
   font-size: 14px;
   line-height: 18px;
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
