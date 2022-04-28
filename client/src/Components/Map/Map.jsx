@@ -80,7 +80,6 @@ const MapContainer = () => {
         // let filteredPins;
         !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
         const retrieved = await handleGetPinsOfType(filter);
-        console.log(retrieved);
         const filteredPins =
           filter !== "pending"
             ? retrieved.pins.filter((pin) => !pin.pendingReview)

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import { handleToggleFollow } from "../helpers";
 import {
@@ -18,23 +18,34 @@ const FollowButton = ({
   setFollowingState,
   setFollowerCount,
   followerCount,
+  viewedProfile,
 }) => {
   const { loggedInUser } = useContext(AppContext);
 
   const [hover, setHover] = useState(false);
   // Follows or unfollows user.
   // setFollowerCount(followerCount += 1);
+  useEffect(() => {
+    console.log(loggedInUser);
+    if (viewedProfile?.followers.includes(loggedInUser?._id)) {
+      setFollowingState(true);
+    }
+    console.log(viewedProfile);
+  }, [followingState, viewedProfile]);
+
   return (
     <FollowButtonWrapper
       onClick={async () => {
         if (!followingState) {
           const result = handleToggleFollow(loggedInUser._id, _id, true);
+          console.log(await result);
           setFollowingState(true);
           if (!result.unmodified) setFollowerCount(followerCount + 1);
           return;
         }
         if (followingState) {
           const result = handleToggleFollow(loggedInUser._id, _id);
+          console.log(await result);
           setFollowingState(false);
           if (!result.unmodified) setFollowerCount(followerCount - 1);
           return;
@@ -69,5 +80,8 @@ const FollowButton = ({
 
 export default FollowButton;
 
-const FollowButtonWrapper = styled(ProfileButton)``;
+const FollowButtonWrapper = styled(ProfileButton)`
+  border-radius: 5px;
+  line-height: 22px;
+`;
 const Text = styled.div``;

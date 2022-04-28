@@ -10,13 +10,13 @@ import { useTheme } from "styled-components/macro";
 
 const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
   const [followingState, setFollowingState] = useState(
-    viewedProfile.following?.length
+    viewedProfile.followers.includes(loggedInUser._id) ? true : false
   );
   const [followerCount, setFollowerCount] = useState(
     viewedProfile.followers?.length
   );
   const [followingCount, setFollowingCount] = useState(
-    viewedProfile.following?.length
+    viewedProfile.following?.length || 0
   );
   const theme = useTheme();
 
@@ -39,6 +39,7 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
             setFollowerCount={setFollowerCount}
             setFollowingCount={setFollowingCount}
             followerCount={followerCount}
+            viewedProfile={viewedProfile}
           />
         )}
       </ActionBarWrapper>
@@ -47,7 +48,7 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
         <FollowCountIndicator
           type={"following"}
           color={theme.colors.pink}
-          count={followingCount}
+          count={followingCount > 0 ? followingCount : 0}
         />
       </ActionBarWrapper>
       <Container></Container>

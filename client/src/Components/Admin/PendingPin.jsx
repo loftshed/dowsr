@@ -25,7 +25,6 @@ const PendingPin = ({ pin, setPendingPins }) => {
   const handleModeratePendingPin = async (pinId, approved, username, type) => {
     try {
       const result = await moderatePendingPin(pinId, approved, username, type);
-      console.log(result);
       setModerationResult(result.message);
     } catch (error) {
       console.log(error);
