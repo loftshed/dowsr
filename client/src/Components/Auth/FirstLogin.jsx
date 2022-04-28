@@ -11,9 +11,12 @@ import {
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { countryData } from "./data/states-provinces";
 import { addNewUser } from "./helpers";
 import { AppContext } from "../AppContext";
+import RegionSelect from "./components/RegionSelect";
+import CountrySelect from "./components/CountrySelect";
+import Birthdate from "./components/Birthdate";
+import GenderId from "./components/GenderId";
 
 const FirstLogin = () => {
   //TODO: make this responsive
@@ -27,22 +30,20 @@ const FirstLogin = () => {
     <Wrapper>
       <ResponsiveContainer heading={"Welcome!"}>
         <Content>
-          <p style={{ fontSize: "12px" }}>Please complete your registration.</p>
+          <Heading>Please complete your registration.</Heading>
           <Signup
             onSubmit={async (ev) => {
               ev.preventDefault();
               const { success } = await addNewUser(ev, user);
               if (success) {
-                //TODO: LOADING SPINNER... success!
                 setFirstLogin(false);
                 navigate("/profile");
               } else {
-                //TODO: LOADING SPINNER... failure :(
                 navigate("/error");
               }
             }}
           >
-            <InputColumn style={{ gap: "5px" }}>
+            <RegistrationFormInputs style={{ gap: "5px" }}>
               <InputRow>
                 <InputColumn style={{ width: "70%" }}>
                   <Label htmlFor="firstName">First name*</Label>
@@ -73,26 +74,6 @@ const FirstLogin = () => {
                     defaultValue={user?.family_name}
                   />
                 </InputColumn>
-              </InputRow>
-              <InputRow>
-                <InputColumn>
-                  <Label htmlFor="birthdate">Birthdate</Label>
-                  <Input id="birthdate" name="birthdate" type="date" />
-                </InputColumn>
-                <InputColumn>
-                  <Label htmlFor="gender">Gender Identity</Label>
-                  <Select id="gender" name="gender" defaultValue={"default"}>
-                    <DefaultOption key={"default"} value={null}>
-                      Select
-                    </DefaultOption>
-                    <Option value="M">Man</Option>
-                    <Option value="F">Woman</Option>
-                    <Option value="NB">Non-Binary</Option>
-                    <Option value="NS">Prefer not to say</Option>
-                  </Select>
-                </InputColumn>
-              </InputRow>
-              <InputRow>
                 <InputColumn>
                   <Label htmlFor="username">Username</Label>
                   <Input
@@ -104,59 +85,20 @@ const FirstLogin = () => {
                 </InputColumn>
               </InputRow>
               <InputRow>
+                <Birthdate />
+                <GenderId />
+              </InputRow>
+              <InputRow>
                 <InputColumn>
                   <Label htmlFor="city">City</Label>
                   <Input id="city" name="city" type="text" />
                 </InputColumn>
               </InputRow>
               <InputRow>
-                <InputColumn>
-                  <Label htmlFor="country" type="text">
-                    Country
-                  </Label>
-                  <Select
-                    id="country"
-                    name="country"
-                    defaultValue={"default"}
-                    onChange={(ev) => {
-                      setRegions(
-                        countryData.find((el) => {
-                          return el.abbreviation === ev.target.value;
-                        }).states
-                      );
-                    }}
-                  >
-                    <DefaultOption key={"default"} value={null}>
-                      Select
-                    </DefaultOption>
-                    {countryData.map(({ name, abbreviation }) => {
-                      return (
-                        <Option key={abbreviation} value={abbreviation}>
-                          {name}
-                        </Option>
-                      );
-                    })}
-                  </Select>
-                </InputColumn>
-                <InputColumn>
-                  <Label htmlFor="region" type="text">
-                    State/Province
-                  </Label>
-                  <Select id="region" name="region" defaultValue={"default"}>
-                    <DefaultOption key={"default"} value={null}>
-                      Select
-                    </DefaultOption>
-                    {regions.map(({ name, abbreviation }) => {
-                      return (
-                        <Option key={abbreviation} value={abbreviation}>
-                          {name}
-                        </Option>
-                      );
-                    })}
-                  </Select>
-                </InputColumn>
+                <CountrySelect setRegions={setRegions} />
+                <RegionSelect regions={regions} />
               </InputRow>
-            </InputColumn>
+            </RegistrationFormInputs>
             <InputRow>
               <Submit />
             </InputRow>
@@ -175,11 +117,19 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
+const Heading = styled.div``;
+
 const Content = styled.div`
   ${centeredFlexColumn}
   width: 100%;
   height: 100%;
   padding: ${(props) => props.theme.sizes.universalPadding}px;
+  padding-bottom: 50px;
+  background-color: #444948;
+
+  @media (min-width: 450px) {
+    width: 80%;
+  }
 `;
 
 const Signup = styled.form`
@@ -196,6 +146,10 @@ const Signup = styled.form`
 const Label = styled.label`
   padding: 0px 3px;
   font-size: 10px;
+  @media (min-width: 450px) {
+    font-size: 16px;
+    line-height: 28px;
+  }
   text-transform: uppercase;
 `;
 
@@ -203,6 +157,10 @@ const InputColumn = styled.div`
   ${centeredFlexColumn}
   width: 100%;
   align-items: flex-start;
+`;
+const RegistrationFormInputs = styled(InputColumn)`
+  height: 100%;
+  gap: 10px !important;
 `;
 
 const InputRow = styled.div`
