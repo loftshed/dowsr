@@ -41,6 +41,7 @@ const NewPinModal = ({ show, type }) => {
         // setStoredFilteredPins(
         //   handleGetPinsOfType(await result.submission.type)
         // );
+        setFormType(null);
         setMapModalMessage(`Thank you, @${loggedInUser.username}!`);
       }
     } catch (error) {
