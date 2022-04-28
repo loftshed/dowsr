@@ -11,7 +11,7 @@ import { MappingContext } from "../Map/MappingContext";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
 
-const IconRow = () => {
+const IconRow = ({ searchResults, setSearchResults }) => {
   const {
     showBurgerMenu,
     setShowBurgerMenu,
@@ -41,6 +41,7 @@ const IconRow = () => {
           if (pinCreationSuccessful) setPinCreationSuccessful(null);
           if (showSearchBar) {
             setShowSearchBar(false);
+            setSearchResults(null);
             return;
           }
           setShowSearchBar(true);
@@ -51,7 +52,11 @@ const IconRow = () => {
       <IconNavLink
         to="/new"
         onClick={() => {
-          if (showSearchBar) setShowSearchBar(false);
+          if (showSearchBar) {
+            setShowSearchBar(false);
+            setSearchResults(null);
+          }
+
           if (showBurgerMenu) setShowBurgerMenu(false);
           if (pinCreationSuccessful) setPinCreationSuccessful(null);
           if (creatingNewPin) {
@@ -72,7 +77,10 @@ const IconRow = () => {
             setCreatingNewPin(false);
             setMapModalMessage("");
           }
-          if (showSearchBar) setShowSearchBar(false);
+          if (showSearchBar) {
+            setShowSearchBar(false);
+            setSearchResults(null);
+          }
           if (showBurgerMenu) setShowBurgerMenu(false);
           if (pinCreationSuccessful) setPinCreationSuccessful(null);
         }}
@@ -86,7 +94,10 @@ const IconRow = () => {
             setCreatingNewPin(false);
             setMapModalMessage("");
           }
-          if (showSearchBar) setShowSearchBar(false);
+          if (showSearchBar) {
+            setShowSearchBar(false);
+            setSearchResults(null);
+          }
           if (showBurgerMenu) setShowBurgerMenu(false);
           if (pinCreationSuccessful) setPinCreationSuccessful(null);
         }}
@@ -100,7 +111,10 @@ const IconRow = () => {
             setCreatingNewPin(false);
             setMapModalMessage("");
           }
-          if (showSearchBar) setShowSearchBar(false);
+          if (showSearchBar) {
+            setShowSearchBar(false);
+            setSearchResults(null);
+          }
           if (showBurgerMenu) setShowBurgerMenu(false);
           if (pinCreationSuccessful) setPinCreationSuccessful(null);
         }}

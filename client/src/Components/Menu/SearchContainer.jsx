@@ -9,6 +9,9 @@ import {
 import { forwardGeocode } from "../Map/helpers";
 import { useMap } from "react-map-gl";
 
+import { fadeIn } from "../../styling/animations";
+import { fadeOut } from "../../styling/animations";
+
 const SearchContainer = ({ show, searchResults, setSearchResults }) => {
   // const [clickedResult, setClickedResult] = useState(null);
   const { map } = useMap();
@@ -31,12 +34,12 @@ const SearchContainer = ({ show, searchResults, setSearchResults }) => {
     setSearchResults(null);
     // probably stupid way of targeting the input
     ev.nativeEvent.path[3].search.value = result.place_name;
-    // make viewport fly to result
-    // display "add a pin here? marker"
 
-    const { center } = result;
-    // console.log(center);
-    map.flyTo({ center: center, zoom: 10 });
+    const { center, place_type } = result;
+
+    const zoomLevel =
+      place_type[0] === "address" || place_type[0] === "poi" ? 15 : 10;
+    map.flyTo({ center: center, zoom: zoomLevel });
   };
 
   if (show)
@@ -148,26 +151,34 @@ const SearchWrapper = styled.form`
   bottom: 60px;
   height: 100%;
   pointer-events: none;
+  animation: ${fadeIn} 0.08s ease;
 `;
 
 const SearchBar = styled.div`
   width: 90%;
   ${centeredFlexRow};
-  background-color: grey;
-  padding: 5px;
-  border-radius: 50px;
-  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  backdrop-filter: blur(10px);
+  padding: 2px;
+  border-radius: 20px;
 `;
 
 const Input = styled.input`
   ${inputStyling};
-  border-radius: 50px;
+  border-radius: 15px;
   text-align: center;
   height: 40px;
   font-size: 18px;
-  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  border: none;
+  background-color: unset;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+  color: white;
+  text-shadow: 0px 0px 15px ${(props) => props.theme.colors.superDarkGrey};
   &:focus {
+    ${fakeStroke}
     outline: none;
-    box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2);
+    box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2),
+      0px 0px 5px 5px rgba(0, 0, 0, 0.5),
+      0px 0px 5px 5px rgba(68, 187, 164, 0.2);
   }
 `;

@@ -62,6 +62,16 @@ from {
     opacity: 100%
   }
 `;
+
+const overlayFadeIn = keyframes`
+from {
+    opacity: 0%
+  }
+  to {  
+    opacity: 15%
+  }
+`;
+
 const fadeOut = keyframes`
 from {
     opacity: 100%
@@ -94,4 +104,5 @@ export {
   fadeIn,
   fadeOut,
   RefreshAnim,
+  overlayFadeIn,
 };

@@ -13,6 +13,7 @@ import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
+import { overlayFadeIn } from "../../styling/animations";
 
 const MapContainer = () => {
   const { firstLogin, loggedInUser } = useContext(AppContext);
@@ -193,6 +194,7 @@ const Overlay = styled.div`
   opacity: 15%;
   box-shadow: inset 0px 0px 1000px ${(props) => props.theme.colors.teal};
   pointer-events: none;
+  animation: ${overlayFadeIn} 0.2s ease;
 `;
 
 // from home.jsx

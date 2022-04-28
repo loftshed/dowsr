@@ -7,6 +7,7 @@ import {
 } from "../../../styling/sharedstyles";
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
+import { fadeIn } from "../../../styling/animations";
 
 const NewPinPopup = () => {
   const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -60,20 +61,18 @@ const NewPinPopup = () => {
         )}
 
         <Body>
-          {!clickedLocation.addressShort ? (
-            <LoadingFiller />
-          ) : (
-            <>{clickedLocation.addressShort}</>
+          {clickedLocation.addressShort && (
+            <a
+              href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
+              target="_new"
+            >
+              <LoadingFiller />
+              <StreetView
+                id="street-view"
+                src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
+              />
+            </a>
           )}
-          <a
-            href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
-            target="_new"
-          >
-            <StreetView
-              id="street-view"
-              src={`https://maps.googleapis.com/maps/api/streetview?size=200x75&location=${clickedLocation?.lat},${clickedLocation?.lng}&fov=80&heading=70&pitch=0&key=${REACT_APP_GOOGLE_API_KEY}`}
-            />
-          </a>
         </Body>
       </PopupContainer>
     </Popup>
@@ -82,16 +81,22 @@ const NewPinPopup = () => {
 export default NewPinPopup;
 
 const StreetView = styled.img`
+  position: absolute;
+  top: 0;
   border-radius: 10px;
   border: 2px solid ${(props) => props.theme.colors.pink};
+  width: 200px;
+  height: 75px;
+  animation: ${fadeIn} 0.5s ease;
 `;
 
 const LoadingFiller = styled.div`
+  display: flex;
   position: relative;
-  height: 18px;
-  width: 100px;
+  min-height: 75px;
+  width: 200px;
   border-radius: 4px;
-  overflow: hidden;
+  background-color: ${(props) => props.theme.colors.darkGrey};
 `;
 
 const PopupContainer = styled.div`
@@ -113,6 +118,9 @@ const Body = styled.div`
   font-size: 14px;
   line-height: 18px;
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  a {
+    position: relative;
+  }
 `;
 
 const CreateButton = styled(TextButton)`

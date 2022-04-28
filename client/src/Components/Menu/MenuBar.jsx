@@ -37,7 +37,10 @@ const MenuBar = () => {
         <Content>
           {isAuthenticated ? (
             <>
-              <IconRow />
+              <IconRow
+                searchResults={searchResults}
+                setSearchResults={setSearchResults}
+              />
               <BurgerZone>
                 <BurgerButton
                   onClick={() => {
