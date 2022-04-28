@@ -6,7 +6,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components/macro";
 import LoginButton from "../Auth/LoginButton";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../AppContext";
 import { MappingContext } from "../Map/MappingContext";
 import { TiThMenu as BurgerMenuIcon } from "react-icons/ti";
@@ -27,6 +27,7 @@ const MenuBar = () => {
     // newPinData,
     // setNewPinData,
   } = useContext(MappingContext);
+  const [searchResults, setSearchResults] = useState(null);
 
   const { isAuthenticated } = useAuth0();
 
@@ -60,7 +61,11 @@ const MenuBar = () => {
             show={showPinCreationModal || pinCreationSuccessful}
             type={!pinCreationSuccessful ? "creation" : "success"}
           />
-          <SearchContainer show={showSearchBar} />
+          <SearchContainer
+            show={showSearchBar}
+            searchResults={searchResults}
+            setSearchResults={setSearchResults}
+          />
         </Content>
       </Wrapper>
     </Boundary>

@@ -3,13 +3,13 @@ import styled from "styled-components/macro";
 import {
   centeredFlexColumn,
   centeredFlexRow,
+  fakeStroke,
   inputStyling,
 } from "../../styling/sharedstyles";
 import { forwardGeocode } from "../Map/helpers";
 import { useMap } from "react-map-gl";
 
-const SearchContainer = ({ show }) => {
-  const [searchResults, setSearchResults] = useState(null);
+const SearchContainer = ({ show, searchResults, setSearchResults }) => {
   // const [clickedResult, setClickedResult] = useState(null);
   const { map } = useMap();
 
@@ -49,26 +49,35 @@ const SearchContainer = ({ show }) => {
         id="searchForm"
       >
         {searchResults && (
-          <ResultsContainer>
-            <ul>
-              {searchResults.map((result) => {
-                return (
-                  <li
-                    id={result.id}
-                    key={result.id}
-                    onClick={(ev) => {
-                      handleResultClick(ev, result);
-                    }}
-                  >
-                    {result.place_name}
-                  </li>
-                );
-              })}
-            </ul>
-          </ResultsContainer>
+          <>
+            <ResultsContainer>
+              <ColorOverlay />
+              <ul>
+                {searchResults.map((result) => {
+                  return (
+                    <li
+                      id={result.id}
+                      key={result.id}
+                      onClick={(ev) => {
+                        handleResultClick(ev, result);
+                      }}
+                    >
+                      {result.place_name}
+                    </li>
+                  );
+                })}
+              </ul>
+            </ResultsContainer>
+          </>
         )}
         <SearchBar>
-          <Input id="search" type="text" key="search" placeholder="search" />
+          <Input
+            id="search"
+            type="text"
+            key="search"
+            placeholder="search"
+            autoComplete="off"
+          />
           <input type="submit" hidden />
         </SearchBar>
       </SearchWrapper>
@@ -77,31 +86,55 @@ const SearchContainer = ({ show }) => {
 
 export default SearchContainer;
 
+const ColorOverlay = styled.div`
+  top: 1%;
+  left: 1%;
+  position: absolute;
+  border-radius: inherit;
+  width: 98%;
+  height: 98%;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+`;
+
 const ResultsContainer = styled.div`
   ${inputStyling}
+  border: none;
   position: absolute;
   flex-direction: column-reverse;
-  width: 95%;
+  width: 100%;
   height: fit-content;
-  padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: unset;
-  background-color: ${(props) => props.theme.colors.mediumGrey};
+  backdrop-filter: blur(2px);
   bottom: 60px;
+
   ul {
     all: unset;
     list-style: none;
-    font-size: 14px;
+    gap: 5px;
     height: fit-content;
-    gap: 2px;
-
     li {
-      font-weight: 300;
-      color: black;
+      transition: all 0.1s ease;
+      padding: 5px 5px;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
       text-overflow: ellipsis;
+      font-weight: 600;
+      text-shadow: ${(props) => props.theme.colors.superDarkGrey} 1px 1px 0px;
+      font-size: 20px;
+      color: ${(props) => props.theme.colors.lightGrey};
+      width: 100%;
+      border-radius: 5px;
       &:hover {
         cursor: pointer;
-        background-color: ${(props) => props.theme.colors.teal};
+        color: ${(props) => props.theme.colors.lightGrey};
+        font-weight: 800;
+        background-color: ${(props) => props.theme.colors.darkestBlue};
+        text-decoration: underline;
+        text-decoration-color: ${(props) => props.theme.colors.pink};
+        ${fakeStroke}
       }
     }
   }
@@ -131,6 +164,7 @@ const Input = styled.input`
   border-radius: 50px;
   text-align: center;
   height: 40px;
+  font-size: 18px;
   border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   &:focus {
     outline: none;
