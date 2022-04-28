@@ -114,13 +114,21 @@ const PinVotingButtonWrapper = styled.button`
       ? css`
           background-color: ${(props) => props.theme.colors.teal};
           &:hover {
-            background-color: ${(props) => props.theme.colors.pink};
+            filter: brightness(1.1);
+            outline: 1px solid ${(props) => props.theme.colors.pink};
+          }
+          &:active {
+            background-color: ${(props) => props.theme.colors.darkTeal};
           }
         `
       : css`
           background-color: ${(props) => props.theme.colors.pink};
           &:hover {
-            background-color: ${(props) => props.theme.colors.teal};
+            filter: brightness(1.1);
+            outline: 1px solid ${(props) => props.theme.colors.teal};
+          }
+          &:active {
+            background-color: ${(props) => props.theme.colors.duskyPink};
           }
         `}
   ${(props) =>
