@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/macro";
 import { centeredFlexRow } from "../../../../styling/sharedstyles";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../AppContext";
 import { MappingContext } from "../../MappingContext";
 import { togglePinLike } from "../../helpers";
@@ -12,6 +12,8 @@ const PinVotingButton = ({
   pinFeedback,
   children,
 }) => {
+  // const [likedByUser, setlikedByUser] = useState(false);
+  // const [dislikedByUser, setDislikedByUser] = useState(false);
   const { loggedInUser } = useContext(AppContext);
   const { popupInfo } = useContext(MappingContext);
 
@@ -89,6 +91,8 @@ const PinVotingButton = ({
 
   return (
     <PinVotingButtonWrapper
+      likedByUser={pinFeedback.likedByIds.includes(loggedInUser._id)}
+      dislikedByUser={pinFeedback.dislikedByIds.includes(loggedInUser._id)}
       isOwnPin={isOwnPin}
       value={value}
       onClick={(ev) => {
@@ -138,7 +142,39 @@ const PinVotingButtonWrapper = styled.button`
       span {
         color: ${(props) => props.theme.colors.lightGrey};
       }
-    `}        
+    `}
+    
+  ${(props) =>
+    props.likedByUser &&
+    props.value === "like" &&
+    css`
+      background-color: ${(props) => props.theme.colors.darkGrey};
+      span {
+        color: ${(props) => props.theme.colors.lightGrey} !important;
+        text-shadow: 1px 1px 0px ${(props) => props.theme.colors.pink};
+      }
+      svg {
+        fill: ${(props) => props.theme.colors.lightGrey} !important;
+        stroke-width: 1px solid;
+        stroke: ${(props) => props.theme.colors.pink} !important;
+      }
+    `}
+
+    ${(props) =>
+    props.dislikedByUser &&
+    props.value === "dislike" &&
+    css`
+      background-color: ${(props) => props.theme.colors.darkGrey};
+      span {
+        color: ${(props) => props.theme.colors.lightGrey} !important;
+        text-shadow: 1px 1px 0px ${(props) => props.theme.colors.teal};
+      }
+      svg {
+        fill: ${(props) => props.theme.colors.lightGrey} !important;
+        stroke-width: 1px solid;
+        stroke: ${(props) => props.theme.colors.teal} !important;
+      }
+    `}
   padding: 3px;
   border-radius: 4px;
   svg {
