@@ -1,6 +1,7 @@
 import styled from "styled-components/macro";
 import { centeredFlexRow } from "../../../../styling/sharedstyles";
 import { getDistanceFromPoint } from "../../helpers";
+import { getIcon } from "../../helpers";
 
 const PinDistance = ({ popupInfo, userLocation }) => {
   const distanceFromUser = getDistanceFromPoint(
@@ -9,7 +10,12 @@ const PinDistance = ({ popupInfo, userLocation }) => {
   );
   const kmFromUser = (distanceFromUser * 100).toFixed(2);
 
-  return <PinDistanceWrapper>{kmFromUser} km away</PinDistanceWrapper>;
+  return (
+    <PinDistanceWrapper color={`var(--color-${popupInfo.type})`}>
+      {getIcon(popupInfo.type)}
+      {kmFromUser} km away
+    </PinDistanceWrapper>
+  );
 };
 export default PinDistance;
 
@@ -21,4 +27,8 @@ const PinDistanceWrapper = styled.div`
   border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   position: absolute;
   ${centeredFlexRow}
+  gap: 2px;
+  svg {
+    fill: ${(props) => props.color};
+  }
 `;

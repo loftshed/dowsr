@@ -15,12 +15,7 @@ const PinInfoHeader = ({ popupInfo }) => {
     );
 
   if (!popupInfo.site)
-    return (
-      <PinInfoHeaderWrapper>
-        {getIcon(popupInfo.type)}
-        {popupInfo.desc}
-      </PinInfoHeaderWrapper>
-    );
+    return <PinInfoHeaderWrapper>{popupInfo.desc}</PinInfoHeaderWrapper>;
 };
 export default PinInfoHeader;
 
