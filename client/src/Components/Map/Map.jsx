@@ -138,17 +138,18 @@ const MapContainer = () => {
               }}
               cursorModifier={creatingNewPin}
             >
+              <GeolocateControl
+                position="top-left"
+                trackUserLocation="true"
+                showUserHeading="true"
+              />
               {!creatingNewPin && !pinCreationSuccessful && (
                 <>
                   <PinInfoMarker
                     pins={storedFilteredPins}
                     setPopupInfo={setPopupInfo}
                   />
-                  <GeolocateControl
-                    position="top-left"
-                    trackUserLocation="true"
-                    showUserHeading="true"
-                  />
+
                   <MapFilters
                     showFilterMenu={showFilterMenu}
                     setShowFilterMenu={setShowFilterMenu}
