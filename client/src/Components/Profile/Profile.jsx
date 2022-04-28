@@ -103,6 +103,7 @@ const Profile = () => {
                   loggedInUser={loggedInUser}
                   _id={_id}
                   viewedProfile={viewedProfile}
+                  setViewedProfile={setViewedProfile}
                   isOwnProfile={isOwnProfile}
                 />
               </div>

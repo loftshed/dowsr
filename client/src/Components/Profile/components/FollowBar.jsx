@@ -8,16 +8,17 @@ import { useTheme } from "styled-components/macro";
 
 // STRETCH: To get follower avatars make it so that when you follow someone their avatarUrl and username are saved in your followers arary along with their id.
 
-const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
+const FollowBar = ({
+  loggedInUser,
+  _id,
+  viewedProfile,
+  setViewedProfile,
+  isOwnProfile,
+}) => {
   const [followingState, setFollowingState] = useState(
-    viewedProfile.followers.includes(loggedInUser._id) ? true : false
+    viewedProfile?.followers?.includes(loggedInUser._id) ? true : false
   );
-  const [followerCount, setFollowerCount] = useState(
-    viewedProfile.followers?.length
-  );
-  const [followingCount, setFollowingCount] = useState(
-    viewedProfile.following?.length || 0
-  );
+
   const theme = useTheme();
 
   return (
@@ -26,7 +27,11 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
         <FollowCountIndicator
           type={"followers"}
           color={theme.colors.teal}
-          count={followerCount}
+          count={
+            viewedProfile.followers?.length > 0
+              ? viewedProfile.followers?.length
+              : 0
+          }
         />
 
         {!isOwnProfile && (
@@ -36,10 +41,8 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
             followingState={followingState}
             setFollowingState={setFollowingState}
             s
-            setFollowerCount={setFollowerCount}
-            setFollowingCount={setFollowingCount}
-            followerCount={followerCount}
             viewedProfile={viewedProfile}
+            setViewedProfile={setViewedProfile}
           />
         )}
       </ActionBarWrapper>
@@ -48,7 +51,11 @@ const FollowBar = ({ loggedInUser, _id, viewedProfile, isOwnProfile }) => {
         <FollowCountIndicator
           type={"following"}
           color={theme.colors.pink}
-          count={followingCount > 0 ? followingCount : 0}
+          count={
+            viewedProfile.following?.length > 0
+              ? viewedProfile.following?.length
+              : 0
+          }
         />
       </ActionBarWrapper>
       <Container></Container>

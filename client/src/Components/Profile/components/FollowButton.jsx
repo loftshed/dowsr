@@ -17,8 +17,8 @@ const FollowButton = ({
   followingState,
   setFollowingState,
   setFollowerCount,
-  followerCount,
   viewedProfile,
+  setViewedProfile,
 }) => {
   const { loggedInUser } = useContext(AppContext);
 
@@ -27,7 +27,7 @@ const FollowButton = ({
   // setFollowerCount(followerCount += 1);
   useEffect(() => {
     console.log(loggedInUser);
-    if (viewedProfile?.followers.includes(loggedInUser?._id)) {
+    if (viewedProfile.followers?.includes(loggedInUser?._id)) {
       setFollowingState(true);
     }
     console.log(viewedProfile);
@@ -36,18 +36,30 @@ const FollowButton = ({
   return (
     <FollowButtonWrapper
       onClick={async () => {
-        if (!followingState) {
+        if (followingState === false) {
           const result = handleToggleFollow(loggedInUser._id, _id, true);
           console.log(await result);
           setFollowingState(true);
-          if (!result.unmodified) setFollowerCount(followerCount + 1);
+          if (!result.unmodified) {
+            setViewedProfile({
+              ...viewedProfile,
+              followers: [...viewedProfile.followers, loggedInUser._id],
+            });
+          }
           return;
         }
-        if (followingState) {
+        if (followingState === true) {
           const result = handleToggleFollow(loggedInUser._id, _id);
           console.log(await result);
           setFollowingState(false);
-          if (!result.unmodified) setFollowerCount(followerCount - 1);
+          if (!result.unmodified)
+            setViewedProfile({
+              ...viewedProfile,
+              followers: viewedProfile.followers.filter(
+                (follower) => follower !== loggedInUser._id
+              ),
+            });
+
           return;
         }
       }}
