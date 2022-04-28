@@ -24,7 +24,7 @@ const PinInfoHeaderWrapper = styled.div`
   font-size: 15px;
   font-weight: 800;
   color: ${(props) => props.theme.colors.lightGrey};
-  padding: 3px;
+  padding-bottom: 3px;
   text-align: center;
   ${fakeStroke}
   gap: 4px;

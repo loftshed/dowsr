@@ -41,6 +41,7 @@ const PinInfoPopup = () => {
       <PinInfo>
         <TopPanel>
           <PinInfoHeader popupInfo={popupInfo} />
+          <Hours>{popupInfo.hours}</Hours>
           <ImageContainer>
             <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
             <PinStreetView
@@ -61,7 +62,24 @@ const PinInfoPopup = () => {
 };
 export default PinInfoPopup;
 
-const TopPanel = styled.div``;
+const Hours = styled.div`
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  background-color: ${({ theme }) => theme.colors.superDarkGrey};
+  padding: 1px 5px;
+  margin-top: -4px;
+  margin-bottom: 4px;
+  border-radius: 100px;
+  line-height: 1;
+`;
+
+const TopPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
 
 const PinInfo = styled.div`
   ${centeredFlexColumn}

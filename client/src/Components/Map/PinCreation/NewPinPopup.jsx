@@ -8,6 +8,7 @@ import {
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
 import { fadeIn } from "../../../styling/animations";
+import PinCreationDistance from "./PinCreationDistance";
 
 const NewPinPopup = () => {
   const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
@@ -16,6 +17,7 @@ const NewPinPopup = () => {
     setShowPinCreationModal,
     showPinCreationModal,
     setClickedLocation,
+    userLocation,
     // setMapModalMessage,
     // setPopupIsVisible,
   } = useContext(MappingContext);
@@ -43,31 +45,35 @@ const NewPinPopup = () => {
       }}
     >
       <PopupContainer>
-        {!showPinCreationModal && (
-          <CreateButton
-            onClick={() => {
-              setShowPinCreationModal(true);
-              const boundingBox = [
-                [clickedLocation?.lng + 0.001, clickedLocation?.lat + 0.001],
-                [clickedLocation?.lng - 0.001, clickedLocation?.lat - 0.001],
-              ];
-              map.fitBounds(boundingBox, {
-                padding: { bottom: 150 },
-              });
-            }}
-          >
-            Create a pin here?
-          </CreateButton>
-        )}
+        <CreateButton
+          onClick={() => {
+            setShowPinCreationModal(true);
+            const boundingBox = [
+              [clickedLocation?.lng + 0.001, clickedLocation?.lat + 0.001],
+              [clickedLocation?.lng - 0.001, clickedLocation?.lat - 0.001],
+            ];
+            map.fitBounds(boundingBox, {
+              padding: { bottom: 150 },
+            });
+          }}
+        >
+          Create a pin here?
+        </CreateButton>
 
         <Body>
           {clickedLocation.addressShort && (
             <>
-              {clickedLocation.addressShort}
+              <Address>{clickedLocation.addressShort}</Address>
+
               <a
                 href={`http://maps.google.com/maps?q=&layer=c&cbll=${clickedLocation?.lat},${clickedLocation?.lng}`}
                 target="_new"
               >
+                <PinCreationDistance
+                  lat={clickedLocation?.lat}
+                  lng={clickedLocation?.lng}
+                  userLocation={userLocation}
+                />
                 <LoadingFiller />
 
                 <StreetView
@@ -83,6 +89,10 @@ const NewPinPopup = () => {
   );
 };
 export default NewPinPopup;
+
+const Address = styled.div`
+  line-height: 1;
+`;
 
 const StreetView = styled.img`
   position: absolute;
@@ -124,6 +134,9 @@ const Body = styled.div`
   outline: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   a {
     position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 `;
 
