@@ -40,6 +40,9 @@ const ProfileButton = styled.button`
   @media (max-width: 450px) {
     font-size: 16px;
   }
+  &:hover {
+    transform: scale(1.02);
+  }
   border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
 `;
 
