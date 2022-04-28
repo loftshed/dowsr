@@ -85,7 +85,6 @@ const MapContainer = () => {
 
         // it doesn't like this. somehow this ends up with storedfilteredpins array empty and the page returns NULL
         //
-
         // // If filter isn't "pending" and logged in user isn't an Admin, filter out the pins that are pending approval.
         // if (filter !== "pending" && !loggedInUser.isAdmin) {
         //   filteredPins = retrieved.pins.filter((pin) => !pin.pendingReview);
@@ -100,6 +99,7 @@ const MapContainer = () => {
         // } else if (filter === "pending" && loggedInUser.isAdmin) {
         //   filteredPins = retrieved.pins;
         // }
+
         setStoredFilteredPins(filteredPins);
       } catch (error) {
         console.log(error);

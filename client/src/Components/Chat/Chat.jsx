@@ -27,13 +27,32 @@ const Messaging = () => {
       try {
         // If we have previously found that there are no threads, don't bother trying to get them again
         if (!noThreads && loggedInUser) {
+          // Assigning any threads in localstorage to locallyStoredThreads
+          const locallyStoredThreads = JSON.parse(
+            localStorage.getItem("locallyStoredThreads")
+          );
+
+          // If there are any locally stored threads, set them to allUserThreads
+          if (locallyStoredThreads) {
+            setAllUserThreads(locallyStoredThreads);
+          }
+
+          // Retrieve current threads from the database
           const retrievedThreads = await getUserThreads(loggedInUser._id);
+
+          // If this is the first run of the session and there are no threads, set noThreads to true and return
           if (retrievedThreads.length === 0) {
-            // If this is the first run of the session and there are no threads, set noThreads to true and return
             setNoThreads(true);
             return;
           }
-          // If we have threads, set them to the state.
+
+          // Set retrieved threads to local storage
+          localStorage.setItem(
+            "locallyStoredThreads",
+            JSON.stringify(retrievedThreads)
+          );
+
+          // Also update the state in case any new messages were added
           setAllUserThreads(retrievedThreads);
 
           // If no thread id has been selected, load the most recent thread.
