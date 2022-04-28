@@ -29,4 +29,9 @@ export default ContributionsHeader;
 const ContributionsHeaderWrapper = styled.div`
   ${sharedDetailStyle}
   justify-content: center;
+  @media (max-width: 450px) {
+    height: unset;
+    height: 20px;
+    font-size: 12px;
+  }
 `;

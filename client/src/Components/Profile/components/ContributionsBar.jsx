@@ -46,8 +46,11 @@ const ContributionsWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-around;
-  padding: 15px;
+  padding: 10px;
   @media (min-width: 450px) {
-    padding: 20px 20px 25px 20px;
+    padding: 20px 20px 20px 20px;
+  }
+  @media (max-width: 450px) {
+    font-size: 12px;
   }
 `;

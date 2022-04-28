@@ -5,6 +5,7 @@ import { textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
 import FollowCountIndicator from "./FollowCountIndicator";
 import { useTheme } from "styled-components/macro";
+import { useNavigate } from "react-router-dom";
 
 // STRETCH: To get follower avatars make it so that when you follow someone their avatarUrl and username are saved in your followers arary along with their id.
 
@@ -20,6 +21,8 @@ const FollowBar = ({
       ? true
       : false
   );
+
+  const navigate = useNavigate();
 
   const theme = useTheme();
 
@@ -56,6 +59,10 @@ const FollowBar = ({
               key={user.userId}
               src={user.avatarUrl}
               alt={`${user.username}`}
+              onClick={(ev) => {
+                ev.preventDefault();
+                navigate(`/profile/${user.username}`);
+              }}
             />
           );
         })}
@@ -78,6 +85,10 @@ const FollowBar = ({
               key={user.userId}
               src={user.avatarUrl}
               alt={`${user.username}`}
+              onClick={(ev) => {
+                ev.preventDefault();
+                navigate(`/profile/${user.username}`);
+              }}
             />
           );
         })}
@@ -96,8 +107,15 @@ export { FollowBar, buttonStyle };
 
 const Container = styled.div`
   display: flex;
+  align-items: center;
   gap: 5px;
-  padding: 10px;
+  padding: 0px 20px;
+  height: 70px;
+  @media (min-width: 450px) {
+    padding: 10px 40px;
+    min-height: 95px;
+    gap: 10px;''
+  }
 `;
 
 const ActionBarWrapper = styled.div`
@@ -110,4 +128,15 @@ const FollowAvatar = styled.img`
   height: 50px;
   border-radius: 50%;
   border: 2px solid ${(props) => props.theme.colors.darkestGrey};
+  @media (min-width: 450px) {
+    width: 75px;
+    height: 75px;
+  }
+  &:hover {
+    border: 2px solid ${(props) => props.theme.colors.teal};
+    cursor: pointer;
+  }
+  &:active {
+    border: 2px solid ${(props) => props.theme.colors.pink};
+  }
 `;

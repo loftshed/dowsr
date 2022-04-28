@@ -16,7 +16,7 @@ const MessageBarWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   width: 100%;
-  height: 40px;
+  height: 35px;
   border-bottom-left-radius: ${(props) => props.theme.sizes.borderRadius}px;
   border-bottom-right-radius: ${(props) => props.theme.sizes.borderRadius}px;
   background-color: ${(props) => props.theme.colors.lessDarkGrey};
