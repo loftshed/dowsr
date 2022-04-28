@@ -11,6 +11,7 @@ import ChatInput from "./components/ChatInput";
 import { AppContext } from "../AppContext";
 
 // Now that this is all sorted, I should move some stuff into a MessagingContext Provider
+//TODO: probably don't use localStorage for threads because that could get wiiild
 
 const Messaging = () => {
   const { loggedInUser } = useContext(AppContext);

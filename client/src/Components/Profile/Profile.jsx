@@ -27,11 +27,29 @@ const Profile = () => {
     (async () => {
       try {
         let amendedData;
+
+        // If we are viewing our own profile, try to get it from local storage
+        if (isOwnProfile) {
+          const locallyStoredProfile = JSON.parse(
+            localStorage.getItem("locallyStoredProfile")
+          );
+          if (locallyStoredProfile) {
+            setViewedProfile(locallyStoredProfile);
+          }
+        }
+
+        // If there are no params, we are viewing our own profile. Proceed once we have a loggedInUser.
         if (!params.username && loggedInUser) {
           const { pendingReview } = await handleGetUserPending(
             loggedInUser._id
           );
           amendedData = { ...loggedInUser, pendingReview: pendingReview };
+
+          localStorage.setItem(
+            "locallyStoredProfile",
+            JSON.stringify(amendedData)
+          );
+
           setViewedProfile(amendedData);
           return;
         }
