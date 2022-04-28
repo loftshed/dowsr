@@ -4,6 +4,7 @@
 // If the 'approved' parameter is not included in the query, the pin is rejected and removed from the map-pins collection
 
 const moderatePendingPin = async (pinId, approved, username, type) => {
+  console.log(type);
   try {
     const response = await fetch(
       `http://localhost:9001/api/moderate-pin?&pinId=${pinId}&approved=${approved}&username=${username}&type=${type}`,

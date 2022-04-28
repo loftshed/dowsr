@@ -148,12 +148,14 @@ const moderatePin = async (
         .updateOne({ username: username }, { $push: { contributions: pinId } });
 
       // Increment the number of contributions of that type for the user that submitted it.
-      updatedUserContributionCounts = await db
-        .collection("users")
-        .updateOne(
-          { username: username },
-          { $inc: { contributionsByType: { [type]: 1 } } }
-        );
+      updatedUserContributionCounts = await db.collection("users").updateOne(
+        { username: username },
+        {
+          $inc: {
+            [`contributionsByType.${type}`]: 1,
+          },
+        }
+      );
     }
     // Whether the pin is approved or disapproved it must now be removed from pins array of the pending filter.
     const updatedPending = await thisCollection.updateOne(

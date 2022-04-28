@@ -75,28 +75,31 @@ const MapContainer = () => {
         if (creatingNewPin) return;
         if (!userLocation) handleGeolocateUser();
         let filter;
-        let filteredPins;
+        // let filteredPins;
         !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
         const retrieved = await handleGetPinsOfType(filter);
-        // const filteredPins =
-        //   filter !== "pending"
-        //     ? retrieved.pins.filter((pin) => !pin.pendingReview)
-        //     : retrieved.pins;
+        const filteredPins =
+          filter !== "pending"
+            ? retrieved.pins.filter((pin) => !pin.pendingReview)
+            : retrieved.pins;
 
-        // If filter isn't "pending" and logged in user isn't an Admin, filter out the pins that are pending approval.
-        if (filter !== "pending" && !loggedInUser.isAdmin) {
-          filteredPins = retrieved.pins.filter((pin) => !pin.pendingReview);
+        // it doesn't like this. somehow this ends up with storedfilteredpins array empty and the page returns NULL
+        //
 
-          // If filter is "pending" and logged in user isn't an Admin, filter retrieved pins by their username to display only the pins that the user has created.
-        } else if (filter === "pending" && !loggedInUser.isAdmin) {
-          filteredPins = retrieved.pins.filter(
-            (pin) => pin.submittedBy === loggedInUser.username
-          );
+        // // If filter isn't "pending" and logged in user isn't an Admin, filter out the pins that are pending approval.
+        // if (filter !== "pending" && !loggedInUser.isAdmin) {
+        //   filteredPins = retrieved.pins.filter((pin) => !pin.pendingReview);
 
-          // If filter is "pending" and logged in user is an Admin, show all the retrieved pins from that filter.
-        } else if (filter === "pending" && loggedInUser.isAdmin) {
-          filteredPins = retrieved.pins;
-        }
+        //   // If filter is "pending" and logged in user isn't an Admin, filter retrieved pins by their username to display only the pins that the user has created.
+        // } else if (filter === "pending" && !loggedInUser.isAdmin) {
+        //   filteredPins = retrieved.pins.filter(
+        //     (pin) => pin.submittedBy === loggedInUser.username
+        //   );
+
+        //   // If filter is "pending" and logged in user is an Admin, show all the retrieved pins from that filter.
+        // } else if (filter === "pending" && loggedInUser.isAdmin) {
+        //   filteredPins = retrieved.pins;
+        // }
         setStoredFilteredPins(filteredPins);
       } catch (error) {
         console.log(error);

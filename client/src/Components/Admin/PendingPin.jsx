@@ -24,13 +24,9 @@ const PendingPin = ({ pin, setPendingPins }) => {
 
   const handleModeratePendingPin = async (pinId, approved, username, type) => {
     try {
-      const { message } = await moderatePendingPin(
-        pinId,
-        approved,
-        username,
-        type
-      );
-      setModerationResult(message);
+      const result = await moderatePendingPin(pinId, approved, username, type);
+      console.log(result);
+      setModerationResult(result.message);
     } catch (error) {
       console.log(error);
     }
@@ -89,14 +85,14 @@ const PendingPin = ({ pin, setPendingPins }) => {
       <ButtonRow>
         <button
           onClick={() => {
-            handleModeratePendingPin(_id, true, submittedBy);
+            handleModeratePendingPin(_id, true, submittedBy, type);
           }}
         >
           Approve
         </button>
         <button
           onClick={() => {
-            handleModeratePendingPin(_id, false, submittedBy);
+            handleModeratePendingPin(_id, false, submittedBy, type);
           }}
         >
           Reject
