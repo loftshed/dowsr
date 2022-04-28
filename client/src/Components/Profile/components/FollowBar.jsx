@@ -16,7 +16,9 @@ const FollowBar = ({
   isOwnProfile,
 }) => {
   const [followingState, setFollowingState] = useState(
-    viewedProfile?.followers?.includes(loggedInUser._id) ? true : false
+    viewedProfile?.followers.some((el) => el.userId === loggedInUser._id)
+      ? true
+      : false
   );
 
   const theme = useTheme();
