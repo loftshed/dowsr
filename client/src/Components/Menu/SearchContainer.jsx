@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components/macro";
 import {
   centeredFlexColumn,
@@ -10,13 +10,16 @@ import { forwardGeocode } from "../Map/helpers";
 import { useMap } from "react-map-gl";
 
 import { fadeIn } from "../../styling/animations";
-import { fadeOut } from "../../styling/animations";
 
 const SearchContainer = ({ show, searchResults, setSearchResults }) => {
-  // const [clickedResult, setClickedResult] = useState(null);
   const { map } = useMap();
+  const inputRef = useRef(null);
 
-  // EXTREMELY half baked. This was pretty low on the priority list.
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  });
 
   const handleSearch = async (ev) => {
     try {
@@ -30,10 +33,8 @@ const SearchContainer = ({ show, searchResults, setSearchResults }) => {
   };
 
   const handleResultClick = (ev, result) => {
-    // setClickedResult(result);
     setSearchResults(null);
-    // probably stupid way of targeting the input
-    ev.nativeEvent.path[3].search.value = result.place_name;
+    inputRef.current.value = result.place_name;
 
     const { center, place_type } = result;
 
@@ -75,6 +76,7 @@ const SearchContainer = ({ show, searchResults, setSearchResults }) => {
         )}
         <SearchBar>
           <Input
+            ref={inputRef}
             id="search"
             type="text"
             key="search"

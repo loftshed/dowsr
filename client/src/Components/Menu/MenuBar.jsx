@@ -6,7 +6,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components/macro";
 import LoginButton from "../Auth/LoginButton";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { AppContext } from "../AppContext";
 import { MappingContext } from "../Map/MappingContext";
 import { TiThMenu as BurgerMenuIcon } from "react-icons/ti";
