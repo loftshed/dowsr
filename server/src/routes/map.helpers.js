@@ -281,6 +281,7 @@ const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
     await client.connect();
     let updatedPin;
     let actionTaken;
+
     if (liked) {
       actionTaken = "liked";
       updatedPin = await thisCollection.updateOne(
@@ -290,7 +291,9 @@ const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
           $pull: { "pins.$.dislikedByIds": userId },
         }
       );
+      console.log(updatedPin);
       const { modifiedCount } = updatedPin;
+
       if (!modifiedCount) {
         actionTaken = "unliked";
         updatedPin = await thisCollection.updateOne(
@@ -307,6 +310,7 @@ const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
           $pull: { "pins.$.likedByIds": userId },
         }
       );
+      console.log(updatedPin);
       const { modifiedCount } = updatedPin;
       if (!modifiedCount) {
         actionTaken = "undisliked";

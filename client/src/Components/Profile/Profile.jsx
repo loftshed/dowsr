@@ -20,6 +20,7 @@ import { fadeIn } from "../../styling/animations";
 const Profile = () => {
   const { loggedInUser } = useContext(AppContext); // Get loggedInUser from AppContext
   const [viewedProfile, setViewedProfile] = useState();
+  const [showLoadingSpinner, setShowLoadingSpinner] = useState(false);
   const params = useParams();
   const isOwnProfile = // If the loggedInUser's username is the same as the username in params, or params are empty,
     loggedInUser.username === params.username || !params.username; // we are viewing our own profile.
@@ -54,17 +55,18 @@ const Profile = () => {
           setViewedProfile(amendedData);
           return;
         }
+        setShowLoadingSpinner(true);
         const { data } = await getUserByUsername(params.username);
-        const { pendingReview } = await handleGetUserPending(data._id);
-        amendedData = { ...data, pendingReview: pendingReview };
-        setViewedProfile(amendedData);
+        if (data) setShowLoadingSpinner(false);
+
+        setViewedProfile(data);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [params.username, loggedInUser]);
 
-  if (!viewedProfile) {
+  if (!viewedProfile || showLoadingSpinner) {
     return (
       <ResponsiveContainer>
         <LoadingSpinner size={60} />

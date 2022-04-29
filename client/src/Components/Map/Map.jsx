@@ -155,13 +155,9 @@ const MapContainer = () => {
                   <MapFilters
                     showFilterMenu={showFilterMenu}
                     setShowFilterMenu={setShowFilterMenu}
-                    setStoredFilteredPins={setStoredFilteredPins}
                   />
 
-                  <PinInfoPopup
-                    popupInfo={popupInfo}
-                    setPopupInfo={setPopupInfo}
-                  />
+                  <PinInfoPopup />
                 </>
               )}
               {clickedLocation && creatingNewPin && popupIsVisible && (
