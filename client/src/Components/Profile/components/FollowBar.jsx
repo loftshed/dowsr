@@ -1,7 +1,7 @@
 import FollowButton from "./FollowButton";
 import styled, { css } from "styled-components/macro";
 import { sharedDetailStyle } from "../sharedstyles";
-import { textButtonstyling } from "../../../styling/sharedstyles";
+import { boxShadow, textButtonstyling } from "../../../styling/sharedstyles";
 import { useState } from "react";
 import FollowCountIndicator from "./FollowCountIndicator";
 import { useTheme } from "styled-components/macro";

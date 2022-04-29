@@ -1,5 +1,5 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-import Map, { GeolocateControl } from "react-map-gl";
+import Map, { GeolocateControl, useMap } from "react-map-gl";
 import { useContext, useEffect, useRef } from "react";
 import { handleGetPinsOfType } from "./helpers";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
@@ -18,7 +18,19 @@ import { fadeIn, overlayFadeIn } from "../../styling/animations";
 const MapContainer = () => {
   const { firstLogin, loggedInUser, showSearchBar, setShowSearchBar } =
     useContext(AppContext);
+  const { setLastMapPos, lastMapPos } = useContext(MappingContext);
+
   const navigate = useNavigate();
+
+  const { map } = useMap();
+  if (map !== undefined) {
+    const center = map.getCenter();
+    const zoom = map.getZoom();
+    const currentViewport = { lat: center.lat, lng: center.lng, zoom: zoom };
+    map.on("move", () => {
+      setLastMapPos({ lat: center.lat, lng: center.lng, zoom: zoom });
+    });
+  }
 
   if (firstLogin) navigate("/firstlogin");
 
@@ -123,11 +135,19 @@ const MapContainer = () => {
               id="map"
               container="map"
               ref={mapRef}
-              initialViewState={{
-                longitude: userLocation.lng,
-                latitude: userLocation.lat,
-                zoom: 12,
-              }}
+              initialViewState={
+                lastMapPos === null
+                  ? {
+                      longitude: userLocation.lng,
+                      latitude: userLocation.lat,
+                      zoom: 12,
+                    }
+                  : {
+                      longitude: lastMapPos.lng,
+                      latitude: lastMapPos.lat,
+                      zoom: lastMapPos.zoom,
+                    }
+              }
               // mapStyle="mapbox://styles/mapbox/dark-v10"
               mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
               logoPosition={"top-right"}
