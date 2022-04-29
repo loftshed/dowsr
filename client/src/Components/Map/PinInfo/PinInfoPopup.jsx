@@ -69,31 +69,6 @@ const PinInfoPopup = () => {
 };
 export default PinInfoPopup;
 
-const Hours = styled.div`
-  bottom: 5px;
-  background-color: ${(props) => props.theme.colors.darkGrey};
-  padding: 0 5px;
-  border-radius: 5px;
-  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
-  position: absolute;
-  z-index: 1;
-  ${centeredFlexRow}
-  gap: 2px;
-  line-height: 1.3;
-
-  /* position: absolute;
-  bottom: 2px;
-  display: flex;
-  justify-content: center;
-  width: fit-content;
-  background-color: ${({ theme }) => theme.colors.superDarkGrey};
-  padding: 1px 5px;
-  margin-top: -4px;
-  margin-bottom: 4px;
-  border-radius: 100px;
-  line-height: 1; */
-`;
-
 const TopPanel = styled.div`
   display: flex;
   flex-direction: column;

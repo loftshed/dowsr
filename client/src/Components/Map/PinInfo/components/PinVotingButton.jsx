@@ -15,17 +15,16 @@ const PinVotingButton = ({
   const { loggedInUser } = useContext(AppContext);
   const { popupInfo, setStoredFilteredPins, storedFilteredPins } =
     useContext(MappingContext);
-  const [likedByUser, setlikedByUser] = useState(
+  const [likedByUser, setLikedByUser] = useState(
     pinFeedback.likedByIds.includes(loggedInUser._id)
   );
   const [dislikedByUser, setDislikedByUser] = useState(
     pinFeedback.dislikedByIds.includes(loggedInUser._id)
   );
-  // const updatedPin = {
-  //   ...popupInfo,
-  //   likedByIds: pinFeedback.likedByIds,
-  //   dislikedByIds: pinFeedback.dislikedByIds,
-  // };
+
+  console.log("likedByUser", likedByUser);
+  console.log("dislikedByUser", dislikedByUser);
+
   // loooool i am sure there is some way to make this dry as all get out but this took me way too  long i'm doone
 
   const handleButtonClick = async (ev) => {
@@ -49,9 +48,11 @@ const PinVotingButton = ({
           ...pinFeedback, // add user to likedByIds in newPinFeedback
           likedByIds: pinFeedback.likedByIds.concat(loggedInUser._id),
         }); // if user is not in dislikedByIds, return immediately
-        setlikedByUser(true);
+        setLikedByUser(true);
 
-        if (!dislikedByUser) return;
+        console.log(dislikedByUser);
+        if (dislikedByUser === false) return;
+        console.log("passed dislikedByUser false return");
         // otherwise, continue and remove user from dislikedByIds
         setPinFeedback({
           ...pinFeedback,
@@ -60,7 +61,6 @@ const PinVotingButton = ({
           ),
         });
         setDislikedByUser(false);
-        return;
       }
 
       if (action === "unliked") {
@@ -71,8 +71,7 @@ const PinVotingButton = ({
             (id) => id !== loggedInUser._id
           ),
         });
-        setlikedByUser(false);
-        return;
+        setLikedByUser(false);
       }
 
       if (action === "disliked") {
@@ -81,7 +80,10 @@ const PinVotingButton = ({
           dislikedByIds: pinFeedback.dislikedByIds.concat(loggedInUser._id),
         }); // if user is not in likedByIds, return immediately
         setDislikedByUser(true);
-        if (!likedByUser) return;
+
+        console.log(likedByUser);
+        if (likedByUser === false) return;
+        console.log("passed likedByUser false return");
         // otherwise, continue and remove user from likedByIds
         setPinFeedback({
           ...pinFeedback,
@@ -89,8 +91,7 @@ const PinVotingButton = ({
             (id) => id !== loggedInUser._id
           ),
         });
-        setlikedByUser(false);
-        return;
+        setLikedByUser(false);
       }
 
       if (action === "undisliked") {
@@ -101,7 +102,6 @@ const PinVotingButton = ({
           ),
         });
         setDislikedByUser(false);
-        return;
       }
 
       const updatedPin = {
@@ -109,13 +109,16 @@ const PinVotingButton = ({
         likedByIds: pinFeedback.likedByIds,
         dislikedByIds: pinFeedback.dislikedByIds,
       };
+
       const pinsMinusPrev = storedFilteredPins.filter((pin) => {
         return pin._id !== popupInfo._id;
       });
+
       setStoredFilteredPins([...pinsMinusPrev, updatedPin]);
-      console.log("executing ja");
     }
   };
+
+  console.log(pinFeedback);
 
   return (
     <PinVotingButtonWrapper
