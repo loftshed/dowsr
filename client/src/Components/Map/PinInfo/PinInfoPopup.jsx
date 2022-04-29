@@ -55,12 +55,6 @@ const PinInfoPopup = () => {
               popupInfo={popupInfo}
               apiKey={REACT_APP_GOOGLE_API_KEY}
             />
-            {(popupInfo.type === "water" || popupInfo.type === "toilet") && (
-              <Hours>Open {popupInfo.hours}</Hours>
-            )}
-            {(popupInfo.type === "police" || popupInfo.type === "hazard") && (
-              <Hours>{dayjs(popupInfo.hours).fromNow()}</Hours>
-            )}
           </ImageContainer>
         </TopPanel>
         <Body>
