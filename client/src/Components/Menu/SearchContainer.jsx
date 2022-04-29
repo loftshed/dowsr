@@ -179,8 +179,9 @@ const Input = styled.input`
   &:focus {
     ${fakeStroke}
     outline: none;
-    box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2),
+    border: 2px solid ${(props) => props.theme.colors.mediumGrey};
+    /* box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2),
       0px 0px 5px 5px rgba(0, 0, 0, 0.5),
-      0px 0px 5px 5px rgba(68, 187, 164, 0.2);
+      0px 0px 5px 5px rgba(68, 187, 164, 0.2); */
   }
 `;
