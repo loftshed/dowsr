@@ -9,7 +9,7 @@ import {
 import { forwardGeocode } from "../Map/helpers";
 import { useMap } from "react-map-gl";
 
-import { fadeIn } from "../../styling/animations";
+import { fadeIn } from "../../styling/Animations";
 
 const SearchContainer = ({ show, searchResults, setSearchResults }) => {
   const { map } = useMap();

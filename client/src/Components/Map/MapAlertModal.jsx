@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 import { centeredFlexRow } from "../../styling/sharedstyles";
-import { fadeIn } from "../../styling/animations";
+import { fadeIn } from "../../styling/Animations";
 
 const MapAlertModal = ({ message }) => {
   let style = null;

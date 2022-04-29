@@ -13,7 +13,7 @@ import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
-import { fadeIn, overlayFadeIn } from "../../styling/animations";
+import { fadeIn, overlayFadeIn } from "../../styling/Animations";
 
 const MapContainer = () => {
   const { firstLogin, loggedInUser, showSearchBar, setShowSearchBar } =

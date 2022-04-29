@@ -13,7 +13,7 @@ import { FollowBar } from "./components/FollowBar";
 import LocationBar from "./components/LocationBar";
 import MessageBar from "./components/MessageBar";
 import Avatar from "./components/Avatar";
-import { fadeIn } from "../../styling/animations";
+import { fadeIn } from "../../styling/Animations";
 
 // TODO: Make this state less shitty
 

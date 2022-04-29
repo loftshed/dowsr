@@ -7,7 +7,7 @@ import {
 } from "../../../styling/sharedstyles";
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
-import { fadeIn } from "../../../styling/animations";
+import { fadeIn } from "../../../styling/Animations";
 import PinCreationDistance from "./PinCreationDistance";
 
 const NewPinPopup = () => {

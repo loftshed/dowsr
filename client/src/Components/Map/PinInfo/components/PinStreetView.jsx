@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { fadeIn } from "../../../../styling/animations";
+import { fadeIn } from "../../../../styling/Animations";
 import {
   centeredFlexColumn,
   fillSpace,

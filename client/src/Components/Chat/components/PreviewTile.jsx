@@ -1,6 +1,6 @@
 import styled, { useTheme } from "styled-components/macro";
 import { centeredFlexColumn } from "../../../styling/sharedstyles";
-import { fadeIn, RefreshAnim } from "../../../styling/animations";
+import { fadeIn, RefreshAnim } from "../../../styling/Animations";
 
 import dayjs from "dayjs";
 import { /*useContext,*/ useEffect, useState } from "react";
