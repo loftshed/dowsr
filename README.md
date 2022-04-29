@@ -1,6 +1,6 @@
 # **dowsr v. 000001 _alpha_**
 
-## **Disclaimer** : I am actively messing around with this project, working out bugs and trying to add new features, and currently the master branch still requires a lot of cleanup to remove the legions of console.logs and commented code.
+>### **Disclaimer** : I am actively messing around with this project, working out bugs and trying to add new features, and currently the master branch still requires a lot of cleanup to remove the legions of console.logs and commented code.
 
 ## _**dowsr** is named for Dowsing, an ancient practice of divination in which two sticks or metal rods are ostensibly used to find water or other hidden things. It is a responsive web app built with [React](https://reactjs.org/), [Node.js](https://nodejs.org/), [Express](https://expressjs.org/), [MongoDB](https://www.mongodb.com/), and [Mapbox](https://www.mapbox.com/)._
 
@@ -27,7 +27,7 @@ Funny you should ask! Not really, but it's been a great way to get to know the M
 - Pin creation and sharing.
 - Filtering between different map pin types.
 - Chat feature with multiple threads and responsive layout.
-- Search that displays results but doesn't actually do anything :)
+- Search that takes you to a destination
 - Upvoting & downvoting pins.
 - Custom mapbox theme
 - Other stuff
