@@ -1,6 +1,10 @@
 import styled from "styled-components/macro";
 import { Popup /*useMap*/ } from "react-map-gl";
-import { fillSpace, centeredFlexColumn } from "../../../styling/sharedstyles";
+import {
+  fillSpace,
+  centeredFlexColumn,
+  centeredFlexRow,
+} from "../../../styling/sharedstyles";
 
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
@@ -44,18 +48,19 @@ const PinInfoPopup = () => {
       <PinInfo>
         <TopPanel>
           <PinInfoHeader popupInfo={popupInfo} />
-          {(popupInfo.type === "water" || popupInfo.type === "toilet") && (
-            <Hours>Open {popupInfo.hours}</Hours>
-          )}
-          {(popupInfo.type === "police" || popupInfo.type === "hazard") && (
-            <Hours>{dayjs(popupInfo.hours).fromNow()}</Hours>
-          )}
+
           <ImageContainer>
             <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
             <PinStreetView
               popupInfo={popupInfo}
               apiKey={REACT_APP_GOOGLE_API_KEY}
             />
+            {(popupInfo.type === "water" || popupInfo.type === "toilet") && (
+              <Hours>Open {popupInfo.hours}</Hours>
+            )}
+            {(popupInfo.type === "police" || popupInfo.type === "hazard") && (
+              <Hours>{dayjs(popupInfo.hours).fromNow()}</Hours>
+            )}
           </ImageContainer>
         </TopPanel>
         <Body>
@@ -71,6 +76,19 @@ const PinInfoPopup = () => {
 export default PinInfoPopup;
 
 const Hours = styled.div`
+  bottom: 5px;
+  background-color: ${(props) => props.theme.colors.darkGrey};
+  padding: 0 5px;
+  border-radius: 5px;
+  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  position: absolute;
+  z-index: 1;
+  ${centeredFlexRow}
+  gap: 2px;
+  line-height: 1.3;
+
+  /* position: absolute;
+  bottom: 2px;
   display: flex;
   justify-content: center;
   width: fit-content;
@@ -79,7 +97,7 @@ const Hours = styled.div`
   margin-top: -4px;
   margin-bottom: 4px;
   border-radius: 100px;
-  line-height: 1;
+  line-height: 1; */
 `;
 
 const TopPanel = styled.div`
