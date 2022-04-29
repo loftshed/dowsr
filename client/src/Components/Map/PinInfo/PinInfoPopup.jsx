@@ -32,8 +32,6 @@ const PinInfoPopup = () => {
 
   if (!popupInfo) return null;
 
-  console.log(popupInfo.type);
-
   return (
     <PopupContainer
       anchor="bottom"

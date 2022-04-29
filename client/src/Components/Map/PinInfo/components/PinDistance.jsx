@@ -26,6 +26,7 @@ const PinDistanceWrapper = styled.div`
   border-radius: 5px;
   border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   position: absolute;
+  z-index: 1;
   ${centeredFlexRow}
   gap: 2px;
   svg {

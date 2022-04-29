@@ -12,11 +12,20 @@ const PinVotingButton = ({
   pinFeedback,
   children,
 }) => {
-  // const [likedByUser, setlikedByUser] = useState(false);
-  // const [dislikedByUser, setDislikedByUser] = useState(false);
   const { loggedInUser } = useContext(AppContext);
-  const { popupInfo } = useContext(MappingContext);
-
+  const { popupInfo, setStoredFilteredPins, storedFilteredPins } =
+    useContext(MappingContext);
+  const [likedByUser, setlikedByUser] = useState(
+    pinFeedback.likedByIds.includes(loggedInUser._id)
+  );
+  const [dislikedByUser, setDislikedByUser] = useState(
+    pinFeedback.dislikedByIds.includes(loggedInUser._id)
+  );
+  // const updatedPin = {
+  //   ...popupInfo,
+  //   likedByIds: pinFeedback.likedByIds,
+  //   dislikedByIds: pinFeedback.dislikedByIds,
+  // };
   // loooool i am sure there is some way to make this dry as all get out but this took me way too  long i'm doone
 
   const handleButtonClick = async (ev) => {
@@ -27,6 +36,7 @@ const PinVotingButton = ({
     );
     console.log("response", response);
     const { success, action } = response;
+
     // if the operation is successful, update the pinFeedback state
     // const isAlreadyDisliked = pinFeedback.dislikedByIds.includes(
     //   loggedInUser._id
@@ -39,7 +49,9 @@ const PinVotingButton = ({
           ...pinFeedback, // add user to likedByIds in newPinFeedback
           likedByIds: pinFeedback.likedByIds.concat(loggedInUser._id),
         }); // if user is not in dislikedByIds, return immediately
-        if (!pinFeedback.dislikedByIds.includes(loggedInUser._id)) return;
+        setlikedByUser(true);
+
+        if (!dislikedByUser) return;
         // otherwise, continue and remove user from dislikedByIds
         setPinFeedback({
           ...pinFeedback,
@@ -47,6 +59,7 @@ const PinVotingButton = ({
             (id) => id !== loggedInUser._id
           ),
         });
+        setDislikedByUser(false);
         return;
       }
 
@@ -58,6 +71,7 @@ const PinVotingButton = ({
             (id) => id !== loggedInUser._id
           ),
         });
+        setlikedByUser(false);
         return;
       }
 
@@ -66,7 +80,8 @@ const PinVotingButton = ({
           ...pinFeedback, // add user to dislikedByIds
           dislikedByIds: pinFeedback.dislikedByIds.concat(loggedInUser._id),
         }); // if user is not in likedByIds, return immediately
-        if (!pinFeedback.likedByIds.includes(loggedInUser._id)) return;
+        setDislikedByUser(true);
+        if (!likedByUser) return;
         // otherwise, continue and remove user from likedByIds
         setPinFeedback({
           ...pinFeedback,
@@ -74,6 +89,7 @@ const PinVotingButton = ({
             (id) => id !== loggedInUser._id
           ),
         });
+        setlikedByUser(false);
         return;
       }
 
@@ -84,8 +100,20 @@ const PinVotingButton = ({
             (id) => id !== loggedInUser._id
           ),
         });
+        setDislikedByUser(false);
         return;
       }
+
+      const updatedPin = {
+        ...popupInfo,
+        likedByIds: pinFeedback.likedByIds,
+        dislikedByIds: pinFeedback.dislikedByIds,
+      };
+      const pinsMinusPrev = storedFilteredPins.filter((pin) => {
+        return pin._id !== popupInfo._id;
+      });
+      setStoredFilteredPins([...pinsMinusPrev, updatedPin]);
+      console.log("executing ja");
     }
   };
 

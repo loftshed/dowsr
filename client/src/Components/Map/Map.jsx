@@ -132,7 +132,6 @@ const MapContainer = () => {
               mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
               logoPosition={"top-right"}
               onClick={(ev) => {
-                console.log(ev);
                 if (creatingNewPin) {
                   handleBeginPinCreation(ev);
                   setPopupIsVisible(!popupIsVisible);
