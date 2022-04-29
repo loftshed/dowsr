@@ -1,19 +1,25 @@
-import { useState } from "react";
-// import { useMap } from "react-map-gl";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components/macro";
 import {
   centeredFlexColumn,
   centeredFlexRow,
+  fakeStroke,
   inputStyling,
 } from "../../styling/sharedstyles";
 import { forwardGeocode } from "../Map/helpers";
+import { useMap } from "react-map-gl";
 
-const SearchContainer = ({ show }) => {
-  const [searchResults, setSearchResults] = useState(null);
-  // const [clickedResult, setClickedResult] = useState(null);
-  // const {id: } = useMap();
+import { fadeIn } from "../../styling/animations";
 
-  // EXTREMELY half baked. This was pretty low on the priority list.
+const SearchContainer = ({ show, searchResults, setSearchResults }) => {
+  const { map } = useMap();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  });
 
   const handleSearch = async (ev) => {
     try {
@@ -27,16 +33,14 @@ const SearchContainer = ({ show }) => {
   };
 
   const handleResultClick = (ev, result) => {
-    // setClickedResult(result);
     setSearchResults(null);
-    // probably stupid way of targeting the input
-    ev.nativeEvent.path[3].search.value = result.place_name;
-    // make viewport fly to result
-    // display "add a pin here? marker"
+    inputRef.current.value = result.place_name;
 
-    // const { center } = result;
-    // console.log(center);
-    // mainMap.flyTo({ center: [0, 0], zoom: 9 });
+    const { center, place_type } = result;
+
+    const zoomLevel =
+      place_type[0] === "address" || place_type[0] === "poi" ? 15 : 10;
+    map.flyTo({ center: center, zoom: zoomLevel });
   };
 
   if (show)
@@ -49,26 +53,36 @@ const SearchContainer = ({ show }) => {
         id="searchForm"
       >
         {searchResults && (
-          <ResultsContainer>
-            <ul>
-              {searchResults.map((result) => {
-                return (
-                  <li
-                    id={result.id}
-                    key={result.id}
-                    onClick={(ev) => {
-                      handleResultClick(ev, result);
-                    }}
-                  >
-                    {result.place_name}
-                  </li>
-                );
-              })}
-            </ul>
-          </ResultsContainer>
+          <>
+            <ResultsContainer>
+              <ColorOverlay />
+              <ul>
+                {searchResults.map((result) => {
+                  return (
+                    <li
+                      id={result.id}
+                      key={result.id}
+                      onClick={(ev) => {
+                        handleResultClick(ev, result);
+                      }}
+                    >
+                      {result.place_name}
+                    </li>
+                  );
+                })}
+              </ul>
+            </ResultsContainer>
+          </>
         )}
         <SearchBar>
-          <Input id="search" type="text" key="search" placeholder="search" />
+          <Input
+            ref={inputRef}
+            id="search"
+            type="text"
+            key="search"
+            placeholder="search"
+            autoComplete="off"
+          />
           <input type="submit" hidden />
         </SearchBar>
       </SearchWrapper>
@@ -77,31 +91,55 @@ const SearchContainer = ({ show }) => {
 
 export default SearchContainer;
 
+const ColorOverlay = styled.div`
+  top: 1%;
+  left: 1%;
+  position: absolute;
+  border-radius: inherit;
+  width: 98%;
+  height: 98%;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+`;
+
 const ResultsContainer = styled.div`
   ${inputStyling}
+  border: none;
   position: absolute;
   flex-direction: column-reverse;
-  width: 95%;
+  width: 100%;
   height: fit-content;
-  padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: unset;
-  background-color: ${(props) => props.theme.colors.mediumGrey};
+  backdrop-filter: blur(2px);
   bottom: 60px;
+
   ul {
     all: unset;
     list-style: none;
-    font-size: 14px;
+    gap: 5px;
     height: fit-content;
-    gap: 2px;
-
     li {
-      font-weight: 300;
-      color: black;
+      transition: all 0.1s ease;
+      padding: 5px 5px;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
       text-overflow: ellipsis;
+      font-weight: 600;
+      text-shadow: ${(props) => props.theme.colors.superDarkGrey} 1px 1px 0px;
+      font-size: 20px;
+      color: ${(props) => props.theme.colors.lightGrey};
+      width: 100%;
+      border-radius: 5px;
       &:hover {
         cursor: pointer;
-        background-color: ${(props) => props.theme.colors.teal};
+        color: ${(props) => props.theme.colors.lightGrey};
+        font-weight: 800;
+        background-color: ${(props) => props.theme.colors.darkestBlue};
+        text-decoration: underline;
+        text-decoration-color: ${(props) => props.theme.colors.pink};
+        ${fakeStroke}
       }
     }
   }
@@ -115,25 +153,35 @@ const SearchWrapper = styled.form`
   bottom: 60px;
   height: 100%;
   pointer-events: none;
+  animation: ${fadeIn} 0.08s ease;
 `;
 
 const SearchBar = styled.div`
   width: 90%;
   ${centeredFlexRow};
-  background-color: grey;
-  padding: 5px;
-  border-radius: 50px;
-  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  backdrop-filter: blur(10px);
+  padding: 2px;
+  border-radius: 20px;
 `;
 
 const Input = styled.input`
   ${inputStyling};
-  border-radius: 50px;
+  border-radius: 15px;
   text-align: center;
   height: 40px;
-  border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
+  font-size: 18px;
+  border: none;
+  background-color: unset;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+  color: white;
+  text-shadow: 0px 0px 15px ${(props) => props.theme.colors.superDarkGrey};
   &:focus {
+    ${fakeStroke}
     outline: none;
-    box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2);
+    border: 2px solid ${(props) => props.theme.colors.mediumGrey};
+    /* box-shadow: inset 0px 0px 30px rgba(68, 187, 164, 0.2),
+      0px 0px 5px 5px rgba(0, 0, 0, 0.5),
+      0px 0px 5px 5px rgba(68, 187, 164, 0.2); */
   }
 `;

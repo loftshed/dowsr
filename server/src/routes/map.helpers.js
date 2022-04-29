@@ -37,47 +37,6 @@ const getPinsOfType = async ({ query: { filter } }, res) => {
   }
 };
 
-// potential clue to what is happening here
-// {
-// 	"status": 200,
-// 	"allPins": [
-// 		{
-// 			"_id": "dd1c6b4d-5b61-4c31-8fdf-7e52c11ae3ac",
-// 			"filter": "water",
-// 			"pins": [
-// 				{
-// 					"_id": "239beea0-1527-4871-9579-db251b8a5725",
-// 					"type": "water",
-// 					"latitude": 45.540136863757084,
-// 					"longitude": -73.60024044865756,
-// 					"hours": "123",
-// 					"address": "6526 Rue Chambord, Montréal, Quebec H2G 3B9, Canada",
-// 					"desc": "123",
-// 					"submittedBy": "dendytrewolla",
-// 					"submittedById": "9379e50c-856d-4049-a0cf-a91d38d7b1a3",
-// 					"likedByIds": [],
-// 					"dislikedByIds": [],
-// 					"submitted": "2022-04-20T00:26:04-04:00",
-// 					"pendingReview": false
-// 				}
-// 			],
-// 			"contributions": [
-// 				"35fdbc87-eb8b-4b39-8274-861005656175",
-// 				"8db1573c-7ad4-4c55-8fa8-be032950be58",
-// 				"8db1573c-7ad4-4c55-8fa8-be032950be58",
-// 				"76671b88-46bd-4e6a-922a-191469491c9c",
-// 				"76671b88-46bd-4e6a-922a-191469491c9c",
-// 				"76671b88-46bd-4e6a-922a-191469491c9c",
-// 				"ebec1042-130f-44e4-bbb4-a3e23a45d831",
-// 				"49b5e980-3595-4283-9ba1-d6a8c187d1e1",
-// 				"8db1573c-7ad4-4c55-8fa8-be032950be58",
-// 				"35fdbc87-eb8b-4b39-8274-861005656175"
-// 			],
-// 			"contributionsByType": {
-// 				"undefined": 6
-// 			}
-// 		},
-
 // Submits a new pin to the database.
 const submitNewPin = async ({ body }, res) => {
   try {
@@ -101,13 +60,6 @@ const submitNewPin = async ({ body }, res) => {
       { filter: "pending" },
       { $push: { pins: newPin } }
     );
-    // Adds the pin to the user's contributions array.
-    const updatedUser = await db
-      .collection("users")
-      .updateOne(
-        { username: newPin.submittedBy },
-        { $push: { contributions: pinId } }
-      );
 
     res.status(200).json({
       status: 200,
@@ -115,9 +67,70 @@ const submitNewPin = async ({ body }, res) => {
       success: true,
       submissionResult: submissionResult,
       pendingResult: pendingResult,
-      updatedUser: updatedUser,
-      // updatedUserContributionCounts: updatedUserContributionCounts,
       message: "Pin submission successful. Awaiting review.",
+    });
+  } catch (err) {
+    err ? console.log(err) : client.close();
+  }
+};
+
+// In query, expects a pinId, and 'approved'
+// To accept, approved=true. To reject, leave "approved" out completely.
+// After a pin has been approved, pendingReview will be set to false, making the pin visible to the public.
+// If a pin is rejected, it will be removed from the database.
+const moderatePin = async (
+  { query: { pinId, approved, username, type } },
+  res
+) => {
+  try {
+    console.log(username);
+    await client.connect();
+    console.log("pinId = " + pinId);
+    console.log("approved = " + approved);
+    let updatedPin;
+    let updatedUser;
+    let updatedUserContributionCounts;
+    if (!approved || approved === "false")
+      updatedPin = await thisCollection.updateOne(
+        { "pins._id": pinId },
+        { $pull: { pins: { _id: pinId } } }
+      );
+    if (approved) {
+      // Set pendingReview to false
+      updatedPin = await thisCollection.updateOne(
+        { "pins._id": pinId },
+        { $set: { "pins.$.pendingReview": false } }
+      );
+      // Push the pinId to the contributions array of the user that submitted it.
+      updatedUser = await db
+        .collection("users")
+        .updateOne({ username: username }, { $push: { contributions: pinId } });
+
+      // Increment the number of contributions of that type for the user that submitted it.
+      updatedUserContributionCounts = await db.collection("users").updateOne(
+        { username: username },
+        {
+          $inc: {
+            [`contributionsByType.${type}`]: 1,
+          },
+        }
+      );
+    }
+    // Whether the pin is approved or disapproved it must now be removed from pins array of the pending filter.
+    const updatedPending = await thisCollection.updateOne(
+      { filter: "pending" },
+      { $pull: { pins: { _id: pinId } } }
+    );
+
+    res.status(200).json({
+      status: 200,
+      updatedPin: updatedPin,
+      updatedPending: updatedPending,
+      updatedUser: updatedUser,
+      updatedUserContributionCounts: updatedUserContributionCounts,
+      message: !approved
+        ? `Pin with id '${pinId}' rejected. Pin has been removed from the database.`
+        : `Pin with id '${pinId}' approved. Pin is now visible to the public.`,
     });
   } catch (err) {
     err ? console.log(err) : client.close();
@@ -160,59 +173,6 @@ const getSubmissionsByUsername = async ({ query: { username } }, res) => {
       submissions: userSubmissions.flat(),
       submissionsByType: typeCounts,
       message: "Successfully retrieved user contributions.",
-    });
-  } catch (err) {
-    err ? console.log(err) : client.close();
-  }
-};
-
-// In query, expects a pinId, and 'approved'
-// To accept, approved=true. To reject, leave "approved" out completely.
-// After a pin has been approved, pendingReview will be set to false, making the pin visible to the public.
-// If a pin is rejected, it will be removed from the database.
-const moderatePin = async ({ query: { pinId, approved } }, res) => {
-  try {
-    await client.connect();
-    console.log("pinId = " + pinId);
-    console.log("approved = " + approved);
-    let updatedPin;
-    let updatedUser;
-    let updatedUserContributionCounts;
-    if (!approved || approved === "false")
-      updatedPin = await thisCollection.updateOne(
-        { "pins._id": pinId },
-        { $pull: { pins: { _id: pinId } } }
-      );
-    if (approved) {
-      // Set pendingReview to false
-      updatedPin = await thisCollection.updateOne(
-        { "pins._id": pinId },
-        { $set: { "pins.$.pendingReview": false } }
-      );
-      // // Push the pinId to the contributions array of the user that submitted it.
-      // updatedUser = await thisCollection.updateOne(
-      //   { username: newPin.submittedBy },
-      //   { $push: { contributions: pinId } }
-      // );
-      // updatedUserContributionCounts = await thisCollection.updateOne(
-      //   { username: newPin.submittedBy },
-      //   { $inc: { [`contributionsByType.${newPin.type}`]: 1 } }
-      // );
-    }
-
-    // Whether the pin is approved or disapproved it must now be removed from pins array of the pending filter.
-    const updatedPending = await thisCollection.updateOne(
-      { filter: "pending" },
-      { $pull: { pins: { _id: pinId } } }
-    );
-
-    res.status(200).json({
-      status: 200,
-      updatedPin: updatedPin,
-      updatedPending: updatedPending,
-      message: !approved
-        ? `Pin with id '${pinId}' rejected. Pin has been removed from the database.`
-        : `Pin with id '${pinId}' approved. Pin is now visible to the public.`,
     });
   } catch (err) {
     err ? console.log(err) : client.close();
@@ -321,6 +281,7 @@ const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
     await client.connect();
     let updatedPin;
     let actionTaken;
+
     if (liked) {
       actionTaken = "liked";
       updatedPin = await thisCollection.updateOne(
@@ -330,7 +291,9 @@ const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
           $pull: { "pins.$.dislikedByIds": userId },
         }
       );
+      console.log(updatedPin);
       const { modifiedCount } = updatedPin;
+
       if (!modifiedCount) {
         actionTaken = "unliked";
         updatedPin = await thisCollection.updateOne(
@@ -347,6 +310,7 @@ const toggleLikePin = async ({ query: { userId, pinId, liked } }, res) => {
           $pull: { "pins.$.likedByIds": userId },
         }
       );
+      console.log(updatedPin);
       const { modifiedCount } = updatedPin;
       if (!modifiedCount) {
         actionTaken = "undisliked";

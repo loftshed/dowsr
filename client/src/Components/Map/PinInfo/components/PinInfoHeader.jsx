@@ -15,12 +15,7 @@ const PinInfoHeader = ({ popupInfo }) => {
     );
 
   if (!popupInfo.site)
-    return (
-      <PinInfoHeaderWrapper>
-        {getIcon(popupInfo.type)}
-        {popupInfo.desc}
-      </PinInfoHeaderWrapper>
-    );
+    return <PinInfoHeaderWrapper>{popupInfo.desc}</PinInfoHeaderWrapper>;
 };
 export default PinInfoHeader;
 
@@ -29,7 +24,7 @@ const PinInfoHeaderWrapper = styled.div`
   font-size: 15px;
   font-weight: 800;
   color: ${(props) => props.theme.colors.lightGrey};
-  padding: 3px;
+  padding-bottom: 3px;
   text-align: center;
   ${fakeStroke}
   gap: 4px;

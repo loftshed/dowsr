@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import { handleToggleFollow } from "../helpers";
 import {
@@ -17,26 +17,54 @@ const FollowButton = ({
   followingState,
   setFollowingState,
   setFollowerCount,
-  followerCount,
+  viewedProfile,
+  setViewedProfile,
 }) => {
   const { loggedInUser } = useContext(AppContext);
 
   const [hover, setHover] = useState(false);
   // Follows or unfollows user.
   // setFollowerCount(followerCount += 1);
+  useEffect(() => {
+    if (viewedProfile.followers?.includes(loggedInUser?._id)) {
+      setFollowingState(true);
+    }
+  }, [followingState, viewedProfile]);
+
   return (
     <FollowButtonWrapper
       onClick={async () => {
-        if (!followingState) {
+        if (followingState === false) {
           const result = handleToggleFollow(loggedInUser._id, _id, true);
+          console.log(await result);
           setFollowingState(true);
-          if (!result.unmodified) setFollowerCount(followerCount + 1);
+          if (!result.unmodified) {
+            setViewedProfile({
+              ...viewedProfile,
+              followers: [
+                ...viewedProfile.followers,
+                {
+                  userId: loggedInUser._id,
+                  username: loggedInUser.username,
+                  avatarUrl: loggedInUser.avatarUrl,
+                },
+              ],
+            });
+          }
           return;
         }
-        if (followingState) {
+        if (followingState === true) {
           const result = handleToggleFollow(loggedInUser._id, _id);
+          console.log(await result);
           setFollowingState(false);
-          if (!result.unmodified) setFollowerCount(followerCount - 1);
+          if (!result.unmodified)
+            setViewedProfile({
+              ...viewedProfile,
+              followers: viewedProfile.followers.filter(
+                (follower) => follower.userId !== loggedInUser._id
+              ),
+            });
+
           return;
         }
       }}
@@ -69,5 +97,13 @@ const FollowButton = ({
 
 export default FollowButton;
 
-const FollowButtonWrapper = styled(ProfileButton)``;
+const FollowButtonWrapper = styled(ProfileButton)`
+  border-radius: 5px;
+  @media (min-width: 450px) {
+    width: 150px;
+  }
+  @media (max-width: 450px) {
+    line-height: 22px;
+  }
+`;
 const Text = styled.div``;

@@ -13,12 +13,14 @@ import { FollowBar } from "./components/FollowBar";
 import LocationBar from "./components/LocationBar";
 import MessageBar from "./components/MessageBar";
 import Avatar from "./components/Avatar";
+import { fadeIn } from "../../styling/animations";
 
 // TODO: Make this state less shitty
 
 const Profile = () => {
   const { loggedInUser } = useContext(AppContext); // Get loggedInUser from AppContext
   const [viewedProfile, setViewedProfile] = useState();
+  const [showLoadingSpinner, setShowLoadingSpinner] = useState(false);
   const params = useParams();
   const isOwnProfile = // If the loggedInUser's username is the same as the username in params, or params are empty,
     loggedInUser.username === params.username || !params.username; // we are viewing our own profile.
@@ -27,25 +29,44 @@ const Profile = () => {
     (async () => {
       try {
         let amendedData;
+
+        // If we are viewing our own profile, try to get it from local storage
+        if (isOwnProfile) {
+          const locallyStoredProfile = JSON.parse(
+            localStorage.getItem("locallyStoredProfile")
+          );
+          if (locallyStoredProfile) {
+            setViewedProfile(locallyStoredProfile);
+          }
+        }
+
+        // If there are no params, we are viewing our own profile. Proceed once we have a loggedInUser.
         if (!params.username && loggedInUser) {
           const { pendingReview } = await handleGetUserPending(
             loggedInUser._id
           );
           amendedData = { ...loggedInUser, pendingReview: pendingReview };
+
+          localStorage.setItem(
+            "locallyStoredProfile",
+            JSON.stringify(amendedData)
+          );
+
           setViewedProfile(amendedData);
           return;
         }
+        setShowLoadingSpinner(true);
         const { data } = await getUserByUsername(params.username);
-        const { pendingReview } = await handleGetUserPending(data._id);
-        amendedData = { ...data, pendingReview: pendingReview };
-        setViewedProfile(amendedData);
+        if (data) setShowLoadingSpinner(false);
+
+        setViewedProfile(data);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [params.username, loggedInUser]);
 
-  if (!viewedProfile) {
+  if (!viewedProfile || showLoadingSpinner) {
     return (
       <ResponsiveContainer>
         <LoadingSpinner size={60} />
@@ -84,6 +105,7 @@ const Profile = () => {
                   loggedInUser={loggedInUser}
                   _id={_id}
                   viewedProfile={viewedProfile}
+                  setViewedProfile={setViewedProfile}
                   isOwnProfile={isOwnProfile}
                 />
               </div>
@@ -112,7 +134,7 @@ export default Profile;
 
 const InnerContainer = styled.div`
   ${fillSpace}
-
+  animation: ${fadeIn} 0.1s ease;
   user-select: none;
   padding: 5px;
   flex-direction: column;
@@ -163,6 +185,7 @@ const Username = styled.h3`
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
   padding: 5px 0px;
+  font-size: 23px;
   @media (min-width: 450px) {
     padding: 10px 0px;
     font-size: 40px;

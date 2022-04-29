@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
+import { fakeStroke } from "../../../../styling/sharedstyles";
 
 const PinSubmitter = ({ popupInfo, isOwnPin }) => {
   const navigate = useNavigate();
@@ -42,10 +43,17 @@ const PinSubmitterWrapper = styled.button`
   transition: all ease 0.1s;
   border: 1px solid ${(props) => props.theme.colors.superDarkGrey};
   cursor: pointer;
-
   span {
     pointer-events: none;
     font-size: 14px;
-    color: ${(props) => props.theme.colors.teal};
+    color: ${(props) => props.theme.colors.lightGrey} !important;
+    ${fakeStroke}
+  }
+  &:hover {
+    outline: 1px solid ${(props) => props.theme.colors.teal};
+  }
+  &:active {
+    outline: 1px solid ${(props) => props.theme.colors.teal};
+    background-color: ${(props) => props.theme.colors.darkestBlue};
   }
 `;

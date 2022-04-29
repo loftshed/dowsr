@@ -6,6 +6,7 @@ import {
   BikeIcon,
   WaterIcon,
   ToiletIcon,
+  PendingIcon,
 } from "../../styling/react-icons";
 
 const MAPBOX_API_KEY = process.env.REACT_APP_MAPBOX_API_KEY;
@@ -37,7 +38,6 @@ const submitPin = async (ev, locationObj, loggedInUser, hours) => {
   console.log(hours);
   try {
     const submissionObj = {
-      // type: ev.target.pinType.value,
       latitude: locationObj.lat,
       longitude: locationObj.lng,
       hours: hours,
@@ -202,6 +202,8 @@ const getIcon = (type) => {
       return <WaterIcon />;
     case "toilet":
       return <ToiletIcon />;
+    case "pending":
+      return <PendingIcon />;
     default:
       return <></>;
   }

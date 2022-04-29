@@ -1,5 +1,5 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-import Map, { GeolocateControl } from "react-map-gl";
+import Map, { GeolocateControl, useMap } from "react-map-gl";
 import { useContext, useEffect, useRef } from "react";
 import { handleGetPinsOfType } from "./helpers";
 import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
@@ -13,10 +13,24 @@ import NewPinMarker from "./PinCreation/NewPinMarker";
 import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
 import { AppContext } from "../AppContext";
 import { useNavigate } from "react-router-dom";
+import { fadeIn, overlayFadeIn } from "../../styling/animations";
 
 const MapContainer = () => {
-  const { firstLogin } = useContext(AppContext);
+  const { firstLogin, loggedInUser, showSearchBar, setShowSearchBar } =
+    useContext(AppContext);
+  const { setLastMapPos, lastMapPos } = useContext(MappingContext);
+
   const navigate = useNavigate();
+
+  const { map } = useMap();
+  if (map !== undefined) {
+    const center = map.getCenter();
+    const zoom = map.getZoom();
+    const currentViewport = { lat: center.lat, lng: center.lng, zoom: zoom };
+    map.on("move", () => {
+      setLastMapPos({ lat: center.lat, lng: center.lng, zoom: zoom });
+    });
+  }
 
   if (firstLogin) navigate("/firstlogin");
 
@@ -75,9 +89,31 @@ const MapContainer = () => {
         if (creatingNewPin) return;
         if (!userLocation) handleGeolocateUser();
         let filter;
+        // let filteredPins;
         !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
         const retrieved = await handleGetPinsOfType(filter);
-        const filteredPins = retrieved.pins.filter((pin) => !pin.pendingReview);
+        const filteredPins =
+          filter !== "pending"
+            ? retrieved.pins.filter((pin) => !pin.pendingReview)
+            : retrieved.pins;
+
+        // it doesn't like this. somehow this ends up with storedfilteredpins array empty and the page returns NULL
+        //
+        // // If filter isn't "pending" and logged in user isn't an Admin, filter out the pins that are pending approval.
+        // if (filter !== "pending" && !loggedInUser.isAdmin) {
+        //   filteredPins = retrieved.pins.filter((pin) => !pin.pendingReview);
+
+        //   // If filter is "pending" and logged in user isn't an Admin, filter retrieved pins by their username to display only the pins that the user has created.
+        // } else if (filter === "pending" && !loggedInUser.isAdmin) {
+        //   filteredPins = retrieved.pins.filter(
+        //     (pin) => pin.submittedBy === loggedInUser.username
+        //   );
+
+        //   // If filter is "pending" and logged in user is an Admin, show all the retrieved pins from that filter.
+        // } else if (filter === "pending" && loggedInUser.isAdmin) {
+        //   filteredPins = retrieved.pins;
+        // }
+
         setStoredFilteredPins(filteredPins);
       } catch (error) {
         console.log(error);
@@ -99,11 +135,19 @@ const MapContainer = () => {
               id="map"
               container="map"
               ref={mapRef}
-              initialViewState={{
-                longitude: userLocation.lng,
-                latitude: userLocation.lat,
-                zoom: 12,
-              }}
+              initialViewState={
+                lastMapPos === null
+                  ? {
+                      longitude: userLocation.lng,
+                      latitude: userLocation.lat,
+                      zoom: 12,
+                    }
+                  : {
+                      longitude: lastMapPos.lng,
+                      latitude: lastMapPos.lat,
+                      zoom: lastMapPos.zoom,
+                    }
+              }
               // mapStyle="mapbox://styles/mapbox/dark-v10"
               mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
               logoPosition={"top-right"}
@@ -112,30 +156,28 @@ const MapContainer = () => {
                   handleBeginPinCreation(ev);
                   setPopupIsVisible(!popupIsVisible);
                 }
+                setShowSearchBar(false);
               }}
               cursorModifier={creatingNewPin}
             >
+              <GeolocateControl
+                position="top-left"
+                trackUserLocation="true"
+                showUserHeading="true"
+              />
               {!creatingNewPin && !pinCreationSuccessful && (
                 <>
                   <PinInfoMarker
                     pins={storedFilteredPins}
                     setPopupInfo={setPopupInfo}
                   />
-                  <GeolocateControl
-                    position="top-left"
-                    trackUserLocation="true"
-                    showUserHeading="true"
-                  />
+
                   <MapFilters
                     showFilterMenu={showFilterMenu}
                     setShowFilterMenu={setShowFilterMenu}
-                    setStoredFilteredPins={setStoredFilteredPins}
                   />
 
-                  <PinInfoPopup
-                    popupInfo={popupInfo}
-                    setPopupInfo={setPopupInfo}
-                  />
+                  <PinInfoPopup />
                 </>
               )}
               {clickedLocation && creatingNewPin && popupIsVisible && (
@@ -160,6 +202,7 @@ const MapWrapper = styled.div`
   overflow: hidden;
   #map canvas {
     cursor: ${(props) => props.cursorType};
+    animation: ${fadeIn} 0.5s ease;
   }
 `;
 
@@ -171,6 +214,7 @@ const Overlay = styled.div`
   opacity: 15%;
   box-shadow: inset 0px 0px 1000px ${(props) => props.theme.colors.teal};
   pointer-events: none;
+  animation: ${overlayFadeIn} 0.2s ease;
 `;
 
 // from home.jsx

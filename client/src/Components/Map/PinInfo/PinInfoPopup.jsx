@@ -1,6 +1,10 @@
 import styled from "styled-components/macro";
 import { Popup /*useMap*/ } from "react-map-gl";
-import { fillSpace, centeredFlexColumn } from "../../../styling/sharedstyles";
+import {
+  fillSpace,
+  centeredFlexColumn,
+  centeredFlexRow,
+} from "../../../styling/sharedstyles";
 
 import { MappingContext } from "../MappingContext";
 import { useContext, useEffect } from "react";
@@ -10,10 +14,13 @@ import PinSubmitter from "./components/PinSubmitter";
 import PinInfoHeader from "./components/PinInfoHeader";
 import PinDistance from "./components/PinDistance";
 import { AppContext } from "../../AppContext";
+import dayjs from "dayjs";
 
 const REACT_APP_GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const PinInfoPopup = () => {
+  const relativeTime = require("dayjs/plugin/relativeTime");
+  dayjs.extend(relativeTime);
   const { popupInfo, setPopupInfo, userLocation, setClickedLocation } =
     useContext(MappingContext);
   // const { current: map } = useMap();
@@ -41,6 +48,7 @@ const PinInfoPopup = () => {
       <PinInfo>
         <TopPanel>
           <PinInfoHeader popupInfo={popupInfo} />
+
           <ImageContainer>
             <PinDistance popupInfo={popupInfo} userLocation={userLocation} />
             <PinStreetView
@@ -61,7 +69,12 @@ const PinInfoPopup = () => {
 };
 export default PinInfoPopup;
 
-const TopPanel = styled.div``;
+const TopPanel = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
 
 const PinInfo = styled.div`
   ${centeredFlexColumn}

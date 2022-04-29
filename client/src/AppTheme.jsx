@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components/macro";
 const theme = {
   colors: {
     pink: "#ef476f",
+    duskyPink: "#a52b47",
     yellow: "#ffd166",
     green: "#06d6a0",
     medBlue: "#118ab2",
@@ -19,6 +20,7 @@ const theme = {
     mediumGrey: "#d3d0cb",
     lightGrey: "#e7e5df",
     teal: "#44bba4",
+    darkTeal: "#2f8775",
     gold: "#e7bb41",
     water: "#48cae4",
     toilet: "#b2967d",

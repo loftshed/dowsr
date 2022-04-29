@@ -37,5 +37,13 @@ const MessageButton = ({ _id }) => {
 
 export default MessageButton;
 
-const MessageButtonWrapper = styled(ProfileButton)``;
+const MessageButtonWrapper = styled(ProfileButton)`
+  border-radius: 5px;
+  @media (min-width: 450px) {
+    width: 150px;
+  }
+  @media (max-width: 450px) {
+    line-height: 22px;
+  }
+`;
 const Text = styled.div``;

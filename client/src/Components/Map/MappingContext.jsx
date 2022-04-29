@@ -16,6 +16,7 @@ export const MappingProvider = ({ children }) => {
   const [newPinData, setNewPinData] = useState(null);
   const [storedFilteredPins, setStoredFilteredPins] = useState(null);
   const [moderationResult, setModerationResult] = useState(null);
+  const [lastMapPos, setLastMapPos] = useState(null);
 
   return (
     <MappingContext.Provider
@@ -46,6 +47,8 @@ export const MappingProvider = ({ children }) => {
         setStoredFilteredPins,
         moderationResult,
         setModerationResult,
+        lastMapPos,
+        setLastMapPos,
       }}
     >
       {children}

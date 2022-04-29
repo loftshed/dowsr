@@ -45,12 +45,15 @@ const CountContainer = styled.div`
 `;
 
 const Number = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: ${(props) => props.theme.colors.darkGrey};
   padding: 0px 7px;
   border-radius: 4px;
   border: solid 1px ${(props) => props.theme.colors.superDarkGrey};
+  width: 18px;
   @media (max-width: 450px) {
-    line-height: 13px;
-    padding: 0px 3px;
+    line-height: 16px;
   }
 `;
