@@ -4,6 +4,8 @@
 >### **Disclaimer** : I am actively messing around with this project, working out bugs and trying to add new features, and currently the master branch still requires a lot of cleanup to remove the legions of console.logs and commented code.
 
 
+## **Disclaimer** : Master branch still requires a lot of cleanup
+
 ## _**dowsr** is named for Dowsing, an ancient practice of divination in which two sticks or metal rods are ostensibly used to find water or other hidden things. It is a responsive web app built with [React](https://reactjs.org/), [Node.js](https://nodejs.org/), [Express](https://expressjs.org/), [MongoDB](https://www.mongodb.com/), and [Mapbox](https://www.mapbox.com/)._
 
 <br>
