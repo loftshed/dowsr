@@ -2,7 +2,7 @@
   "name": "dowsr",
   "version": "1.0.0",
   "description": "github.com/loftshed/dowsr",
-  "main": "index.js",
+  "main": "/client/public/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
