@@ -1,5 +1,7 @@
 # **dowsr v. 000001 _alpha_**
 
+## **Disclaimer** : Master branch still requires a lot of cleanup
+
 ## _**dowsr** is named for Dowsing, an ancient practice of divination in which two sticks or metal rods are ostensibly used to find water or other hidden things. It is a responsive web app built with [React](https://reactjs.org/), [Node.js](https://nodejs.org/), [Express](https://expressjs.org/), [MongoDB](https://www.mongodb.com/), and [Mapbox](https://www.mapbox.com/)._
 
 <br>
