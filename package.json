@@ -1,0 +1,19 @@
+{
+  "name": "dowsr",
+  "version": "1.0.0",
+  "description": "github.com/loftshed/dowsr",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loftshed/dowsr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loftshed/dowsr/issues"
+  },
+  "homepage": "https://github.com/loftshed/dowsr#readme"
+}
