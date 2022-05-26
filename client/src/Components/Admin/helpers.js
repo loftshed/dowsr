@@ -6,11 +6,11 @@
 const moderatePendingPin = async (pinId, approved, username, type) => {
   try {
     const response = await fetch(
-      `http://localhost:9001/api/moderate-pin?&pinId=${pinId}&approved=${approved}&username=${username}&type=${type}`,
+      `/api/moderate-pin?&pinId=${pinId}&approved=${approved}&username=${username}&type=${type}`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );

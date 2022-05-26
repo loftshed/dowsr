@@ -1,10 +1,10 @@
-import styled, { useTheme } from "styled-components/macro";
-import { centeredFlexRow } from "../../styling/sharedstyles";
-import { moderatePendingPin } from "./helpers";
+import styled, { useTheme } from 'styled-components/macro';
+import { centeredFlexRow } from '../../styling/sharedstyles';
+import { moderatePendingPin } from './helpers';
 // import { getPinsPendingReview } from "../Map/helpers";
-import { MappingContext } from "../Map/MappingContext";
-import { useContext } from "react";
-import { AppContext } from "../AppContext";
+import { MappingContext } from '../Map/MappingContext';
+import { useContext } from 'react';
+import { AppContext } from '../AppContext';
 
 const PendingPin = ({ pin, setPendingPins }) => {
   const theme = useTheme();
@@ -64,11 +64,8 @@ const PendingPin = ({ pin, setPendingPins }) => {
             <span>desc</span> '{desc}'
           </li>
           <li>
-            <span>submittedBy</span>{" "}
-            <a
-              href={`http://localhost:3000/users/${submittedBy}`}
-              target="_new"
-            >
+            <span>submittedBy</span>{' '}
+            <a href={`/users/${submittedBy}`} target="_new">
               <span style={{ color: `${theme.colors.teal}` }}>@</span>
               {submittedBy}
             </a>
@@ -135,7 +132,7 @@ const PendingPinWrapper = styled.div`
     list-style: none;
   }
   * {
-    font-family: "Fira Mono", monospace;
+    font-family: 'Fira Mono', monospace;
   }
   span {
     font-family: inherit;

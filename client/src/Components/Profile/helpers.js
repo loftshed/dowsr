@@ -1,5 +1,5 @@
 // Fetch request that sends username in the query
-// example: localhost:9001/api/get-submissions?username=username
+// example: /api/get-submissions?username=username
 // Returns all submissions by the user
 
 const handleGetUserContributions = async (username) => {
@@ -35,13 +35,13 @@ const handleToggleFollow = async (userId, targetUserId, follow) => {
   try {
     const response = await fetch(
       `/api/toggle-follow?userId=${userId}&targetUserId=${targetUserId}${
-        follow ? "&follow=true" : ""
+        follow ? '&follow=true' : ''
       }`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
       }
     );
