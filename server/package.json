@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Pete Lofstedt <pete.lofstedt@gmail.com>",
   "description": "Backend server for dowsr.",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "14.x",
     "yarn": "1.22.17"
