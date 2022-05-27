@@ -1,23 +1,27 @@
-import "mapbox-gl/dist/mapbox-gl.css";
-import Map, { GeolocateControl, useMap } from "react-map-gl";
-import { useContext, useEffect, useRef } from "react";
-import { handleGetPinsOfType } from "./helpers";
-import { centeredFlexColumn, fillSpace } from "../../styling/sharedstyles";
-import styled from "styled-components/macro";
-import MapFilters from "./MapFilters";
-import MapAlertModal from "./MapAlertModal";
-import PinInfoPopup from "./PinInfo/PinInfoPopup";
-import PinInfoMarker from "./PinInfo/components/PinInfoMarker";
-import { MappingContext } from "./MappingContext";
-import NewPinMarker from "./PinCreation/NewPinMarker";
-import { MAPBOX_API_KEY, reverseGeocode } from "./helpers";
-import { AppContext } from "../AppContext";
-import { useNavigate } from "react-router-dom";
-import { fadeIn, overlayFadeIn } from "../../styling/Animations";
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+import Map, { GeolocateControl, useMap } from 'react-map-gl';
+import { useContext, useEffect, useRef } from 'react';
+import { handleGetPinsOfType } from './helpers';
+import { centeredFlexColumn, fillSpace } from '../../styling/sharedstyles';
+import styled from 'styled-components/macro';
+import MapFilters from './MapFilters';
+import MapAlertModal from './MapAlertModal';
+import PinInfoPopup from './PinInfo/PinInfoPopup';
+import PinInfoMarker from './PinInfo/components/PinInfoMarker';
+import { MappingContext } from './MappingContext';
+import NewPinMarker from './PinCreation/NewPinMarker';
+import { MAPBOX_API_KEY, reverseGeocode } from './helpers';
+import { AppContext } from '../AppContext';
+import { useNavigate } from 'react-router-dom';
+import { fadeIn, overlayFadeIn } from '../../styling/Animations';
+
+import mapboxgl from 'mapbox-gl';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const MapContainer = () => {
-  const { firstLogin, loggedInUser, showSearchBar, setShowSearchBar } =
-    useContext(AppContext);
+  const { firstLogin, loggedInUser, showSearchBar, setShowSearchBar } = useContext(AppContext);
   const { setLastMapPos, lastMapPos } = useContext(MappingContext);
 
   const navigate = useNavigate();
@@ -27,12 +31,12 @@ const MapContainer = () => {
     const center = map.getCenter();
     const zoom = map.getZoom();
     const currentViewport = { lat: center.lat, lng: center.lng, zoom: zoom };
-    map.on("move", () => {
+    map.on('move', () => {
       setLastMapPos({ lat: center.lat, lng: center.lng, zoom: zoom });
     });
   }
 
-  if (firstLogin) navigate("/firstlogin");
+  if (firstLogin) navigate('/firstlogin');
 
   // TODO: Figure out why you must double click to create a pin
 
@@ -90,10 +94,10 @@ const MapContainer = () => {
         if (!userLocation) handleGeolocateUser();
         let filter;
         // let filteredPins;
-        !selectedMapFilter ? (filter = "water") : (filter = selectedMapFilter);
+        !selectedMapFilter ? (filter = 'water') : (filter = selectedMapFilter);
         const retrieved = await handleGetPinsOfType(filter);
         const filteredPins =
-          filter !== "pending"
+          filter !== 'pending'
             ? retrieved.pins.filter((pin) => !pin.pendingReview)
             : retrieved.pins;
 
@@ -125,7 +129,7 @@ const MapContainer = () => {
   if (!storedFilteredPins) return null;
 
   return (
-    <MapWrapper cursorType={creatingNewPin ? "pointer" : ""}>
+    <MapWrapper cursorType={creatingNewPin ? 'pointer' : ''}>
       {userLocation && (
         <Wrapper>
           <Content>
@@ -150,7 +154,7 @@ const MapContainer = () => {
               }
               // mapStyle="mapbox://styles/mapbox/dark-v10"
               mapStyle="mapbox://styles/loftshed/cl23j7aoi000915myf03ynn0u"
-              logoPosition={"top-right"}
+              logoPosition={'top-right'}
               onClick={(ev) => {
                 if (creatingNewPin) {
                   handleBeginPinCreation(ev);
@@ -167,10 +171,7 @@ const MapContainer = () => {
               />
               {!creatingNewPin && !pinCreationSuccessful && (
                 <>
-                  <PinInfoMarker
-                    pins={storedFilteredPins}
-                    setPopupInfo={setPopupInfo}
-                  />
+                  <PinInfoMarker pins={storedFilteredPins} setPopupInfo={setPopupInfo} />
 
                   <MapFilters
                     showFilterMenu={showFilterMenu}
@@ -184,9 +185,7 @@ const MapContainer = () => {
                 <NewPinMarker clickedLocation={clickedLocation} />
               )}
             </Map>
-            {mapModalMessage !== "" && (
-              <MapAlertModal message={mapModalMessage} />
-            )}
+            {mapModalMessage !== '' && <MapAlertModal message={mapModalMessage} />}
           </Content>
         </Wrapper>
       )}
