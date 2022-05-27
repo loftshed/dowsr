@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import { addNewUser } from './helpers';
 import { AppContext } from '../AppContext';
+import { getUser } from './helpers';
 import RegionSelect from './components/RegionSelect';
 import CountrySelect from './components/CountrySelect';
 import Birthdate from './components/Birthdate';
@@ -20,7 +21,7 @@ import GenderId from './components/GenderId';
 const FirstLogin = () => {
   //TODO: make this responsive
   //TODO: highlight missing required fields on submit
-  const { setFirstLogin } = useContext(AppContext);
+  const { setFirstLogin, setLoggedInUser } = useContext(AppContext);
   const [regions, setRegions] = useState([]);
   const navigate = useNavigate();
   const { user } = useAuth0();
@@ -32,14 +33,22 @@ const FirstLogin = () => {
           <Heading>Please complete your registration.</Heading>
           <Signup
             onSubmit={async (ev) => {
-              ev.preventDefault();
-              const username = ev.target.username.value;
-              const { success } = await addNewUser(ev, user);
-              if (success) {
-                setFirstLogin(false);
-                navigate(`/profile/${username}`);
-              } else {
-                navigate('/error');
+              try {
+                ev.preventDefault();
+                const username = ev.target.username.value;
+                const { success } = await addNewUser(ev, user);
+                if (success) {
+                  setFirstLogin(false);
+                  const { data } = await getUser('email', user.email);
+                  localStorage.setItem('locallyStoredUser', JSON.stringify(data));
+                  setLoggedInUser(data);
+
+                  navigate(`/profile/${username}`);
+                } else {
+                  navigate('/error');
+                }
+              } catch (error) {
+                console.log(error);
               }
             }}
           >
