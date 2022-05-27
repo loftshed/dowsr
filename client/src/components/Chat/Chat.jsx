@@ -1,14 +1,14 @@
-import styled from "styled-components/macro";
-import { fillSpace } from "../../styling/sharedstyles";
+import styled from 'styled-components/macro';
+import { fillSpace } from '../../styling/sharedstyles';
 
-import ResponsiveContainer from "../../styling/ResponsiveContainer";
-import ChatSidebar from "./components/ChatSidebar";
+import ResponsiveContainer from '../../styling/ResponsiveContainer';
+import ChatSidebar from './components/ChatSidebar';
 
-import { useContext, useEffect, useState } from "react";
-import { getUserThreads, getLatestThread } from "./helpers";
-import ChatMessages from "./components/ChatMessages";
-import ChatInput from "./components/ChatInput";
-import { AppContext } from "../AppContext";
+import { useContext, useEffect, useState } from 'react';
+import { getUserThreads, getLatestThread } from './helpers';
+import ChatMessages from './components/ChatMessages';
+import ChatInput from './components/ChatInput';
+import { AppContext } from '../AppContext';
 
 // Now that this is all sorted, I should move some stuff into a MessagingContext Provider
 //TODO: probably don't use localStorage for threads because that could get wiiild
@@ -29,9 +29,7 @@ const Messaging = () => {
         // If we have previously found that there are no threads, don't bother trying to get them again
         if (!noThreads && loggedInUser) {
           // Assigning any threads in localstorage to locallyStoredThreads
-          const locallyStoredThreads = JSON.parse(
-            localStorage.getItem("locallyStoredThreads")
-          );
+          const locallyStoredThreads = JSON.parse(localStorage.getItem('locallyStoredThreads'));
 
           // If there are any locally stored threads, set them to allUserThreads
           if (locallyStoredThreads) {
@@ -48,10 +46,7 @@ const Messaging = () => {
           }
 
           // Set retrieved threads to local storage
-          localStorage.setItem(
-            "locallyStoredThreads",
-            JSON.stringify(retrievedThreads)
-          );
+          localStorage.setItem('locallyStoredThreads', JSON.stringify(retrievedThreads));
 
           // Also update the state in case any new messages were added
           setAllUserThreads(retrievedThreads);
@@ -67,13 +62,7 @@ const Messaging = () => {
         console.log(error);
       }
     })();
-  }, [
-    currentMessages,
-    noThreads,
-    selectedThreadId,
-    loggedInUser,
-    loggedInUser._id,
-  ]);
+  }, [currentMessages, noThreads, selectedThreadId, loggedInUser, loggedInUser._id]);
 
   return (
     <ResponsiveContainer>
@@ -88,10 +77,7 @@ const Messaging = () => {
           showLoadingAnim={showLoadingAnim}
         />
         <ChatArea>
-          <ChatMessages
-            currentMessages={currentMessages}
-            setCurrentMessages={setCurrentMessages}
-          />
+          <ChatMessages currentMessages={currentMessages} setCurrentMessages={setCurrentMessages} />
           <ChatInput
             selectedThreadId={selectedThreadId}
             setShowLoadingAnim={setShowLoadingAnim}
