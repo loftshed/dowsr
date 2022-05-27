@@ -1,7 +1,7 @@
-import styled from "styled-components/macro";
-import PreviewTile from "./PreviewTile";
-import { AppContext } from "../../AppContext";
-import { useContext } from "react";
+import styled from 'styled-components/macro';
+import PreviewTile from './PreviewTile';
+import { AppContext } from '../../AppContext';
+import { useContext } from 'react';
 
 const ChatSidebar = ({
   allUserThreads,
@@ -11,6 +11,8 @@ const ChatSidebar = ({
   setSelectedThreadId,
 }) => {
   const { loggedInUser } = useContext(AppContext);
+  if (allUserThreads.length === 0) return <SidebarWrapper></SidebarWrapper>;
+
   return (
     <SidebarWrapper>
       {allUserThreads.map((thread) => {
@@ -72,3 +74,5 @@ const SidebarWrapper = styled.div`
     background: ${(props) => props.theme.colors.pink};
   }
 `;
+
+const NoThreads = styled(SidebarWrapper)``;

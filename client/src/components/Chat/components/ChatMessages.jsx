@@ -1,14 +1,15 @@
-import styled from "styled-components/macro";
-import Bubble from "./MessageBubble";
-import ScrollToNewest from "./ScrollToNewest";
-import { v4 as uuidv4 } from "uuid";
-import { useContext } from "react";
-import { AppContext } from "../../AppContext";
+import styled from 'styled-components/macro';
+import Bubble from './MessageBubble';
+import ScrollToNewest from './ScrollToNewest';
+import { v4 as uuidv4 } from 'uuid';
+import { useContext } from 'react';
+import { AppContext } from '../../AppContext';
 
 const ChatMessages = ({ currentMessages }) => {
   const { loggedInUser } = useContext(AppContext);
 
-  if (!currentMessages) return null;
+  if (!currentMessages || currentMessages.length < 1)
+    return <NoMessages>No messages to display 😭</NoMessages>;
 
   return (
     <ChatMessagesWrapper>
@@ -52,4 +53,9 @@ const ChatMessagesWrapper = styled.ul`
     border-radius: 10px;
     background: ${(props) => props.theme.colors.pink};
   }
+`;
+
+const NoMessages = styled(ChatMessagesWrapper)`
+  justify-content: center;
+  align-items: center;
 `;
