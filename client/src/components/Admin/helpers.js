@@ -6,7 +6,7 @@
 const moderatePendingPin = async (pinId, approved, username, type) => {
   try {
     const response = await fetch(
-      `/api/moderate-pin?&pinId=${pinId}&approved=${approved}&username=${username}&type=${type}`,
+      `https://dowsr.herokuapp.com/api/moderate-pin?&pinId=${pinId}&approved=${approved}&username=${username}&type=${type}`,
       {
         method: 'PATCH',
         headers: {

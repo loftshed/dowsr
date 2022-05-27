@@ -1,9 +1,9 @@
 const getUser = async (by, value) => {
   try {
     let response;
-    by === "email"
-      ? (response = await fetch(`/api/get-user?email=${value}`))
-      : (response = await fetch(`/api/get-user?id=${value}`));
+    by === 'email'
+      ? (response = await fetch(`https://dowsr.herokuapp.com/api/get-user?email=${value}`))
+      : (response = await fetch(`https://dowsr.herokuapp.com/api/get-user?id=${value}`));
     const jsonResponse = await response.json();
     return jsonResponse;
   } catch (error) {
@@ -14,7 +14,7 @@ const getUser = async (by, value) => {
 // this is redundant with the above function, but I'm leaving it here for now
 const getUserByUsername = async (username) => {
   try {
-    const response = await fetch(`/api/get-user/${username}`);
+    const response = await fetch(`https://dowsr.herokuapp.com/api/get-user/${username}`);
     const jsonResponse = await response.json();
     return jsonResponse;
   } catch (error) {
@@ -25,11 +25,11 @@ const getUserByUsername = async (username) => {
 //TODO: turn add/modify user into a single function that switches purpose with an argument..
 const addNewUser = async ({ target }, user) => {
   try {
-    const response = await fetch("/api/add-user", {
-      method: "POST",
+    const response = await fetch('https://dowsr.herokuapp.com/api/add-user', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email: user.email,
@@ -56,11 +56,11 @@ const modifyUser = async ({ target }) => {
   console.log(target.firstName.value);
   try {
     const response = await fetch(
-      `/api/modify-user?email=${target.email.value}`,
+      `https://dowsr.herokuapp.com/api/modify-user?email=${target.email.value}`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           givenName: target.firstName.value,

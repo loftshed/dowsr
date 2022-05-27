@@ -22,7 +22,7 @@ const getUserLocation = async () => {
 
 const handleGetPinsOfType = async (filter) => {
   try {
-    const response = await fetch(`/api/get-pins?filter=${filter}`);
+    const response = await fetch(`https://dowsr.herokuapp.com/api/get-pins?filter=${filter}`);
     return await response.json();
   } catch (error) {
     console.log(error);
@@ -51,7 +51,7 @@ const submitPin = async (ev, locationObj, loggedInUser, hours) => {
 
     if (ev.target.water?.checked && ev.target.toilet?.checked) {
       const toiletSubmissionObj = { ...submissionObj, type: 'toilet' };
-      const responseToilet = await fetch('/api/submit-pin', {
+      const responseToilet = await fetch('https://dowsr.herokuapp.com/api/submit-pin', {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -61,7 +61,7 @@ const submitPin = async (ev, locationObj, loggedInUser, hours) => {
       });
       // console.log(responseToilet.json());
       const waterSubmissionObj = { ...submissionObj, type: 'water' };
-      const response = await fetch('/api/submit-pin', {
+      const response = await fetch('https://dowsr.herokuapp.com/api/submit-pin', {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -87,7 +87,7 @@ const submitPin = async (ev, locationObj, loggedInUser, hours) => {
         type: type,
       };
 
-      const response = await fetch('api/submit-pin', {
+      const response = await fetch('https://dowsr.herokuapp.com/api/submit-pin', {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -143,7 +143,7 @@ const getDistanceFromPoint = (pos1, pos2) => {
 
 const getPinsPendingReview = async () => {
   try {
-    const response = await fetch('/api/get-pending-review');
+    const response = await fetch('https://dowsr.herokuapp.com/api/get-pending-review');
     return await response.json();
   } catch (error) {
     console.log(error);
@@ -170,7 +170,7 @@ const togglePinLike = async (pinId, userId, liked) => {
 
 const getPin = async (pinId) => {
   try {
-    const response = await fetch(`/api/get-pin?pinId=${pinId}`);
+    const response = await fetch(`https://dowsr.herokuapp.com/api/get-pin?pinId=${pinId}`);
     return await response.json();
   } catch (error) {
     console.log(error);

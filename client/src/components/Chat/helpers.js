@@ -1,8 +1,10 @@
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 
 const getUserThreads = async (userId) => {
   try {
-    const response = await fetch(`/api/get-user-threads?userId=${userId}`);
+    const response = await fetch(
+      `https://dowsr.herokuapp.com/api/get-user-threads?userId=${userId}`
+    );
     const { threads } = await response.json();
     return threads;
   } catch (error) {
@@ -12,7 +14,7 @@ const getUserThreads = async (userId) => {
 
 const getOneThread = async (threadId) => {
   try {
-    const response = await fetch(`/api/get-thread?threadId=${threadId}`);
+    const response = await fetch(`https://dowsr.herokuapp.com/api/get-thread?threadId=${threadId}`);
     const {
       threads: { messages },
     } = await response.json();
@@ -24,13 +26,16 @@ const getOneThread = async (threadId) => {
 
 const newThread = async (idA, idB, msgObj) => {
   try {
-    const response = await fetch(`/api/new-thread?idA=${idA}&idB=${idB}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(msgObj),
-    });
+    const response = await fetch(
+      `https://dowsr.herokuapp.com/api/new-thread?idA=${idA}&idB=${idB}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(msgObj),
+      }
+    );
     return response.json();
   } catch (error) {
     console.log(error);
@@ -44,13 +49,16 @@ const replyThread = async (threadId, message, userId, handle) => {
       handle: handle,
       message: message,
     };
-    const response = await fetch(`/api/modify-thread?threadId=${threadId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(messageObject),
-    });
+    const response = await fetch(
+      `https://dowsr.herokuapp.com/api/modify-thread?threadId=${threadId}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(messageObject),
+      }
+    );
     const { sentMessage } = await response.json();
     return sentMessage;
   } catch (error) {

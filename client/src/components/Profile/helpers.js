@@ -4,7 +4,9 @@
 
 const handleGetUserContributions = async (username) => {
   try {
-    const response = await fetch(`/api/get-submissions?username=${username}`);
+    const response = await fetch(
+      `https://dowsr.herokuapp.com/api/get-submissions?username=${username}`
+    );
     const data = await response.json();
     return data;
   } catch (err) {
@@ -14,7 +16,9 @@ const handleGetUserContributions = async (username) => {
 
 const handleGetUserPending = async (userId) => {
   try {
-    const response = await fetch(`/api/get-pending-review?userId=${userId}`);
+    const response = await fetch(
+      `https://dowsr.herokuapp.com/api/get-pending-review?userId=${userId}`
+    );
     const data = await response.json();
     return data;
   } catch (err) {
@@ -34,7 +38,7 @@ const handleGetUserPending = async (userId) => {
 const handleToggleFollow = async (userId, targetUserId, follow) => {
   try {
     const response = await fetch(
-      `/api/toggle-follow?userId=${userId}&targetUserId=${targetUserId}${
+      `https://dowsr.herokuapp.com/api/toggle-follow?userId=${userId}&targetUserId=${targetUserId}${
         follow ? '&follow=true' : ''
       }`,
       {
