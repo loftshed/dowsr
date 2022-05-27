@@ -80,10 +80,10 @@ const MapContainer = () => {
 
   const handleGetLocationFromIp = async () => {
     try {
-      const result = await fetch('http://ip-api.com/json/');
+      const result = await fetch('https://ipapi.co/json/');
       const data = await result.json();
-      const { lat, lon } = data;
-      setUserLocation({ lat: lat, lng: lon });
+      const { latitude, longitude } = data;
+      setUserLocation({ lat: latitude, lng: longitude });
     } catch (error) {
       console.log(error);
     }
