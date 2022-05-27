@@ -73,6 +73,8 @@ const modifyUser = async ({ target }) => {
         }),
       }
     );
+    const result = await response.json();
+    return result;
   } catch (error) {
     console.log(error);
   }

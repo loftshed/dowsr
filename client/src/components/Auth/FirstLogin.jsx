@@ -1,22 +1,21 @@
-import styled from "styled-components/macro";
-import ResponsiveContainer from "../../styling/ResponsiveContainer";
+import styled from 'styled-components/macro';
+import ResponsiveContainer from '../../styling/ResponsiveContainer';
 import {
   Input,
-  Select,
   Option,
   buttonAnim,
   fillSpace,
   centeredFlexColumn,
-} from "../../styling/sharedstyles";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
-import { addNewUser } from "./helpers";
-import { AppContext } from "../AppContext";
-import RegionSelect from "./components/RegionSelect";
-import CountrySelect from "./components/CountrySelect";
-import Birthdate from "./components/Birthdate";
-import GenderId from "./components/GenderId";
+} from '../../styling/sharedstyles';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import { addNewUser } from './helpers';
+import { AppContext } from '../AppContext';
+import RegionSelect from './components/RegionSelect';
+import CountrySelect from './components/CountrySelect';
+import Birthdate from './components/Birthdate';
+import GenderId from './components/GenderId';
 
 const FirstLogin = () => {
   //TODO: make this responsive
@@ -28,7 +27,7 @@ const FirstLogin = () => {
 
   return (
     <Wrapper>
-      <ResponsiveContainer heading={"Welcome!"}>
+      <ResponsiveContainer heading={'Welcome!'}>
         <Content>
           <Heading>Please complete your registration.</Heading>
           <Signup
@@ -37,15 +36,15 @@ const FirstLogin = () => {
               const { success } = await addNewUser(ev, user);
               if (success) {
                 setFirstLogin(false);
-                navigate("/profile");
+                navigate('/profile');
               } else {
-                navigate("/error");
+                navigate('/error');
               }
             }}
           >
-            <RegistrationFormInputs style={{ gap: "5px" }}>
+            <RegistrationFormInputs style={{ gap: '5px' }}>
               <InputRow>
-                <InputColumn style={{ width: "70%" }}>
+                <InputColumn style={{ width: '70%' }}>
                   <Label htmlFor="firstName">First name*</Label>
                   <Input
                     id="firstName"
@@ -54,13 +53,13 @@ const FirstLogin = () => {
                     defaultValue={user?.given_name}
                   />
                 </InputColumn>
-                <InputColumn style={{ width: "30%" }}>
+                <InputColumn style={{ width: '30%' }}>
                   <Label htmlFor="middleName">Middle Initial</Label>
                   <Input
                     id="middleName"
                     name="middleName"
                     type="text"
-                    style={{ textAlign: "center" }}
+                    style={{ textAlign: 'center' }}
                   />
                 </InputColumn>
               </InputRow>
@@ -170,12 +169,10 @@ const InputRow = styled.div`
   gap: 7.5px;
 `;
 
-const DefaultOption = styled(Option)``;
-
 const Submit = styled(Input).attrs({
-  type: "submit",
-  id: "submit",
-  value: "Submit",
+  type: 'submit',
+  id: 'submit',
+  value: 'Submit',
 })`
   margin-top: 15px;
   font-size: 18px;

@@ -1,12 +1,7 @@
-import styled from "styled-components/macro";
-import { centeredFlexColumn, iconstyling } from "../../styling/sharedstyles";
-import PendingPin from "./PendingPin";
-import {
-  WaterIcon,
-  ToiletIcon,
-  HazardIcon,
-  PoliceIcon,
-} from "../../styling/react-icons";
+import styled from 'styled-components/macro';
+import { centeredFlexColumn } from '../../styling/sharedstyles';
+import PendingPin from './PendingPin';
+import { WaterIcon, ToiletIcon, HazardIcon, PoliceIcon } from '../../styling/react-icons';
 
 const PendingFilterItems = ({ item, setPendingPins }) => {
   return (
@@ -14,18 +9,14 @@ const PendingFilterItems = ({ item, setPendingPins }) => {
       <FilterType>
         <FilterTypeHeader>
           <Icon>
-            {item.type === "water" && <WaterIcon />}
-            {item.type === "toilet" && <ToiletIcon />}
-            {item.type === "police" && <PoliceIcon />}
-            {item.type === "hazard" && <HazardIcon />}
+            {item.type === 'water' && <WaterIcon />}
+            {item.type === 'toilet' && <ToiletIcon />}
+            {item.type === 'police' && <PoliceIcon />}
+            {item.type === 'hazard' && <HazardIcon />}
           </Icon>
         </FilterTypeHeader>
         <PinContainer>
-          <PendingPin
-            key={item._id}
-            pin={item}
-            setPendingPins={setPendingPins}
-          />
+          <PendingPin key={item._id} pin={item} setPendingPins={setPendingPins} />
         </PinContainer>
       </FilterType>
     </PendingItemWrapper>

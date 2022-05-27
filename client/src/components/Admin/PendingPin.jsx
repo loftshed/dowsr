@@ -4,7 +4,7 @@ import { moderatePendingPin } from './helpers';
 // import { getPinsPendingReview } from "../Map/helpers";
 import { MappingContext } from '../Map/MappingContext';
 import { useContext } from 'react';
-import { AppContext } from '../AppContext';
+// import { AppContext } from '../AppContext';
 
 const PendingPin = ({ pin, setPendingPins }) => {
   const theme = useTheme();
