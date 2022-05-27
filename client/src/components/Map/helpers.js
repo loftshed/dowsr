@@ -153,7 +153,9 @@ const getPinsPendingReview = async () => {
 const togglePinLike = async (pinId, userId, liked) => {
   try {
     const response = await fetch(
-      `/api/toggle-like?pinId=${pinId}&userId=${userId}${liked && `&liked=${liked}`}`,
+      `https://dowsr.herokuapp.com/api/toggle-like?pinId=${pinId}&userId=${userId}${
+        liked && `&liked=${liked}`
+      }`,
       {
         method: 'PATCH',
         headers: {
