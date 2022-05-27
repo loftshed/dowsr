@@ -78,6 +78,17 @@ const MapContainer = () => {
     });
   };
 
+  const handleGetLocationFromIp = async () => {
+    try {
+      const result = await fetch('http://ip-api.com/json/');
+      const data = await result.json();
+      const { lat, lon } = data;
+      setUserLocation({ lat: lat, lng: lon });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   // In useEffect ... If creating a new pin, do nothing.
   // If the user has not yet been geolocated, geolocate the user.
   // If no map filter is selected, show water pins by default, otherwise show the selected map filter's pins.
@@ -88,6 +99,7 @@ const MapContainer = () => {
       try {
         if (creatingNewPin) return;
         if (!userLocation) handleGeolocateUser();
+        if (!userLocation) handleGetLocationFromIp(); // if user denies geolocation, use ip to get location
         let filter;
         // let filteredPins;
         !selectedMapFilter ? (filter = 'water') : (filter = selectedMapFilter);
