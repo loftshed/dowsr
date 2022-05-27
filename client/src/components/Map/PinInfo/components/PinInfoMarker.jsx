@@ -1,10 +1,10 @@
-import { Marker } from "react-map-gl";
-import UniversalMapPin from "../../UniversalMapPin";
-import { getIcon } from "../../helpers";
-import { PendingIcon } from "../../../../styling/react-icons";
-import styled from "styled-components/macro";
-import { useContext } from "react";
-import { AppContext } from "../../../AppContext";
+import { Marker } from 'react-map-gl';
+import UniversalMapPin from '../../UniversalMapPin';
+import { getIcon } from '../../helpers';
+import { PendingIcon } from '../../../../styling/react-icons';
+import styled from 'styled-components/macro';
+import { useContext } from 'react';
+import { AppContext } from '../../../AppContext';
 
 const PinInfoMarker = ({ pins, setPopupInfo }) => {
   const { setShowSearchBar } = useContext(AppContext);
@@ -13,14 +13,13 @@ const PinInfoMarker = ({ pins, setPopupInfo }) => {
   return (
     <>
       {pins.map((pinData) => {
-        // console.log(pinData);
         const type = pinData.type;
         return (
           <Marker
             key={`marker-${pinData._id}`}
             longitude={pinData?.longitude}
             latitude={pinData?.latitude}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
           >
             <UniversalMapPin
               onClick={(ev) => {

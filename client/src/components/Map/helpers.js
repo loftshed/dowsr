@@ -30,10 +30,6 @@ const handleGetPinsOfType = async (filter) => {
 };
 
 const submitPin = async (ev, locationObj, loggedInUser, hours) => {
-  console.log(ev);
-  console.log(locationObj);
-  console.log(loggedInUser);
-  console.log(hours);
   try {
     const submissionObj = {
       latitude: locationObj.lat,
@@ -59,7 +55,6 @@ const submitPin = async (ev, locationObj, loggedInUser, hours) => {
         },
         body: JSON.stringify(toiletSubmissionObj),
       });
-      // console.log(responseToilet.json());
       const waterSubmissionObj = { ...submissionObj, type: 'water' };
       const response = await fetch('https://dowsr.herokuapp.com/api/submit-pin', {
         method: 'PATCH',
@@ -127,7 +122,6 @@ const reverseGeocode = async (ev) => {
 
 const forwardGeocode = async (search) => {
   try {
-    console.log(search);
     const response = await fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${MAPBOX_API_KEY}`
     );

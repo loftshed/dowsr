@@ -1,13 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import styled from "styled-components/macro";
-import { handleToggleFollow } from "../helpers";
-import {
-  RiUserFollowLine as FollowIcon,
-  RiUserUnfollowLine as UnfollowIcon,
-} from "react-icons/ri";
-import { BsFillCheckCircleFill as CheckIcon } from "react-icons/bs";
-import { ProfileButton } from "../sharedstyles";
-import { AppContext } from "../../AppContext";
+import { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components/macro';
+import { handleToggleFollow } from '../helpers';
+import { RiUserFollowLine as FollowIcon, RiUserUnfollowLine as UnfollowIcon } from 'react-icons/ri';
+import { BsFillCheckCircleFill as CheckIcon } from 'react-icons/bs';
+import { ProfileButton } from '../sharedstyles';
+import { AppContext } from '../../AppContext';
 
 // FollowButton is a child of ActionBar.
 // TODO: After follow, first show "following!" confirmation and disable button until hover is false.
@@ -36,7 +33,7 @@ const FollowButton = ({
       onClick={async () => {
         if (followingState === false) {
           const result = handleToggleFollow(loggedInUser._id, _id, true);
-          console.log(await result);
+
           setFollowingState(true);
           if (!result.unmodified) {
             setViewedProfile({
@@ -55,7 +52,7 @@ const FollowButton = ({
         }
         if (followingState === true) {
           const result = handleToggleFollow(loggedInUser._id, _id);
-          console.log(await result);
+
           setFollowingState(false);
           if (!result.unmodified)
             setViewedProfile({
@@ -76,19 +73,19 @@ const FollowButton = ({
           {hover ? (
             <>
               <Text>Unfollow?</Text>
-              <UnfollowIcon style={{ display: "inline" }} />
+              <UnfollowIcon style={{ display: 'inline' }} />
             </>
           ) : (
             <>
-              <Text>{"Following"}</Text>
-              <CheckIcon style={{ display: "inline" }} />
+              <Text>{'Following'}</Text>
+              <CheckIcon style={{ display: 'inline' }} />
             </>
           )}
         </>
       ) : (
         <>
-          <Text>{"Follow"}</Text>
-          <FollowIcon style={{ display: "inline" }} />
+          <Text>{'Follow'}</Text>
+          <FollowIcon style={{ display: 'inline' }} />
         </>
       )}
     </FollowButtonWrapper>

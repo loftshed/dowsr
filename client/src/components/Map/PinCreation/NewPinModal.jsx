@@ -1,16 +1,12 @@
-import { useContext, useState } from "react";
-import styled from "styled-components/macro";
-import { MappingContext } from "../MappingContext";
-import { CloseIcon } from "../../../styling/react-icons";
-import {
-  centeredFlexColumn,
-  centeredFlexRow,
-  fillSpace,
-} from "../../../styling/sharedstyles";
-import { submitPin } from "../helpers";
-import NewResourcePinForm from "./NewResourcePinForm";
-import ChoosePinFormType from "./ChoosePinFormType";
-import NewWarningPinForm from "./NewWarningPinForm";
+import { useContext, useState } from 'react';
+import styled from 'styled-components/macro';
+import { MappingContext } from '../MappingContext';
+import { CloseIcon } from '../../../styling/react-icons';
+import { centeredFlexColumn, centeredFlexRow, fillSpace } from '../../../styling/sharedstyles';
+import { submitPin } from '../helpers';
+import NewResourcePinForm from './NewResourcePinForm';
+import ChoosePinFormType from './ChoosePinFormType';
+import NewWarningPinForm from './NewWarningPinForm';
 
 // Called from the Menu component
 // DON'T FORGET TO VALIDATE THE FRIGGIN DATA BRUH
@@ -31,8 +27,7 @@ const NewPinModal = ({ show, type }) => {
   const handleSubmitPin = async (ev, clickedLocation, loggedInUser, hours) => {
     try {
       const result = await submitPin(ev, clickedLocation, loggedInUser, hours);
-      // clean up this goddamn mess of state!
-      console.log(result);
+
       if (result.success) {
         setNewPinData(result.submission);
         setCreatingNewPin(false);
@@ -49,65 +44,57 @@ const NewPinModal = ({ show, type }) => {
     }
   };
 
-  if (show && type === "creation")
+  if (show && type === 'creation')
     return (
       <NewPinModalWrapper>
         <InnerContainer>
           <Heading>
             <span>Creating a new pin</span>
             <button
-              style={{ all: "unset" }}
+              style={{ all: 'unset' }}
               onClick={(ev) => {
                 setShowPinCreationModal(false);
                 setFormType(null);
                 setCreatingNewPin(false);
-                setMapModalMessage("");
+                setMapModalMessage('');
               }}
             >
               <CloseIcon />
             </button>
           </Heading>
           <Subheading>
-            Latitude {clickedLocation?.lat.toFixed(4)}, Longitude{" "}
-            {clickedLocation?.lng.toFixed(4)}
+            Latitude {clickedLocation?.lat.toFixed(4)}, Longitude {clickedLocation?.lng.toFixed(4)}
           </Subheading>
-          {formType === null && (
-            <ChoosePinFormType formType={formType} setFormType={setFormType} />
-          )}
-          {formType === "resource" && (
-            <NewResourcePinForm handleSubmitPin={handleSubmitPin} />
-          )}
-          {formType === "warning" && (
-            <NewWarningPinForm handleSubmitPin={handleSubmitPin} />
-          )}
+          {formType === null && <ChoosePinFormType formType={formType} setFormType={setFormType} />}
+          {formType === 'resource' && <NewResourcePinForm handleSubmitPin={handleSubmitPin} />}
+          {formType === 'warning' && <NewWarningPinForm handleSubmitPin={handleSubmitPin} />}
         </InnerContainer>
       </NewPinModalWrapper>
     );
 
-  if (show && type === "success")
+  if (show && type === 'success')
     return (
       <NewPinModalWrapper>
         <InnerContainer>
           <Heading>
-            Pin created successfully :){" "}
+            Pin created successfully :){' '}
             <button
-              style={{ all: "unset" }}
+              style={{ all: 'unset' }}
               onClick={(ev) => {
                 setPinCreationSuccessful(null);
                 setNewPinData(null);
-                setMapModalMessage("");
+                setMapModalMessage('');
               }}
             >
               <CloseIcon />
             </button>
           </Heading>
           <Subheading>
-            Latitude {newPinData.latitude.toFixed(4)}, Longitude{" "}
-            {newPinData.longitude.toFixed(4)}
+            Latitude {newPinData.latitude.toFixed(4)}, Longitude {newPinData.longitude.toFixed(4)}
           </Subheading>
           <InnerContainerLiner>
-            Awesome! Your submission has been entered into the queue for review
-            and will be added to the map shortly.
+            Awesome! Your submission has been entered into the queue for review and will be added to
+            the map shortly.
           </InnerContainerLiner>
         </InnerContainer>
       </NewPinModalWrapper>

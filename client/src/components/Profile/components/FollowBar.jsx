@@ -1,25 +1,17 @@
-import FollowButton from "./FollowButton";
-import styled, { css } from "styled-components/macro";
-import { sharedDetailStyle } from "../sharedstyles";
-import { boxShadow, textButtonstyling } from "../../../styling/sharedstyles";
-import { useState } from "react";
-import FollowCountIndicator from "./FollowCountIndicator";
-import { useTheme } from "styled-components/macro";
-import { useNavigate } from "react-router-dom";
+import FollowButton from './FollowButton';
+import styled, { css } from 'styled-components/macro';
+import { sharedDetailStyle } from '../sharedstyles';
+import { boxShadow, textButtonstyling } from '../../../styling/sharedstyles';
+import { useState } from 'react';
+import FollowCountIndicator from './FollowCountIndicator';
+import { useTheme } from 'styled-components/macro';
+import { useNavigate } from 'react-router-dom';
 
 // STRETCH: To get follower avatars make it so that when you follow someone their avatarUrl and username are saved in your followers arary along with their id.
 
-const FollowBar = ({
-  loggedInUser,
-  _id,
-  viewedProfile,
-  setViewedProfile,
-  isOwnProfile,
-}) => {
+const FollowBar = ({ loggedInUser, _id, viewedProfile, setViewedProfile, isOwnProfile }) => {
   const [followingState, setFollowingState] = useState(
-    viewedProfile?.followers.some((el) => el.userId === loggedInUser._id)
-      ? true
-      : false
+    viewedProfile?.followers.some((el) => el.userId === loggedInUser._id) ? true : false
   );
 
   const navigate = useNavigate();
@@ -30,13 +22,9 @@ const FollowBar = ({
     <>
       <ActionBarWrapper>
         <FollowCountIndicator
-          type={"followers"}
+          type={'followers'}
           color={theme.colors.teal}
-          count={
-            viewedProfile.followers?.length > 0
-              ? viewedProfile.followers?.length
-              : 0
-          }
+          count={viewedProfile.followers?.length > 0 ? viewedProfile.followers?.length : 0}
         />
 
         {!isOwnProfile && (
@@ -53,7 +41,6 @@ const FollowBar = ({
       </ActionBarWrapper>
       <Container>
         {viewedProfile?.followers?.map((user) => {
-          console.log(user);
           return (
             <FollowAvatar
               key={user.userId}
@@ -69,13 +56,9 @@ const FollowBar = ({
       </Container>
       <ActionBarWrapper>
         <FollowCountIndicator
-          type={"following"}
+          type={'following'}
           color={theme.colors.pink}
-          count={
-            viewedProfile.following?.length > 0
-              ? viewedProfile.following?.length
-              : 0
-          }
+          count={viewedProfile.following?.length > 0 ? viewedProfile.following?.length : 0}
         />
       </ActionBarWrapper>
       <Container>

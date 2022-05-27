@@ -1,17 +1,11 @@
-import styled, { css } from "styled-components/macro";
-import { centeredFlexRow } from "../../../../styling/sharedstyles";
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../../../AppContext";
-import { MappingContext } from "../../MappingContext";
-import { togglePinLike } from "../../helpers";
+import styled, { css } from 'styled-components/macro';
+import { centeredFlexRow } from '../../../../styling/sharedstyles';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../../../AppContext';
+import { MappingContext } from '../../MappingContext';
+import { togglePinLike } from '../../helpers';
 
-const PinVotingButton = ({
-  isOwnPin,
-  value,
-  setPinFeedback,
-  pinFeedback,
-  children,
-}) => {
+const PinVotingButton = ({ isOwnPin, value, setPinFeedback, pinFeedback, children }) => {
   const { loggedInUser } = useContext(AppContext);
   const { setPopupInfo, popupInfo, setStoredFilteredPins, storedFilteredPins } =
     useContext(MappingContext);
@@ -22,9 +16,7 @@ const PinVotingButton = ({
   //   pinFeedback.dislikedByIds.includes(loggedInUser._id)
   // );
 
-  const [likedByUser, setLikedByUser] = useState(
-    popupInfo.likedByIds.includes(loggedInUser._id)
-  );
+  const [likedByUser, setLikedByUser] = useState(popupInfo.likedByIds.includes(loggedInUser._id));
   const [dislikedByUser, setDislikedByUser] = useState(
     popupInfo.dislikedByIds.includes(loggedInUser._id)
   );
@@ -35,26 +27,24 @@ const PinVotingButton = ({
     const response = await togglePinLike(
       popupInfo._id,
       loggedInUser._id,
-      value === "like" ? true : ""
+      value === 'like' ? true : ''
     );
-    console.log("response", response);
+
     const { success, action } = response;
 
     if (success) {
       let newPinFeedback = { ...pinFeedback };
       switch (action) {
-        case "liked":
+        case 'liked':
           if (dislikedByUser) {
-            console.warn("removing dislike");
+            console.warn('removing dislike');
             newPinFeedback = {
               ...newPinFeedback,
-              dislikedByIds: newPinFeedback.dislikedByIds.filter(
-                (id) => id !== loggedInUser._id
-              ),
+              dislikedByIds: newPinFeedback.dislikedByIds.filter((id) => id !== loggedInUser._id),
             };
             setDislikedByUser(false);
           }
-          console.warn("adding like");
+          console.warn('adding like');
           setPinFeedback({
             ...newPinFeedback, // add user to likedByIds in newPinFeedback
             likedByIds: newPinFeedback.likedByIds.concat(loggedInUser._id),
@@ -62,45 +52,37 @@ const PinVotingButton = ({
           setLikedByUser(true);
           break;
 
-        case "unliked":
+        case 'unliked':
           // no need to toggle opposite action, so just remove user from likedByIds
           setPinFeedback({
             ...pinFeedback,
-            likedByIds: pinFeedback.likedByIds.filter(
-              (id) => id !== loggedInUser._id
-            ),
+            likedByIds: pinFeedback.likedByIds.filter((id) => id !== loggedInUser._id),
           });
           setLikedByUser(false);
           break;
 
-        case "disliked":
+        case 'disliked':
           if (likedByUser) {
-            console.warn("removing like");
+            console.warn('removing like');
             newPinFeedback = {
               ...newPinFeedback,
-              likedByIds: newPinFeedback.likedByIds.filter(
-                (id) => id !== loggedInUser._id
-              ),
+              likedByIds: newPinFeedback.likedByIds.filter((id) => id !== loggedInUser._id),
             };
             setLikedByUser(false);
           }
-          console.warn("adding dislike");
+          console.warn('adding dislike');
           setPinFeedback({
             ...newPinFeedback, // add user to dislikedByIds
-            dislikedByIds: newPinFeedback.dislikedByIds.concat(
-              loggedInUser._id
-            ),
+            dislikedByIds: newPinFeedback.dislikedByIds.concat(loggedInUser._id),
           }); // if user is not in likedByIds, return immediately
 
           setDislikedByUser(true);
           break;
 
-        case "undisliked":
+        case 'undisliked':
           setPinFeedback({
             ...pinFeedback, // no need to toggle opposite action, so just remove the user from dislikedByIds
-            dislikedByIds: pinFeedback.dislikedByIds.filter(
-              (id) => id !== loggedInUser._id
-            ),
+            dislikedByIds: pinFeedback.dislikedByIds.filter((id) => id !== loggedInUser._id),
           });
           setDislikedByUser(false);
           break;
@@ -119,13 +101,9 @@ const PinVotingButton = ({
         return pin._id !== popupInfo._id;
       });
 
-      console.log(popupInfo);
-
       setStoredFilteredPins([...pinsMinusPrev, updatedPin]);
     }
   };
-
-  console.log(pinFeedback);
 
   return (
     <PinVotingButtonWrapper
@@ -152,7 +130,7 @@ const PinVotingButtonWrapper = styled.button`
   cursor: pointer;
   // if value is like, set background color to teal
   ${(props) =>
-    props.value === "like"
+    props.value === 'like'
       ? css`
           background-color: ${(props) => props.theme.colors.teal};
           &:hover {
@@ -184,7 +162,7 @@ const PinVotingButtonWrapper = styled.button`
     
   ${(props) =>
     props.likedByUser &&
-    props.value === "like" &&
+    props.value === 'like' &&
     css`
       background-color: ${(props) => props.theme.colors.darkGrey};
       span {
@@ -200,7 +178,7 @@ const PinVotingButtonWrapper = styled.button`
 
     ${(props) =>
     props.dislikedByUser &&
-    props.value === "dislike" &&
+    props.value === 'dislike' &&
     css`
       background-color: ${(props) => props.theme.colors.darkGrey};
       span {
@@ -218,9 +196,7 @@ const PinVotingButtonWrapper = styled.button`
   svg {
     stroke: ${(props) => props.theme.colors.extraMediumGrey};
     stroke-width: 1px;
-    filter: drop-shadow(
-      1px 1px 0px ${(props) => props.theme.colors.superDarkGrey}
-    );
+    filter: drop-shadow(1px 1px 0px ${(props) => props.theme.colors.superDarkGrey});
   }
   svg,
   span {

@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import styled from "styled-components/macro";
+import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components/macro';
 import {
   centeredFlexColumn,
   centeredFlexRow,
   fakeStroke,
   inputStyling,
-} from "../../styling/sharedstyles";
-import { forwardGeocode } from "../Map/helpers";
-import { useMap } from "react-map-gl";
+} from '../../styling/sharedstyles';
+import { forwardGeocode } from '../Map/helpers';
+import { useMap } from 'react-map-gl';
 
-import { fadeIn } from "../../styling/Animations";
+import { fadeIn } from '../../styling/Animations';
 
 const SearchContainer = ({ show, searchResults, setSearchResults }) => {
   const { map } = useMap();
@@ -26,7 +26,6 @@ const SearchContainer = ({ show, searchResults, setSearchResults }) => {
       const results = await forwardGeocode(ev.target.search.value);
       const { features } = results;
       setSearchResults(features);
-      console.log(features);
     } catch (err) {
       console.log(err);
     }
@@ -38,8 +37,7 @@ const SearchContainer = ({ show, searchResults, setSearchResults }) => {
 
     const { center, place_type } = result;
 
-    const zoomLevel =
-      place_type[0] === "address" || place_type[0] === "poi" ? 15 : 10;
+    const zoomLevel = place_type[0] === 'address' || place_type[0] === 'poi' ? 15 : 10;
     map.flyTo({ center: center, zoom: zoomLevel });
   };
 

@@ -53,7 +53,6 @@ const addNewUser = async ({ target }, user) => {
 };
 
 const modifyUser = async ({ target }) => {
-  console.log(target.firstName.value);
   try {
     const response = await fetch(
       `https://dowsr.herokuapp.com/api/modify-user?email=${target.email.value}`,

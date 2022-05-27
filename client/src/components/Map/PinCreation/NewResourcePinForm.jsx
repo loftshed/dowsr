@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import styled from "styled-components/macro";
+import { useContext, useState } from 'react';
+import styled from 'styled-components/macro';
 import {
   centeredFlexColumn,
   textButtonstyling,
@@ -7,34 +7,30 @@ import {
   inputStyling,
   centeredFlexRow,
   fillSpace,
-} from "../../../styling/sharedstyles";
-import { AppContext } from "../../AppContext";
-import { MappingContext } from "../MappingContext";
-import TimeSelector from "./NewPinTimeSelector";
-import dayjs from "dayjs";
+} from '../../../styling/sharedstyles';
+import { AppContext } from '../../AppContext';
+import { MappingContext } from '../MappingContext';
+import TimeSelector from './NewPinTimeSelector';
+import dayjs from 'dayjs';
 
 const NewResourcePinForm = ({ handleSubmitPin }) => {
   const [openValue, setOpenValue] = useState(dayjs().format());
   const [closeValue, setCloseValue] = useState(dayjs().format());
   const { setClickedLocation, clickedLocation } = useContext(MappingContext);
   const { loggedInUser } = useContext(AppContext);
-  const hours =
-    dayjs(openValue).format("HH:mm") +
-    " - " +
-    dayjs(closeValue).format("HH:mm");
+  const hours = dayjs(openValue).format('HH:mm') + ' - ' + dayjs(closeValue).format('HH:mm');
 
   return (
     <NewResourcePinWrapper>
-      {" "}
+      {' '}
       <ModalForm
         autoComplete="off"
         onSubmit={(ev) => {
           ev.preventDefault();
           if (ev.target.water.checked || ev.target.toilet.checked) {
-            console.log(hours);
             handleSubmitPin(ev, clickedLocation, loggedInUser, hours);
           } else {
-            console.log("Please select a pin type");
+            console.log('Please select a pin type');
           }
         }}
       >
@@ -43,21 +39,11 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
             <InputHeading>What's here?</InputHeading>
             <Checkboxes>
               <CheckItem>
-                <Checkbox
-                  type="checkbox"
-                  value="water"
-                  key="water"
-                  id="water"
-                />
+                <Checkbox type="checkbox" value="water" key="water" id="water" />
                 <span>💧</span>
               </CheckItem>
               <CheckItem>
-                <Checkbox
-                  type="checkbox"
-                  value="toilet"
-                  key="toilet"
-                  id="toilet"
-                />
+                <Checkbox type="checkbox" value="toilet" key="toilet" id="toilet" />
                 <span>🚽</span>
               </CheckItem>
             </Checkboxes>
@@ -67,16 +53,8 @@ const NewResourcePinForm = ({ handleSubmitPin }) => {
             <InputHeading>Hours</InputHeading>
             {/* <ModalInput id="hours" key="hours" type="text" autoComplete="off" /> */}
             <InputRow>
-              <TimeSelector
-                labelValue={"From"}
-                value={openValue}
-                setValue={setOpenValue}
-              />
-              <TimeSelector
-                labelValue={"To"}
-                value={closeValue}
-                setValue={setCloseValue}
-              />
+              <TimeSelector labelValue={'From'} value={openValue} setValue={setOpenValue} />
+              <TimeSelector labelValue={'To'} value={closeValue} setValue={setCloseValue} />
             </InputRow>
           </HourPickers>
         </InputRow>
@@ -156,9 +134,9 @@ const ModalSelect = styled.select`
 `;
 
 const ModalSubmit = styled(Input).attrs({
-  type: "submit",
-  key: "submit",
-  id: "submit",
+  type: 'submit',
+  key: 'submit',
+  id: 'submit',
 })`
   all: unset;
   background-color: ${(props) => props.theme.colors.darkestGrey};
@@ -199,7 +177,7 @@ const Checkbox = styled.input`
     background-color: ${(props) => props.theme.colors.teal};
     ::after {
       position: absolute;
-      content: "✔";
+      content: '✔';
       transform: translate(-50%);
       font-size: 15px;
       font-weight: 500;
