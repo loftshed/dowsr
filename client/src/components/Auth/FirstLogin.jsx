@@ -33,10 +33,11 @@ const FirstLogin = () => {
           <Signup
             onSubmit={async (ev) => {
               ev.preventDefault();
+              const username = ev.target.username.value;
               const { success } = await addNewUser(ev, user);
               if (success) {
                 setFirstLogin(false);
-                navigate('/profile');
+                navigate(`/profile/${username}`);
               } else {
                 navigate('/error');
               }
