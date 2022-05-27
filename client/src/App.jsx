@@ -24,7 +24,14 @@ const App = () => {
   const { loggedInUser, setLoggedInUser, setFirstLogin } = useContext(AppContext);
   // const [firstLogin, setFirstLogin] = useState(null);
 
-  const { user } = useAuth0();
+  const auth0 = useAuth0();
+
+  let user;
+
+  if (auth0.isAuthenticated) {
+    // attempt to fix silly netlify error
+    user = auth0.user;
+  }
 
   useEffect(() => {
     (async () => {
