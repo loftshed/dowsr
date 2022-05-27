@@ -16,10 +16,6 @@ import { AppContext } from '../AppContext';
 import { useNavigate } from 'react-router-dom';
 import { fadeIn, overlayFadeIn } from '../../styling/Animations';
 
-import mapboxgl from 'mapbox-gl';
-// eslint-disable-next-line import/no-webpack-loader-syntax
-mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
-
 const MapContainer = () => {
   const { firstLogin, loggedInUser, showSearchBar, setShowSearchBar } = useContext(AppContext);
   const { setLastMapPos, lastMapPos } = useContext(MappingContext);
